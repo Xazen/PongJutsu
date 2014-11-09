@@ -14,10 +14,10 @@ namespace PongJutsu
 
 		void Update()
 		{
-			CheckFire();
+			Fire();
 		}
 
-		void CheckFire()
+		void Fire()
 		{
 			nextFire += Time.deltaTime;
 			if (Input.GetButton(this.transform.parent.tag + "_shoot"))
