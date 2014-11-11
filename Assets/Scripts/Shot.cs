@@ -86,5 +86,10 @@ namespace PongJutsu
 				Destroy(this.gameObject);
 			}
 		}
+
+		void OnDestroy()
+		{
+			owner.GetComponentInChildren<PlayerAttack>().shotCount--;
+		}
 	}
 }

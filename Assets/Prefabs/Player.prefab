@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firerate: 1.5
+  maxActiveShots: 1
+  shotCount: 0
   shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
 --- !u!212 &21200000
 SpriteRenderer:
