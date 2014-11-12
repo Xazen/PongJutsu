@@ -25,7 +25,8 @@ namespace PongJutsu
 					 movementY = i * angularDistance - angularDistance * (splits / 2f) + angularDistance / 2f;
 				else
 					movementY = i * angularDistance - angularDistance * ((splits -1f) / 2f);
-				shotInstance.GetComponent<Shot>().setInitialMovement(col.GetComponent<Shot>().owner.GetComponent<Player>().direction, movementY);
+
+				shotInstance.GetComponent<Shot>().setInitialMovement(col.GetComponent<Shot>().getDirection(), col.GetComponent<Shot>().movement.y + movementY);
 			}
 
 			Destroy(col.gameObject);

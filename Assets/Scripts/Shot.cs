@@ -8,7 +8,8 @@ namespace PongJutsu
 
 		public int speed;
 		public int damage;
-		private Vector2 movement = new Vector2(0,0);
+
+		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
 		public Color color1;
 		public Color color2;
@@ -28,6 +29,18 @@ namespace PongJutsu
 			// Set initial movement
 			movement.x = speed * directionX;
 			movement.y = movementY;
+		}
+
+		public int getDirection()
+		{
+			int direction = 0;
+
+			if (movement.x < 0)
+				direction = -1;
+			else if (movement.x > 0)
+				direction = 1;
+
+			return direction;
 		}
 
 		void colorSetup()
