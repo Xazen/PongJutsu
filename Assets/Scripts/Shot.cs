@@ -15,8 +15,8 @@ namespace PongJutsu
 		public Color color2;
 
 		[HideInInspector] public GameObject owner;
-		
-		private bool bounceBack = false;
+
+		[HideInInspector] public bool bounceBack = false;
 
 		void Start()
 		{
@@ -35,6 +35,7 @@ namespace PongJutsu
 		{
 			int direction = 0;
 
+			// Calculate the current movement direction
 			if (movement.x < 0)
 				direction = -1;
 			else if (movement.x > 0)
