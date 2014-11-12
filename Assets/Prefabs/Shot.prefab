@@ -101,7 +101,6 @@ MonoBehaviour:
   color1: {r: .808823526, g: .166522503, b: .166522503, a: 1}
   color2: {r: .166522503, g: .166522503, b: .808823526, a: 1}
   owner: {fileID: 0}
-  direction: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
