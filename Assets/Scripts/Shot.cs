@@ -90,14 +90,14 @@ namespace PongJutsu
 			}
 
 			// Collision with Players
-			if ((colObject.tag == "PlayerLeft" || colObject.tag == "PlayerRight") && owner != col.transform.parent.gameObject)
+			if (colObject.tag == "Shield" && owner != col.transform.parent.gameObject)
 			{
 				movement.x *= -1;
 				movement.y = ((colObject.transform.position.y - this.transform.position.y) / colObject.transform.lossyScale.y) * -2;
 
 				bounceBack = true;
 			}
-			else if ((colObject.tag == "PlayerLeft" || colObject.tag == "PlayerRight") && owner == col.transform.parent.gameObject && bounceBack)
+			else if (colObject.tag == "Shield" && owner == col.transform.parent.gameObject && bounceBack)
 			{
 				Destroy(this.gameObject);
 			}

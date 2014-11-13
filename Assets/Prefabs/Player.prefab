@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6100000}
   m_Layer: 0
   m_Name: Shield
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,6 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 8
   smoothInput: 1
+  playerLeftSprite: {fileID: 21300000, guid: cfbc30ed88496d6459660b2428c3e719, type: 3}
+  playerRightSprite: {fileID: 21300000, guid: 586ba967037aa9343bbbf6b2512b5282, type: 3}
   flip: 0
   direction: 1
 --- !u!114 &11400002

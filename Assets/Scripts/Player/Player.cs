@@ -8,7 +8,10 @@ namespace PongJutsu
 
 		public float movementSpeed = 5f;
 		public bool smoothInput = false;
-	
+
+		public Sprite playerLeftSprite;
+		public Sprite playerRightSprite;
+
 		public bool flip = false;
 		[HideInInspector] public int direction = 1;
 
@@ -21,6 +24,15 @@ namespace PongJutsu
 				direction = -1;
 				Vector3 scale = this.transform.localScale;
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
+			}
+
+			if (this.tag == "PlayerLeft")
+			{
+				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = playerLeftSprite;
+			}
+			else if (this.tag == "PlayerRight")
+			{
+				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = playerRightSprite;
 			}
 		}
 
