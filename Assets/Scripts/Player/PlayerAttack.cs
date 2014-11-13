@@ -29,7 +29,6 @@ namespace PongJutsu
 				{
 					Shoot();
 					nextFire = 0;
-					shotCount++;
 				}
 			}
 		}
@@ -37,10 +36,9 @@ namespace PongJutsu
 		private void Shoot()
 		{
 			// Create a new shot
-			GameObject shotInstance = shotObject;
-			shotInstance.GetComponent<Shot>().direction = this.GetComponentInParent<Player>().direction;
+			GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
 			shotInstance.GetComponent<Shot>().owner = this.transform.parent.gameObject;
-			Instantiate(shotInstance, this.transform.position, new Quaternion());
+			shotInstance.GetComponent<Shot>().setInitialMovement(this.GetComponentInParent<Player>().direction, 0);
 		}
 	}
 }

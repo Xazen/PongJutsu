@@ -8,24 +8,40 @@ namespace PongJutsu
 
 		public int speed;
 		public int damage;
-		private Vector2 movement;
+
+		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
 		public Color color1;
 		public Color color2;
 
 		[HideInInspector] public GameObject owner;
 
-		[HideInInspector] public int direction;
-		
-		private bool bounceBack = false;
-
+		[HideInInspector] public bool bounceBack = false;
 
 		void Start()
 		{
+			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
 			colorSetup();
+		}
 
+		public void setInitialMovement(int directionX, float movementY)
+		{
 			// Set initial movement
-			movement.x = speed * direction;
+			movement.x = speed * directionX;
+			movement.y = movementY;
+		}
+
+		public int getDirection()
+		{
+			int direction = 0;
+
+			// Calculate the current movement direction
+			if (movement.x < 0)
+				direction = -1;
+			else if (movement.x > 0)
+				direction = 1;
+
+			return direction;
 		}
 
 		void colorSetup()
