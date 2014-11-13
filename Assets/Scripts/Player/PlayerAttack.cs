@@ -23,7 +23,7 @@ namespace PongJutsu
 		void Fire()
 		{
 			nextFire += Time.deltaTime;
-			if (Input.GetButton(this.transform.parent.tag + "_shoot"))
+			if (Input.GetButton(this.transform.parent.tag + " shoot"))
 			{
 				if (nextFire >= firerate && shotCount < maxActiveShots)
 				{
