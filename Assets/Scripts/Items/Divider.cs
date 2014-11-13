@@ -17,8 +17,8 @@ namespace PongJutsu
 			for (int i = 0; splits > i; i++)
 			{
 				GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
-				shotInstance.GetComponent<Shot>().owner = col.GetComponent<Shot>().owner;
-				shotInstance.GetComponent<Shot>().damage = (int)(col.GetComponent<Shot>().damage * damagePercentage);
+				shotInstance.GetComponent<Shuriken>().owner = col.GetComponent<Shuriken>().owner;
+				shotInstance.GetComponent<Shuriken>().damage = (int)(col.GetComponent<Shuriken>().damage * damagePercentage);
 
 				float movementY;
 				if (splits % 2 == 0)
@@ -26,8 +26,8 @@ namespace PongJutsu
 				else
 					movementY = i * angularDistance - angularDistance * ((splits -1f) / 2f);
 
-				shotInstance.GetComponent<Shot>().setInitialMovement(col.GetComponent<Shot>().getDirection(), col.GetComponent<Shot>().movement.y + movementY);
-				shotInstance.GetComponent<Shot>().bounceBack = col.GetComponent<Shot>().bounceBack;
+				shotInstance.GetComponent<Shuriken>().setInitialMovement(col.GetComponent<Shuriken>().getDirection(), col.GetComponent<Shuriken>().movement.y + movementY);
+				shotInstance.GetComponent<Shuriken>().bounceBack = col.GetComponent<Shuriken>().bounceBack;
 			}
 
 			Destroy(col.gameObject);

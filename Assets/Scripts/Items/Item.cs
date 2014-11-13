@@ -13,7 +13,7 @@ namespace PongJutsu
 
 		void OnTriggerEnter2D(Collider2D col)
 		{
-			if (col.GetComponent<Shot>() != null)
+			if (col.GetComponent<Shuriken>() != null)
 			{
 				content(col);
 			}

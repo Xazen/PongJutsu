@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class Shot : MonoBehaviour
+	public class Shuriken : MonoBehaviour
 	{
 
 		public int speed;

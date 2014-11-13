@@ -37,8 +37,8 @@ namespace PongJutsu
 		{
 			// Create a new shot
 			GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
-			shotInstance.GetComponent<Shot>().owner = this.transform.parent.gameObject;
-			shotInstance.GetComponent<Shot>().setInitialMovement(this.GetComponentInParent<Player>().direction, 0);
+			shotInstance.GetComponent<Shuriken>().owner = this.transform.parent.gameObject;
+			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, 0);
 		}
 	}
 }
