@@ -6,8 +6,9 @@ namespace PongJutsu
 	public class Shuriken : MonoBehaviour
 	{
 
-		public int speed;
-		public int damage;
+		public float speed = 7f;
+		public int damage = 25;
+		public float explosionRadius = 2f;
 
 		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
@@ -71,8 +72,7 @@ namespace PongJutsu
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 			{
-				colObject.GetComponent<Fort>().TakeDamage(damage);
-				Destroy(this.gameObject);
+				explode(colObject);
 			}
 
 			// Collision with StageColliders
@@ -101,6 +101,23 @@ namespace PongJutsu
 			{
 				Destroy(this.gameObject);
 			}
+		}
+
+		void explode(GameObject hitObject)
+		{
+			hitObject.GetComponent<Fort>().TakeDamage(damage);
+
+			Collider2D[] expl = Physics2D.OverlapCircleAll(this.transform.position, explosionRadius);
+			foreach (Collider2D col in expl)
+			{
+				if (col.gameObject != hitObject && col.gameObject.GetComponent<Fort>() != null)
+				{
+					GameObject fort = col.gameObject;
+					fort.GetComponent<Fort>().TakeDamage((int)(damage / Vector2.Distance(this.transform.position, fort.transform.position)));
+				}
+			}
+
+			Destroy(this.gameObject);
 		}
 
 		void OnDestroy()
