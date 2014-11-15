@@ -152,6 +152,56 @@ Transform:
   - {fileID: 162001429}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!1 &309334104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 309334106}
+  - 212: {fileID: 309334105}
+  m_Layer: 0
+  m_Name: AreaOverlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!212 &309334105
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 309334104}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 3c53ba4029a19894484bea96afbe6756, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!4 &309334106
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 309334104}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: .537999988, y: .535000026, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &1422788532
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 100004, guid: bdc082fda1c2ccc4c871513a95fe9e35, type: 2}
-  offset: .5
+  offset: .449999988
   autoFlip: 1
 --- !u!114 &1757980355
 MonoBehaviour:
@@ -322,8 +372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fortPrefab: {fileID: 100000, guid: 93d921584172c194b9b6fd12053632dc, type: 2}
   numberOfForts: 5
-  width: 1.25
-  offset: 1.20000005
+  width: 1.5
+  offset: 0
 --- !u!114 &1757980357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,9 +385,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8d3dd50d896b84bb6b0563fa49c02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10.3096018
-  height: 5
-  snapToVertical: 1
+  width: 9.35000038
+  height: 4
+  snapToVertical: 0
 --- !u!4 &1757980358
 Transform:
   m_ObjectHideFlags: 0
