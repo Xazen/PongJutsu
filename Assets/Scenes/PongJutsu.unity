@@ -324,6 +324,7 @@ MonoBehaviour:
   numberOfForts: 5
   width: 1.25
   offset: 1.20000005
+  autoFlip: 1
 --- !u!114 &1757980357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8d3dd50d896b84bb6b0563fa49c02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10.3096018
+  width: 10.3055792
   height: 5
   snapToVertical: 1
 --- !u!4 &1757980358

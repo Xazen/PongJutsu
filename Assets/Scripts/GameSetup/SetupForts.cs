@@ -12,6 +12,8 @@ namespace PongJutsu
 		public float width = 1f;
 		public float offset = 1f;
 
+		public bool autoFlip = true;
+
 
 		void Awake()
 		{
@@ -33,7 +35,7 @@ namespace PongJutsu
 			{
 				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 				Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
-				spawnFort(position, size, Container, "FortRight", "FortRight");
+				spawnFort(position, size, Container, "FortRight", "FortRight").GetComponent<Fort>().flip = autoFlip;
 			}
 		}
 
