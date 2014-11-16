@@ -122,7 +122,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2966479741
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd96491bf9aa6994b92d4b937ab76221, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58c51d120be999944ac8f5123c5c6acb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &239361352
 GameObject:
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 9.35000038
-  height: 4
+  height: 4.19999981
   snapToVertical: 0
 --- !u!4 &1757980358
 Transform:
