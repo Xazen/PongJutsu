@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7
   damage: 25
-  explosionRadius: 2
+  explosionRadius: 1.64999998
   explosionDamageMultiplier: .400000006
   explosionDamagerPerDistance: 0
   movement: {x: 0, y: 0}

@@ -372,8 +372,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fortPrefab: {fileID: 100000, guid: 93d921584172c194b9b6fd12053632dc, type: 2}
-  fortPrefabTop: {fileID: 100000, guid: 93d921584172c194b9b6fd12053632dc, type: 2}
-  fortPrefabBottom: {fileID: 100000, guid: 93d921584172c194b9b6fd12053632dc, type: 2}
   numberOfForts: 5
   width: 1.5
   offset: 1
