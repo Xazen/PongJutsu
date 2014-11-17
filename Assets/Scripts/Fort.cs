@@ -5,6 +5,10 @@ namespace PongJutsu
 {
 	public class Fort : MonoBehaviour
 	{
+
+		public Sprite FortSpriteTop;
+		public Sprite FortSpriteBottom;
+
 		public int health = 100;
 
 		void Start()
