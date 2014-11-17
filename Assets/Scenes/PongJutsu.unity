@@ -377,6 +377,7 @@ MonoBehaviour:
   numberOfForts: 5
   width: 1.5
   offset: 1
+  autoFlip: 1
 --- !u!114 &1757980357
 MonoBehaviour:
   m_ObjectHideFlags: 0
