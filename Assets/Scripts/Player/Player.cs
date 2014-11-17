@@ -26,6 +26,7 @@ namespace PongJutsu
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
 			}
 
+			// set different spites for each player
 			if (this.tag == "PlayerLeft")
 			{
 				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = playerLeftSprite;
@@ -46,7 +47,7 @@ namespace PongJutsu
 			// Get current position
 			Vector2 position = this.transform.position;
 
-			// Set Smooth or Raw input
+			// Smooth or Raw input
 			if (smoothInput)
 			{
 				position.y = position.y + movementSpeed * Input.GetAxis(this.tag) * Time.deltaTime;

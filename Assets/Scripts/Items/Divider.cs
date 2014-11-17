@@ -14,12 +14,14 @@ namespace PongJutsu
 		{
 			base.content(col);
 
+			// split shuriken
 			for (int i = 0; splits > i; i++)
 			{
 				GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
 				shotInstance.GetComponent<Shuriken>().owner = col.GetComponent<Shuriken>().owner;
 				shotInstance.GetComponent<Shuriken>().damage = (int)(col.GetComponent<Shuriken>().damage * damagePercentage);
 
+				// calculate y movement
 				float movementY;
 				if (splits % 2 == 0)
 					 movementY = i * angularDistance - angularDistance * (splits / 2f) + angularDistance / 2f;
