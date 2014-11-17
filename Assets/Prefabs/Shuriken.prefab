@@ -115,10 +115,11 @@ MonoBehaviour:
   speed: 7
   damage: 25
   explosionRadius: 2
-  explosionPrefab: {fileID: 100000, guid: cfb405714fc6db749a5a35011071f702, type: 2}
+  explosionDamageMultiplier: .400000006
+  explosionDamagerPerDistance: 0
   movement: {x: 0, y: 0}
-  color1: {r: .911764681, g: .402249128, b: .402249128, a: 1}
-  color2: {r: .395544976, g: .395544976, b: .911764681, a: 1}
+  colorPlayerLeft: {r: .95588237, g: .245999143, b: .245999143, a: 1}
+  colorPlayerRight: {r: .230157867, g: .230157867, b: .948529422, a: 1}
   owner: {fileID: 0}
   bounceBack: 0
 --- !u!212 &21200000

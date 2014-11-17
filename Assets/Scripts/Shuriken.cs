@@ -9,11 +9,13 @@ namespace PongJutsu
 		public float speed = 7f;
 		public int damage = 25;
 		public float explosionRadius = 2f;
+		public float explosionDamageMultiplier = 0.4f;
+		public bool explosionDamagerPerDistance = false;
 
 		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
-		public Color color1;
-		public Color color2;
+		public Color colorPlayerLeft = Color.red;
+		public Color colorPlayerRight = Color.blue;
 
 		[HideInInspector] public GameObject owner;
 
@@ -49,13 +51,9 @@ namespace PongJutsu
 		{
 			// Set diifferent Color for different owner
 			if (owner.tag == "PlayerLeft")
-			{
-				this.GetComponentInChildren<SpriteRenderer>().color = color1;
-			}
+				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerLeft;
 			else if (owner.tag == "PlayerRight")
-			{
-				this.GetComponentInChildren<SpriteRenderer>().color = color2;
-			}
+				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerRight;
 		}
 
 		void Update()
@@ -71,23 +69,15 @@ namespace PongJutsu
 
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
-			{
 				explode(colObject);
-			}
 
 			// Collision with StageColliders
 			if (colObject.tag == "BoundaryTop")
-			{
 				movement.y = Mathf.Abs(movement.y) * -1;
-			}
 			else if (colObject.tag == "BoundaryBottom")
-			{
 				movement.y = Mathf.Abs(movement.y);
-			}
 			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
-			{
 				Destroy(this.gameObject);
-			}
 
 			// Collision with Players
 			if (colObject.tag == "Shield" && owner != col.transform.parent.gameObject)
@@ -110,10 +100,16 @@ namespace PongJutsu
 			Collider2D[] expl = Physics2D.OverlapCircleAll(this.transform.position, explosionRadius);
 			foreach (Collider2D col in expl)
 			{
+				// Check if the Fort isn't the direct hit fort
 				if (col.gameObject != hitObject && col.gameObject.GetComponent<Fort>() != null)
 				{
 					GameObject fort = col.gameObject;
-					fort.GetComponent<Fort>().TakeDamage((int)(damage / Vector2.Distance(this.transform.position, fort.transform.position)));
+
+					// Set Damage Per Distance or Damage Multiplier
+					if (explosionDamagerPerDistance)
+						fort.GetComponent<Fort>().TakeDamage((int)(damage / Vector2.Distance(this.transform.position, fort.transform.position)));
+					else
+						fort.GetComponent<Fort>().TakeDamage((int)(damage * explosionDamageMultiplier));
 				}
 			}
 
