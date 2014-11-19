@@ -5,7 +5,6 @@ namespace PongJutsu
 {
 	public class Item : MonoBehaviour 
 	{
-
 		public virtual void content(Collider2D col)
 		{
 			
@@ -17,7 +16,16 @@ namespace PongJutsu
 			{
 				content(col);
 			}
+		}
 
+		public void Hide()
+		{
+			this.GetComponent<CircleCollider2D>().enabled = false;
+			this.GetComponentInChildren<SpriteRenderer>().enabled = false;
+		}
+
+		public void Remove()
+		{
 			Destroy(this.gameObject);
 		}
 	}

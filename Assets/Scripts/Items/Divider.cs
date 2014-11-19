@@ -32,7 +32,7 @@ namespace PongJutsu
 				shotInstance.GetComponent<Shuriken>().bounceBack = col.GetComponent<Shuriken>().bounceBack;
 			}
 
-			Destroy(col.gameObject);
+			this.Remove();
 		}
 	}
 }

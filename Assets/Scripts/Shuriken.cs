@@ -18,6 +18,7 @@ namespace PongJutsu
 		public Color colorPlayerRight = Color.blue;
 
 		[HideInInspector] public GameObject owner;
+		[HideInInspector] public GameObject lastHitOwner;
 
 		[HideInInspector] public bool bounceBack = false;
 
@@ -85,6 +86,7 @@ namespace PongJutsu
 				movement.x *= -1;
 				movement.y = ((colObject.transform.position.y - this.transform.position.y) / colObject.transform.lossyScale.y) * -2;
 
+				lastHitOwner = colObject.transform.parent.gameObject;
 				bounceBack = true;
 			}
 			else if (colObject.tag == "Shield" && owner == col.transform.parent.gameObject && bounceBack)
