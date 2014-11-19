@@ -8,6 +8,7 @@ namespace PongJutsu
 
 		public float speed = 7f;
 		public int damage = 25;
+		public bool selfCollision = false;
 		public float explosionRadius = 2f;
 		public float explosionDamageMultiplier = 0.4f;
 		public bool explosionDamagerPerDistance = false;
@@ -68,6 +69,12 @@ namespace PongJutsu
 			// Get Collisions GameObject
 			GameObject colObject = col.gameObject;
 
+			if (colObject.tag == "Shuriken" && selfCollision)
+			{
+				Destroy(col.gameObject);
+				Destroy(this.gameObject);
+			}
+			
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 				explode(colObject);
