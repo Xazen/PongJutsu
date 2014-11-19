@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8d3dd50d896b84bb6b0563fa49c02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10.3013048
+  width: 10.3076086
   height: 4.19999981
   snapToVertical: 1
 --- !u!4 &1757980358

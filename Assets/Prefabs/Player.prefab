@@ -73,8 +73,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .800000012, y: 0, z: 0}
-  m_LocalScale: {x: .209999993, y: .180000007, z: .200000003}
+  m_LocalPosition: {x: .649999976, y: 0, z: 0}
+  m_LocalScale: {x: .360000014, y: .360000014, z: .360000014}
   m_Children: []
   m_Father: {fileID: 400004}
   m_RootOrder: 1
@@ -126,8 +126,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: 1.70000005, y: 6}
-  m_Center: {x: -.200000003, y: 0}
+  m_Size: {x: 1, y: 3.70000005}
+  m_Center: {x: .349999994, y: 0}
 --- !u!82 &8200000
 AudioSource:
   m_ObjectHideFlags: 1
@@ -199,8 +199,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 8
   smoothInput: 1
-  playerLeftSprite: {fileID: 21300000, guid: cfbc30ed88496d6459660b2428c3e719, type: 3}
-  playerRightSprite: {fileID: 21300000, guid: 586ba967037aa9343bbbf6b2512b5282, type: 3}
+  ninjaLeftSprite: {fileID: 21300000, guid: cfbc30ed88496d6459660b2428c3e719, type: 3}
+  ninjaRightSprite: {fileID: 21300000, guid: 586ba967037aa9343bbbf6b2512b5282, type: 3}
+  shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
+  shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
   flip: 0
   direction: 1
 --- !u!114 &11400002
@@ -238,8 +240,8 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 4218480587
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a9b37af8417af3140b59ad1758dd17b8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: .647058845}
+  m_Sprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200002
 SpriteRenderer:
   m_ObjectHideFlags: 1

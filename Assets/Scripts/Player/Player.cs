@@ -9,8 +9,11 @@ namespace PongJutsu
 		public float movementSpeed = 5f;
 		public bool smoothInput = false;
 
-		public Sprite playerLeftSprite;
-		public Sprite playerRightSprite;
+		public Sprite ninjaLeftSprite;
+		public Sprite ninjaRightSprite;
+
+		public Sprite shieldLeftSprite;
+		public Sprite shieldRightSprite;
 
 		public bool flip = false;
 		[HideInInspector] public int direction = 1;
@@ -26,14 +29,16 @@ namespace PongJutsu
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
 			}
 
-			// set different spites for each player
+			// set different sprites for each player
 			if (this.tag == "PlayerLeft")
 			{
-				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = playerLeftSprite;
+				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = ninjaLeftSprite;
+				this.transform.FindChild("Shield").GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
 			}
 			else if (this.tag == "PlayerRight")
 			{
-				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = playerRightSprite;
+				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = ninjaRightSprite;
+				this.transform.FindChild("Shield").GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
 			}
 		}
 
