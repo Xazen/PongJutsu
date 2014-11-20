@@ -71,3 +71,7 @@ TagManager:
     userID: 2
     uniqueID: 4218480587
     locked: 0
+  - name: Healthbar
+    userID: 6
+    uniqueID: 2620768955
+    locked: 0
