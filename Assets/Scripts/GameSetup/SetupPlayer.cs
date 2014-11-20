@@ -8,6 +8,7 @@ namespace PongJutsu
 
 		public GameObject playerPrefab;
 		public float offset = 0.5f;
+		public bool autoFlip = true;
 
 
 		void Awake()
@@ -21,7 +22,7 @@ namespace PongJutsu
 			spawnPlayer(new Vector2(-width + fortOffset + offset + playerPrefab.transform.localScale.x / 2, 0), Container, "PlayerLeft", "PlayerLeft").GetComponent<Player>().flip = false;
 
 			// Player 2
-			spawnPlayer(new Vector2(width - fortOffset - offset - playerPrefab.transform.localScale.x / 2, 0), Container, "PlayerRight", "PlayerRight").GetComponent<Player>().flip = true;
+			spawnPlayer(new Vector2(width - fortOffset - offset - playerPrefab.transform.localScale.x / 2, 0), Container, "PlayerRight", "PlayerRight").GetComponent<Player>().flip = autoFlip;
 		}
 
 		private GameObject spawnPlayer(Vector2 position, GameObject parent, string name, string tag)
@@ -29,7 +30,6 @@ namespace PongJutsu
 			GameObject instance = (GameObject)Instantiate(playerPrefab);
 			instance.name = name;
 			instance.tag = tag;
-			instance.GetComponentInChildren<BoxCollider2D>().transform.tag = tag;
 			instance.transform.parent = parent.transform;
 			instance.transform.position = position;
 

@@ -8,7 +8,13 @@ namespace PongJutsu
 
 		public float movementSpeed = 5f;
 		public bool smoothInput = false;
-	
+
+		public Sprite ninjaLeftSprite;
+		public Sprite ninjaRightSprite;
+
+		public Sprite shieldLeftSprite;
+		public Sprite shieldRightSprite;
+
 		public bool flip = false;
 		[HideInInspector] public int direction = 1;
 
@@ -22,6 +28,18 @@ namespace PongJutsu
 				Vector3 scale = this.transform.localScale;
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
 			}
+
+			// set different sprites for each player
+			if (this.tag == "PlayerLeft")
+			{
+				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = ninjaLeftSprite;
+				this.transform.FindChild("Shield").GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
+			}
+			else if (this.tag == "PlayerRight")
+			{
+				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = ninjaRightSprite;
+				this.transform.FindChild("Shield").GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
+			}
 		}
 
 		void Update() 
@@ -34,7 +52,7 @@ namespace PongJutsu
 			// Get current position
 			Vector2 position = this.transform.position;
 
-			// Set Smooth or Raw input
+			// Smooth or Raw input
 			if (smoothInput)
 			{
 				position.y = position.y + movementSpeed * Input.GetAxis(this.tag) * Time.deltaTime;

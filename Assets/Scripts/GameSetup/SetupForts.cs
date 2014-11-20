@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 namespace PongJutsu
 {
 	public class SetupForts : MonoBehaviour
 	{
-	
+
 		public GameObject fortPrefab;
 
 		public int numberOfForts = 5;
 		public float width = 1f;
 		public float offset = 1f;
+
+		public bool autoFlip = true;
 
 
 		void Awake()
@@ -25,7 +27,7 @@ namespace PongJutsu
 			{
 				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 				Vector2 position = new Vector2(-offsetX - -width / 2, size.y * i - offsetY + size.y / 2);
-				spawnFort(position, size, Container, "FortLeft", "FortLeft");
+				spawnFort(position, size, Container, "FortLeft", "FortLeft", i);
 			}
 
 			// Forts Player 2
@@ -33,13 +35,23 @@ namespace PongJutsu
 			{
 				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 				Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
-				spawnFort(position, size, Container, "FortRight", "FortRight");
+				spawnFort(position, size, Container, "FortRight", "FortRight", i).GetComponent<Fort>().flip = autoFlip;
 			}
 		}
 
-		private GameObject spawnFort(Vector2 position, Vector2 size, GameObject parent, string name, string tag)
+		private GameObject spawnFort(Vector2 position, Vector2 size, GameObject parent, string name, string tag, int i)
 		{
 			GameObject instance = (GameObject)Instantiate(fortPrefab);
+
+			if (i == 0)
+			{
+				instance.GetComponentInChildren<SpriteRenderer>().sprite = instance.GetComponent<Fort>().FortSpriteTop;
+			}
+			else if (i ==  numberOfForts - 1)
+			{
+				instance.GetComponentInChildren<SpriteRenderer>().sprite = instance.GetComponent<Fort>().FortSpriteBottom;
+			}
+
 			instance.name = name;
 			instance.tag = tag;
 			instance.transform.parent = parent.transform;
