@@ -9,7 +9,7 @@ namespace PongJutsu
 		public GameObject fortPrefab;
 
 		public int numberOfForts = 5;
-		public float width = 1f;
+		[HideInInspector] public float width = 1f;
 		public float offset = 1f;
 
 		public bool autoFlip = true;
@@ -17,7 +17,7 @@ namespace PongJutsu
 
 		void Awake()
 		{
-			float offsetX = GetComponent<SetupStage>().width - offset;
+			float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().center.x;
 			float offsetY = GetComponent<SetupStage>().height;
 
 			GameObject Container = new GameObject("Forts");
@@ -78,6 +78,9 @@ namespace PongJutsu
 				Gizmos.DrawCube(position, size);
 			}
 
+			Gizmos.color = new Color(0.1f, 0.1f, 0.85f, 0.75f);
+			Gizmos.DrawLine(new Vector2(-offsetX - -width, -offsetY), new Vector2(-offsetX - -width, offsetY));
+
 			for (int i = 0; i < numberOfForts; i++)
 			{
 				if (i % 2 == 0)
@@ -89,6 +92,12 @@ namespace PongJutsu
 				Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
 				Gizmos.DrawCube(position, size);
 			}
+
+			Gizmos.color = new Color(0.1f, 0.1f, 0.85f, 0.75f);
+			if (autoFlip)
+				Gizmos.DrawLine(new Vector2(offsetX - width, -offsetY), new Vector2(offsetX - width, offsetY));
+			else
+				Gizmos.DrawLine(new Vector2(offsetX, -offsetY), new Vector2(offsetX, offsetY));
 		}
 	}
 }

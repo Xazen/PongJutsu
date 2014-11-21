@@ -47,7 +47,7 @@ namespace PongJutsu
 			float width = GetComponent<SetupStage>().width;
 			float height = GetComponent<SetupStage>().height;
 
-			Gizmos.color = new Color(0.7f, 0.15f, 0.7f, 0.15f);
+			Gizmos.color = new Color(0.35f, 0.1f, 0.35f, 0.4f);
 
 			Gizmos.DrawCube(new Vector2(0, height + boundaryThickness / 2), new Vector2(width * 2, boundaryThickness));
 			Gizmos.DrawCube(new Vector2(0, -height - boundaryThickness / 2), new Vector2(width * 2, boundaryThickness));
