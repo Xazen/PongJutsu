@@ -346,7 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 100004, guid: bdc082fda1c2ccc4c871513a95fe9e35, type: 2}
   offset: .899999976
-  autoFlip: 1
+  autoMirror: 1
 --- !u!114 &1757980355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
   numberOfForts: 5
   width: 1
   offset: 1
-  autoFlip: 1
+  autoMirror: 1
 --- !u!114 &1757980357
 MonoBehaviour:
   m_ObjectHideFlags: 0
