@@ -43,15 +43,6 @@ namespace PongJutsu
 		{
 			GameObject instance = (GameObject)Instantiate(fortPrefab);
 
-			if (i == 0)
-			{
-				instance.GetComponentInChildren<SpriteRenderer>().sprite = instance.GetComponent<Fort>().FortSpriteTop;
-			}
-			else if (i ==  numberOfForts - 1)
-			{
-				instance.GetComponentInChildren<SpriteRenderer>().sprite = instance.GetComponent<Fort>().FortSpriteBottom;
-			}
-
 			instance.name = name;
 			instance.tag = tag;
 			instance.transform.parent = parent.transform;

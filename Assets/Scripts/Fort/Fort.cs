@@ -6,11 +6,15 @@ namespace PongJutsu
 	public class Fort : MonoBehaviour
 	{
 
-		public Sprite FortSpriteTop;
-		public Sprite FortSpriteBottom;
-
-		public int health = 100;
+		public int maxHealth = 100;
 		public bool flip = false;
+
+		public int health;
+
+		public AnimatorOverrideController FortLeftController;
+		public AnimatorOverrideController FortRightController;
+
+		public bool removeAtDestroy = false;
 
 		void Start()
 		{
@@ -20,18 +24,39 @@ namespace PongJutsu
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
 			}
 
+			if (this.tag == "FortLeft")
+			{
+				this.GetComponent<Animator>().runtimeAnimatorController = FortLeftController;
+			}
+			else if (this.tag == "FortRight")
+			{
+				this.GetComponent<Animator>().runtimeAnimatorController = FortRightController;
+			}
+
+			// Intit values
+			health = maxHealth;
 			this.GetComponentInChildren<Healthbar>().updateHealthbar(health);
+			this.GetComponent<Animator>().SetInteger("Health", health);
 		}
 
 		public void TakeDamage(int damage)
 		{
 			health -= damage;
-			this.GetComponentInChildren<Healthbar>().updateHealthbar(health);
+			health = Mathf.Clamp(health, 0, maxHealth);
 
-			// Destroy Fort if health is 0 or lower
-			if (health <= 0)
+			// Update values
+			this.GetComponentInChildren<Healthbar>().updateHealthbar(health);
+			this.GetComponent<Animator>().SetInteger("Health", health);
+
+			if (health <= 0 && removeAtDestroy)
 			{
+				// Destroy Fort
 				Destroy(this.gameObject);
+			}
+			else if (health <= 0)
+			{
+				// Disable Fort
+				this.collider2D.enabled = false;
 			}
 		}
 	}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: FortBlue
+  m_Controller: {fileID: 9100000, guid: 912eea74e27b1be4f942bcdb09bf1c4a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 87861e448f4f33246ade2e3f20371d94, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b6032367bdbbde549b816f8eecd7e768, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 43d31eb93b6504945aa1d0b7dc1d6fd8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 810a749bb7a895e43992f119dd102b77, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 49a8d502e38ac774eae523e063648e14, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d660d88331a6f0b4a9c27e6906bb6e04, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a61972611e6a0634ca95be222f69fd02, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 534cc4980709b024fb077ce5b9cc162d, type: 2}
