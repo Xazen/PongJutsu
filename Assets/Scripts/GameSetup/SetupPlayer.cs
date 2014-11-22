@@ -8,7 +8,7 @@ namespace PongJutsu
 
 		public GameObject playerPrefab;
 		public float offset = 0.5f;
-		public bool autoFlip = true;
+		public bool autoMirror = true;
 
 		private float internOffset = 0.5f;
 
@@ -23,10 +23,10 @@ namespace PongJutsu
 			GameObject Container = new GameObject("Players");
 
 			// Player 1
-			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), Container, "PlayerLeft", "PlayerLeft").GetComponent<Player>().flip = false;
+			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), Container, "PlayerLeft", "PlayerLeft").GetComponent<Player>().mirror = false;
 
 			// Player 2
-			spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), Container, "PlayerRight", "PlayerRight").GetComponent<Player>().flip = autoFlip;
+			spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), Container, "PlayerRight", "PlayerRight").GetComponent<Player>().mirror = autoMirror;
 		}
 
 		private GameObject spawnPlayer(Vector2 position, GameObject parent, string name, string tag)

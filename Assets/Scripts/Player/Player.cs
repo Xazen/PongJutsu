@@ -15,15 +15,15 @@ namespace PongJutsu
 		public Sprite shieldLeftSprite;
 		public Sprite shieldRightSprite;
 
-		public bool flip = false;
+		public bool mirror = false;
 		[HideInInspector] public int direction = 1;
 
 
 		void Start()
 		{
-			if (flip)
+			if (mirror)
 			{
-				// Flip the Player
+				// Mirror the Player
 				direction = -1;
 				Vector3 scale = this.transform.localScale;
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);

@@ -7,7 +7,7 @@ namespace PongJutsu
 	{
 
 		public int maxHealth = 100;
-		public bool flip = false;
+		public bool mirror = false;
 
 		public int health;
 
@@ -18,7 +18,7 @@ namespace PongJutsu
 
 		void Start()
 		{
-			if (flip)
+			if (mirror)
 			{
 				Vector3 scale = this.transform.localScale;
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);

@@ -12,7 +12,7 @@ namespace PongJutsu
 		[HideInInspector] public float width = 1f;
 		public float offset = 1f;
 
-		public bool autoFlip = true;
+		public bool autoMirror = true;
 
 
 		void Awake()
@@ -35,7 +35,7 @@ namespace PongJutsu
 			{
 				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 				Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
-				spawnFort(position, size, Container, "FortRight", "FortRight", i).GetComponent<Fort>().flip = autoFlip;
+				spawnFort(position, size, Container, "FortRight", "FortRight", i).GetComponent<Fort>().mirror = autoMirror;
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace PongJutsu
 			}
 
 			Gizmos.color = new Color(0.1f, 0.1f, 0.85f, 0.75f);
-			if (autoFlip)
+			if (autoMirror)
 				Gizmos.DrawLine(new Vector2(offsetX - width, -offsetY), new Vector2(offsetX - width, offsetY));
 			else
 				Gizmos.DrawLine(new Vector2(offsetX, -offsetY), new Vector2(offsetX, offsetY));
