@@ -9,7 +9,7 @@ namespace PongJutsu
 		public int maxHealth = 100;
 		public bool mirror = false;
 
-		public int health;
+		[HideInInspector] public int health;
 
 		public AnimatorOverrideController FortLeftController;
 		public AnimatorOverrideController FortRightController;
