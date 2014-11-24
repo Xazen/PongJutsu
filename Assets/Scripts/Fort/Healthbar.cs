@@ -11,9 +11,16 @@ namespace PongJutsu
 
 		public bool removeAtDestroy = true;
 
+		private Vector2 initScale;
+
+		void Awake()
+		{
+			initScale = this.transform.localScale;
+		}
+
 		public void updateHealthbar(int health)
 		{
-			this.transform.localScale = new Vector2(1, health / (float)this.GetComponentInParent<Fort>().maxHealth);
+			this.transform.localScale = new Vector2(initScale.x, initScale.y * (health / (float)this.GetComponentInParent<Fort>().maxHealth));
 
 			if (health > 50)
 				this.GetComponent<SpriteRenderer>().color = Color.Lerp(colorMediumHealth, colorFullHealth, (float)health / (this.GetComponentInParent<Fort>().maxHealth / 2f) - 1f);
