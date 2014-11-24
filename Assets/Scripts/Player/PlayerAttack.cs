@@ -27,13 +27,13 @@ namespace PongJutsu
 			{
 				if (nextFire >= firerate && shotCount < maxActiveShots)
 				{
-					Shoot();
+					this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
 					nextFire = 0;
 				}
 			}
 		}
 
-		private void Shoot()
+		public void Shoot()
 		{
 			// Create a new shot
 			GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());

@@ -9,8 +9,8 @@ namespace PongJutsu
 		public float movementSpeed = 5f;
 		public bool smoothInput = false;
 
-		public Sprite ninjaLeftSprite;
-		public Sprite ninjaRightSprite;
+		public AnimatorOverrideController ninjaLeftController;
+		public AnimatorOverrideController ninjaRightController;
 
 		public Sprite shieldLeftSprite;
 		public Sprite shieldRightSprite;
@@ -32,12 +32,12 @@ namespace PongJutsu
 			// set different sprites for each player
 			if (this.tag == "PlayerLeft")
 			{
-				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = ninjaLeftSprite;
+				this.GetComponent<Animator>().runtimeAnimatorController = ninjaLeftController;
 				this.transform.FindChild("Shield").GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
 			}
 			else if (this.tag == "PlayerRight")
 			{
-				this.transform.FindChild("Ninja").GetComponent<SpriteRenderer>().sprite = ninjaRightSprite;
+				this.GetComponent<Animator>().runtimeAnimatorController = ninjaRightController;
 				this.transform.FindChild("Shield").GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
 			}
 		}
@@ -56,10 +56,22 @@ namespace PongJutsu
 			if (smoothInput)
 			{
 				position.y = position.y + movementSpeed * Input.GetAxis(this.tag) * Time.deltaTime;
+				this.GetComponentInChildren<Animator>().SetFloat("Move", Input.GetAxis(this.tag));
 			}
 			else
 			{
 				position.y = position.y + movementSpeed * Input.GetAxisRaw(this.tag) * Time.deltaTime;
+				this.GetComponentInChildren<Animator>().SetFloat("Move", Input.GetAxisRaw(this.tag));
+			}
+
+			// Set animation speed depending on move speed
+			if (Mathf.Abs(Input.GetAxisRaw(this.tag)) > 0)
+			{
+				this.GetComponentInChildren<Animator>().speed = Mathf.Abs(Input.GetAxis(this.tag));
+			}
+			else
+			{
+				this.GetComponentInChildren<Animator>().speed = 1f;
 			}
 
 			// Check and Precalculating Collision
@@ -76,6 +88,14 @@ namespace PongJutsu
 
 			// Set the new position
 			this.transform.position = new Vector2(position.x, position.y);
+		}
+
+
+		// --- Forward animation events ---
+
+		private void AE_Shoot()
+		{
+			this.GetComponentInChildren<PlayerAttack>().Shoot();
 		}
 	}
 }
