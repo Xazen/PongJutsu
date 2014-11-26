@@ -9,6 +9,8 @@ namespace PongJutsu
 		public float movementSpeed = 5f;
 		public bool smoothInput = false;
 
+		public float playerCollisionOffset = 0.3f;
+
 		public AnimatorOverrideController ninjaLeftController;
 		public AnimatorOverrideController ninjaRightController;
 
@@ -77,13 +79,13 @@ namespace PongJutsu
 			// Check and Precalculating Collision
 			GameObject top = GameObject.FindGameObjectWithTag("BoundaryTop");
 			GameObject bottom = GameObject.FindGameObjectWithTag("BoundaryBottom");
-			if (position.y > top.transform.position.y - top.GetComponent<BoxCollider2D>().size.y / 1.4f)
+			if (position.y > top.transform.position.y - top.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset)
 			{
-				position.y = top.transform.position.y - top.GetComponent<BoxCollider2D>().size.y / 1.4f;
+				position.y = top.transform.position.y - top.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset;
 			}
-			else if (position.y < bottom.transform.position.y + bottom.GetComponent<BoxCollider2D>().size.y / 1.4f)
+			else if (position.y < bottom.transform.position.y + bottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset)
 			{
-				position.y = bottom.transform.position.y + bottom.GetComponent<BoxCollider2D>().size.y / 1.4f;
+				position.y = bottom.transform.position.y + bottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset;
 			}
 
 			// Set the new position

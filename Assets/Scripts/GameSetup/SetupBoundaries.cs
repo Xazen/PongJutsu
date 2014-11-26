@@ -7,7 +7,8 @@ namespace PongJutsu
 	{
 
 		public GameObject boundaryPrefab;
-		public float boundaryThickness = 1;
+
+		private float boundaryThickness = 1;
 
 
 		void Awake()
