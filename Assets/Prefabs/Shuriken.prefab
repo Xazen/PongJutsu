@@ -119,6 +119,7 @@ MonoBehaviour:
   explosionDamageMultiplier: .400000006
   explosionDamagerPerDistance: 0
   movement: {x: 0, y: 0}
+  shieldAngleMultiplier: 5
   colorPlayerLeft: {r: .926470578, g: .408737034, b: .408737034, a: 1}
   colorPlayerRight: {r: .396078467, g: .950020254, b: 1, a: 1}
   owner: {fileID: 0}

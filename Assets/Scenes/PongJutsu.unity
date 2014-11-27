@@ -359,7 +359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boundaryPrefab: {fileID: 100000, guid: f0af85b6d0f16e147ad604c9254e52f3, type: 2}
-  boundaryThickness: 1
 --- !u!114 &1757980356
 MonoBehaviour:
   m_ObjectHideFlags: 0

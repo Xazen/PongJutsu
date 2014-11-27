@@ -14,6 +14,7 @@ namespace PongJutsu
 		public bool explosionDamagerPerDistance = false;
 
 		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
+		public float shieldAngleMultiplier = 5f;
 
 		public Color colorPlayerLeft = Color.red;
 		public Color colorPlayerRight = Color.blue;
@@ -60,6 +61,11 @@ namespace PongJutsu
 
 		void Update()
 		{
+			Move();
+		}
+
+		void Move()
+		{
 			// Move the shot
 			this.transform.position = new Vector3(this.transform.position.x + movement.x * Time.deltaTime, this.transform.position.y + movement.y * Time.deltaTime);
 		}
@@ -87,11 +93,11 @@ namespace PongJutsu
 			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
 				Destroy(this.gameObject);
 
-			// Collision with Players
+			// Collision with Shields
 			if (colObject.tag == "Shield" && owner != col.transform.parent.gameObject)
 			{
-				movement.x *= -1;
-				movement.y = ((colObject.transform.position.y - this.transform.position.y) / colObject.transform.lossyScale.y) * -2;
+				movement.x = -movement.x;
+				movement.y = (colObject.transform.position.y - this.transform.position.y) * (colObject.transform.lossyScale.y * colObject.GetComponent<BoxCollider2D>().size.y) * -1 * shieldAngleMultiplier;
 
 				lastHitOwner = colObject.transform.parent.gameObject;
 				bounceBack = true;
