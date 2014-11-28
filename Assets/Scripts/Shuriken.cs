@@ -8,13 +8,16 @@ namespace PongJutsu
 
 		public float speed = 7f;
 		public int damage = 25;
+
+		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
+		public float speedAdjustment = 1.05f;
+		public float shieldAngleMultiplier = 5f;
+
 		public bool selfCollision = false;
+
 		public float explosionRadius = 2f;
 		public float explosionDamageMultiplier = 0.4f;
 		public bool explosionDamagerPerDistance = false;
-
-		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
-		public float shieldAngleMultiplier = 5f;
 
 		public Color colorPlayerLeft = Color.red;
 		public Color colorPlayerRight = Color.blue;
@@ -112,8 +115,7 @@ namespace PongJutsu
 
 		Vector2 adjustSpeed(Vector2 vector)
 		{
-			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * 1.05f;
-			Debug.Log(Mathf.Sqrt(Vector2.SqrMagnitude(vector)));
+			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * speedAdjustment;
 			return vector;
 		}
 
