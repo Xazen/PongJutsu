@@ -215,6 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 8
   smoothInput: 1
+  playerCollisionOffset: .300000012
   ninjaLeftController: {fileID: 22100000, guid: 37f5d50e5001bb24b9f2aaf19c5daf04,
     type: 2}
   ninjaRightController: {fileID: 22100000, guid: 59cf7cfb89f807f428f35b09c4b80ed1,
@@ -235,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firerate: 1.5
-  angularDistance: 2
+  angle: 3
   maxActiveShots: 1
   shotCount: 0
   shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}

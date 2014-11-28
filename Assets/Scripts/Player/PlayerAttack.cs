@@ -8,7 +8,7 @@ namespace PongJutsu
 
 		public float firerate = 1.5f;
 		private float nextFire = 0f;
-		public float angularDistance = 2f;
+		public float angle = 3f;
 
 		public int maxActiveShots = 1;
 		[HideInInspector] public int shotCount = 0;
@@ -46,7 +46,7 @@ namespace PongJutsu
 			// Create a new shot
 			GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
 			shotInstance.GetComponent<Shuriken>().owner = this.transform.parent.gameObject;
-			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angularDistance * dir);
+			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * dir);
 
 			nextFire = 0;
 

@@ -35,6 +35,7 @@ namespace PongJutsu
 			// Set initial movement
 			movement.x = speed * directionX;
 			movement.y = movementY;
+			movement = adjustSpeed(movement);
 		}
 
 		public int getDirection()
@@ -98,6 +99,7 @@ namespace PongJutsu
 			{
 				movement.x = -movement.x;
 				movement.y = (colObject.transform.position.y - this.transform.position.y) * (colObject.transform.lossyScale.y * colObject.GetComponent<BoxCollider2D>().size.y) * -1 * shieldAngleMultiplier;
+				movement = adjustSpeed(movement);
 
 				lastHitOwner = colObject.transform.parent.gameObject;
 				bounceBack = true;
@@ -106,6 +108,13 @@ namespace PongJutsu
 			{
 				Destroy(this.gameObject);
 			}
+		}
+
+		Vector2 adjustSpeed(Vector2 vector)
+		{
+			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * 1.05f;
+			Debug.Log(Mathf.Sqrt(Vector2.SqrMagnitude(vector)));
+			return vector;
 		}
 
 		void explode(GameObject hitObject)
