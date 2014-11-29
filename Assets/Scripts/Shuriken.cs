@@ -30,6 +30,7 @@ namespace PongJutsu
 		void Start()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
+			lastHitOwner = owner;
 			colorSetup();
 		}
 
