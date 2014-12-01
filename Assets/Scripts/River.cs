@@ -38,9 +38,9 @@ namespace PongJutsu
 			float y = (Mathf.Sign(flowSpeed) * -1 * height) / 2;
 
 			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), new Quaternion());
+			carrier.GetComponent<ItemCarrier>().setBoundary(height);
 			carrier.GetComponent<ItemCarrier>().instantiateItem(items[r]);
 			carrier.GetComponent<ItemCarrier>().setVerticalSpeed(flowSpeed);
-			//carrier.GetComponent<ItemCarrier>()
 			carrier.transform.parent = this.transform;
 
 			spawnedItems.Add(carrier);
