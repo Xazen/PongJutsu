@@ -42,19 +42,6 @@ namespace PongJutsu
 			movement = adjustSpeed(movement);
 		}
 
-		public int getDirection()
-		{
-			int direction = 0;
-
-			// Calculate the current movement direction
-			if (movement.x < 0)
-				direction = -1;
-			else if (movement.x > 0)
-				direction = 1;
-
-			return direction;
-		}
-
 		void colorSetup()
 		{
 			// Set diifferent Color for different owner

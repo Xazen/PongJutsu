@@ -28,7 +28,7 @@ namespace PongJutsu
 				else
 					movementY = i * angularDistance - angularDistance * ((splits -1f) / 2f);
 
-				shotInstance.GetComponent<Shuriken>().setInitialMovement(col.GetComponent<Shuriken>().getDirection(), col.GetComponent<Shuriken>().movement.y + movementY);
+				shotInstance.GetComponent<Shuriken>().setInitialMovement((int)Mathf.Sign(col.GetComponent<Shuriken>().movement.x), col.GetComponent<Shuriken>().movement.y + movementY);
 				shotInstance.GetComponent<Shuriken>().bounceBack = col.GetComponent<Shuriken>().bounceBack;
 			}
 
