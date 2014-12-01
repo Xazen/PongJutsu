@@ -203,6 +203,55 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3c53ba4029a19894484bea96afbe6756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &1188006383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1188006385}
+  - 114: {fileID: 1188006384}
+  m_Layer: 0
+  m_Name: River
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1188006384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188006383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5f4c4820882534c9a567e10135179d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 1.70000005
+  height: 11.6000004
+  snap: 0
+  spawnFrequency: 5
+  frequencyRandomizer: 2
+  flowSpeed: -1
+  itemCarrier: {fileID: 100000, guid: 2a5c3962f1f8f3d469031e980b4c84ae, type: 2}
+  items:
+  - {fileID: 100000, guid: 07965d301497b874888a6af330328875, type: 2}
+  - {fileID: 100000, guid: ecc277290d5ef274097578fcc14a8da2, type: 2}
+--- !u!4 &1188006385
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1188006383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.41706085, y: .299166441, z: -6.27106476}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &1422788532
 GameObject:
   m_ObjectHideFlags: 0
