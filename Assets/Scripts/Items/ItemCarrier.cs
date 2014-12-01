@@ -6,8 +6,9 @@ namespace PongJutsu
 	public class ItemCarrier : MonoBehaviour
 	{
 		private float vSpeed;
+		private float yBound;
 
-		public void SetVerticalSpeed(float verticalSpeed)
+		public void setVerticalSpeed(float verticalSpeed)
 		{
 			vSpeed = verticalSpeed;
 		}

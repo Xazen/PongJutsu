@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PongJutsu
 {
@@ -17,6 +18,8 @@ namespace PongJutsu
 
 		public GameObject itemCarrier;
 		public GameObject[] items = new GameObject[0];
+
+		private List<GameObject> spawnedItems = new List<GameObject>();
 
 		void Update()
 		{
@@ -36,13 +39,16 @@ namespace PongJutsu
 
 			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), new Quaternion());
 			carrier.GetComponent<ItemCarrier>().instantiateItem(items[r]);
-			carrier.GetComponent<ItemCarrier>().SetVerticalSpeed(flowSpeed);
+			carrier.GetComponent<ItemCarrier>().setVerticalSpeed(flowSpeed);
+			//carrier.GetComponent<ItemCarrier>()
 			carrier.transform.parent = this.transform;
+
+			spawnedItems.Add(carrier);
 		}
 
 		void OnDrawGizmos()
 		{
-			Gizmos.color = Color.gray;
+			Gizmos.color = new Color(0.4f, 0.4f, 0.7f, 0.4f);
 
 			if (snap)
 			{
