@@ -20,19 +20,9 @@ namespace PongJutsu
 			this.name = "Carrier (" + itemPrefab.name + ")";
 		}
 
-		public void setBoundary(float height)
-		{
-			bound = height / 2;
-		}
-
 		void Update()
 		{
 			this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + vSpeed * Time.deltaTime);
-
-			if (this.transform.position.y > bound || this.transform.position.y < -bound)
-			{
-				Destroy(this.gameObject);
-			}
 		}
 	}
 }

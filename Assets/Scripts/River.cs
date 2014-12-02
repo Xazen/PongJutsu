@@ -34,16 +34,24 @@ namespace PongJutsu
 		void spawnItem()
 		{
 			int r = Random.Range(0, items.Length);
-			float x = Random.Range(-width / 2, width / 2);
+			float xRange = width - itemCarrier.GetComponent<BoxCollider2D>().size.x;
+			float x = Random.Range(-xRange / 2, xRange / 2);
 			float y = (Mathf.Sign(flowSpeed) * -1 * height) / 2;
 
 			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), new Quaternion());
-			carrier.GetComponent<ItemCarrier>().setBoundary(height);
 			carrier.GetComponent<ItemCarrier>().instantiateItem(items[r]);
 			carrier.GetComponent<ItemCarrier>().setVerticalSpeed(flowSpeed);
 			carrier.transform.parent = this.transform;
 
 			spawnedItems.Add(carrier);
+		}
+
+		void OnTriggerExit2D(Collider2D col)
+		{
+			if (col.tag == "Carrier")
+			{
+				Destroy(col.gameObject);
+			}
 		}
 
 		void OnDrawGizmos()
