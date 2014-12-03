@@ -113,7 +113,7 @@ namespace PongJutsu
 
 		Vector2 adjustSpeed(Vector2 vector)
 		{
-			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * speedAdjustment;
+			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * (speedAdjustment * 1.1f);
 			return vector;
 		}
 

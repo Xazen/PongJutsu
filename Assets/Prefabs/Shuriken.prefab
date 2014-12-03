@@ -115,7 +115,7 @@ MonoBehaviour:
   speed: 7
   damage: 25
   movement: {x: 0, y: 0}
-  speedAdjustment: 1.04999995
+  speedAdjustment: 1
   shieldAngleMultiplier: 5
   selfCollision: 0
   explosionRadius: 1.64999998
