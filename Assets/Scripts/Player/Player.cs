@@ -91,6 +91,12 @@ namespace PongJutsu
 			// Set the new position
 			this.transform.position = new Vector2(position.x, position.y);
 		}
+
+		// --- Forward animation event (ae) ---
+		public void ae_Shoot()
+		{
+			this.GetComponentInChildren<PlayerAttack>().Shoot();
+		}
 	}
 }
 

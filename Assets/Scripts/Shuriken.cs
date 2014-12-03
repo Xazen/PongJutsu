@@ -31,7 +31,12 @@ namespace PongJutsu
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
 			lastHitOwner = owner;
-			colorSetup();
+
+			// Set different Color for different owner
+			if (owner.tag == "PlayerLeft")
+				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerLeft;
+			else if (owner.tag == "PlayerRight")
+				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerRight;
 		}
 
 		public void setInitialMovement(int directionX, float movementY)
@@ -42,21 +47,7 @@ namespace PongJutsu
 			movement = adjustSpeed(movement);
 		}
 
-		void colorSetup()
-		{
-			// Set diifferent Color for different owner
-			if (owner.tag == "PlayerLeft")
-				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerLeft;
-			else if (owner.tag == "PlayerRight")
-				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerRight;
-		}
-
 		void Update()
-		{
-			Move();
-		}
-
-		void Move()
 		{
 			// Move the shot
 			this.transform.position = new Vector3(this.transform.position.x + movement.x * Time.deltaTime, this.transform.position.y + movement.y * Time.deltaTime);

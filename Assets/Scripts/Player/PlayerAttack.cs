@@ -15,43 +15,46 @@ namespace PongJutsu
 
 		public GameObject shotObject;
 
+		int direction;
+
 
 		void Update()
-		{
-			Fire();
-		}
-
-		void Fire()
 		{
 			nextFire += Time.deltaTime;
 			if (nextFire >= firerate && shotCount < maxActiveShots)
 			{
 				if (Input.GetButton(this.transform.parent.tag + " shoot forward"))
 				{
-					Shoot(0);
+					triggerShoot(0);
 				}
 				else if (Input.GetButton(this.transform.parent.tag + " shoot up"))
 				{
-					Shoot(1);
+					triggerShoot(1);
 				}
 				else if (Input.GetButton(this.transform.parent.tag + " shoot down"))
 				{
-					Shoot(-1);
+					triggerShoot(-1);
 				}
 			}
 		}
 
-		private void Shoot(int dir)
+		void triggerShoot(int dir)
+		{
+			// Trigger Animation... wait for throw
+			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
+			direction = dir;
+			nextFire = 0;
+		}
+
+		public void Shoot()
 		{
 			// Create a new shot
 			GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
 			shotInstance.GetComponent<Shuriken>().owner = this.transform.parent.gameObject;
-			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * dir);
-
-			nextFire = 0;
-
-			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
+			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * direction);
 			this.audio.Play();
+
+			direction = 0;
 		}
 	}
 }
