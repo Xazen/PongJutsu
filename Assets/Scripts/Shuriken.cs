@@ -50,7 +50,7 @@ namespace PongJutsu
 		void Update()
 		{
 			// Move the shot
-			this.transform.position = new Vector3(this.transform.position.x + movement.x * Time.deltaTime, this.transform.position.y + movement.y * Time.deltaTime);
+			this.transform.position = new Vector2(this.transform.position.x + movement.x * Time.deltaTime, this.transform.position.y + movement.y * Time.deltaTime);
 		}
 
 		void OnCollisionEnter2D(Collision2D col)
@@ -89,6 +89,25 @@ namespace PongJutsu
 			else if (colObject.tag == "Shield" && owner == col.transform.parent.gameObject && bounceBack)
 			{
 				Destroy(this.gameObject);
+			}
+		}
+
+		// make sure that the shot doesn't stuck in the Boundarys
+		void OnCollisionStay2D(Collision2D col)
+		{
+			GameObject colObject = col.gameObject;
+
+			if (colObject.tag == "BoundaryTop")
+			{
+				if (this.transform.position.y + this.GetComponent<CircleCollider2D>().radius > colObject.transform.position.y - colObject.GetComponent<BoxCollider2D>().size.y / 2f)
+					movement.y = Mathf.Abs(movement.y) * -1;
+					this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y - colObject.GetComponent<BoxCollider2D>().size.y / 2f - this.GetComponent<CircleCollider2D>().radius * 1.15f);
+			}
+			else if (colObject.tag == "BoundaryBottom")
+			{
+				if (this.transform.position.y - this.GetComponent<CircleCollider2D>().radius > colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f)
+					movement.y = Mathf.Abs(movement.y);
+					this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f + this.GetComponent<CircleCollider2D>().radius * 1.15f);
 			}
 		}
 
