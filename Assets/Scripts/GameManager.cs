@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 namespace PongJutsu
@@ -6,12 +7,35 @@ namespace PongJutsu
 	public class GameManager : MonoBehaviour
 	{
 
-		private bool pause = false;
+		public bool autoStartGame = false;
 
+		private bool pause = false;
+		private bool inGame = false;
+
+		void Awake()
+		{
+			if (autoStartGame)
+				StartGame();
+		}
+
+		public void StartGame()
+		{
+			if (!inGame)
+			{
+				foreach (GameSetup gs in this.GetComponents<GameSetup>())
+				{
+					gs.run();
+				}
+				
+				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
+				inGame = true;
+			}
+		}
 
 		void Update()
 		{
-			CheckPause();
+			if (inGame)
+				CheckPause();
 		}
 
 		void CheckPause()

@@ -3,8 +3,9 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class SetupStage : MonoBehaviour
+	public class SetupStage : GameSetup
 	{
+
 		public float width = 9f;
 		public float height = 5f;
 
