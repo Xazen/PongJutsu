@@ -15,10 +15,10 @@ namespace PongJutsu
 		void Awake()
 		{
 			if (autoStartGame)
-				StartGame();
+				guie_StartGame();
 		}
 
-		public void StartGame()
+		public void guie_StartGame()
 		{
 			if (!inGame)
 			{
@@ -29,7 +29,25 @@ namespace PongJutsu
 				
 				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
 				inGame = true;
+				
+				Camera.main.GetComponent<Animator>().SetTrigger("StartGame");
 			}
+		}
+		public void guie_Options()
+		{
+
+		}
+		public void guie_Credits()
+		{
+
+		}
+		public void guie_Help()
+		{
+
+		}
+		public void guie_Exit()
+		{
+			Application.Quit();
 		}
 
 		void Update()
