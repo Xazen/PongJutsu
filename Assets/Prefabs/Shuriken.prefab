@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -71,7 +71,7 @@ Rigidbody2D:
   m_AngularDrag: 0
   m_GravityScale: 0
   m_FixedAngle: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -83,7 +83,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Radius: .150000006
   m_Center: {x: 0, y: 0}
 --- !u!111 &11100000
@@ -116,7 +116,7 @@ MonoBehaviour:
   damage: 25
   movement: {x: 0, y: 0}
   speedAdjustment: 1
-  shieldAngleMultiplier: 5
+  shieldAngleMultiplier: 2.5
   selfCollision: 0
   explosionRadius: 1.64999998
   explosionDamageMultiplier: .400000006
