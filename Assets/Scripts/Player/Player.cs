@@ -6,8 +6,10 @@ namespace PongJutsu
 	public class Player : MonoBehaviour
 	{
 
-		public float movementSpeed = 5f;
-		public bool smoothInput = false;
+		public float maxMovementSpeed = 5f;
+		private float currentSpeed = 0f;
+
+		public float accelerationSpeed = 0.5f;
 
 		public float playerCollisionOffset = 0.3f;
 
@@ -54,27 +56,23 @@ namespace PongJutsu
 			// Get current position
 			Vector2 position = this.transform.position;
 
-			// Smooth or Raw input
-			if (smoothInput)
-			{
-				position.y = position.y + movementSpeed * Input.GetAxis(this.tag) * Time.deltaTime;
-				this.GetComponentInChildren<Animator>().SetFloat("Move", Input.GetAxis(this.tag));
-			}
+			// Calculate Speed
+			if (Input.GetAxisRaw(this.tag) != 0f)
+				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed, 0f, maxMovementSpeed);
 			else
-			{
-				position.y = position.y + movementSpeed * Input.GetAxisRaw(this.tag) * Time.deltaTime;
-				this.GetComponentInChildren<Animator>().SetFloat("Move", Input.GetAxisRaw(this.tag));
-			}
+				currentSpeed = 0;
+
+			// Set new position
+			position.y = position.y + currentSpeed * Input.GetAxisRaw(this.tag) * Time.deltaTime;
+
+			// Set animation
+			this.GetComponentInChildren<Animator>().SetFloat("Move", Input.GetAxisRaw(this.tag));
 
 			// Set animation speed depending on move speed
 			if (Mathf.Abs(Input.GetAxisRaw(this.tag)) > 0)
-			{
-				this.GetComponentInChildren<Animator>().speed = Mathf.Abs(Input.GetAxis(this.tag));
-			}
+				this.GetComponentInChildren<Animator>().speed = currentSpeed / maxMovementSpeed;
 			else
-			{
 				this.GetComponentInChildren<Animator>().speed = 1f;
-			}
 
 			// Check and Precalculating Collision
 			GameObject top = GameObject.FindGameObjectWithTag("BoundaryTop");

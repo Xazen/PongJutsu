@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb322333cdaa1434e9c628876531fed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 8
-  smoothInput: 1
+  maxMovementSpeed: 8
+  acceleration: .5
   playerCollisionOffset: .300000012
   ninjaLeftController: {fileID: 22100000, guid: 37f5d50e5001bb24b9f2aaf19c5daf04,
     type: 2}
