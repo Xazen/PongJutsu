@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400004}
   - 95: {fileID: 9500000}
   m_Layer: 0
   m_Name: Player
@@ -213,9 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb322333cdaa1434e9c628876531fed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMovementSpeed: 8
-  acceleration: .5
-  playerCollisionOffset: .300000012
   ninjaLeftController: {fileID: 22100000, guid: 37f5d50e5001bb24b9f2aaf19c5daf04,
     type: 2}
   ninjaRightController: {fileID: 22100000, guid: 59cf7cfb89f807f428f35b09c4b80ed1,
@@ -240,6 +238,24 @@ MonoBehaviour:
   maxActiveShots: 1
   shotCount: 0
   shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee160fea7c07cc54a91792c32ff5f5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMovementSpeed: 8
+  accelerationSpeed: .5
+  dashSpeed: 10
+  dashDistance: 2
+  dashCooldown: .5
+  dashButtonInterval: .200000003
+  playerCollisionOffset: .300000012
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
