@@ -33,11 +33,13 @@ namespace PongJutsu
 
 		void spawnItem()
 		{
+			// Set random position and item
 			int r = Random.Range(0, items.Length);
 			float xRange = width - itemCarrier.GetComponent<BoxCollider2D>().size.x;
 			float x = Random.Range(-xRange / 2, xRange / 2);
 			float y = (Mathf.Sign(flowSpeed) * -1 * height) / 2;
 
+			// Create carrier
 			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), new Quaternion());
 			carrier.GetComponent<ItemCarrier>().instantiateItem(items[r]);
 			carrier.GetComponent<ItemCarrier>().setVerticalSpeed(flowSpeed);
@@ -48,6 +50,7 @@ namespace PongJutsu
 
 		void OnTriggerExit2D(Collider2D col)
 		{
+			// Destroy items when they leave the river
 			if (col.tag == "Carrier")
 			{
 				Destroy(col.gameObject);
