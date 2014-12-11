@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -.0799999982, z: 0}
-  m_LocalScale: {x: .159999996, y: .150000006, z: .159999996}
+  m_LocalScale: {x: .159999996, y: .159999996, z: .159999996}
   m_Children: []
   m_Father: {fileID: 400004}
   m_RootOrder: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMovementSpeed: 8
-  acceleration: .5
+  accelerationSpeed: .5
   playerCollisionOffset: .300000012
   ninjaLeftController: {fileID: 22100000, guid: 37f5d50e5001bb24b9f2aaf19c5daf04,
     type: 2}
