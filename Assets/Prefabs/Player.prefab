@@ -252,6 +252,7 @@ MonoBehaviour:
   maxMovementSpeed: 8
   accelerationSpeed: .5
   decelerationSpeed: 1.5
+  resetMovementAtTurn: 1
   dashDistance: 2
   dashSpeed: 10
   dashCooldown: .5

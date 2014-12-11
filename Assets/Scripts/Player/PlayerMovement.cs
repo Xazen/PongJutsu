@@ -10,6 +10,7 @@ namespace PongJutsu
 		public float maxMovementSpeed = 8f;
 		public float accelerationSpeed = 0.5f;
 		public float decelerationSpeed = 1.5f;
+		public bool resetMovementAtTurn = true;
 		private float currentSpeed = 0f;
 		private float moveDirection;
 
@@ -58,6 +59,9 @@ namespace PongJutsu
 			// Calculate Speed and direction
 			if (Input.GetAxisRaw(this.tag) != 0f)
 			{
+				if (resetMovementAtTurn && moveDirection != Mathf.Sign(Input.GetAxisRaw(this.tag)))
+					currentSpeed = 0;
+
 				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed, 0f, maxMovementSpeed);
 				moveDirection = Mathf.Sign(Input.GetAxisRaw(this.tag));
 			}
@@ -108,6 +112,8 @@ namespace PongJutsu
 
 			// Set new position
 			this.transform.position = new Vector2(this.transform.position.x, position);
+
+			Debug.Log(currentSpeed);
 		}
 	}
 }
