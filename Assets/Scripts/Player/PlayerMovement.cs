@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 namespace PongJutsu
@@ -19,8 +18,8 @@ namespace PongJutsu
 		public float dashCooldown = 0.5f;
 		public float dashButtonInterval = 0.2f;
 
-		private float lastPress;
-		private float lastButton;
+		private float lastInputDeltaTime;
+		private float lastInputDirection;
 		private float dashStartPosition;
 		private bool isDashing = false;
 		private float dashDirection;
@@ -31,24 +30,31 @@ namespace PongJutsu
 
 		void Update()
 		{
-			lastPress += Time.deltaTime;
+			Dashing();
+			Movement();
+		}
+
+		void Dashing()
+		{
+			lastInputDeltaTime += Time.deltaTime;
 			lastDash += Time.deltaTime;
 
 			if (Input.GetButtonDown(this.tag))
 			{
-				if (lastPress < dashButtonInterval && !isDashing && lastDash > dashCooldown && lastButton == Mathf.Sign(Input.GetAxisRaw(this.tag)))
+				if (lastInputDeltaTime < dashButtonInterval && !isDashing && lastDash > dashCooldown && lastInputDirection == Direction(Input.GetAxisRaw(this.tag)))
 				{
+					// Activate dashing
 					isDashing = true;
 
 					dashLerp = 0;
 					dashStartPosition = this.transform.position.y;
-					dashDirection = Mathf.Sign(Input.GetAxisRaw(this.tag));
+					dashDirection = Direction(Input.GetAxisRaw(this.tag));
 				}
-				lastPress = 0f;
-				lastButton = Mathf.Sign(Input.GetAxisRaw(this.tag));
-			}
 
-			Movement();
+				// Set last Input
+				lastInputDeltaTime = 0f;
+				lastInputDirection = Direction(Input.GetAxisRaw(this.tag));
+			}
 		}
 
 		void Movement()
@@ -59,11 +65,11 @@ namespace PongJutsu
 			// Calculate Speed and direction
 			if (Input.GetAxisRaw(this.tag) != 0f)
 			{
-				if (resetMovementAtTurn && moveDirection != Mathf.Sign(Input.GetAxisRaw(this.tag)))
+				if (resetMovementAtTurn && moveDirection != Direction(Input.GetAxisRaw(this.tag)))
 					currentSpeed = 0;
 
 				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed, 0f, maxMovementSpeed);
-				moveDirection = Mathf.Sign(Input.GetAxisRaw(this.tag));
+				moveDirection = Direction(Input.GetAxisRaw(this.tag));
 			}
 			else
 			{
@@ -79,7 +85,7 @@ namespace PongJutsu
 			if (isDashing)
 			{
 				dashLerp += dashSpeed * Time.deltaTime;
-				position = Mathf.Lerp(dashStartPosition, dashStartPosition + dashDistance * Mathf.Sign(dashDirection), dashLerp);
+				position = Mathf.Lerp(dashStartPosition, dashStartPosition + dashDistance * Direction(dashDirection), dashLerp);
 				currentSpeed = dashSpeed;
 
 				if (dashLerp >= 1f)
@@ -93,7 +99,7 @@ namespace PongJutsu
 			this.GetComponentInChildren<Animator>().SetFloat("Move", currentSpeed * moveDirection);
 
 			// Set animation speed depending on move speed
-			if (Mathf.Abs(Input.GetAxisRaw(this.tag)) > 0)
+			if (Input.GetAxisRaw(this.tag) != 0)
 				this.GetComponentInChildren<Animator>().speed = currentSpeed / maxMovementSpeed;
 			else
 				this.GetComponentInChildren<Animator>().speed = 1f;
@@ -112,8 +118,14 @@ namespace PongJutsu
 
 			// Set new position
 			this.transform.position = new Vector2(this.transform.position.x, position);
+		}
 
-			Debug.Log(currentSpeed);
+		static float Direction(float f)
+		{
+			if (f != 0f)
+				f = Mathf.Sign(f);
+
+			return f;
 		}
 	}
 }
