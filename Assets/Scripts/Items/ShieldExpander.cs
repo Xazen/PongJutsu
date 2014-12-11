@@ -15,6 +15,7 @@ namespace PongJutsu
 		{
 			base.content(col);
 
+			// Scale shield
 			shield = col.GetComponent<Shuriken>().lastHitOwner.transform.FindChild("Shield").gameObject;
 			shield.transform.localScale = new Vector2(shield.transform.localScale.x, shield.transform.localScale.y * sizeMultiplier);
 			isActivated = true;
@@ -24,6 +25,7 @@ namespace PongJutsu
 
 		void Update()
 		{
+			// Shield scale timer
 			if (isActivated)
 			{
 				duration -= Time.deltaTime;

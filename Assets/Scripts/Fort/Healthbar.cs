@@ -20,8 +20,10 @@ namespace PongJutsu
 
 		public void updateHealthbar(int health)
 		{
+			// Set new healtbar scale 
 			this.transform.localScale = new Vector2(initScale.x, initScale.y * (health / (float)this.GetComponentInParent<Fort>().maxHealth));
 
+			// Lerp three colors
 			if (health > 50)
 				this.GetComponent<SpriteRenderer>().color = Color.Lerp(colorMediumHealth, colorFullHealth, (float)health / (this.GetComponentInParent<Fort>().maxHealth / 2f) - 1f);
 			else if (health <= 50)
