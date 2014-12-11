@@ -9,7 +9,9 @@ namespace PongJutsu
 
 		public float maxMovementSpeed = 8f;
 		public float accelerationSpeed = 0.5f;
+		public float decelerationSpeed = 1.5f;
 		private float currentSpeed = 0f;
+		private float moveDirection;
 
 		public float dashDistance = 2f;
 		public float dashSpeed = 10f;
@@ -51,21 +53,28 @@ namespace PongJutsu
 			// Get current position
 			float position = this.transform.position.y;
 
-			// Calculate Speed				
+			// Calculate Speed and direction
 			if (Input.GetAxisRaw(this.tag) != 0f)
+			{
 				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed, 0f, maxMovementSpeed);
+				moveDirection = Mathf.Sign(Input.GetAxisRaw(this.tag));
+			}
 			else
-				currentSpeed = 0;
+			{
+				currentSpeed = Mathf.Clamp(currentSpeed - decelerationSpeed, 0f, maxMovementSpeed);
+				if (currentSpeed == 0f)
+					moveDirection = 0f;
+			}
 
-			// Set position
-			position = this.transform.position.y + currentSpeed * Mathf.Sign(Input.GetAxisRaw(this.tag)) * Time.deltaTime;
+			// Set temp position
+			position = this.transform.position.y + currentSpeed * moveDirection * Time.deltaTime;
 
 			// Override position at dashing
 			if (isDashing)
 			{
 				dashLerp += dashSpeed * Time.deltaTime;
 				position = Mathf.Lerp(dashStartPosition, dashStartPosition + dashDistance * Mathf.Sign(dashDirection), dashLerp);
-				currentSpeed = maxMovementSpeed;
+				currentSpeed = dashSpeed;
 
 				if (dashLerp >= 1f)
 				{
@@ -75,7 +84,7 @@ namespace PongJutsu
 			}
 
 			// Set animation
-			this.GetComponentInChildren<Animator>().SetFloat("Move", Input.GetAxisRaw(this.tag));
+			this.GetComponentInChildren<Animator>().SetFloat("Move", currentSpeed * moveDirection);
 
 			// Set animation speed depending on move speed
 			if (Mathf.Abs(Input.GetAxisRaw(this.tag)) > 0)

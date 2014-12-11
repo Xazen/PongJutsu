@@ -251,8 +251,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMovementSpeed: 8
   accelerationSpeed: .5
-  dashSpeed: 10
+  decelerationSpeed: 1.5
   dashDistance: 2
+  dashSpeed: 10
   dashCooldown: .5
   dashButtonInterval: .200000003
   playerCollisionOffset: .300000012
