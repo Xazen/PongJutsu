@@ -19,6 +19,7 @@ namespace PongJutsu
 		public float dashButtonInterval = 0.2f;
 
 		private float lastPress;
+		private float lastButton;
 		private float dashStartPosition;
 		private bool isDashing = false;
 		private float dashDirection;
@@ -34,15 +35,16 @@ namespace PongJutsu
 
 			if (Input.GetButtonDown(this.tag))
 			{
-				if (lastPress < dashButtonInterval && !isDashing && lastDash > dashCooldown)
+				if (lastPress < dashButtonInterval && !isDashing && lastDash > dashCooldown && lastButton == Mathf.Sign(Input.GetAxisRaw(this.tag)))
 				{
 					isDashing = true;
 
 					dashLerp = 0;
 					dashStartPosition = this.transform.position.y;
-					dashDirection = Input.GetAxisRaw(this.tag);
+					dashDirection = Mathf.Sign(Input.GetAxisRaw(this.tag));
 				}
 				lastPress = 0f;
+				lastButton = Mathf.Sign(Input.GetAxisRaw(this.tag));
 			}
 
 			Movement();
@@ -69,7 +71,7 @@ namespace PongJutsu
 			// Set temp position
 			position = this.transform.position.y + currentSpeed * moveDirection * Time.deltaTime;
 
-			// Override position at dashing
+			// Override at dashing
 			if (isDashing)
 			{
 				dashLerp += dashSpeed * Time.deltaTime;
