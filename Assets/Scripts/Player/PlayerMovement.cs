@@ -6,9 +6,11 @@ namespace PongJutsu
 	public class PlayerMovement : MonoBehaviour
 	{
 
+		public float minMovementSpeed = 0f;
 		public float maxMovementSpeed = 8f;
 		public float accelerationSpeed = 0.5f;
 		public float decelerationSpeed = 1.5f;
+		
 		public bool resetMovementAtTurn = true;
 		private float currentSpeed = 0f;
 		private float moveDirection;
@@ -67,6 +69,9 @@ namespace PongJutsu
 			{
 				if (resetMovementAtTurn && moveDirection != Direction(Input.GetAxisRaw(this.tag)))
 					currentSpeed = 0;
+
+				if (currentSpeed == 0)
+					currentSpeed = minMovementSpeed;
 
 				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed, 0f, maxMovementSpeed);
 				moveDirection = Direction(Input.GetAxisRaw(this.tag));
