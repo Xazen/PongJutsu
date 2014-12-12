@@ -73,7 +73,7 @@ AnimationClip:
   m_EditorCurves: []
   m_EulerEditorCurves: []
   m_Events:
-  - time: .150000006
+  - time: .0500000007
     functionName: ae_Shoot
     data: 
     objectReferenceParameter: {fileID: 0}
