@@ -53,7 +53,7 @@ namespace PongJutsu
 			this.transform.position = new Vector2(this.transform.position.x + movement.x * Time.deltaTime, this.transform.position.y + movement.y * Time.deltaTime);
 		}
 
-		void OnCollisionEnter2D(Collision2D col)
+		void OnTriggerEnter2D(Collider2D col)
 		{
 			// Get Collisions GameObject
 			GameObject colObject = col.gameObject;
@@ -80,7 +80,13 @@ namespace PongJutsu
 			if (colObject.tag == "Shield" && owner != col.transform.parent.gameObject)
 			{
 				movement.x = -movement.x;
-				movement.y = (colObject.transform.position.y - this.transform.position.y) * (colObject.transform.lossyScale.y * colObject.GetComponent<BoxCollider2D>().size.y) * -1 * shieldAngleMultiplier;
+
+				float a = this.transform.position.y - colObject.transform.parent.transform.position.y;
+				float b = colObject.transform.localScale.y * colObject.GetComponent<BoxCollider2D>().size.y;
+				float c = a / (b * 0.5f);
+
+				movement.y = c * shieldAngleMultiplier;
+
 				movement = adjustSpeed(movement);
 
 				lastHitOwner = colObject.transform.parent.gameObject;
