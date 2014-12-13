@@ -116,7 +116,7 @@ MonoBehaviour:
   damage: 25
   movement: {x: 0, y: 0}
   speedAdjustment: 1
-  shieldAngleMultiplier: 2.5
+  shieldAngleMultiplier: 4
   selfCollision: 0
   explosionRadius: 1.64999998
   explosionDamageMultiplier: .400000006

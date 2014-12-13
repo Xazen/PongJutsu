@@ -81,11 +81,11 @@ namespace PongJutsu
 			{
 				movement.x = -movement.x;
 
-				movement.y = ((((colObject.transform.position.y - this.transform.position.y) / (colObject.GetComponent<BoxCollider2D>().size.y / 2f)) * -1) / colObject.transform.localScale.y * shieldAngleMultiplier);
-				//movement.y = (((colObject.transform.position.y - this.transform.position.y) / (colObject.GetComponent<BoxCollider2D>().size.y / 2f) + (this.GetComponent<CircleCollider2D>().radius / 2f) * Mathf.Sign(colObject.transform.position.y - this.transform.position.y) * -1) / colObject.transform.localScale.y) * -1 * shieldAngleMultiplier;
-				// funktioniert <- mit ohne minus shuriken collider  // <- nicht ursache für zuhohe angle // evt. col.col switch col.scale und geteilt zu mal
-				Debug.Log(((((colObject.transform.parent.transform.position.y - this.transform.position.y) / (colObject.GetComponent<BoxCollider2D>().size.y / 2f)) * -1) / colObject.transform.localScale.y * shieldAngleMultiplier));
-				Debug.Log(((((colObject.transform.parent.transform.position.y - this.transform.position.y) / (colObject.GetComponent<BoxCollider2D>().size.y / 2f)) * -1) / colObject.transform.localScale.y));
+				float a = this.transform.position.y - colObject.transform.parent.transform.position.y;
+				float b = colObject.transform.localScale.y * colObject.GetComponent<BoxCollider2D>().size.y;
+				float c = a / (b * 0.5f);
+
+				movement.y = c * shieldAngleMultiplier;
 
 				movement = adjustSpeed(movement);
 
