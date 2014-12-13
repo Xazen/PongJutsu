@@ -8,7 +8,9 @@ namespace PongJutsu
 
 		public GameObject playerPrefab;
 		public float offset = 0.5f;
-		public bool autoFlip = true;
+		public bool autoMirror = true;
+
+		private float internOffset = 0.5f;
 
 
 		void Awake()
@@ -19,10 +21,10 @@ namespace PongJutsu
 			GameObject Container = new GameObject("Players");
 
 			// Player 1
-			spawnPlayer(new Vector2(-width + fortOffset + offset + playerPrefab.transform.localScale.x / 2, 0), Container, "PlayerLeft", "PlayerLeft").GetComponent<Player>().flip = false;
+			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), Container, "PlayerLeft", "PlayerLeft").GetComponent<Player>().mirror = false;
 
 			// Player 2
-			spawnPlayer(new Vector2(width - fortOffset - offset - playerPrefab.transform.localScale.x / 2, 0), Container, "PlayerRight", "PlayerRight").GetComponent<Player>().flip = autoFlip;
+			spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), Container, "PlayerRight", "PlayerRight").GetComponent<Player>().mirror = autoMirror;
 		}
 
 		private GameObject spawnPlayer(Vector2 position, GameObject parent, string name, string tag)
@@ -41,10 +43,10 @@ namespace PongJutsu
 			float width = GetComponent<SetupStage>().width;
 			float fortOffset = GetComponent<SetupForts>().width + GetComponent<SetupForts>().offset;
 
-			Gizmos.color = new Color(0f, 1f, 0f, 0.5f);
+			Gizmos.color = new Color(0.1f, 0.9f, 0.1f, 0.5f);
 
-			Gizmos.DrawCube(new Vector3(-width + fortOffset + offset + playerPrefab.transform.localScale.x / 2, 0), (Vector2) playerPrefab.transform.localScale);
-			Gizmos.DrawCube(new Vector3(width - fortOffset - offset - playerPrefab.transform.localScale.x / 2, 0), (Vector2) playerPrefab.transform.localScale);
+			Gizmos.DrawCube(new Vector3(-width + fortOffset + offset + internOffset, 0), (Vector2)playerPrefab.transform.localScale);
+			Gizmos.DrawCube(new Vector3(width - fortOffset - offset - internOffset, 0), (Vector2)playerPrefab.transform.localScale);
 		}
 	}
 }

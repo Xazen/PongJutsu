@@ -18,17 +18,18 @@ namespace PongJutsu
 			if (snapToVertical)
 			{
 				width = size * aspect;
+				snapToVertical = false;
 			}
 
 			// Draw Camera Size
-			Gizmos.color = new Color(0f, 0f, 0f);
+			Gizmos.color = new Color(0f, 0f, 0f, 0.75f);
 			Gizmos.DrawLine(new Vector2(-size * aspect, size), new Vector2(size * aspect, size));
 			Gizmos.DrawLine(new Vector2(-size * aspect, size), new Vector2(-size * aspect, -size));
 			Gizmos.DrawLine(new Vector2(size * aspect, -size), new Vector2(-size * aspect, -size));
 			Gizmos.DrawLine(new Vector2(size * aspect, -size), new Vector2(size * aspect, size));
 
 			// Draw Stage Size
-			Gizmos.color = new Color(1f, 0f, 0f);
+			Gizmos.color = new Color(1f, 1f, 0f);
 			Gizmos.DrawLine(new Vector2(-width, height), new Vector2(width, height));
 			Gizmos.DrawLine(new Vector2(-width, height), new Vector2(-width, -height));
 			Gizmos.DrawLine(new Vector2(width, -height), new Vector2(-width, -height));

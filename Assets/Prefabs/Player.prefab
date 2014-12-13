@@ -42,6 +42,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400004}
+  - 95: {fileID: 9500000}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -86,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -.0799999982, z: 0}
-  m_LocalScale: {x: .159999996, y: .150000006, z: .159999996}
+  m_LocalScale: {x: .159999996, y: .159999996, z: .159999996}
   m_Children: []
   m_Father: {fileID: 400004}
   m_RootOrder: 0
@@ -125,7 +127,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Size: {x: 1, y: 3.70000005}
   m_Center: {x: .349999994, y: 0}
 --- !u!82 &8200000
@@ -186,6 +188,21 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!95 &9500000
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7df0b6c4908e0624490c8241ddff6009, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,13 +214,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb322333cdaa1434e9c628876531fed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 8
-  smoothInput: 1
-  ninjaLeftSprite: {fileID: 21300000, guid: cfbc30ed88496d6459660b2428c3e719, type: 3}
-  ninjaRightSprite: {fileID: 21300000, guid: 586ba967037aa9343bbbf6b2512b5282, type: 3}
+  ninjaLeftController: {fileID: 22100000, guid: 37f5d50e5001bb24b9f2aaf19c5daf04,
+    type: 2}
+  ninjaRightController: {fileID: 22100000, guid: 59cf7cfb89f807f428f35b09c4b80ed1,
+    type: 2}
   shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
   shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
-  flip: 0
+  mirror: 0
   direction: 1
 --- !u!114 &11400002
 MonoBehaviour:
@@ -217,9 +234,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firerate: 1.5
+  angle: 3
   maxActiveShots: 1
   shotCount: 0
   shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee160fea7c07cc54a91792c32ff5f5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minMovementSpeed: 0
+  maxMovementSpeed: 8
+  accelerationSpeed: .5
+  decelerationSpeed: 1.5
+  resetMovementAtTurn: 1
+  dashDistance: 2
+  dashSpeed: 10
+  dashCooldown: .5
+  dashButtonInterval: .200000003
+  playerCollisionOffset: .300000012
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -262,7 +301,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 4218480587
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cfbc30ed88496d6459660b2428c3e719, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58cea0bc24cc53944a05670594401e40, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

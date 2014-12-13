@@ -345,8 +345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 100004, guid: bdc082fda1c2ccc4c871513a95fe9e35, type: 2}
-  offset: .449999988
-  autoFlip: 1
+  offset: .899999976
+  autoMirror: 1
 --- !u!114 &1757980355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boundaryPrefab: {fileID: 100000, guid: f0af85b6d0f16e147ad604c9254e52f3, type: 2}
-  boundaryThickness: 1
 --- !u!114 &1757980356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,9 +372,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fortPrefab: {fileID: 100000, guid: 93d921584172c194b9b6fd12053632dc, type: 2}
   numberOfForts: 5
-  width: 1.5
+  width: 1
   offset: 1
-  autoFlip: 1
+  autoMirror: 1
 --- !u!114 &1757980357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,9 +386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8d3dd50d896b84bb6b0563fa49c02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10.3076086
+  width: 10.3013048
   height: 4.19999981
-  snapToVertical: 1
+  snapToVertical: 0
 --- !u!4 &1757980358
 Transform:
   m_ObjectHideFlags: 0
