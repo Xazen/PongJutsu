@@ -118,6 +118,7 @@ MonoBehaviour:
   speedAdjustment: 1
   shieldAngleMultiplier: 4
   selfCollision: 0
+  explosion: {fileID: 100000, guid: 6159ab0ca61b4e34891358d29fa7451f, type: 2}
   explosionRadius: 1.64999998
   explosionDamageMultiplier: .400000006
   explosionDamagerPerDistance: 0

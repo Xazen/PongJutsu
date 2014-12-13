@@ -15,6 +15,7 @@ namespace PongJutsu
 
 		public bool selfCollision = false;
 
+		public GameObject explosion;
 		public float explosionRadius = 2f;
 		public float explosionDamageMultiplier = 0.4f;
 		public bool explosionDamagerPerDistance = false;
@@ -66,7 +67,7 @@ namespace PongJutsu
 			
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
-				explode(colObject);
+				Explode(colObject);
 
 			// Collision with StageColliders
 			if (colObject.tag == "BoundaryTop")
@@ -123,9 +124,13 @@ namespace PongJutsu
 			return vector;
 		}
 
-		void explode(GameObject hitObject)
+		void Explode(GameObject hitObject)
 		{
 			hitObject.GetComponent<Fort>().TakeDamage(damage);
+
+			GameObject explosionAnimation = (GameObject)Instantiate(explosion, this.transform.position, Quaternion.identity);
+			explosionAnimation.GetComponent<ShurikenExplosion>().explosionRadius = explosionRadius;
+			explosionAnimation.GetComponent<ShurikenExplosion>().direction = Mathf.Sign(movement.x);
 
 			Collider2D[] expl = Physics2D.OverlapCircleAll(this.transform.position, explosionRadius);
 			foreach (Collider2D col in expl)
