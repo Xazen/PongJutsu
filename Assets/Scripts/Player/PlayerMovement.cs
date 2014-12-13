@@ -100,15 +100,6 @@ namespace PongJutsu
 				}
 			}
 
-			// Set animation
-			this.GetComponentInChildren<Animator>().SetFloat("Move", currentSpeed * moveDirection);
-
-			// Set animation speed depending on move speed
-			if (Input.GetAxisRaw(this.tag) != 0)
-				this.GetComponentInChildren<Animator>().speed = currentSpeed / maxMovementSpeed;
-			else
-				this.GetComponentInChildren<Animator>().speed = 1f;
-
 			// Check and Precalculating Collision
 			GameObject top = GameObject.FindGameObjectWithTag("BoundaryTop");
 			GameObject bottom = GameObject.FindGameObjectWithTag("BoundaryBottom");
@@ -123,6 +114,17 @@ namespace PongJutsu
 
 			// Set new position
 			this.transform.position = new Vector2(this.transform.position.x, position);
+
+			// Set animation
+			this.GetComponentInChildren<Animator>().SetFloat("Movement", currentSpeed);
+			this.GetComponentInChildren<Animator>().SetInteger("Direction", (int)moveDirection);
+			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
+
+			// Set animation speed depending on move speed
+			if (Input.GetAxisRaw(this.tag) != 0)
+				this.GetComponentInChildren<Animator>().speed = currentSpeed / maxMovementSpeed;
+			else
+				this.GetComponentInChildren<Animator>().speed = 1f;
 		}
 
 		static float Direction(float f)
