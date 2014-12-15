@@ -20,8 +20,8 @@ namespace PongJutsu
 		public float explosionDamageMultiplier = 0.4f;
 		public bool explosionDamagerPerDistance = false;
 
-		public Color colorPlayerLeft = Color.red;
-		public Color colorPlayerRight = Color.blue;
+		public Color playerLeftColor = Color.red;
+		public Color playerRightColor = Color.blue;
 
 		[HideInInspector] public GameObject owner;
 		[HideInInspector] public GameObject lastHitOwner;
@@ -35,9 +35,15 @@ namespace PongJutsu
 
 			// Set different Color for different owner
 			if (owner.tag == "PlayerLeft")
-				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerLeft;
+			{
+				this.GetComponentInChildren<SpriteRenderer>().color = playerLeftColor;
+				this.GetComponent<TrailRenderer>().renderer.material.color = playerLeftColor;
+			}
 			else if (owner.tag == "PlayerRight")
-				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerRight;
+			{
+				this.GetComponentInChildren<SpriteRenderer>().color = playerRightColor;
+				this.GetComponent<TrailRenderer>().renderer.material.color = playerRightColor;
+			}
 		}
 
 		public void setInitialMovement(int directionX, float movementY)
