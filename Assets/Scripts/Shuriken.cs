@@ -15,12 +15,13 @@ namespace PongJutsu
 
 		public bool selfCollision = false;
 
+		public GameObject explosion;
 		public float explosionRadius = 2f;
 		public float explosionDamageMultiplier = 0.4f;
 		public bool explosionDamagerPerDistance = false;
 
-		public Color colorPlayerLeft = Color.red;
-		public Color colorPlayerRight = Color.blue;
+		public Color playerLeftColor = Color.red;
+		public Color playerRightColor = Color.blue;
 
 		[HideInInspector] public GameObject owner;
 		[HideInInspector] public GameObject lastHitOwner;
@@ -31,7 +32,18 @@ namespace PongJutsu
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
 			lastHitOwner = owner;
-			colorSetup();
+
+			// Set different Color for different owner
+			if (owner.tag == "PlayerLeft")
+			{
+				this.GetComponentInChildren<SpriteRenderer>().color = playerLeftColor;
+				this.GetComponent<TrailRenderer>().renderer.material.color = playerLeftColor;
+			}
+			else if (owner.tag == "PlayerRight")
+			{
+				this.GetComponentInChildren<SpriteRenderer>().color = playerRightColor;
+				this.GetComponent<TrailRenderer>().renderer.material.color = playerRightColor;
+			}
 		}
 
 		public void setInitialMovement(int directionX, float movementY)
@@ -42,40 +54,13 @@ namespace PongJutsu
 			movement = adjustSpeed(movement);
 		}
 
-		public int getDirection()
-		{
-			int direction = 0;
-
-			// Calculate the current movement direction
-			if (movement.x < 0)
-				direction = -1;
-			else if (movement.x > 0)
-				direction = 1;
-
-			return direction;
-		}
-
-		void colorSetup()
-		{
-			// Set diifferent Color for different owner
-			if (owner.tag == "PlayerLeft")
-				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerLeft;
-			else if (owner.tag == "PlayerRight")
-				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerRight;
-		}
-
 		void Update()
 		{
-			Move();
-		}
-
-		void Move()
-		{
 			// Move the shot
-			this.transform.position = new Vector3(this.transform.position.x + movement.x * Time.deltaTime, this.transform.position.y + movement.y * Time.deltaTime);
+			this.transform.position = new Vector2(this.transform.position.x + movement.x * Time.deltaTime, this.transform.position.y + movement.y * Time.deltaTime);
 		}
 
-		void OnCollisionEnter2D(Collision2D col)
+		void OnTriggerEnter2D(Collider2D col)
 		{
 			// Get Collisions GameObject
 			GameObject colObject = col.gameObject;
@@ -88,7 +73,7 @@ namespace PongJutsu
 			
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
-				explode(colObject);
+				Explode(colObject);
 
 			// Collision with StageColliders
 			if (colObject.tag == "BoundaryTop")
@@ -102,7 +87,13 @@ namespace PongJutsu
 			if (colObject.tag == "Shield" && owner != col.transform.parent.gameObject)
 			{
 				movement.x = -movement.x;
-				movement.y = (colObject.transform.position.y - this.transform.position.y) * (colObject.transform.lossyScale.y * colObject.GetComponent<BoxCollider2D>().size.y) * -1 * shieldAngleMultiplier;
+
+				float a = this.transform.position.y - colObject.transform.parent.transform.position.y;
+				float b = colObject.transform.localScale.y * colObject.GetComponent<BoxCollider2D>().size.y;
+				float c = a / (b * 0.5f);
+
+				movement.y = c * shieldAngleMultiplier;
+
 				movement = adjustSpeed(movement);
 
 				lastHitOwner = colObject.transform.parent.gameObject;
@@ -114,15 +105,38 @@ namespace PongJutsu
 			}
 		}
 
+		// make sure that the shot doesn't stuck in the Boundarys
+		void OnCollisionStay2D(Collision2D col)
+		{
+			GameObject colObject = col.gameObject;
+
+			if (colObject.tag == "BoundaryTop")
+			{
+				if (this.transform.position.y + this.GetComponent<CircleCollider2D>().radius > colObject.transform.position.y - colObject.GetComponent<BoxCollider2D>().size.y / 2f)
+					movement.y = Mathf.Abs(movement.y) * -1;
+					this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y - colObject.GetComponent<BoxCollider2D>().size.y / 2f - this.GetComponent<CircleCollider2D>().radius * 1.15f);
+			}
+			else if (colObject.tag == "BoundaryBottom")
+			{
+				if (this.transform.position.y - this.GetComponent<CircleCollider2D>().radius > colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f)
+					movement.y = Mathf.Abs(movement.y);
+					this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f + this.GetComponent<CircleCollider2D>().radius * 1.15f);
+			}
+		}
+
 		Vector2 adjustSpeed(Vector2 vector)
 		{
-			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * speedAdjustment;
+			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * (speedAdjustment * 1.1f);
 			return vector;
 		}
 
-		void explode(GameObject hitObject)
+		void Explode(GameObject hitObject)
 		{
 			hitObject.GetComponent<Fort>().TakeDamage(damage);
+
+			GameObject explosionAnimation = (GameObject)Instantiate(explosion, this.transform.position, Quaternion.identity);
+			explosionAnimation.GetComponent<ShurikenExplosion>().explosionRadius = explosionRadius;
+			explosionAnimation.GetComponent<ShurikenExplosion>().direction = Mathf.Sign(movement.x);
 
 			Collider2D[] expl = Physics2D.OverlapCircleAll(this.transform.position, explosionRadius);
 			foreach (Collider2D col in expl)
