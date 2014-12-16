@@ -119,6 +119,7 @@ namespace PongJutsu
 			this.GetComponentInChildren<Animator>().SetFloat("Movement", currentSpeed);
 			this.GetComponentInChildren<Animator>().SetInteger("Direction", (int)moveDirection);
 			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
+			this.GetComponentInChildren<Animator>().SetInteger("Input", (int)Direction(Input.GetAxisRaw(this.tag)));
 
 			// Set animation speed depending on move speed
 			if (Input.GetAxisRaw(this.tag) != 0)
