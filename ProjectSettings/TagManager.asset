@@ -60,6 +60,10 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
+  - name: Carrier
+    userID: 7
+    uniqueID: 3734199759
+    locked: 0
   - name: Shot
     userID: 3
     uniqueID: 1663561905
