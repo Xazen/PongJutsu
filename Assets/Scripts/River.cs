@@ -8,11 +8,11 @@ namespace PongJutsu
 	{
 		public float width = 1.7f;
 		public float height = 11.6f;
-		public bool snap = false;
+		public bool snapToVertical = false;
 
 		public float spawnFrequency = 5f;
 		public float frequencyRandomizer = 2f;
-		private float nextSpawn = 0f;
+		private float nextSpawn;
 
 		public float flowSpeed = -1f;
 
@@ -20,6 +20,11 @@ namespace PongJutsu
 		public GameObject[] items = new GameObject[0];
 
 		private List<GameObject> spawnedItems = new List<GameObject>();
+
+		void Start()
+		{
+			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+		}
 
 		void Update()
 		{
@@ -37,7 +42,7 @@ namespace PongJutsu
 			int r = Random.Range(0, items.Length);
 			float xRange = width - itemCarrier.GetComponent<BoxCollider2D>().size.x;
 			float x = Random.Range(-xRange / 2, xRange / 2);
-			float y = (Mathf.Sign(flowSpeed) * -1 * height) / 2;
+			float y = (Mathf.Sign(flowSpeed) * -1 * height + itemCarrier.GetComponent<BoxCollider2D>().size.y) / 2;
 
 			// Create carrier
 			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), new Quaternion());
@@ -61,10 +66,10 @@ namespace PongJutsu
 		{
 			Gizmos.color = new Color(0.4f, 0.4f, 0.7f, 0.4f);
 
-			if (snap)
+			if (snapToVertical)
 			{
 				height = Camera.main.orthographicSize * 2;
-				snap = false;
+				snapToVertical = false;
 			}
 
 			Gizmos.DrawCube(new Vector2(0, 0), new Vector2(width, height));

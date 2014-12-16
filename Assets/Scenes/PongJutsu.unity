@@ -233,10 +233,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 1.70000005
   height: 11.6000004
-  snap: 0
-  spawnFrequency: 5
-  frequencyRandomizer: 2
-  flowSpeed: -1
+  snapToVertical: 0
+  spawnFrequency: 9
+  frequencyRandomizer: 3
+  flowSpeed: -.75
   itemCarrier: {fileID: 100000, guid: 2a5c3962f1f8f3d469031e980b4c84ae, type: 2}
   items:
   - {fileID: 100000, guid: 07965d301497b874888a6af330328875, type: 2}
