@@ -394,6 +394,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff806f182fab9284eb64f0057277fb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowPause: 1
+  allowRiverToggle: 1
 --- !u!114 &1757980354
 MonoBehaviour:
   m_ObjectHideFlags: 0
