@@ -80,3 +80,7 @@ TagManager:
     userID: 6
     uniqueID: 2620768955
     locked: 0
+  - name: Foreground
+    userID: 8
+    uniqueID: 1149370547
+    locked: 0
