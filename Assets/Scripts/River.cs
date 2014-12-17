@@ -45,7 +45,7 @@ namespace PongJutsu
 			float y = (Mathf.Sign(flowSpeed) * -1 * height + itemCarrier.GetComponent<BoxCollider2D>().size.y) / 2;
 
 			// Create carrier
-			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), new Quaternion());
+			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), Quaternion.identity);
 			carrier.GetComponent<ItemCarrier>().instantiateItem(items[r]);
 			carrier.GetComponent<ItemCarrier>().setVerticalSpeed(flowSpeed);
 			carrier.transform.parent = this.transform;

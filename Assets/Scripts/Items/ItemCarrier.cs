@@ -16,7 +16,7 @@ namespace PongJutsu
 		public void instantiateItem(GameObject itemPrefab)
 		{
 			// Spawn item on this carrier
-			GameObject item = (GameObject)Instantiate(itemPrefab, this.transform.position, new Quaternion());
+			GameObject item = (GameObject)Instantiate(itemPrefab, this.transform.position, Quaternion.identity);
 			item.transform.parent = this.transform;
 			this.name = "Carrier (" + itemPrefab.name + ")";
 		}

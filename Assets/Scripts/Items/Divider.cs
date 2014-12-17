@@ -17,7 +17,7 @@ namespace PongJutsu
 			// Split shuriken
 			for (int i = 0; splits > i; i++)
 			{
-				GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
+				GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, Quaternion.identity);
 
 				// Calculate y-movement
 				float movementY;

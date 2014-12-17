@@ -53,7 +53,7 @@ namespace PongJutsu
 		public void Shoot()
 		{
 			// Create a new shot
-			GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
+			GameObject shotInstance = (GameObject)Instantiate(shotObject, this.transform.position, Quaternion.identity);
 			shotInstance.GetComponent<Shuriken>().owner = this.transform.parent.gameObject;
 			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * direction);
 			this.audio.Play();
