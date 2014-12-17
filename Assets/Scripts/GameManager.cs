@@ -7,6 +7,7 @@ namespace PongJutsu
 	{
 		public bool allowPause = true;
 		public bool allowRiverToggle = false;
+		public bool riverActiveOnAwake = false;
 
 		private bool pause = false;
 		private GameObject river;
@@ -14,6 +15,7 @@ namespace PongJutsu
 		void Awake()
 		{
 			river = GameObject.Find("River");
+			river.SetActive(riverActiveOnAwake);
 		}
 
 		void Update()
