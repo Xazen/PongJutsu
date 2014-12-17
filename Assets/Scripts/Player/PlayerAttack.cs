@@ -7,7 +7,7 @@ namespace PongJutsu
 	{
 
 		public float firerate = 1.5f;
-		private float nextFire = 0f;
+		private float nextFire;
 		public float angle = 3f;
 
 		public int maxActiveShots = 1;
@@ -17,6 +17,10 @@ namespace PongJutsu
 
 		int direction;
 
+		void Start()
+		{
+			nextFire = firerate;
+		}
 
 		void Update()
 		{
