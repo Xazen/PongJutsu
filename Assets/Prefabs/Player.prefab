@@ -258,7 +258,7 @@ MonoBehaviour:
   dashSpeed: 10
   dashCooldown: .5
   dashButtonInterval: .200000003
-  playerCollisionOffset: .300000012
+  playerCollisionOffset: .550000012
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
