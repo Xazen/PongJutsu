@@ -164,8 +164,11 @@ MonoBehaviour:
   explosionRadius: 1.64999998
   explosionDamageMultiplier: .400000006
   explosionDamagerPerDistance: 0
-  playerLeftColor: {r: .926470578, g: .408737034, b: .408737034, a: 1}
-  playerRightColor: {r: .396078467, g: .950020254, b: 1, a: 1}
+  shurikenLeftColor: {r: .926470578, g: .408737034, b: .408737034, a: 1}
+  shurikenRightColor: {r: .396078467, g: .950020254, b: 1, a: 1}
+  shurikenLeftSprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
+  shurikenRightSprite: {fileID: 21300000, guid: 3cc3df1f2c73d494289005f070a8a644,
+    type: 3}
   owner: {fileID: 0}
   lastHitOwner: {fileID: 0}
   bounceBack: 0

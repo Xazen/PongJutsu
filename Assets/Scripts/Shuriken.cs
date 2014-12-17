@@ -20,8 +20,11 @@ namespace PongJutsu
 		public float explosionDamageMultiplier = 0.4f;
 		public bool explosionDamagerPerDistance = false;
 
-		public Color playerLeftColor = Color.red;
-		public Color playerRightColor = Color.blue;
+		public Color shurikenLeftColor = Color.red;
+		public Color shurikenRightColor = Color.blue;
+
+		public Sprite shurikenLeftSprite;
+		public Sprite shurikenRightSprite;
 
 		[HideInInspector] public GameObject owner;
 		[HideInInspector] public GameObject lastHitOwner;
@@ -36,13 +39,13 @@ namespace PongJutsu
 			// Set different Color for different owner
 			if (owner.tag == "PlayerLeft")
 			{
-				this.GetComponentInChildren<SpriteRenderer>().color = playerLeftColor;
-				this.GetComponent<TrailRenderer>().renderer.material.color = playerLeftColor;
+				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenLeftSprite;
+				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenLeftColor;
 			}
 			else if (owner.tag == "PlayerRight")
 			{
-				this.GetComponentInChildren<SpriteRenderer>().color = playerRightColor;
-				this.GetComponent<TrailRenderer>().renderer.material.color = playerRightColor;
+				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
+				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
 			}
 		}
 
