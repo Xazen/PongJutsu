@@ -43,19 +43,31 @@ namespace PongJutsu
 
 			if (Input.GetButtonDown(this.tag))
 			{
-				if (lastInputDeltaTime < dashButtonInterval && !isDashing && lastDash > dashCooldown && lastInputDirection == Direction(Input.GetAxisRaw(this.tag)))
+				if (lastInputDeltaTime < dashButtonInterval && lastInputDirection == Direction(Input.GetAxisRaw(this.tag)))
 				{
-					// Activate dashing
-					isDashing = true;
-
-					dashLerp = 0;
-					dashStartPosition = this.transform.position.y;
-					dashDirection = Direction(Input.GetAxisRaw(this.tag));
+					dash();
 				}
 
 				// Set last Input
 				lastInputDeltaTime = 0f;
 				lastInputDirection = Direction(Input.GetAxisRaw(this.tag));
+			}
+			else if (Input.GetAxisRaw(this.tag) != 0f && Input.GetButtonDown(this.tag + " dash"))
+			{
+				dash();
+			}
+		}
+
+		void dash()
+		{
+			if (!isDashing && lastDash > dashCooldown)
+			{
+				// Activate dashing
+				isDashing = true;
+
+				dashLerp = 0;
+				dashStartPosition = this.transform.position.y;
+				dashDirection = Direction(Input.GetAxisRaw(this.tag));
 			}
 		}
 
@@ -119,6 +131,7 @@ namespace PongJutsu
 			this.GetComponentInChildren<Animator>().SetFloat("Movement", currentSpeed);
 			this.GetComponentInChildren<Animator>().SetInteger("Direction", (int)moveDirection);
 			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
+			this.GetComponentInChildren<Animator>().SetInteger("Input", (int)Direction(Input.GetAxisRaw(this.tag)));
 
 			// Set animation speed depending on move speed
 			if (Input.GetAxisRaw(this.tag) != 0)

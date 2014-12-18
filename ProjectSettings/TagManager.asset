@@ -13,6 +13,7 @@ TagManager:
   - BoundaryTop
   - BoundaryBottom
   - Shield
+  - Carrier
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -59,6 +60,10 @@ TagManager:
     userID: 0
     uniqueID: 0
     locked: 0
+  - name: Carrier
+    userID: 7
+    uniqueID: 3734199759
+    locked: 0
   - name: Shot
     userID: 3
     uniqueID: 1663561905
@@ -74,4 +79,8 @@ TagManager:
   - name: Healthbar
     userID: 6
     uniqueID: 2620768955
+    locked: 0
+  - name: Foreground
+    userID: 8
+    uniqueID: 1149370547
     locked: 0

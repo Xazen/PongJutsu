@@ -5,16 +5,28 @@ namespace PongJutsu
 {
 	public class GameManager : MonoBehaviour
 	{
+		public bool allowPause = true;
+		public bool allowRiverToggle = false;
+		public bool disableRiverByDefault = true;
 
 		private bool pause = false;
+		private GameObject river;
 
+		void Awake()
+		{
+			river = GameObject.Find("River");
+			river.SetActive(!disableRiverByDefault);
+		}
 
 		void Update()
 		{
-			CheckPause();
+			if (allowPause)
+				PauseToggle();
+			if (allowRiverToggle)
+				RiverToggle();
 		}
 
-		void CheckPause()
+		void PauseToggle()
 		{
 			// Toggle Pause
 			if (Input.GetButtonDown("Pause"))
@@ -27,6 +39,14 @@ namespace PongJutsu
 				Time.timeScale = 0;
 			else
 				Time.timeScale = 1;
+		}
+
+		void RiverToggle()
+		{
+			if (Input.GetButtonDown("River"))
+			{
+				river.SetActive(!river.activeSelf);
+			}
 		}
 	}
 }
