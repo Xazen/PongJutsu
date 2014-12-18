@@ -96,8 +96,9 @@ namespace PongJutsu
 				float c = a / (b * 0.5f);
 
 				movement.y = c * shieldAngleMultiplier;
-
 				movement = adjustSpeed(movement);
+
+				this.audio.Play();
 
 				lastHitOwner = colObject.transform.parent.gameObject;
 				bounceBack = true;
@@ -109,7 +110,7 @@ namespace PongJutsu
 		}
 
 		// make sure that the shot doesn't stuck in the Boundarys
-		void OnCollisionStay2D(Collision2D col)
+		void OnTriggerStay2D(Collider2D col)
 		{
 			GameObject colObject = col.gameObject;
 

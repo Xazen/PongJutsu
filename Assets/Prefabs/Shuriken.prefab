@@ -12,6 +12,7 @@ GameObject:
   - 96: {fileID: 9600000}
   - 58: {fileID: 5800000}
   - 50: {fileID: 5000000}
+  - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: Shuriken
   m_TagString: Shuriken
@@ -87,6 +88,64 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_Radius: .150000006
   m_Center: {x: 0, y: 0}
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: b57fc5488d945734690e248878ad3d46, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: .200000003
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 100
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!96 &9600000
 TrailRenderer:
   m_ObjectHideFlags: 1
@@ -154,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3cf503a4f771d47b5d3912b1e37df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  damage: 25
+  speed: 8
+  damage: 40
   movement: {x: 0, y: 0}
   speedAdjustment: 1
   shieldAngleMultiplier: 4

@@ -80,8 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca84bbd74240f024ba03ec16749aa719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeMultiplier: 1.5
-  duration: 5
+  scaleMultiplier: 1.5
+  duration: 7.5
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
