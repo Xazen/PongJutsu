@@ -109,7 +109,7 @@ namespace PongJutsu
 		}
 
 		// make sure that the shot doesn't stuck in the Boundarys
-		void OnCollisionStay2D(Collision2D col)
+		void OnTriggerStay2D(Collider2D col)
 		{
 			GameObject colObject = col.gameObject;
 
