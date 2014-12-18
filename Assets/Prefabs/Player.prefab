@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3463c6b9cd177f4a97b5a9a591b3662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firerate: 1.5
-  angle: 3
+  firerate: .200000003
+  angle: 3.5
   maxActiveShots: 1
   shotCount: 0
   shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
@@ -248,16 +248,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee160fea7c07cc54a91792c32ff5f5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMovementSpeed: 0
+  minMovementSpeed: 1
   maxMovementSpeed: 8
-  accelerationSpeed: .5
+  accelerationSpeed: .275000006
   decelerationSpeed: 1.5
   resetMovementAtTurn: 1
-  dashDistance: 2
+  dashDistance: 1.5
   dashSpeed: 10
   dashCooldown: .5
   dashButtonInterval: .200000003
-  playerCollisionOffset: .550000012
+  playerCollisionOffset: .649999976
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1

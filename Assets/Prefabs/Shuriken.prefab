@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3cf503a4f771d47b5d3912b1e37df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  damage: 25
+  speed: 8
+  damage: 34
   movement: {x: 0, y: 0}
   speedAdjustment: 1
   shieldAngleMultiplier: 4
