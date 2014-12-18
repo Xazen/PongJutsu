@@ -19,7 +19,6 @@ namespace PongJutsu
 		public float dashSpeed = 10f;
 		public float dashCooldown = 0.5f;
 		public float dashButtonInterval = 0.2f;
-		private bool axisIsHold = false;
 
 		private float lastInputDeltaTime;
 		private float lastInputDirection;
@@ -42,26 +41,33 @@ namespace PongJutsu
 			lastInputDeltaTime += Time.deltaTime;
 			lastDash += Time.deltaTime;
 
-			if (Input.GetAxisRaw(this.tag) != 0f && !axisIsHold)
+			if (Input.GetButtonDown(this.tag))
 			{
-				if (lastInputDeltaTime < dashButtonInterval && !isDashing && lastDash > dashCooldown && lastInputDirection == Direction(Input.GetAxisRaw(this.tag)))
+				if (lastInputDeltaTime < dashButtonInterval && lastInputDirection == Direction(Input.GetAxisRaw(this.tag)))
 				{
-					// Activate dashing
-					isDashing = true;
-
-					dashLerp = 0;
-					dashStartPosition = this.transform.position.y;
-					dashDirection = Direction(Input.GetAxisRaw(this.tag));
+					dash();
 				}
 
 				// Set last Input
 				lastInputDeltaTime = 0f;
 				lastInputDirection = Direction(Input.GetAxisRaw(this.tag));
-				axisIsHold = true;
 			}
-			if (Input.GetAxisRaw(this.tag) == 0f)
+			else if (Input.GetAxisRaw(this.tag) != 0f && Input.GetButtonDown(this.tag + " dash"))
 			{
-				axisIsHold = false;
+				dash();
+			}
+		}
+
+		void dash()
+		{
+			if (!isDashing && lastDash > dashCooldown)
+			{
+				// Activate dashing
+				isDashing = true;
+
+				dashLerp = 0;
+				dashStartPosition = this.transform.position.y;
+				dashDirection = Direction(Input.GetAxisRaw(this.tag));
 			}
 		}
 

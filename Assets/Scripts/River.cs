@@ -12,7 +12,7 @@ namespace PongJutsu
 
 		public float spawnFrequency = 5f;
 		public float frequencyRandomizer = 2f;
-		private float nextSpawn;
+		private float nextSpawn = 0f;
 
 		public float flowSpeed = -1f;
 
@@ -20,11 +20,6 @@ namespace PongJutsu
 		public GameObject[] items = new GameObject[0];
 
 		private List<GameObject> spawnedItems = new List<GameObject>();
-
-		void Start()
-		{
-			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
-		}
 
 		void Update()
 		{
