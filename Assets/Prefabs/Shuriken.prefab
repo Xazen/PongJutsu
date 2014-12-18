@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  damage: 34
+  damage: 40
   movement: {x: 0, y: 0}
   speedAdjustment: 1
   shieldAngleMultiplier: 4
