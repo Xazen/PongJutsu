@@ -7,13 +7,12 @@ namespace PongJutsu
 	{
 
 		public float speed = 7f;
-		public int damage = 25;
-
-		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 		public float speedAdjustment = 1.05f;
-		public float shieldAngleMultiplier = 5f;
+		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
 		public bool selfCollision = false;
+
+		public int damage = 25;
 
 		public GameObject explosion;
 		public float explosionRadius = 2f;
@@ -54,7 +53,7 @@ namespace PongJutsu
 			// Set initial movement
 			movement.x = speed * directionX;
 			movement.y = movementY;
-			movement = adjustSpeed(movement);
+			this.adjustSpeed();
 		}
 
 		void Update()
@@ -85,28 +84,6 @@ namespace PongJutsu
 				movement.y = Mathf.Abs(movement.y);
 			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
 				Destroy(this.gameObject);
-
-			// Collision with Shields
-			if (colObject.tag == "Shield" && owner != col.transform.parent.gameObject)
-			{
-				movement.x = -movement.x;
-
-				float a = this.transform.position.y - colObject.transform.parent.transform.position.y;
-				float b = colObject.transform.localScale.y * colObject.GetComponent<BoxCollider2D>().size.y;
-				float c = a / (b * 0.5f);
-
-				movement.y = c * shieldAngleMultiplier;
-				movement = adjustSpeed(movement);
-
-				this.audio.Play();
-
-				lastHitOwner = colObject.transform.parent.gameObject;
-				bounceBack = true;
-			}
-			else if (colObject.tag == "Shield" && owner == col.transform.parent.gameObject && bounceBack)
-			{
-				Destroy(this.gameObject);
-			}
 		}
 
 		// make sure that the shot doesn't stuck in the Boundarys
@@ -128,10 +105,9 @@ namespace PongJutsu
 			}
 		}
 
-		Vector2 adjustSpeed(Vector2 vector)
+		public void adjustSpeed()
 		{
-			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * (speedAdjustment * 1.1f);
-			return vector;
+			movement.x += (Mathf.Sqrt(Vector2.SqrMagnitude(movement)) - speed) * (Mathf.Sign(movement.x) * -1) * (speedAdjustment * 1.1f);
 		}
 
 		void Explode(GameObject hitObject)

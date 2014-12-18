@@ -6,6 +6,8 @@ namespace PongJutsu
 	public class PlayerShield : MonoBehaviour
 	{
 
+		public float shieldAngleMultiplier = 5f;
+
 		public Sprite shieldLeftSprite;
 		public Sprite shieldRightSprite;
 
@@ -22,6 +24,39 @@ namespace PongJutsu
 				this.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
 
 			initScale = this.transform.localScale;
+		}
+
+		void OnTriggerEnter2D(Collider2D col)
+		{
+			if (col.gameObject.tag == "Shuriken")
+			{
+				// Get Shuriken Script and GameObject
+				Shuriken shuriken = col.GetComponent<Shuriken>();
+				GameObject shurikenGameObject = col.gameObject;
+
+				// Reflect
+				if (shuriken.owner != this.transform.parent.gameObject)
+				{
+					shuriken.movement.x = -shuriken.movement.x;
+
+					float a = shurikenGameObject.transform.position.y - this.transform.parent.transform.position.y;
+					float b = this.transform.localScale.y * this.GetComponent<BoxCollider2D>().size.y;
+					float c = a / (b * 0.5f);
+
+					shuriken.movement.y = c * shieldAngleMultiplier;
+					shuriken.adjustSpeed();
+
+					this.audio.Play();
+
+					shuriken.lastHitOwner = this.transform.parent.gameObject;
+					shuriken.bounceBack = true;
+				}
+				// Catch
+				else if (shuriken.owner == this.transform.parent.gameObject && shuriken.bounceBack)
+				{
+					Destroy(shurikenGameObject);
+				}
+			}
 		}
 
 		void Update()
