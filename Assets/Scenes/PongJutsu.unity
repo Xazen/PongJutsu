@@ -455,7 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowPause: 1
   allowRiverToggle: 1
-  riverActiveOnAwake: 0
+  disableRiverByDefault: 1
 --- !u!114 &1757980354
 MonoBehaviour:
   m_ObjectHideFlags: 0
