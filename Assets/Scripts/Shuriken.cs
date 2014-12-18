@@ -96,8 +96,9 @@ namespace PongJutsu
 				float c = a / (b * 0.5f);
 
 				movement.y = c * shieldAngleMultiplier;
-
 				movement = adjustSpeed(movement);
+
+				this.audio.Play();
 
 				lastHitOwner = colObject.transform.parent.gameObject;
 				bounceBack = true;
