@@ -7,30 +7,38 @@ namespace PongJutsu
 	public class GameManager : MonoBehaviour
 	{
 
-		public bool autoStartGame = false;
+		public bool instantPlay = false;
 
 		private bool pause = false;
 		private bool inGame = false;
 
 		void Awake()
 		{
-			if (autoStartGame)
-				guie_StartGame();
+			if (instantPlay)
+			{
+				Camera.main.GetComponent<Animator>().SetBool("InstantGame", true);
+				loadGame();
+			}
 		}
 
-		public void guie_StartGame()
+		void loadGame()
+		{
+			FindObjectOfType<EventSystem>().sendNavigationEvents = false;
+
+			foreach (GameSetup gs in this.GetComponents<GameSetup>())
+			{
+				gs.run();
+			}
+
+			inGame = true;
+		}
+
+		public void guie_Start()
 		{
 			if (!inGame)
 			{
-				foreach (GameSetup gs in this.GetComponents<GameSetup>())
-				{
-					gs.run();
-				}
-				
-				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
-				inGame = true;
-				
 				Camera.main.GetComponent<Animator>().SetTrigger("StartGame");
+				loadGame();
 			}
 		}
 		public void guie_Options()
