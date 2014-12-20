@@ -20,10 +20,12 @@ namespace PongJutsu
 		{
 			if (mirror)
 			{
+				// Mirror the Fort
 				Vector3 scale = this.transform.localScale;
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
 			}
 
+			// Set different AnimationControllers
 			if (this.tag == "FortLeft")
 			{
 				this.GetComponent<Animator>().runtimeAnimatorController = FortLeftController;

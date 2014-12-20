@@ -12,8 +12,6 @@ namespace PongJutsu
 
 		private float internOffset = 0.5f;
 
-		// Player Boundries for optional offset
-
 
 		public override void run()
 		{
@@ -49,8 +47,8 @@ namespace PongJutsu
 
 			Gizmos.color = new Color(0.1f, 0.9f, 0.1f, 0.5f);
 
-			Gizmos.DrawCube(new Vector3(-width + fortOffset + offset + internOffset * 2, 0), (Vector2)playerPrefab.transform.localScale);
-			Gizmos.DrawCube(new Vector3(width - fortOffset - offset - internOffset * 2, 0), (Vector2)playerPrefab.transform.localScale);
+			Gizmos.DrawCube(new Vector3(-width + fortOffset + offset + internOffset, 0), (Vector2)playerPrefab.transform.localScale);
+			Gizmos.DrawCube(new Vector3(width - fortOffset - offset - internOffset, 0), (Vector2)playerPrefab.transform.localScale);
 		}
 	}
 }

@@ -6,14 +6,22 @@ namespace PongJutsu
 {
 	public class GameManager : MonoBehaviour
 	{
+		public bool allowPause = true;
+		public bool allowRiverToggle = false;
+		public bool disableRiverByDefault = true;
 
 		public bool instantPlay = false;
 
 		private bool pause = false;
 		private bool inGame = false;
 
+		private GameObject river;
+
 		void Awake()
 		{
+			river = GameObject.Find("River");
+			river.SetActive(!disableRiverByDefault);
+
 			if (instantPlay)
 			{
 				Camera.main.GetComponent<Animator>().SetBool("InstantGame", true);
@@ -60,11 +68,13 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (inGame)
-				CheckPause();
+			if (allowPause && inGame)
+				PauseToggle();
+			if (allowRiverToggle && inGame)
+				RiverToggle();
 		}
 
-		void CheckPause()
+		void PauseToggle()
 		{
 			// Toggle Pause
 			if (Input.GetButtonDown("Pause"))
@@ -77,6 +87,14 @@ namespace PongJutsu
 				Time.timeScale = 0;
 			else
 				Time.timeScale = 1;
+		}
+
+		void RiverToggle()
+		{
+			if (Input.GetButtonDown("River"))
+			{
+				river.SetActive(!river.activeSelf);
+			}
 		}
 	}
 }

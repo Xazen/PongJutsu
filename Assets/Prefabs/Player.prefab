@@ -10,6 +10,8 @@ GameObject:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
   - 61: {fileID: 6100000}
+  - 114: {fileID: 11400006}
+  - 82: {fileID: 8200002}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
@@ -42,6 +44,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400004}
   - 95: {fileID: 9500000}
   m_Layer: 0
   m_Name: Player
@@ -74,8 +77,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .649999976, y: 0, z: 0}
-  m_LocalScale: {x: .360000014, y: .360000014, z: .360000014}
+  m_LocalPosition: {x: .699999988, y: 0, z: 0}
+  m_LocalScale: {x: .469999999, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 400004}
   m_RootOrder: 1
@@ -87,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -.0799999982, z: 0}
-  m_LocalScale: {x: .159999996, y: .150000006, z: .159999996}
+  m_LocalScale: {x: .159999996, y: .159999996, z: .159999996}
   m_Children: []
   m_Father: {fileID: 400004}
   m_RootOrder: 0
@@ -126,9 +129,9 @@ BoxCollider2D:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Size: {x: 1, y: 3.70000005}
-  m_Center: {x: .349999994, y: 0}
+  m_IsTrigger: 1
+  m_Size: {x: .800000012, y: 2.6500001}
+  m_Center: {x: -.150000006, y: 0}
 --- !u!82 &8200000
 AudioSource:
   m_ObjectHideFlags: 1
@@ -140,6 +143,64 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 55133211bd2e95a46a77a0d32aebd9d7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 100
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8200002
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: b57fc5488d945734690e248878ad3d46, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: .200000003
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -213,14 +274,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb322333cdaa1434e9c628876531fed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 8
-  smoothInput: 1
   ninjaLeftController: {fileID: 22100000, guid: 37f5d50e5001bb24b9f2aaf19c5daf04,
     type: 2}
   ninjaRightController: {fileID: 22100000, guid: 59cf7cfb89f807f428f35b09c4b80ed1,
     type: 2}
-  shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
-  shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
   mirror: 0
   direction: 1
 --- !u!114 &11400002
@@ -234,11 +291,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3463c6b9cd177f4a97b5a9a591b3662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firerate: 1.5
-  angularDistance: 2
+  firerate: .200000003
+  angle: 3.5
   maxActiveShots: 1
   shotCount: 0
   shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee160fea7c07cc54a91792c32ff5f5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minMovementSpeed: 1
+  maxMovementSpeed: 8
+  accelerationSpeed: .275000006
+  decelerationSpeed: 1.5
+  resetMovementAtTurn: 1
+  dashDistance: 1.5
+  dashSpeed: 10
+  dashCooldown: .5
+  dashButtonInterval: .200000003
+  playerCollisionOffset: .649999976
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764ed7730edd5a24aa6d366ae1e523c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldAngleMultiplier: 4
+  shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
+  shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
+  isExpanded: 0
+  expandDuration: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -260,7 +354,7 @@ SpriteRenderer:
   m_SortingLayerID: 4218480587
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: .921568632, g: .921568632, b: .921568632, a: .882352948}
 --- !u!212 &21200002
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -281,7 +375,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 4218480587
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c74275224458aec44b4d3a3155a30c6a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58cea0bc24cc53944a05670594401e40, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
