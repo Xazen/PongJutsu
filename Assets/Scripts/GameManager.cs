@@ -24,7 +24,7 @@ namespace PongJutsu
 
 			if (instantPlay)
 			{
-				Camera.main.GetComponent<Animator>().SetBool("InstantGame", true);
+				GameObject.Find("UI").GetComponent<Animator>().SetBool("InstantGame", true);
 				loadGame();
 			}
 		}
@@ -48,7 +48,7 @@ namespace PongJutsu
 
 		public void guie_Start()
 		{
-			Camera.main.GetComponent<Animator>().SetTrigger("StartGame");
+			GameObject.Find("UI").GetComponent<Animator>().SetTrigger("StartGame");
 			loadGame();
 		}
 		public void guie_Options()
