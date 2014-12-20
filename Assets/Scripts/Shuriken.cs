@@ -11,6 +11,7 @@ namespace PongJutsu
 		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
 		public bool selfCollision = false;
+		[HideInInspector] public bool ignoreSpawnCollision = false;
 
 		public int damage = 25;
 
@@ -67,7 +68,7 @@ namespace PongJutsu
 			// Get Collisions GameObject
 			GameObject colObject = col.gameObject;
 
-			if (colObject.tag == "Shuriken" && selfCollision)
+			if (colObject.tag == "Shuriken" && selfCollision && !ignoreSpawnCollision)
 			{
 				Destroy(col.gameObject);
 				Destroy(this.gameObject);
@@ -107,6 +108,12 @@ namespace PongJutsu
 			{
 				Destroy(this.gameObject);
 			}
+		}
+
+		void OnTriggerExit2D(Collider2D col)
+		{
+			if (col.gameObject.tag == "Shuriken")
+				ignoreSpawnCollision = false;
 		}
 
 		public void adjustSpeed()
