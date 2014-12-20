@@ -103,6 +103,10 @@ namespace PongJutsu
 					movement.y = Mathf.Abs(movement.y);
 					this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f + this.GetComponent<CircleCollider2D>().radius * 1.15f);
 			}
+			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
+			{
+				Destroy(this.gameObject);
+			}
 		}
 
 		public void adjustSpeed()
