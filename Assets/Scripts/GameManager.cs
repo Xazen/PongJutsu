@@ -20,7 +20,7 @@ namespace PongJutsu
 		void Awake()
 		{
 			river = GameObject.Find("River");
-			river.SetActive(!disableRiverByDefault);
+			river.SetActive(false);
 
 			if (instantPlay)
 			{
@@ -31,23 +31,25 @@ namespace PongJutsu
 
 		void loadGame()
 		{
-			FindObjectOfType<EventSystem>().sendNavigationEvents = false;
-
-			foreach (GameSetup gs in this.GetComponents<GameSetup>())
+			if (!inGame)
 			{
-				gs.run();
-			}
+				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
 
-			inGame = true;
+				river.SetActive(!disableRiverByDefault);
+
+				foreach (GameSetup gs in this.GetComponents<GameSetup>())
+				{
+					gs.run();
+				}
+
+				inGame = true;
+			}
 		}
 
 		public void guie_Start()
 		{
-			if (!inGame)
-			{
-				Camera.main.GetComponent<Animator>().SetTrigger("StartGame");
-				loadGame();
-			}
+			Camera.main.GetComponent<Animator>().SetTrigger("StartGame");
+			loadGame();
 		}
 		public void guie_Options()
 		{
@@ -70,7 +72,7 @@ namespace PongJutsu
 		{
 			if (allowPause && inGame)
 				PauseToggle();
-			if (allowRiverToggle && inGame)
+			if (allowRiverToggle && inGame && !pause)
 				RiverToggle();
 		}
 
