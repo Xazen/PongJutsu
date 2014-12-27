@@ -20,6 +20,8 @@ namespace PongJutsu
 		public float explosionDamageMultiplier = 0.4f;
 		public bool explosionDamagerPerDistance = false;
 
+		public float reflectionDamageMultiplier = 0.8f;
+
 		public Color shurikenLeftColor = Color.red;
 		public Color shurikenRightColor = Color.blue;
 
@@ -68,12 +70,19 @@ namespace PongJutsu
 			// Get Collisions GameObject
 			GameObject colObject = col.gameObject;
 
+			// Collision with Shuriken
 			if (colObject.tag == "Shuriken" && selfCollision && !ignoreSpawnCollision)
 			{
 				Destroy(col.gameObject);
 				Destroy(this.gameObject);
 			}
-			
+
+			// Collision with Shields
+			if (colObject.tag == "Shield" && this.owner != colObject.transform.parent.gameObject)
+			{
+				damage = (int)(damage * this.reflectionDamageMultiplier);
+			}
+
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 				Explode(colObject);
@@ -110,6 +119,7 @@ namespace PongJutsu
 			}
 		}
 
+		// prevent self collision on spawn
 		void OnTriggerExit2D(Collider2D col)
 		{
 			if (col.gameObject.tag == "Shuriken")
@@ -118,7 +128,7 @@ namespace PongJutsu
 
 		public void adjustSpeed()
 		{
-			movement.x += (Mathf.Sqrt(Vector2.SqrMagnitude(movement)) - speed) * (Mathf.Sign(movement.x) * -1) * (speedAdjustment * 1.1f);
+			movement.x += (Mathf.Sqrt(Vector2.SqrMagnitude(movement)) - speed) * (Mathf.Sign(movement.x) * -1) * (speedAdjustment * 1.08f);
 		}
 
 		void Explode(GameObject hitObject)
