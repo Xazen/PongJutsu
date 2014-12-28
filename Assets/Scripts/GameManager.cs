@@ -9,11 +9,10 @@ namespace PongJutsu
 		public bool allowPause = true;
 		public bool allowRiverToggle = false;
 		public bool disableRiverByDefault = true;
-
 		public bool instantPlay = false;
 
-		private bool pause = false;
-		private bool inGame = false;
+		[HideInInspector] public static bool isPause = false;
+		[HideInInspector] public static bool isIngame = false;
 
 		private GameObject river;
 
@@ -31,7 +30,7 @@ namespace PongJutsu
 
 		void loadGame()
 		{
-			if (!inGame)
+			if (!isIngame)
 			{
 				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
 
@@ -42,7 +41,7 @@ namespace PongJutsu
 					gs.run();
 				}
 
-				inGame = true;
+				isIngame = true;
 			}
 		}
 
@@ -70,9 +69,9 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (allowPause && inGame)
+			if (allowPause && isIngame)
 				PauseToggle();
-			if (allowRiverToggle && inGame && !pause)
+			if (allowRiverToggle && isIngame && !isPause)
 				RiverToggle();
 		}
 
@@ -81,11 +80,11 @@ namespace PongJutsu
 			// Toggle Pause
 			if (Input.GetButtonDown("Pause"))
 			{
-				pause = !pause;
+				isPause = !isPause;
 			}
 
 			// Set TimeScale
-			if (pause)
+			if (isPause)
 				Time.timeScale = 0;
 			else
 				Time.timeScale = 1;
