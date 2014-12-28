@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class SetupBoundaries : MonoBehaviour
+	public class SetupBoundaries : GameSetup
 	{
 
 		public GameObject boundaryPrefab;
@@ -11,8 +11,10 @@ namespace PongJutsu
 		private float boundaryThickness = 1;
 
 
-		void Awake()
+		public override void run()
 		{
+			base.run();
+
 			float width = GetComponent<SetupStage>().width;
 			float height = GetComponent<SetupStage>().height;
 

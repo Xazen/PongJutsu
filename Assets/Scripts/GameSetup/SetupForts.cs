@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class SetupForts : MonoBehaviour
+	public class SetupForts : GameSetup
 	{
 
 		public GameObject fortPrefab;
@@ -15,8 +15,10 @@ namespace PongJutsu
 		public bool autoMirror = true;
 
 
-		void Awake()
+		public override void run()
 		{
+			base.run();
+
 			float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().center.x;
 			float offsetY = GetComponent<SetupStage>().height;
 

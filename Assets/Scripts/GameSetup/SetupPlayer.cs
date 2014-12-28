@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class SetupPlayer : MonoBehaviour
+	public class SetupPlayer : GameSetup
 	{
 
 		public GameObject playerPrefab;
@@ -13,8 +13,10 @@ namespace PongJutsu
 		private float internOffset = 0.5f;
 
 
-		void Awake()
+		public override void run()
 		{
+			base.run();
+
 			float width = GetComponent<SetupStage>().width;
 			float fortOffset = GetComponent<SetupForts>().width + GetComponent<SetupForts>().offset;
 
