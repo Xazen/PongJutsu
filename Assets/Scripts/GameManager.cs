@@ -31,6 +31,7 @@ namespace PongJutsu
 				{
 					gs.run();
 				}
+				this.GetComponent<GameFlow>().run();
 
 				isIngame = true;
 			}

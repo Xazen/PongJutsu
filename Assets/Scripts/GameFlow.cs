@@ -5,10 +5,25 @@ namespace PongJutsu
 {
 	public class GameFlow : MonoBehaviour
 	{
-		private float ingameTime = 0f;
+		// Parameters
+		private float ingameTime;
 		private int fortsAll;
 		private int fortsLeft;
 		private int fortsRight;
+
+		// References
+		private GameObject playerLeft;
+		private GameObject playerRight;
+		private River river;
+
+		public void run()
+		{
+			ingameTime = 0f;
+
+			playerLeft = GameObject.FindGameObjectWithTag("PlayerLeft");
+			playerRight = GameObject.FindGameObjectWithTag("PlayerRight");
+			river = GameObject.FindGameObjectWithTag("River").GetComponent<River>();
+		}
 
 		void Update()
 		{
