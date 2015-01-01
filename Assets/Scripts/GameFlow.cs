@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PongJutsu
 {
@@ -15,6 +16,8 @@ namespace PongJutsu
 		private GameObject playerLeft;
 		private GameObject playerRight;
 		private River river;
+
+		[HideInInspector] public static float shurikenSpeedMultiplier = 1f;
 
 		public void run()
 		{
@@ -64,9 +67,6 @@ namespace PongJutsu
 
 		void UpdateFlow()
 		{
-			Debug.Log("Ingame Time: "  + (int)ingameTime + ";\n"
-					+ "Number of Forts... " + "All: " + fortsAll + ";" + "Left: " + fortsLeft + "; " + "Right: " + fortsRight + ";\n");
-
 			// Hard coded GameFlow here...
 		}
 	}
