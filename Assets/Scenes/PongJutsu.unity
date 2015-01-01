@@ -936,7 +936,7 @@ GameObject:
   - 61: {fileID: 1188006386}
   m_Layer: 0
   m_Name: River
-  m_TagString: Untagged
+  m_TagString: River
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1731,9 +1731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowPause: 1
-  allowRiverToggle: 1
-  disableRiverByDefault: 1
-  instantPlay: 0
+  instantPlay: 1
 --- !u!114 &1757980354
 MonoBehaviour:
   m_ObjectHideFlags: 0

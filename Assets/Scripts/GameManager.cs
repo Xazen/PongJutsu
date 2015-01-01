@@ -7,20 +7,13 @@ namespace PongJutsu
 	public class GameManager : MonoBehaviour
 	{
 		public bool allowPause = true;
-		public bool allowRiverToggle = false;
-		public bool disableRiverByDefault = true;
 		public bool instantPlay = false;
 
 		[HideInInspector] public static bool isPause = false;
 		[HideInInspector] public static bool isIngame = false;
 
-		private GameObject river;
-
 		void Awake()
 		{
-			river = GameObject.Find("River");
-			river.SetActive(false);
-
 			if (instantPlay)
 			{
 				GameObject.Find("UI").GetComponent<Animator>().SetBool("InstantGame", true);
@@ -33,8 +26,6 @@ namespace PongJutsu
 			if (!isIngame)
 			{
 				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
-
-				river.SetActive(!disableRiverByDefault);
 
 				foreach (GameSetup gs in this.GetComponents<GameSetup>())
 				{
@@ -71,8 +62,6 @@ namespace PongJutsu
 		{
 			if (allowPause && isIngame)
 				PauseToggle();
-			if (allowRiverToggle && isIngame && !isPause)
-				RiverToggle();
 		}
 
 		void PauseToggle()
@@ -88,14 +77,6 @@ namespace PongJutsu
 				Time.timeScale = 0;
 			else
 				Time.timeScale = 1;
-		}
-
-		void RiverToggle()
-		{
-			if (Input.GetButtonDown("River"))
-			{
-				river.SetActive(!river.activeSelf);
-			}
 		}
 	}
 }

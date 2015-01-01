@@ -21,13 +21,21 @@ namespace PongJutsu
 
 		private List<GameObject> spawnedItems = new List<GameObject>();
 
+		void Start()
+		{
+			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+		}
+
 		void Update()
 		{
-			nextSpawn -= Time.deltaTime;
-			if (nextSpawn <= 0)
+			if (GameManager.isIngame)
 			{
-				spawnItem();
-				nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+				nextSpawn -= Time.deltaTime;
+				if (nextSpawn <= 0)
+				{
+					spawnItem();
+					nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+				}
 			}
 		}
 
