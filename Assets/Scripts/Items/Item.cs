@@ -5,6 +5,8 @@ namespace PongJutsu
 {
 	public class Item : MonoBehaviour 
 	{
+		public int spawnProbability = 100;
+
 		public virtual void content(Collider2D col)
 		{
 			
