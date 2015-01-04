@@ -5,9 +5,19 @@ namespace PongJutsu
 {
 	public class GameSetup : MonoBehaviour
 	{
-		public virtual void run()
+		[HideInInspector] public GameObject Container;
+
+		public virtual void build()
 		{
-			Debug.Log(this);
+
+		}
+
+		public virtual void remove()
+		{
+			if (Container != null)
+			{
+				Destroy(Container);
+			}
 		}
 	}
 }

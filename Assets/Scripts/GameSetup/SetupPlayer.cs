@@ -12,15 +12,14 @@ namespace PongJutsu
 
 		private float internOffset = 0.5f;
 
-
-		public override void run()
+		public override void build()
 		{
-			base.run();
+			base.build();
+
+			Container = new GameObject("Players");
 
 			float width = GetComponent<SetupStage>().width;
 			float fortOffset = GetComponent<SetupForts>().width + GetComponent<SetupForts>().offset;
-
-			GameObject Container = new GameObject("Players");
 
 			// Player 1
 			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), Container, "PlayerLeft", "PlayerLeft").GetComponent<Player>().mirror = false;
@@ -38,6 +37,13 @@ namespace PongJutsu
 			instance.transform.position = position;
 
 			return instance;
+		}
+
+		public override void remove()
+		{
+			base.remove();
+
+			Destroy(Container);
 		}
 
 		void OnDrawGizmos()

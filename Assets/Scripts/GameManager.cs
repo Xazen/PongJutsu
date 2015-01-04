@@ -12,16 +12,22 @@ namespace PongJutsu
 		[HideInInspector] public static bool isPause = false;
 		[HideInInspector] public static bool isIngame = false;
 
+		private Animator UI;
+
+		private GameObject river;
+
 		void Awake()
 		{
+			UI = GameObject.Find("UI").GetComponent<Animator>();
+
 			if (instantPlay)
 			{
-				GameObject.Find("UI").GetComponent<Animator>().SetBool("InstantGame", true);
-				loadGame();
+				UI.SetBool("InstantGame", true);
+				LoadGame();
 			}
 		}
 
-		void loadGame()
+		public void LoadGame()
 		{
 			if (!isIngame)
 			{
@@ -29,32 +35,53 @@ namespace PongJutsu
 
 				foreach (GameSetup gs in this.GetComponents<GameSetup>())
 				{
-					gs.run();
+					gs.build();
 				}
 				this.GetComponent<GameFlow>().run();
 
 				isIngame = true;
+				isPause = false;
 			}
 		}
 
-		public void guie_Start()
+		public void UnloadGame()
 		{
-			GameObject.Find("UI").GetComponent<Animator>().SetTrigger("StartGame");
-			loadGame();
+			if (isIngame)
+			{
+				FindObjectOfType<EventSystem>().sendNavigationEvents = true;
+
+				foreach (GameSetup gs in this.GetComponents<GameSetup>())
+				{
+					gs.remove();
+				}
+				foreach (Shuriken s in FindObjectsOfType<Shuriken>())
+				{
+					Destroy(s.gameObject);
+				}
+
+				isIngame = false;
+				isPause = false;
+			}
 		}
-		public void guie_Options()
+
+		public void guiE_Start()
+		{
+			UI.SetTrigger("StartGame");
+			LoadGame();
+		}
+		public void guiE_Options()
 		{
 
 		}
-		public void guie_Credits()
+		public void guiE_Credits()
 		{
 
 		}
-		public void guie_Help()
+		public void guiE_Help()
 		{
 
 		}
-		public void guie_Exit()
+		public void guiE_Exit()
 		{
 			Application.Quit();
 		}
