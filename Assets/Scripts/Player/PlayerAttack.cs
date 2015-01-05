@@ -24,7 +24,7 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (!GameManager.isPause)
+			if (!GameManager.isPause && !GameManager.isEnd)
 			{
 				Shooting();
 			}

@@ -7,10 +7,10 @@ namespace PongJutsu
 	public class GameFlow : MonoBehaviour
 	{
 		// Parameters
-		private float ingameTime;
-		private int fortsAll;
-		private int fortsLeft;
-		private int fortsRight;
+		[HideInInspector] public float ingameTime;
+		[HideInInspector] public int fortsAll;
+		[HideInInspector] public int fortsLeft;
+		[HideInInspector] public int fortsRight;
 
 		// References
 		private GameObject playerLeft;
@@ -26,6 +26,8 @@ namespace PongJutsu
 			playerLeft = GameObject.FindGameObjectWithTag("PlayerLeft");
 			playerRight = GameObject.FindGameObjectWithTag("PlayerRight");
 			river = GameObject.FindGameObjectWithTag("River").GetComponent<River>();
+
+			UpdateParamters();
 		}
 
 		void Update()
