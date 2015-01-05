@@ -8,7 +8,7 @@ namespace PongJutsu
 		public void click_Start()
 		{
 			ui.SetTrigger("StartGame");
-			game.LoadGame();
+			game.StartGame();
 		}
 		public void click_Options()
 		{

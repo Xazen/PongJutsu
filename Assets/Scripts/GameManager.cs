@@ -28,7 +28,7 @@ namespace PongJutsu
 			}
 		}
 
-		public void LoadGame()
+		void LoadGame()
 		{
 			if (!isIngame)
 			{
@@ -40,13 +40,10 @@ namespace PongJutsu
 				}
 				this.GetComponent<GameFlow>().run();
 
-				isIngame = true;
-				isPause = false;
-				isEnd = false;
 			}
 		}
 
-		public void UnloadGame()
+		void UnloadGame()
 		{
 			if (isIngame)
 			{
@@ -60,11 +57,16 @@ namespace PongJutsu
 				{
 					Destroy(s.gameObject);
 				}
-
-				isIngame = false;
-				isPause = false;
-				isEnd = false;
 			}
+		}
+
+		public void StartGame()
+		{
+			LoadGame();
+
+			isIngame = true;
+			isPause = false;
+			isEnd = false;
 		}
 
 		public void PauseGame()
@@ -89,6 +91,15 @@ namespace PongJutsu
 			}
 
 			isEnd = true;
+		}
+
+		public void QuitGame()
+		{
+			UnloadGame();
+
+			isIngame = false;
+			isPause = false;
+			isEnd = false;
 		}
 
 		void Update()

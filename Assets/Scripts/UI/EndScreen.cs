@@ -8,7 +8,7 @@ namespace PongJutsu
 		public void click_Quit()
 		{
 			ui.SetTrigger("QuitGame");
-			game.UnloadGame();
+			game.QuitGame();
 		}
 	}
 }
