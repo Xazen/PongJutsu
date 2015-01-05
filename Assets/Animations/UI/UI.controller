@@ -14,12 +14,6 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: InstantGame
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
   - m_Name: QuitGame
     m_Type: 9
     m_DefaultFloat: 0
@@ -32,7 +26,19 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: ContinueGame
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: EndGame
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: InstantGame
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -106,6 +112,26 @@ Transition:
     m_ConditionEvent: QuitGame
     m_EventTreshold: 0
     m_ExitTime: .503879666
+  m_Atomic: 1
+  m_Solo: 0
+  m_Mute: 0
+  m_CanTransitionToSelf: 0
+--- !u!1101 &110110886
+Transition:
+  serializedVersion: 2
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_SrcState: {fileID: 110273107}
+  m_DstState: {fileID: 110200000}
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: ContinueGame
+    m_EventTreshold: 0
+    m_ExitTime: .5
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
@@ -362,6 +388,7 @@ StateMachine:
       first: {fileID: 110273107}
       second:
       - {fileID: 110109082}
+      - {fileID: 110110886}
     data:
       first: {fileID: 0}
       second:

@@ -24,6 +24,14 @@ namespace PongJutsu
 
 		void Update()
 		{
+			if (!GameManager.isPause)
+			{
+				Shooting();
+			}
+		}
+
+		void Shooting()
+		{
 			nextFire += Time.deltaTime;
 			if (nextFire >= firerate && shotCount < maxActiveShots)
 			{

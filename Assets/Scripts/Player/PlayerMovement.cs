@@ -32,8 +32,11 @@ namespace PongJutsu
 
 		void Update()
 		{
-			Dashing();
-			Movement();
+			if(!GameManager.isPause)
+			{
+				Dashing();
+				Movement();
+			}
 		}
 
 		void Dashing()

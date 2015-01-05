@@ -9,20 +9,20 @@ namespace PongJutsu
 		public bool allowPause = true;
 		public bool instantPlay = false;
 
-		[HideInInspector] public static bool isPause = false;
 		[HideInInspector] public static bool isIngame = false;
+		[HideInInspector] public static bool isPause = false;
 
-		private Animator UI;
+		private Animator ui;
 
 		private GameObject river;
 
 		void Awake()
 		{
-			UI = GameObject.Find("UI").GetComponent<Animator>();
+			ui = GameObject.Find("UI").GetComponent<Animator>();
 
 			if (instantPlay)
 			{
-				UI.SetBool("InstantGame", true);
+				ui.SetTrigger("InstantGame");
 				LoadGame();
 			}
 		}
@@ -64,25 +64,31 @@ namespace PongJutsu
 			}
 		}
 
+		public void PauseGame()
+		{
+			Time.timeScale = 0;
+			isPause = true;
+		}
+
+		public void ContinueGame()
+		{
+			Time.timeScale = 1;
+			isPause = false;
+		}
+
 		void Update()
 		{
 			if (allowPause && isIngame)
-				PauseToggle();
+				checkPause();
 		}
 
-		void PauseToggle()
+		void checkPause()
 		{
-			// Toggle Pause
-			if (Input.GetButtonDown("Pause"))
+			if (Input.GetButtonDown("Pause") && !isPause)
 			{
-				isPause = !isPause;
+				ui.SetTrigger("PauseGame");
+				PauseGame();
 			}
-
-			// Set TimeScale
-			if (isPause)
-				Time.timeScale = 0;
-			else
-				Time.timeScale = 1;
 		}
 	}
 }
