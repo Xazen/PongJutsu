@@ -14,15 +14,14 @@ namespace PongJutsu
 
 		public bool autoMirror = true;
 
-
-		public override void run()
+		public override void build()
 		{
-			base.run();
+			base.build();
+
+			Container = new GameObject("Forts");
 
 			float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().center.x;
 			float offsetY = GetComponent<SetupStage>().height;
-
-			GameObject Container = new GameObject("Forts");
 
 			// Forts Player 1
 			for (int i = 0; i < numberOfForts; i++)
@@ -52,6 +51,13 @@ namespace PongJutsu
 			instance.transform.position = position;
 
 			return instance;
+		}
+
+		public override void remove()
+		{
+			base.remove();
+
+			Destroy(Container);
 		}
 
 		void OnDrawGizmos()

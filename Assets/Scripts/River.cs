@@ -21,31 +21,65 @@ namespace PongJutsu
 
 		private List<GameObject> spawnedItems = new List<GameObject>();
 
+		void Start()
+		{
+			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+		}
+
 		void Update()
 		{
-			nextSpawn -= Time.deltaTime;
-			if (nextSpawn <= 0)
+			if (GameManager.isIngame)
 			{
-				spawnItem();
-				nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+				nextSpawn -= Time.deltaTime;
+				if (nextSpawn <= 0)
+				{
+					SpawnItem();
+					nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+				}
 			}
 		}
 
-		void spawnItem()
+		void SpawnItem()
 		{
-			// Set random position and item
-			int r = Random.Range(0, items.Length);
+			// Set random item
+			GameObject item = randomItem();
+
+			// Set random position
 			float xRange = width - itemCarrier.GetComponent<BoxCollider2D>().size.x;
 			float x = Random.Range(-xRange / 2, xRange / 2);
 			float y = (Mathf.Sign(flowSpeed) * -1 * height + itemCarrier.GetComponent<BoxCollider2D>().size.y) / 2;
 
 			// Create carrier
 			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), Quaternion.identity);
-			carrier.GetComponent<ItemCarrier>().instantiateItem(items[r]);
+			carrier.GetComponent<ItemCarrier>().instantiateItem(item);
 			carrier.GetComponent<ItemCarrier>().setVerticalSpeed(flowSpeed);
 			carrier.transform.parent = this.transform;
 
 			spawnedItems.Add(carrier);
+		}
+
+		// Return a random item based on spawn probabilities
+		GameObject randomItem()
+		{
+			int probabilitySum = 0;
+			foreach (GameObject item in items)
+			{
+				probabilitySum += item.GetComponent<Item>().spawnProbability;
+			}
+
+			int r = Random.Range(0, probabilitySum);
+
+			int cumulative = 0;
+			foreach (GameObject item in items)
+			{
+				cumulative += item.GetComponent<Item>().spawnProbability;
+				if (r < cumulative)
+				{
+					return item;
+				}
+			}
+
+			return null;
 		}
 
 		void OnTriggerExit2D(Collider2D col)

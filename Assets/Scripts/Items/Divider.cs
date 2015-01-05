@@ -31,6 +31,7 @@ namespace PongJutsu
 				shotInstance.GetComponent<Shuriken>().damage = (int)(col.GetComponent<Shuriken>().damage * damagePercentage);
 				shotInstance.GetComponent<Shuriken>().setInitialMovement((int)Mathf.Sign(col.GetComponent<Shuriken>().movement.x), col.GetComponent<Shuriken>().movement.y + movementY);
 				shotInstance.GetComponent<Shuriken>().bounceBack = col.GetComponent<Shuriken>().bounceBack;
+				shotInstance.GetComponent<Shuriken>().ignoreSpawnCollision = true;
 			}
 
 			Destroy(col.gameObject);

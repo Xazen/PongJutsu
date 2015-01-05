@@ -11,6 +11,7 @@ namespace PongJutsu
 		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
 		public bool selfCollision = false;
+		[HideInInspector] public bool ignoreSpawnCollision = false;
 
 		public int damage = 25;
 
@@ -18,6 +19,8 @@ namespace PongJutsu
 		public float explosionRadius = 2f;
 		public float explosionDamageMultiplier = 0.4f;
 		public bool explosionDamagerPerDistance = false;
+
+		public float reflectionDamageMultiplier = 0.8f;
 
 		public Color shurikenLeftColor = Color.red;
 		public Color shurikenRightColor = Color.blue;
@@ -29,6 +32,11 @@ namespace PongJutsu
 		[HideInInspector] public GameObject lastHitOwner;
 
 		[HideInInspector] public bool bounceBack = false;
+
+		void Awake()
+		{
+			speed *= GameFlow.shurikenSpeedMultiplier;
+		}
 
 		void Start()
 		{
@@ -67,12 +75,19 @@ namespace PongJutsu
 			// Get Collisions GameObject
 			GameObject colObject = col.gameObject;
 
-			if (colObject.tag == "Shuriken" && selfCollision)
+			// Collision with Shuriken
+			if (colObject.tag == "Shuriken" && selfCollision && !ignoreSpawnCollision)
 			{
 				Destroy(col.gameObject);
 				Destroy(this.gameObject);
 			}
-			
+
+			// Collision with Shields
+			if (colObject.tag == "Shield" && this.owner != colObject.transform.parent.gameObject)
+			{
+				damage = (int)(damage * this.reflectionDamageMultiplier);
+			}
+
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 				Explode(colObject);
@@ -103,11 +118,22 @@ namespace PongJutsu
 					movement.y = Mathf.Abs(movement.y);
 					this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f + this.GetComponent<CircleCollider2D>().radius * 1.15f);
 			}
+			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
+			{
+				Destroy(this.gameObject);
+			}
+		}
+
+		// prevent self collision on spawn
+		void OnTriggerExit2D(Collider2D col)
+		{
+			if (col.gameObject.tag == "Shuriken")
+				ignoreSpawnCollision = false;
 		}
 
 		public void adjustSpeed()
 		{
-			movement.x += (Mathf.Sqrt(Vector2.SqrMagnitude(movement)) - speed) * (Mathf.Sign(movement.x) * -1) * (speedAdjustment * 1.1f);
+			movement.x += (Mathf.Sqrt(Vector2.SqrMagnitude(movement)) - speed) * (Mathf.Sign(movement.x) * -1) * (speedAdjustment * 1.08f);
 		}
 
 		void Explode(GameObject hitObject)
