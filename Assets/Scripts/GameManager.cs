@@ -9,19 +9,26 @@ namespace PongJutsu
 		public bool allowPause = true;
 		public bool instantPlay = false;
 
-		[HideInInspector] public static bool isPause = false;
 		[HideInInspector] public static bool isIngame = false;
+		[HideInInspector] public static bool isPause = false;
+		[HideInInspector] public static bool isEnd = false;
+
+		private Animator ui;
+		private GameFlow flow;
 
 		void Awake()
 		{
+			ui = GameObject.Find("UI").GetComponent<Animator>();
+			flow = GameObject.FindObjectOfType<GameFlow>();
+
 			if (instantPlay)
 			{
-				GameObject.Find("UI").GetComponent<Animator>().SetBool("InstantGame", true);
-				loadGame();
+				ui.SetTrigger("InstantGame");
+				LoadGame();
 			}
 		}
 
-		void loadGame()
+		void LoadGame()
 		{
 			if (!isIngame)
 			{
@@ -29,55 +36,96 @@ namespace PongJutsu
 
 				foreach (GameSetup gs in this.GetComponents<GameSetup>())
 				{
-					gs.run();
+					gs.build();
 				}
 				this.GetComponent<GameFlow>().run();
 
-				isIngame = true;
 			}
 		}
 
-		public void guie_Start()
+		void UnloadGame()
 		{
-			GameObject.Find("UI").GetComponent<Animator>().SetTrigger("StartGame");
-			loadGame();
-		}
-		public void guie_Options()
-		{
+			if (isIngame)
+			{
+				FindObjectOfType<EventSystem>().sendNavigationEvents = true;
 
+				foreach (GameSetup gs in this.GetComponents<GameSetup>())
+				{
+					gs.remove();
+				}
+				foreach (Shuriken s in FindObjectsOfType<Shuriken>())
+				{
+					Destroy(s.gameObject);
+				}
+			}
 		}
-		public void guie_Credits()
-		{
 
-		}
-		public void guie_Help()
+		public void StartGame()
 		{
+			LoadGame();
 
+			isIngame = true;
+			isPause = false;
+			isEnd = false;
 		}
-		public void guie_Exit()
+
+		public void PauseGame()
 		{
-			Application.Quit();
+			Time.timeScale = 0;
+			isPause = true;
+		}
+
+		public void ContinueGame()
+		{
+			Time.timeScale = 1;
+			isPause = false;
+		}
+
+		public void EndGame()
+		{
+			ui.SetTrigger("EndGame");
+
+			foreach (PlayerMovement pm in GameObject.FindObjectsOfType<PlayerMovement>())
+			{
+				pm.stopMovement();
+			}
+
+			isEnd = true;
+		}
+
+		public void QuitGame()
+		{
+			UnloadGame();
+
+			isIngame = false;
+			isPause = false;
+			isEnd = false;
 		}
 
 		void Update()
 		{
 			if (allowPause && isIngame)
-				PauseToggle();
+				checkPause();
+
+			if (isIngame)
+				checkEnd();
 		}
 
-		void PauseToggle()
+		void checkPause()
 		{
-			// Toggle Pause
-			if (Input.GetButtonDown("Pause"))
+			if (Input.GetButtonDown("Pause") && !isPause && !isEnd)
 			{
-				isPause = !isPause;
+				ui.SetTrigger("PauseGame");
+				PauseGame();
 			}
+		}
 
-			// Set TimeScale
-			if (isPause)
-				Time.timeScale = 0;
-			else
-				Time.timeScale = 1;
+		void checkEnd()
+		{
+			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd)
+			{
+				EndGame();
+			}
 		}
 	}
 }

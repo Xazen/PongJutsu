@@ -10,15 +10,14 @@ namespace PongJutsu
 
 		private float boundaryThickness = 1;
 
-
-		public override void run()
+		public override void build()
 		{
-			base.run();
+			base.build();
+
+			Container = new GameObject("Boundaries");
 
 			float width = GetComponent<SetupStage>().width;
 			float height = GetComponent<SetupStage>().height;
-
-			GameObject Container = new GameObject("Boundaries");
 
 			// Boundary Top
 			spawnBoundary(new Vector2(0, height + boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), Container, "BoundaryTop", "BoundaryTop");
@@ -43,6 +42,13 @@ namespace PongJutsu
 			instance.transform.position = position;
 
 			return instance;
+		}
+
+		public override void remove()
+		{
+			base.remove();
+
+			Destroy(Container);
 		}
 
 		void OnDrawGizmos()
