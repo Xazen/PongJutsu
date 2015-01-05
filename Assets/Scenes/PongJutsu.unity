@@ -183,6 +183,7 @@ GameObject:
   - 223: {fileID: 163740743}
   - 114: {fileID: 163740742}
   - 114: {fileID: 163740741}
+  - 114: {fileID: 163740744}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -268,6 +269,19 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!114 &163740744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 163740739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd254d0a16ce51459c048c51ba0fcc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game: {fileID: 0}
+  ui: {fileID: 0}
 --- !u!1 &210897892
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,8 +488,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757980353}
-        m_MethodName: guiE_Options
+      - m_Target: {fileID: 163740744}
+        m_MethodName: click_Options
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -683,8 +697,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757980353}
-        m_MethodName: guiE_Exit
+      - m_Target: {fileID: 163740744}
+        m_MethodName: click_Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1043,8 +1057,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757980353}
-        m_MethodName: guiE_Start
+      - m_Target: {fileID: 163740744}
+        m_MethodName: click_Start
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1160,8 +1174,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757980353}
-        m_MethodName: guiE_Credits
+      - m_Target: {fileID: 163740744}
+        m_MethodName: click_Credits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1873,8 +1887,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1757980353}
-        m_MethodName: guiE_Help
+      - m_Target: {fileID: 163740744}
+        m_MethodName: click_Help
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

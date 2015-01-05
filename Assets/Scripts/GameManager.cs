@@ -64,28 +64,6 @@ namespace PongJutsu
 			}
 		}
 
-		public void guiE_Start()
-		{
-			UI.SetTrigger("StartGame");
-			LoadGame();
-		}
-		public void guiE_Options()
-		{
-
-		}
-		public void guiE_Credits()
-		{
-
-		}
-		public void guiE_Help()
-		{
-
-		}
-		public void guiE_Exit()
-		{
-			Application.Quit();
-		}
-
 		void Update()
 		{
 			if (allowPause && isIngame)
