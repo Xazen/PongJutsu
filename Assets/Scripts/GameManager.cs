@@ -24,7 +24,7 @@ namespace PongJutsu
 			if (instantPlay)
 			{
 				ui.SetTrigger("InstantGame");
-				LoadGame();
+				StartGame();
 			}
 		}
 
@@ -38,6 +38,9 @@ namespace PongJutsu
 				{
 					gs.build();
 				}
+
+				GameObject.FindObjectOfType<River>().Reset();
+
 				this.GetComponent<GameFlow>().run();
 
 			}

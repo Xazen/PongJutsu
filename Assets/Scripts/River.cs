@@ -12,30 +12,35 @@ namespace PongJutsu
 
 		public float spawnFrequency = 5f;
 		public float frequencyRandomizer = 2f;
-		private float nextSpawn = 0f;
+		private float nextSpawn;
 
 		public float flowSpeed = -1f;
 
-		public GameObject itemCarrier;
+		[SerializeField] private GameObject itemCarrier;
 		public GameObject[] items = new GameObject[0];
 
 		private List<GameObject> spawnedItems = new List<GameObject>();
 
-		void Start()
+		void Update()
+		{
+			if (GameManager.isIngame && !GameManager.isPause)
+			{
+				checkSpawn();
+			}
+		}
+
+		void setNextSpawn()
 		{
 			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
 		}
 
-		void Update()
+		void checkSpawn()
 		{
-			if (GameManager.isIngame)
+			nextSpawn -= Time.deltaTime;
+			if (nextSpawn <= 0)
 			{
-				nextSpawn -= Time.deltaTime;
-				if (nextSpawn <= 0)
-				{
-					SpawnItem();
-					nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
-				}
+				SpawnItem();
+				setNextSpawn();
 			}
 		}
 
@@ -89,6 +94,15 @@ namespace PongJutsu
 			{
 				Destroy(col.gameObject);
 			}
+		}
+
+		public void Reset()
+		{
+			foreach (GameObject item in spawnedItems)
+			{
+				Destroy(item);
+			}
+			setNextSpawn();
 		}
 
 		void OnDrawGizmos()
