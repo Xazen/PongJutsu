@@ -16,6 +16,7 @@ namespace PongJutsu
 		private GameObject playerLeft;
 		private GameObject playerRight;
 		private River river;
+		private Shuriken shuriken;
 
 		[HideInInspector] public static float shurikenSpeedMultiplier = 1f;
 
@@ -26,8 +27,15 @@ namespace PongJutsu
 			playerLeft = GameObject.FindGameObjectWithTag("PlayerLeft");
 			playerRight = GameObject.FindGameObjectWithTag("PlayerRight");
 			river = GameObject.FindGameObjectWithTag("River").GetComponent<River>();
+			shuriken = Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/Shuriken.prefab").GetComponent<Shuriken>();
 
+			makeDefaultValues();
 			UpdateParamters();
+		}
+
+		void OnApplicationQuit()
+		{
+			makeDefaultValues();
 		}
 
 		void Update()
@@ -67,9 +75,17 @@ namespace PongJutsu
 			fortsRight = fortsRightCount;
 		}
 
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		void makeDefaultValues()
+		{
+			shuriken.speed = Value.Store("shurikenSpeed", shuriken.speed);
+		}
+
 		void UpdateFlow()
 		{
 			// Hard coded GameFlow here...
+			shuriken.speed = Value.Get("shurikenSpeed") * (1f + ingameTime / 100f);
 		}
 	}
 }
