@@ -8,14 +8,17 @@ namespace PongJutsu
 	{
 		private static List<Variable> variables = new List<Variable>();
 
-		public static float Store(string name, float value)
+		public static float Assign(string name, float value)
 		{
 			if (!variables.Exists(x => x.name == name))
+			{
 				variables.Add(new Variable(name, value));
+				return value;
+			}
 			else
+			{
 				return Get(name);
-				//variables[variables.FindIndex(x => x.name == name)].value = value;
-			return value;
+			}
 		}
 
 		public static float Get(string name)

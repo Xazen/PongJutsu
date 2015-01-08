@@ -17,9 +17,17 @@ namespace PongJutsu
 		public float flowSpeed = -1f;
 
 		[SerializeField] private GameObject itemCarrier;
-		public GameObject[] items = new GameObject[0];
+
+		[SerializeField] private GameObject[] items = new GameObject[0];
+		public Dictionary<string, Item> itemList = new Dictionary<string, Item>();
 
 		private List<GameObject> spawnedItems = new List<GameObject>();
+
+		void Awake()
+		{
+			foreach (GameObject item in items)
+				itemList.Add(item.name, item.GetComponent<Item>());
+		}
 
 		void Update()
 		{
