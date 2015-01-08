@@ -149,7 +149,7 @@ Transform:
   - {fileID: 516479623}
   - {fileID: 1680450309}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!95 &54465491
 Animator:
   serializedVersion: 3
@@ -914,67 +914,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: .5, y: .5}
---- !u!1 &1188006383
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1188006385}
-  - 114: {fileID: 1188006384}
-  - 61: {fileID: 1188006386}
-  m_Layer: 0
-  m_Name: River
-  m_TagString: River
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1188006384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1188006383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5f4c4820882534c9a567e10135179d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 1.70000005
-  height: 11.6000004
-  snapToVertical: 0
-  spawnFrequency: 9
-  frequencyRandomizer: 3
-  flowSpeed: -2
-  itemCarrier: {fileID: 100000, guid: 2a5c3962f1f8f3d469031e980b4c84ae, type: 2}
-  items:
-  - {fileID: 100000, guid: 07965d301497b874888a6af330328875, type: 2}
-  - {fileID: 100000, guid: ecc277290d5ef274097578fcc14a8da2, type: 2}
---- !u!4 &1188006385
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1188006383}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
---- !u!61 &1188006386
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1188006383}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Size: {x: 1.70000005, y: 11.6000004}
-  m_Center: {x: 0, y: 0}
 --- !u!1 &1205523906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,6 +1737,7 @@ GameObject:
   - 114: {fileID: 1757980356}
   - 114: {fileID: 1757980355}
   - 114: {fileID: 1757980354}
+  - 114: {fileID: 1757980360}
   - 114: {fileID: 1757980353}
   - 114: {fileID: 1757980359}
   m_Layer: 9
@@ -1831,7 +1771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7e6c744a65371419b38a5634ee20e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Container: {fileID: 0}
+  MainInstance: {fileID: 0}
   playerPrefab: {fileID: 100004, guid: bdc082fda1c2ccc4c871513a95fe9e35, type: 2}
   offset: .899999976
   autoMirror: 1
@@ -1846,7 +1786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6fa6719989b31439f8f0f01fa43a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Container: {fileID: 0}
+  MainInstance: {fileID: 0}
   boundaryPrefab: {fileID: 100000, guid: f0af85b6d0f16e147ad604c9254e52f3, type: 2}
 --- !u!114 &1757980356
 MonoBehaviour:
@@ -1859,7 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a15e3c4fe45574bbc84e6425b44fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Container: {fileID: 0}
+  MainInstance: {fileID: 0}
   fortPrefab: {fileID: 100000, guid: 93d921584172c194b9b6fd12053632dc, type: 2}
   numberOfForts: 5
   width: 1
@@ -1876,7 +1816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8d3dd50d896b84bb6b0563fa49c02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Container: {fileID: 0}
+  MainInstance: {fileID: 0}
   width: 10.3013048
   height: 4.19999981
   snapToVertical: 0
@@ -1907,6 +1847,19 @@ MonoBehaviour:
   fortsAll: 0
   fortsLeft: 0
   fortsRight: 0
+--- !u!114 &1757980360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1757980352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf451b1db5976ad45bbafbd9b836c8a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainInstance: {fileID: 0}
+  riverPrefab: {fileID: 138860, guid: 6cfe2f26f19124742bfb651dead58541, type: 2}
 --- !u!1 &1806585992
 GameObject:
   m_ObjectHideFlags: 0

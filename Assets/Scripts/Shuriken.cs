@@ -33,11 +33,6 @@ namespace PongJutsu
 
 		[HideInInspector] public bool bounceBack = false;
 
-		void Awake()
-		{
-			speed *= GameFlow.shurikenSpeedMultiplier;
-		}
-
 		void Start()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;

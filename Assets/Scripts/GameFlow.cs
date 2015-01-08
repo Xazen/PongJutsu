@@ -18,8 +18,6 @@ namespace PongJutsu
 		private River river;
 		private Shuriken shuriken;
 
-		[HideInInspector] public static float shurikenSpeedMultiplier = 1f;
-
 		public void run()
 		{
 			ingameTime = 0f;

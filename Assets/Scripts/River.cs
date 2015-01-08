@@ -27,6 +27,8 @@ namespace PongJutsu
 		{
 			foreach (GameObject item in items)
 				itemList.Add(item.name, item.GetComponent<Item>());
+
+			this.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
 		}
 
 		void Update()
@@ -111,19 +113,6 @@ namespace PongJutsu
 				Destroy(item);
 			}
 			setNextSpawn();
-		}
-
-		void OnDrawGizmos()
-		{
-			Gizmos.color = new Color(0.4f, 0.4f, 0.7f, 0.4f);
-
-			if (snapToVertical)
-			{
-				height = Camera.main.orthographicSize * 2;
-				snapToVertical = false;
-			}
-
-			Gizmos.DrawCube(new Vector2(0, 0), new Vector2(width, height));
 		}
 	}
 }
