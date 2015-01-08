@@ -88,7 +88,6 @@ namespace PongJutsu
 		{
 			// Hard coded GameFlow here...
 			shuriken.speed = Value.Get("shurikenSpeed") * (1f + ingameTime / 100f);
-			river.itemList["Divider"].spawnProbability = (int)Mathf.Clamp(ingameTime, 0f, 100f);
 		}
 	}
 }
