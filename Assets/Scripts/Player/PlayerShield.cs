@@ -50,10 +50,13 @@ namespace PongJutsu
 
 					shuriken.lastHitOwner = this.transform.parent.gameObject;
 					shuriken.bounceBack = true;
+
+					this.transform.parent.GetComponent<Player>().addCombo();
 				}
 				// Catch
 				else if (shuriken.owner == this.transform.parent.gameObject && shuriken.bounceBack)
 				{
+					this.transform.parent.GetComponent<Player>().addCombo();
 					Destroy(shurikenGameObject);
 				}
 			}

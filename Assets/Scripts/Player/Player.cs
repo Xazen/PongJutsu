@@ -11,9 +11,13 @@ namespace PongJutsu
 		public bool mirror = false;
 		[HideInInspector] public int direction = 1;
 
+		[HideInInspector] public int comboCount { get; private set; }
+
 
 		void Start()
 		{
+			comboCount = 0;
+
 			if (mirror)
 			{
 				// Mirror the Player
@@ -27,6 +31,15 @@ namespace PongJutsu
 				this.GetComponent<Animator>().runtimeAnimatorController = ninjaLeftController;
 			else if (this.tag == "PlayerRight")
 				this.GetComponent<Animator>().runtimeAnimatorController = ninjaRightController;
+		}
+
+		public void addCombo()
+		{
+			comboCount++;
+		}
+		public void resetCombo()
+		{
+			comboCount = 0;
 		}
 
 		// --- Forward animation event (ae) ---
