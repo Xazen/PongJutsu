@@ -39,10 +39,9 @@ namespace PongJutsu
 					gs.build();
 				}
 
-				GameObject.FindObjectOfType<River>().Reset();
+				resetChangedPrefabs();
 
 				this.GetComponent<GameFlow>().run();
-
 			}
 		}
 
@@ -52,6 +51,8 @@ namespace PongJutsu
 			{
 				FindObjectOfType<EventSystem>().sendNavigationEvents = true;
 
+				resetChangedPrefabs();
+
 				foreach (GameSetup gs in this.GetComponents<GameSetup>())
 				{
 					gs.remove();
@@ -60,6 +61,46 @@ namespace PongJutsu
 				{
 					Destroy(s.gameObject);
 				}
+			}
+		}
+
+		void resetChangedPrefabs()
+		{
+			foreach (Item item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
+				item.resetProbability();
+
+			Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/Shuriken.prefab").GetComponent<Shuriken>().reset();
+		}
+
+		void OnApplicationQuit()
+		{
+			if (GameManager.isIngame)
+				resetChangedPrefabs();
+		}
+
+		void Update()
+		{
+			if (allowPause && isIngame)
+				checkPause();
+
+			if (isIngame)
+				checkEnd();
+		}
+
+		void checkPause()
+		{
+			if (Input.GetButtonDown("Pause") && !isPause && !isEnd)
+			{
+				ui.SetTrigger("PauseGame");
+				PauseGame();
+			}
+		}
+
+		void checkEnd()
+		{
+			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd)
+			{
+				EndGame();
 			}
 		}
 
@@ -103,32 +144,6 @@ namespace PongJutsu
 			isIngame = false;
 			isPause = false;
 			isEnd = false;
-		}
-
-		void Update()
-		{
-			if (allowPause && isIngame)
-				checkPause();
-
-			if (isIngame)
-				checkEnd();
-		}
-
-		void checkPause()
-		{
-			if (Input.GetButtonDown("Pause") && !isPause && !isEnd)
-			{
-				ui.SetTrigger("PauseGame");
-				PauseGame();
-			}
-		}
-
-		void checkEnd()
-		{
-			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd)
-			{
-				EndGame();
-			}
 		}
 	}
 }

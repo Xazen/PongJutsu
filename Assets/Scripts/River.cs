@@ -29,6 +29,8 @@ namespace PongJutsu
 				itemList.Add(item.name, item.GetComponent<Item>());
 
 			this.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
+
+			setNextSpawn();
 		}
 
 		void Update()
@@ -104,15 +106,6 @@ namespace PongJutsu
 			{
 				Destroy(col.gameObject);
 			}
-		}
-
-		public void Reset()
-		{
-			foreach (GameObject item in spawnedItems)
-			{
-				Destroy(item);
-			}
-			setNextSpawn();
 		}
 	}
 }

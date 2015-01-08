@@ -27,19 +27,13 @@ namespace PongJutsu
 			river = GameObject.FindGameObjectWithTag("River").GetComponent<River>();
 			shuriken = Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/Shuriken.prefab").GetComponent<Shuriken>();
 
-			setDefaultValues();
 			UpdateParamters();
-		}
-
-		void OnApplicationQuit()
-		{
-			if (GameManager.isIngame)
-				setDefaultValues();
+			StartFlow();
 		}
 
 		void Update()
 		{
-			if (GameManager.isIngame)
+			if (GameManager.isIngame && !GameManager.isPause && !GameManager.isEnd)
 			{
 				UpdateParamters();
 				UpdateFlow();
@@ -75,19 +69,18 @@ namespace PongJutsu
 		}
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// Hard coded GameFlow here...
 
-		void setDefaultValues()
+		float initShurikenSpeed;
+
+		void StartFlow()
 		{
-			foreach (Item item in river.itemList.Values)
-				item.resetProbability();
-
-			shuriken.speed = Value.Assign("shurikenSpeed", shuriken.speed);
+			initShurikenSpeed = shuriken.speed;
 		}
 
 		void UpdateFlow()
 		{
-			// Hard coded GameFlow here...
-			shuriken.speed = Value.Get("shurikenSpeed") * (1f + ingameTime / 100f);
+			shuriken.speed = initShurikenSpeed * (1f + ingameTime / 100f);
 		}
 	}
 }

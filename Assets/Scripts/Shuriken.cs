@@ -7,26 +7,26 @@ namespace PongJutsu
 	{
 
 		public float speed = 7f;
-		public float speedAdjustment = 1.05f;
+		[SerializeField] private float speedAdjustment = 1.05f;
 		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
-		public bool selfCollision = false;
+		[SerializeField] private bool selfCollision = false;
 		[HideInInspector] public bool ignoreSpawnCollision = false;
 
 		public int damage = 25;
 
-		public GameObject explosion;
+		[SerializeField] private GameObject explosion;
 		public float explosionRadius = 2f;
-		public float explosionDamageMultiplier = 0.4f;
-		public bool explosionDamagerPerDistance = false;
+		[SerializeField] private float explosionDamageMultiplier = 0.4f;
+		[SerializeField] private bool explosionDamagerPerDistance = false;
 
 		public float reflectionDamageMultiplier = 0.8f;
 
-		public Color shurikenLeftColor = Color.red;
-		public Color shurikenRightColor = Color.blue;
+		[SerializeField] private Color shurikenLeftColor = Color.red;
+		[SerializeField] private Color shurikenRightColor = Color.blue;
 
-		public Sprite shurikenLeftSprite;
-		public Sprite shurikenRightSprite;
+		[SerializeField] private Sprite shurikenLeftSprite;
+		[SerializeField] private Sprite shurikenRightSprite;
 
 		[HideInInspector] public GameObject owner;
 		[HideInInspector] public GameObject lastHitOwner;
@@ -49,6 +49,15 @@ namespace PongJutsu
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
 			}
+		}
+
+		public void reset()
+		{
+			speed = Value.Assign("speed", speed);
+			damage = (int)Value.Assign("damage", (float)damage);
+			explosionRadius = Value.Assign("explosionRadius", explosionRadius);
+			explosionDamageMultiplier = Value.Assign("explosionDamageMultiplier", explosionDamageMultiplier);
+			reflectionDamageMultiplier = Value.Assign("reflectionDamageMultiplier", reflectionDamageMultiplier);
 		}
 
 		public void setInitialMovement(int directionX, float movementY)
