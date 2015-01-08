@@ -11,13 +11,11 @@ namespace PongJutsu
 		public bool mirror = false;
 		[HideInInspector] public int direction = 1;
 
-		[HideInInspector] public int comboCount { get; private set; }
+		[HideInInspector] public int comboCount = 0;
 
 
 		void Start()
 		{
-			comboCount = 0;
-
 			if (mirror)
 			{
 				// Mirror the Player

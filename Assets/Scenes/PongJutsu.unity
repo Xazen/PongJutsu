@@ -1847,6 +1847,8 @@ MonoBehaviour:
   fortsAll: 0
   fortsLeft: 0
   fortsRight: 0
+  combosPlayerLeft: 0
+  combosPlayerRight: 0
 --- !u!114 &1757980360
 MonoBehaviour:
   m_ObjectHideFlags: 0

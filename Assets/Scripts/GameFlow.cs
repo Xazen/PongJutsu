@@ -11,6 +11,8 @@ namespace PongJutsu
 		[HideInInspector] public int fortsAll;
 		[HideInInspector] public int fortsLeft;
 		[HideInInspector] public int fortsRight;
+		[HideInInspector] public int combosPlayerLeft;
+		[HideInInspector] public int combosPlayerRight;
 
 		// References
 		private GameObject playerLeft;
@@ -66,6 +68,9 @@ namespace PongJutsu
 			fortsAll = fortsLeftCount + fortsRightCount;
 			fortsLeft = fortsLeftCount;
 			fortsRight = fortsRightCount;
+
+			combosPlayerLeft = playerLeft.GetComponent<Player>().comboCount;
+			combosPlayerRight = playerRight.GetComponent<Player>().comboCount;
 		}
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
