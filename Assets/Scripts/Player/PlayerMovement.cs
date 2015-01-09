@@ -32,8 +32,11 @@ namespace PongJutsu
 
 		void Update()
 		{
-			Dashing();
-			Movement();
+			if(!GameManager.isPause && !GameManager.isEnd)
+			{
+				Dashing();
+				Movement();
+			}
 		}
 
 		void Dashing()
@@ -140,7 +143,17 @@ namespace PongJutsu
 				this.GetComponentInChildren<Animator>().speed = 1f;
 		}
 
-		static float Direction(float f)
+		public void stopMovement()
+		{
+			// Set animation
+			this.GetComponentInChildren<Animator>().speed = 1f;
+			this.GetComponentInChildren<Animator>().SetFloat("Movement", 0f);
+			this.GetComponentInChildren<Animator>().SetInteger("Direction", 0);
+			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
+			this.GetComponentInChildren<Animator>().SetInteger("Input", 0);
+		}
+
+		float Direction(float f)
 		{
 			if (f != 0f)
 				f = Mathf.Sign(f);

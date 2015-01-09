@@ -18,7 +18,7 @@ namespace PongJutsu
 		{
 			base.build();
 
-			Container = new GameObject("Forts");
+			MainInstance = new GameObject("Forts");
 
 			float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().center.x;
 			float offsetY = GetComponent<SetupStage>().height;
@@ -28,7 +28,7 @@ namespace PongJutsu
 			{
 				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 				Vector2 position = new Vector2(-offsetX - -width / 2, size.y * i - offsetY + size.y / 2);
-				spawnFort(position, size, Container, "FortLeft", "FortLeft", i);
+				spawnFort(position, size, MainInstance, "FortLeft", "FortLeft", i);
 			}
 
 			// Forts Player 2
@@ -36,7 +36,7 @@ namespace PongJutsu
 			{
 				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 				Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
-				spawnFort(position, size, Container, "FortRight", "FortRight", i).GetComponent<Fort>().mirror = autoMirror;
+				spawnFort(position, size, MainInstance, "FortRight", "FortRight", i).GetComponent<Fort>().mirror = autoMirror;
 			}
 		}
 
@@ -51,13 +51,6 @@ namespace PongJutsu
 			instance.transform.position = position;
 
 			return instance;
-		}
-
-		public override void remove()
-		{
-			base.remove();
-
-			Destroy(Container);
 		}
 
 		void OnDrawGizmos()

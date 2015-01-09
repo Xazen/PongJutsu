@@ -14,22 +14,22 @@ namespace PongJutsu
 		{
 			base.build();
 
-			Container = new GameObject("Boundaries");
+			MainInstance = new GameObject("Boundaries");
 
 			float width = GetComponent<SetupStage>().width;
 			float height = GetComponent<SetupStage>().height;
 
 			// Boundary Top
-			spawnBoundary(new Vector2(0, height + boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), Container, "BoundaryTop", "BoundaryTop");
+			spawnBoundary(new Vector2(0, height + boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), MainInstance, "BoundaryTop", "BoundaryTop");
 
 			// Boundary Bottom
-			spawnBoundary(new Vector2(0, -height - boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), Container, "BoundaryBottom", "BoundaryBottom");
+			spawnBoundary(new Vector2(0, -height - boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), MainInstance, "BoundaryBottom", "BoundaryBottom");
 
 			// Boundary Left
-			spawnBoundary(new Vector2(-width - boundaryThickness / 2, 0), new Vector2(boundaryThickness, height * 2), Container, "BoundaryLeft", "BoundaryLeft");
+			spawnBoundary(new Vector2(-width - boundaryThickness / 2, 0), new Vector2(boundaryThickness, height * 2), MainInstance, "BoundaryLeft", "BoundaryLeft");
 
 			// Boundary Right
-			spawnBoundary(new Vector2(width + boundaryThickness / 2, 0), new Vector2(boundaryThickness, height * 2), Container, "BoundaryRight", "BoundaryRight");
+			spawnBoundary(new Vector2(width + boundaryThickness / 2, 0), new Vector2(boundaryThickness, height * 2), MainInstance, "BoundaryRight", "BoundaryRight");
 		}
 
 		private GameObject spawnBoundary(Vector2 position, Vector2 size, GameObject parent, string name, string tag)
@@ -42,13 +42,6 @@ namespace PongJutsu
 			instance.transform.position = position;
 
 			return instance;
-		}
-
-		public override void remove()
-		{
-			base.remove();
-
-			Destroy(Container);
 		}
 
 		void OnDrawGizmos()

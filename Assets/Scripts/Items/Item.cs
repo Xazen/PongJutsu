@@ -6,6 +6,15 @@ namespace PongJutsu
 	public class Item : MonoBehaviour 
 	{
 		public int spawnProbability = 100;
+		[System.NonSerialized] private int _spawnProbability = -1;
+
+		public void resetProbability()
+		{
+			if (_spawnProbability == -1)
+				_spawnProbability = spawnProbability;
+			else
+				spawnProbability = _spawnProbability;
+		}
 
 		public virtual void content(Collider2D col)
 		{

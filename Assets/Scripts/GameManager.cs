@@ -9,25 +9,26 @@ namespace PongJutsu
 		public bool allowPause = true;
 		public bool instantPlay = false;
 
-		[HideInInspector] public static bool isPause = false;
 		[HideInInspector] public static bool isIngame = false;
+		[HideInInspector] public static bool isPause = false;
+		[HideInInspector] public static bool isEnd = false;
 
-		private Animator UI;
-
-		private GameObject river;
+		private Animator ui;
+		private GameFlow flow;
 
 		void Awake()
 		{
-			UI = GameObject.Find("UI").GetComponent<Animator>();
+			ui = GameObject.Find("UI").GetComponent<Animator>();
+			flow = GameObject.FindObjectOfType<GameFlow>();
 
 			if (instantPlay)
 			{
-				UI.SetBool("InstantGame", true);
-				LoadGame();
+				ui.SetTrigger("InstantGame");
+				StartGame();
 			}
 		}
 
-		public void LoadGame()
+		void LoadGame()
 		{
 			if (!isIngame)
 			{
@@ -37,18 +38,20 @@ namespace PongJutsu
 				{
 					gs.build();
 				}
-				this.GetComponent<GameFlow>().run();
 
-				isIngame = true;
-				isPause = false;
+				resetChangedPrefabs();
+
+				this.GetComponent<GameFlow>().run();
 			}
 		}
 
-		public void UnloadGame()
+		void UnloadGame()
 		{
 			if (isIngame)
 			{
 				FindObjectOfType<EventSystem>().sendNavigationEvents = true;
+
+				resetChangedPrefabs();
 
 				foreach (GameSetup gs in this.GetComponents<GameSetup>())
 				{
@@ -58,53 +61,89 @@ namespace PongJutsu
 				{
 					Destroy(s.gameObject);
 				}
-
-				isIngame = false;
-				isPause = false;
 			}
 		}
 
-		public void guiE_Start()
+		void resetChangedPrefabs()
 		{
-			UI.SetTrigger("StartGame");
-			LoadGame();
-		}
-		public void guiE_Options()
-		{
+			foreach (Item item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
+				item.resetProbability();
 
+			Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/Shuriken.prefab").GetComponent<Shuriken>().reset();
 		}
-		public void guiE_Credits()
-		{
 
-		}
-		public void guiE_Help()
+		void OnApplicationQuit()
 		{
-
-		}
-		public void guiE_Exit()
-		{
-			Application.Quit();
+			if (GameManager.isIngame)
+				resetChangedPrefabs();
 		}
 
 		void Update()
 		{
 			if (allowPause && isIngame)
-				PauseToggle();
+				checkPause();
+
+			if (isIngame)
+				checkEnd();
 		}
 
-		void PauseToggle()
+		void checkPause()
 		{
-			// Toggle Pause
-			if (Input.GetButtonDown("Pause"))
+			if (Input.GetButtonDown("Pause") && !isPause && !isEnd)
 			{
-				isPause = !isPause;
+				ui.SetTrigger("PauseGame");
+				PauseGame();
+			}
+		}
+
+		void checkEnd()
+		{
+			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd)
+			{
+				EndGame();
+			}
+		}
+
+		public void StartGame()
+		{
+			LoadGame();
+
+			isIngame = true;
+			isPause = false;
+			isEnd = false;
+		}
+
+		public void PauseGame()
+		{
+			Time.timeScale = 0;
+			isPause = true;
+		}
+
+		public void ContinueGame()
+		{
+			Time.timeScale = 1;
+			isPause = false;
+		}
+
+		public void EndGame()
+		{
+			ui.SetTrigger("EndGame");
+
+			foreach (PlayerMovement pm in GameObject.FindObjectsOfType<PlayerMovement>())
+			{
+				pm.stopMovement();
 			}
 
-			// Set TimeScale
-			if (isPause)
-				Time.timeScale = 0;
-			else
-				Time.timeScale = 1;
+			isEnd = true;
+		}
+
+		public void QuitGame()
+		{
+			UnloadGame();
+
+			isIngame = false;
+			isPause = false;
+			isEnd = false;
 		}
 	}
 }
