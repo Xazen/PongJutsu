@@ -5,10 +5,19 @@ namespace PongJutsu
 {
 	public class PauseScreen : UIScript
 	{
-		public void click_Continue()
+		public void click_Resume()
 		{
-			ui.SetTrigger("ContinueGame");
-			game.ContinueGame();
+			game.ResumeGame();
+		}
+		
+		public void click_Help()
+		{
+
+		}
+
+		public void click_Exit()
+		{
+			game.ExitGame();
 		}
 	}
 }

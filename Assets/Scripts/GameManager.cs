@@ -49,6 +49,8 @@ namespace PongJutsu
 				isPause = false;
 				isEnd = false;
 				allowInput = true;
+
+				Time.timeScale = 1;
 			}
 		}
 
@@ -73,6 +75,8 @@ namespace PongJutsu
 				isPause = false;
 				isEnd = false;
 				allowInput = false;
+
+				Time.timeScale = 1;
 			}
 		}
 
@@ -103,14 +107,13 @@ namespace PongJutsu
 		{
 			if (Input.GetButtonDown("Pause") && !isPause && !isEnd)
 			{
-				ui.SetTrigger("PauseGame");
 				PauseGame();
 			}
 		}
 
 		void updateEnd()
 		{
-			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd)
+			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd && !isPause)
 			{
 				EndGame();
 			}
@@ -126,10 +129,14 @@ namespace PongJutsu
 			Time.timeScale = 0;
 			isPause = true;
 			allowInput = false;
+	
+			ui.SetTrigger("PauseGame");
 		}
 
-		public void ContinueGame()
+		public void ResumeGame()
 		{
+			ui.SetTrigger("ResumeGame");
+
 			Time.timeScale = 1;
 			isPause = false;
 			allowInput = true;
@@ -154,8 +161,9 @@ namespace PongJutsu
 			allowInput = false;
 		}
 
-		public void QuitGame()
+		public void ExitGame()
 		{
+			ui.SetTrigger("ExitGame");
 			UnloadGame();
 		}
 	}
