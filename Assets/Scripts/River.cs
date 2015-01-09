@@ -35,7 +35,7 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (GameManager.isIngame && !GameManager.isPause)
+			if (!GameManager.isPause)
 			{
 				checkSpawn();
 			}

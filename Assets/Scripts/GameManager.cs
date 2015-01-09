@@ -12,6 +12,7 @@ namespace PongJutsu
 		[HideInInspector] public static bool isIngame = false;
 		[HideInInspector] public static bool isPause = false;
 		[HideInInspector] public static bool isEnd = false;
+		[HideInInspector] public static bool allowInput = false;
 
 		private Animator ui;
 		private GameFlow flow;
@@ -59,7 +60,7 @@ namespace PongJutsu
 				}
 				foreach (Shuriken s in FindObjectsOfType<Shuriken>())
 				{
-					Destroy(s.gameObject);
+					DestroyImmediate(s.gameObject);
 				}
 			}
 		}
@@ -111,18 +112,27 @@ namespace PongJutsu
 			isIngame = true;
 			isPause = false;
 			isEnd = false;
+			allowInput = true;
 		}
 
 		public void PauseGame()
 		{
 			Time.timeScale = 0;
 			isPause = true;
+			allowInput = false;
 		}
 
 		public void ContinueGame()
 		{
 			Time.timeScale = 1;
 			isPause = false;
+			allowInput = true;
+		}
+
+		public void RestartGame()
+		{
+			QuitGame();
+			StartGame();
 		}
 
 		public void EndGame()
@@ -135,6 +145,7 @@ namespace PongJutsu
 			}
 
 			isEnd = true;
+			allowInput = false;
 		}
 
 		public void QuitGame()
@@ -144,6 +155,7 @@ namespace PongJutsu
 			isIngame = false;
 			isPause = false;
 			isEnd = false;
+			allowInput = false;
 		}
 	}
 }
