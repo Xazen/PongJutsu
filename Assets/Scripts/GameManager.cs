@@ -105,9 +105,12 @@ namespace PongJutsu
 
 		void updatePause()
 		{
-			if (Input.GetButtonDown("Pause") && !isPause && !isEnd)
+			if (Input.GetButtonDown("Pause") && !isEnd)
 			{
-				PauseGame();
+				if (isPause)
+					ResumeGame();
+				else
+					PauseGame();
 			}
 		}
 
