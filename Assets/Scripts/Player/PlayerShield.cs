@@ -50,24 +50,24 @@ namespace PongJutsu
 
 					shuriken.lastHitOwner = this.transform.parent.gameObject;
 					shuriken.bounceBack = true;
+
+					this.transform.parent.GetComponent<Player>().addCombo();
 				}
 				// Catch
 				else if (shuriken.owner == this.transform.parent.gameObject && shuriken.bounceBack)
 				{
-					Destroy(shurikenGameObject);
+					this.transform.parent.GetComponent<Player>().addCombo();
+					shurikenGameObject.GetComponent<Shuriken>().Remove();
 				}
 			}
 		}
 
 		void Update()
 		{
-			if (!GameManager.isPause)
-			{
-				checkExpand();
-			}
+			updateExpand();
 		}
 
-		void checkExpand()
+		void updateExpand()
 		{
 			// Check expand
 			if (isExpanded)

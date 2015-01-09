@@ -12,30 +12,44 @@ namespace PongJutsu
 
 		public float spawnFrequency = 5f;
 		public float frequencyRandomizer = 2f;
-		private float nextSpawn = 0f;
+		private float nextSpawn;
 
 		public float flowSpeed = -1f;
 
-		public GameObject itemCarrier;
-		public GameObject[] items = new GameObject[0];
+		[SerializeField] private GameObject itemCarrier;
+
+		[SerializeField] private GameObject[] items = new GameObject[0];
+		public Dictionary<string, Item> itemList = new Dictionary<string, Item>();
 
 		private List<GameObject> spawnedItems = new List<GameObject>();
 
-		void Start()
+		void Awake()
 		{
-			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+			foreach (GameObject item in items)
+				itemList.Add(item.name, item.GetComponent<Item>());
+
+			this.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
+
+			setNextSpawn();
 		}
 
 		void Update()
 		{
-			if (GameManager.isIngame)
+			updateSpawn();
+		}
+
+		void setNextSpawn()
+		{
+			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+		}
+
+		void updateSpawn()
+		{
+			nextSpawn -= Time.deltaTime;
+			if (nextSpawn <= 0)
 			{
-				nextSpawn -= Time.deltaTime;
-				if (nextSpawn <= 0)
-				{
-					SpawnItem();
-					nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
-				}
+				SpawnItem();
+				setNextSpawn();
 			}
 		}
 
@@ -89,19 +103,6 @@ namespace PongJutsu
 			{
 				Destroy(col.gameObject);
 			}
-		}
-
-		void OnDrawGizmos()
-		{
-			Gizmos.color = new Color(0.4f, 0.4f, 0.7f, 0.4f);
-
-			if (snapToVertical)
-			{
-				height = Camera.main.orthographicSize * 2;
-				snapToVertical = false;
-			}
-
-			Gizmos.DrawCube(new Vector2(0, 0), new Vector2(width, height));
 		}
 	}
 }

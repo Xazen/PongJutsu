@@ -11,13 +11,14 @@ namespace PongJutsu
 		[HideInInspector] public int fortsAll;
 		[HideInInspector] public int fortsLeft;
 		[HideInInspector] public int fortsRight;
+		[HideInInspector] public int combosPlayerLeft;
+		[HideInInspector] public int combosPlayerRight;
 
 		// References
 		private GameObject playerLeft;
 		private GameObject playerRight;
 		private River river;
-
-		[HideInInspector] public static float shurikenSpeedMultiplier = 1f;
+		private Shuriken shuriken;
 
 		public void run()
 		{
@@ -26,13 +27,15 @@ namespace PongJutsu
 			playerLeft = GameObject.FindGameObjectWithTag("PlayerLeft");
 			playerRight = GameObject.FindGameObjectWithTag("PlayerRight");
 			river = GameObject.FindGameObjectWithTag("River").GetComponent<River>();
+			shuriken = Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/Shuriken.prefab").GetComponent<Shuriken>();
 
 			UpdateParamters();
+			StartFlow();
 		}
 
 		void Update()
 		{
-			if (GameManager.isIngame)
+			if (GameManager.allowInput)
 			{
 				UpdateParamters();
 				UpdateFlow();
@@ -65,11 +68,22 @@ namespace PongJutsu
 			fortsAll = fortsLeftCount + fortsRightCount;
 			fortsLeft = fortsLeftCount;
 			fortsRight = fortsRightCount;
+
+			combosPlayerLeft = playerLeft.GetComponent<Player>().comboCount;
+			combosPlayerRight = playerRight.GetComponent<Player>().comboCount;
+		}
+
+
+		// - - - - - - - - - - - - GameFlow Scripting - - - - - - - - - - - - 
+
+		void StartFlow()
+		{
+			
 		}
 
 		void UpdateFlow()
 		{
-			// Hard coded GameFlow here...
+			
 		}
 	}
 }

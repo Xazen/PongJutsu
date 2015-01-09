@@ -16,16 +16,16 @@ namespace PongJutsu
 		{
 			base.build();
 
-			Container = new GameObject("Players");
+			MainInstance = new GameObject("Players");
 
 			float width = GetComponent<SetupStage>().width;
 			float fortOffset = GetComponent<SetupForts>().width + GetComponent<SetupForts>().offset;
 
 			// Player 1
-			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), Container, "PlayerLeft", "PlayerLeft").GetComponent<Player>().mirror = false;
+			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), MainInstance, "PlayerLeft", "PlayerLeft").GetComponent<Player>().mirror = false;
 
 			// Player 2
-			spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), Container, "PlayerRight", "PlayerRight").GetComponent<Player>().mirror = autoMirror;
+			spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), MainInstance, "PlayerRight", "PlayerRight").GetComponent<Player>().mirror = autoMirror;
 		}
 
 		private GameObject spawnPlayer(Vector2 position, GameObject parent, string name, string tag)
@@ -37,13 +37,6 @@ namespace PongJutsu
 			instance.transform.position = position;
 
 			return instance;
-		}
-
-		public override void remove()
-		{
-			base.remove();
-
-			Destroy(Container);
 		}
 
 		void OnDrawGizmos()

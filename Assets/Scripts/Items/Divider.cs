@@ -34,7 +34,7 @@ namespace PongJutsu
 				shotInstance.GetComponent<Shuriken>().ignoreSpawnCollision = true;
 			}
 
-			Destroy(col.gameObject);
+			col.GetComponent<Shuriken>().Remove();
 			this.Remove();
 		}
 	}
