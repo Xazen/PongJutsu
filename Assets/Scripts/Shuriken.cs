@@ -82,8 +82,8 @@ namespace PongJutsu
 			// Collision with Shuriken
 			if (colObject.tag == "Shuriken" && selfCollision && !ignoreSpawnCollision)
 			{
-				Destroy(col.gameObject);
-				Destroy(this.gameObject);
+				col.GetComponent<Shuriken>().Remove();
+				Remove();
 			}
 
 			// Collision with Shields
@@ -107,7 +107,7 @@ namespace PongJutsu
 			else if (colObject.tag == "BoundaryBottom")
 				movement.y = Mathf.Abs(movement.y);
 			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
-				Destroy(this.gameObject);
+				Remove();
 		}
 
 		// make sure that the shot doesn't stuck in the Boundarys
@@ -129,7 +129,7 @@ namespace PongJutsu
 			}
 			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
 			{
-				Destroy(this.gameObject);
+				Remove();
 			}
 		}
 
@@ -169,12 +169,13 @@ namespace PongJutsu
 				}
 			}
 
-			Destroy(this.gameObject);
+			Remove();
 		}
 
-		void OnDestroy()
+		public void Remove()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount--;
+			Destroy(this.gameObject);
 		}
 	}
 }

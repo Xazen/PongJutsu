@@ -57,7 +57,7 @@ namespace PongJutsu
 				else if (shuriken.owner == this.transform.parent.gameObject && shuriken.bounceBack)
 				{
 					this.transform.parent.GetComponent<Player>().addCombo();
-					Destroy(shurikenGameObject);
+					shurikenGameObject.GetComponent<Shuriken>().Remove();
 				}
 			}
 		}
