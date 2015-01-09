@@ -9,10 +9,11 @@ namespace PongJutsu
 		public bool allowPause = true;
 		public bool instantPlay = false;
 
-		[HideInInspector] public static bool isIngame = false;
-		[HideInInspector] public static bool isPause = false;
-		[HideInInspector] public static bool isEnd = false;
 		[HideInInspector] public static bool allowInput = false;
+
+		private static bool isIngame = false;
+		private static bool isPause = false;
+		private static bool isEnd = false;
 
 		private Animator ui;
 		private GameFlow flow;
@@ -43,6 +44,11 @@ namespace PongJutsu
 				resetChangedPrefabs();
 
 				this.GetComponent<GameFlow>().run();
+
+				isIngame = true;
+				isPause = false;
+				isEnd = false;
+				allowInput = true;
 			}
 		}
 
@@ -62,6 +68,11 @@ namespace PongJutsu
 				{
 					DestroyImmediate(s.gameObject);
 				}
+
+				isIngame = false;
+				isPause = false;
+				isEnd = false;
+				allowInput = false;
 			}
 		}
 
@@ -82,13 +93,13 @@ namespace PongJutsu
 		void Update()
 		{
 			if (allowPause && isIngame)
-				checkPause();
+				updatePause();
 
 			if (isIngame)
-				checkEnd();
+				updateEnd();
 		}
 
-		void checkPause()
+		void updatePause()
 		{
 			if (Input.GetButtonDown("Pause") && !isPause && !isEnd)
 			{
@@ -97,7 +108,7 @@ namespace PongJutsu
 			}
 		}
 
-		void checkEnd()
+		void updateEnd()
 		{
 			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd)
 			{
@@ -108,11 +119,6 @@ namespace PongJutsu
 		public void StartGame()
 		{
 			LoadGame();
-
-			isIngame = true;
-			isPause = false;
-			isEnd = false;
-			allowInput = true;
 		}
 
 		public void PauseGame()
@@ -131,8 +137,8 @@ namespace PongJutsu
 
 		public void RestartGame()
 		{
-			QuitGame();
-			StartGame();
+			UnloadGame();
+			LoadGame();
 		}
 
 		public void EndGame()
@@ -151,11 +157,6 @@ namespace PongJutsu
 		public void QuitGame()
 		{
 			UnloadGame();
-
-			isIngame = false;
-			isPause = false;
-			isEnd = false;
-			allowInput = false;
 		}
 	}
 }

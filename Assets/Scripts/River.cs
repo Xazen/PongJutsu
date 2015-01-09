@@ -35,10 +35,7 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (!GameManager.isPause)
-			{
-				checkSpawn();
-			}
+			updateSpawn();
 		}
 
 		void setNextSpawn()
@@ -46,7 +43,7 @@ namespace PongJutsu
 			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
 		}
 
-		void checkSpawn()
+		void updateSpawn()
 		{
 			nextSpawn -= Time.deltaTime;
 			if (nextSpawn <= 0)

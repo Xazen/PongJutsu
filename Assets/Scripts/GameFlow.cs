@@ -35,7 +35,7 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (GameManager.isIngame && GameManager.allowInput)
+			if (GameManager.allowInput)
 			{
 				UpdateParamters();
 				UpdateFlow();

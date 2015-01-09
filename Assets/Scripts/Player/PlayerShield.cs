@@ -64,13 +64,10 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (!GameManager.isPause)
-			{
-				checkExpand();
-			}
+			updateExpand();
 		}
 
-		void checkExpand()
+		void updateExpand()
 		{
 			// Check expand
 			if (isExpanded)
