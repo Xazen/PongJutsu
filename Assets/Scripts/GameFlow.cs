@@ -73,19 +73,17 @@ namespace PongJutsu
 			combosPlayerRight = playerRight.GetComponent<Player>().comboCount;
 		}
 
-		// - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		// Hard coded GameFlow here...
 
-		float initShurikenSpeed;
+		// - - - - - - - - - - - - GameFlow Scripting - - - - - - - - - - - - 
 
 		void StartFlow()
 		{
-			initShurikenSpeed = shuriken.speed;
+			
 		}
 
 		void UpdateFlow()
 		{
-			shuriken.speed = initShurikenSpeed * (1f + ingameTime / 100f);
+			
 		}
 	}
 }
