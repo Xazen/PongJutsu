@@ -7,7 +7,7 @@ namespace PongJutsu
 	{
 		public void click_Resume()
 		{
-			game.ResumeGame();
+			GameManager.ResumeGame();
 		}
 		
 		public void click_Help()
@@ -17,7 +17,7 @@ namespace PongJutsu
 
 		public void click_Exit()
 		{
-			game.ExitGame();
+			GameManager.ExitGame();
 		}
 	}
 }

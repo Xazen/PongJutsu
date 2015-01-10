@@ -15,12 +15,12 @@ namespace PongJutsu
 		public static int combosPlayerRight;
 
 		// References
-		private GameObject playerLeft;
-		private GameObject playerRight;
-		private River river;
-		private Shuriken shuriken;
+		private static GameObject playerLeft;
+		private static GameObject playerRight;
+		private static River river;
+		private static Shuriken shuriken;
 
-		public void run()
+		public static void run()
 		{
 			ingameTime = 0f;
 
@@ -42,7 +42,7 @@ namespace PongJutsu
 			}
 		}
 
-		void UpdateParamters()
+		static void UpdateParamters()
 		{
 			// Time
 			ingameTime += Time.deltaTime;
@@ -76,7 +76,7 @@ namespace PongJutsu
 
 		// - - - - - - - - - - - - GameFlow Scripting - - - - - - - - - - - - 
 
-		void StartFlow()
+		static void StartFlow()
 		{
 			
 		}

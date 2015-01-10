@@ -15,7 +15,7 @@ namespace PongJutsu
 		private static bool isPause = false;
 		private static bool isEnd = false;
 
-		private Animator ui;
+		private static Animator ui;
 
 		void Awake()
 		{
@@ -28,20 +28,20 @@ namespace PongJutsu
 			}
 		}
 
-		void LoadGame()
+		static void LoadGame()
 		{
 			if (!isIngame)
 			{
 				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
 
-				foreach (GameSetup gs in this.GetComponents<GameSetup>())
+				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
 				{
 					gs.build();
 				}
 
 				resetChangedPrefabs();
 
-				this.GetComponent<GameFlow>().run();
+				GameFlow.run();
 
 				isIngame = true;
 				isPause = false;
@@ -52,7 +52,7 @@ namespace PongJutsu
 			}
 		}
 
-		void UnloadGame()
+		static void UnloadGame()
 		{
 			if (isIngame)
 			{
@@ -60,11 +60,11 @@ namespace PongJutsu
 
 				resetChangedPrefabs();
 
-				foreach (GameSetup gs in this.GetComponents<GameSetup>())
+				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
 				{
 					gs.remove();
 				}
-				foreach (Shuriken s in FindObjectsOfType<Shuriken>())
+				foreach (Shuriken s in GameObject.FindObjectsOfType<Shuriken>())
 				{
 					DestroyImmediate(s.gameObject);
 				}
@@ -78,7 +78,7 @@ namespace PongJutsu
 			}
 		}
 
-		void resetChangedPrefabs()
+		static void resetChangedPrefabs()
 		{
 			foreach (Item item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
 				item.resetProbability();
@@ -120,12 +120,12 @@ namespace PongJutsu
 			}
 		}
 
-		public void StartGame()
+		public static void StartGame()
 		{
 			LoadGame();
 		}
 
-		public void PauseGame()
+		public static void PauseGame()
 		{
 			Time.timeScale = 0;
 			isPause = true;
@@ -134,7 +134,7 @@ namespace PongJutsu
 			ui.SetTrigger("PauseGame");
 		}
 
-		public void ResumeGame()
+		public static void ResumeGame()
 		{
 			ui.SetTrigger("ResumeGame");
 
@@ -143,13 +143,13 @@ namespace PongJutsu
 			allowInput = true;
 		}
 
-		public void RestartGame()
+		public static void RestartGame()
 		{
 			UnloadGame();
 			LoadGame();
 		}
 
-		public void EndGame()
+		public static void EndGame()
 		{
 			ui.SetTrigger("EndGame");
 
@@ -162,7 +162,7 @@ namespace PongJutsu
 			allowInput = false;
 		}
 
-		public void ExitGame()
+		public static void ExitGame()
 		{
 			ui.SetTrigger("ExitGame");
 			UnloadGame();

@@ -7,7 +7,7 @@ namespace PongJutsu
 	{
 		public void click_Exit()
 		{
-			game.ExitGame();
+			GameManager.ExitGame();
 		}
 	}
 }
