@@ -9,19 +9,17 @@ namespace PongJutsu
 		public bool allowPause = true;
 		public bool instantPlay = false;
 
-		[HideInInspector] public static bool allowInput = false;
+		public static bool allowInput = false;
 
 		private static bool isIngame = false;
 		private static bool isPause = false;
 		private static bool isEnd = false;
 
-		private Animator ui;
-		private GameFlow flow;
+		private static Animator ui;
 
 		void Awake()
 		{
 			ui = GameObject.Find("UI").GetComponent<Animator>();
-			flow = GameObject.FindObjectOfType<GameFlow>();
 
 			if (instantPlay)
 			{
@@ -30,29 +28,31 @@ namespace PongJutsu
 			}
 		}
 
-		void LoadGame()
+		static void LoadGame()
 		{
 			if (!isIngame)
 			{
 				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
 
-				foreach (GameSetup gs in this.GetComponents<GameSetup>())
+				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
 				{
 					gs.build();
 				}
 
 				resetChangedPrefabs();
 
-				this.GetComponent<GameFlow>().run();
+				GameFlow.run();
 
 				isIngame = true;
 				isPause = false;
 				isEnd = false;
 				allowInput = true;
+
+				Time.timeScale = 1;
 			}
 		}
 
-		void UnloadGame()
+		static void UnloadGame()
 		{
 			if (isIngame)
 			{
@@ -60,11 +60,11 @@ namespace PongJutsu
 
 				resetChangedPrefabs();
 
-				foreach (GameSetup gs in this.GetComponents<GameSetup>())
+				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
 				{
 					gs.remove();
 				}
-				foreach (Shuriken s in FindObjectsOfType<Shuriken>())
+				foreach (Shuriken s in GameObject.FindObjectsOfType<Shuriken>())
 				{
 					DestroyImmediate(s.gameObject);
 				}
@@ -73,10 +73,12 @@ namespace PongJutsu
 				isPause = false;
 				isEnd = false;
 				allowInput = false;
+
+				Time.timeScale = 1;
 			}
 		}
 
-		void resetChangedPrefabs()
+		static void resetChangedPrefabs()
 		{
 			foreach (Item item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
 				item.resetProbability();
@@ -101,47 +103,53 @@ namespace PongJutsu
 
 		void updatePause()
 		{
-			if (Input.GetButtonDown("Pause") && !isPause && !isEnd)
+			if (Input.GetButtonDown("Pause") && !isEnd)
 			{
-				ui.SetTrigger("PauseGame");
-				PauseGame();
+				if (isPause)
+					ResumeGame();
+				else
+					PauseGame();
 			}
 		}
 
 		void updateEnd()
 		{
-			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd)
+			if ((GameFlow.fortsLeft <= 0 || GameFlow.fortsRight <= 0) && !isEnd && !isPause)
 			{
 				EndGame();
 			}
 		}
 
-		public void StartGame()
+		public static void StartGame()
 		{
 			LoadGame();
 		}
 
-		public void PauseGame()
+		public static void PauseGame()
 		{
 			Time.timeScale = 0;
 			isPause = true;
 			allowInput = false;
+	
+			ui.SetTrigger("PauseGame");
 		}
 
-		public void ContinueGame()
+		public static void ResumeGame()
 		{
+			ui.SetTrigger("ResumeGame");
+
 			Time.timeScale = 1;
 			isPause = false;
 			allowInput = true;
 		}
 
-		public void RestartGame()
+		public static void RestartGame()
 		{
 			UnloadGame();
 			LoadGame();
 		}
 
-		public void EndGame()
+		public static void EndGame()
 		{
 			ui.SetTrigger("EndGame");
 
@@ -154,8 +162,9 @@ namespace PongJutsu
 			allowInput = false;
 		}
 
-		public void QuitGame()
+		public static void ExitGame()
 		{
+			ui.SetTrigger("ExitGame");
 			UnloadGame();
 		}
 	}

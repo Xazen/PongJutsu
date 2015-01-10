@@ -7,20 +7,20 @@ namespace PongJutsu
 	public class GameFlow : MonoBehaviour
 	{
 		// Parameters
-		[HideInInspector] public float ingameTime;
-		[HideInInspector] public int fortsAll;
-		[HideInInspector] public int fortsLeft;
-		[HideInInspector] public int fortsRight;
-		[HideInInspector] public int combosPlayerLeft;
-		[HideInInspector] public int combosPlayerRight;
+		public static float ingameTime;
+		public static int fortsAll;
+		public static int fortsLeft;
+		public static int fortsRight;
+		public static int combosPlayerLeft;
+		public static int combosPlayerRight;
 
 		// References
-		private GameObject playerLeft;
-		private GameObject playerRight;
-		private River river;
-		private Shuriken shuriken;
+		private static GameObject playerLeft;
+		private static GameObject playerRight;
+		private static River river;
+		private static Shuriken shuriken;
 
-		public void run()
+		public static void run()
 		{
 			ingameTime = 0f;
 
@@ -42,7 +42,7 @@ namespace PongJutsu
 			}
 		}
 
-		void UpdateParamters()
+		static void UpdateParamters()
 		{
 			// Time
 			ingameTime += Time.deltaTime;
@@ -76,7 +76,7 @@ namespace PongJutsu
 
 		// - - - - - - - - - - - - GameFlow Scripting - - - - - - - - - - - - 
 
-		void StartFlow()
+		static void StartFlow()
 		{
 			
 		}

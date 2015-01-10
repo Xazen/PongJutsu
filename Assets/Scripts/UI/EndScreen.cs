@@ -5,10 +5,9 @@ namespace PongJutsu
 {
 	public class EndScreen : UIScript
 	{
-		public void click_Quit()
+		public void click_Exit()
 		{
-			ui.SetTrigger("QuitGame");
-			game.QuitGame();
+			GameManager.ExitGame();
 		}
 	}
 }
