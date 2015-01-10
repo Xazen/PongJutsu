@@ -8,6 +8,8 @@ namespace PongJutsu
 		public AnimatorOverrideController ninjaLeftController;
 		public AnimatorOverrideController ninjaRightController;
 
+		[HideInInspector] public GameObject[] forts;
+
 		public bool mirror = false;
 		[HideInInspector] public int direction = 1;
 
@@ -24,11 +26,17 @@ namespace PongJutsu
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
 			}
 
-			// Set different sprites for each player
+			// Setup different players
 			if (this.tag == "PlayerLeft")
+			{
 				this.GetComponent<Animator>().runtimeAnimatorController = ninjaLeftController;
+				forts = GameObject.FindGameObjectsWithTag("FortLeft");
+			}
 			else if (this.tag == "PlayerRight")
+			{
 				this.GetComponent<Animator>().runtimeAnimatorController = ninjaRightController;
+				forts = GameObject.FindGameObjectsWithTag("FortRight");
+			}
 		}
 
 		public void addCombo()

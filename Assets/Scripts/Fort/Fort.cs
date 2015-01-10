@@ -27,22 +27,35 @@ namespace PongJutsu
 				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
 			}
 
-			// Set different AnimationControllers
+			// Set different forts
 			if (this.tag == "FortLeft")
 			{
-				owner = GameObject.FindGameObjectWithTag("PlayerLeft");
 				this.GetComponent<Animator>().runtimeAnimatorController = FortLeftController;
+				owner = GameObject.FindGameObjectWithTag("PlayerLeft");
 			}
 			else if (this.tag == "FortRight")
 			{
-				owner = GameObject.FindGameObjectWithTag("PlayerRight");
 				this.GetComponent<Animator>().runtimeAnimatorController = FortRightController;
+				owner = GameObject.FindGameObjectWithTag("PlayerRight");
 			}
 
 			// Intit values
 			health = maxHealth;
+			UpdateHealthValues();
+		}
+
+		void UpdateHealthValues()
+		{
 			this.GetComponentInChildren<Healthbar>().updateHealthbar(health);
 			this.GetComponent<Animator>().SetInteger("Health", health);
+		}
+
+		public void TakeHeal(int heal)
+		{
+			health += heal;
+			health = Mathf.Clamp(health, 0, maxHealth);
+
+			UpdateHealthValues();
 		}
 
 		public void TakeDamage(int damage)
@@ -50,9 +63,7 @@ namespace PongJutsu
 			health -= damage;
 			health = Mathf.Clamp(health, 0, maxHealth);
 
-			// Update values
-			this.GetComponentInChildren<Healthbar>().updateHealthbar(health);
-			this.GetComponent<Animator>().SetInteger("Health", health);
+			UpdateHealthValues();
 
 			if (health <= 0)
 				DestroyFort();
