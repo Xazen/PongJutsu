@@ -7,12 +7,12 @@ namespace PongJutsu
 	public class GameFlow : MonoBehaviour
 	{
 		// Parameters
-		[HideInInspector] public float ingameTime;
-		[HideInInspector] public int fortsAll;
-		[HideInInspector] public int fortsLeft;
-		[HideInInspector] public int fortsRight;
-		[HideInInspector] public int combosPlayerLeft;
-		[HideInInspector] public int combosPlayerRight;
+		public static float ingameTime;
+		public static int fortsAll;
+		public static int fortsLeft;
+		public static int fortsRight;
+		public static int combosPlayerLeft;
+		public static int combosPlayerRight;
 
 		// References
 		private GameObject playerLeft;

@@ -9,19 +9,17 @@ namespace PongJutsu
 		public bool allowPause = true;
 		public bool instantPlay = false;
 
-		[HideInInspector] public static bool allowInput = false;
+		public static bool allowInput = false;
 
 		private static bool isIngame = false;
 		private static bool isPause = false;
 		private static bool isEnd = false;
 
 		private Animator ui;
-		private GameFlow flow;
 
 		void Awake()
 		{
 			ui = GameObject.Find("UI").GetComponent<Animator>();
-			flow = GameObject.FindObjectOfType<GameFlow>();
 
 			if (instantPlay)
 			{
@@ -116,7 +114,7 @@ namespace PongJutsu
 
 		void updateEnd()
 		{
-			if ((flow.fortsLeft <= 0 || flow.fortsRight <= 0) && !isEnd && !isPause)
+			if ((GameFlow.fortsLeft <= 0 || GameFlow.fortsRight <= 0) && !isEnd && !isPause)
 			{
 				EndGame();
 			}
