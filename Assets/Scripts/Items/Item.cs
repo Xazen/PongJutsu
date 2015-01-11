@@ -5,15 +5,20 @@ namespace PongJutsu
 {
 	public class Item : MonoBehaviour 
 	{
-		public int spawnProbability = 100;
-		[System.NonSerialized] private int _spawnProbability = -1;
+		[SerializeField] private int _spawnProbability = 100;
+		public int spawnProbability 
+		{
+			get { return Mathf.Clamp(_spawnProbability, 0, 100); }
+			set { _spawnProbability = Mathf.Clamp(value, 0, 100); }
+		}
 
+		[System.NonSerialized] private int defaultProbability = -1;
 		public void resetProbability()
 		{
-			if (_spawnProbability == -1)
-				_spawnProbability = spawnProbability;
+			if (defaultProbability == -1)
+				defaultProbability = spawnProbability;
 			else
-				spawnProbability = _spawnProbability;
+				spawnProbability = defaultProbability;
 		}
 
 		public virtual void content(Collider2D col)

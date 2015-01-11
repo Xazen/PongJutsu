@@ -16,10 +16,12 @@ namespace PongJutsu
 		private static bool isEnd = false;
 
 		private static Animator ui;
+		private static GameFlow flow;
 
 		void Awake()
 		{
 			ui = GameObject.Find("UI").GetComponent<Animator>();
+			flow = this.GetComponent<GameFlow>();
 
 			if (instantPlay)
 			{
@@ -41,7 +43,8 @@ namespace PongJutsu
 
 				resetChangedPrefabs();
 
-				GameFlow.run();
+				GameVar.Refresh();
+				flow.StartFlow();
 
 				isIngame = true;
 				isPause = false;
@@ -94,6 +97,12 @@ namespace PongJutsu
 
 		void Update()
 		{
+			if (GameManager.allowInput)
+			{
+				GameVar.Update();
+				flow.UpdateFlow();
+			}
+
 			if (allowPause && isIngame)
 				updatePause();
 
@@ -114,7 +123,7 @@ namespace PongJutsu
 
 		void updateEnd()
 		{
-			if ((GameFlow.fortsLeft <= 0 || GameFlow.fortsRight <= 0) && !isEnd && !isPause)
+			if ((GameVar.forts.leftCount <= 0 || GameVar.forts.rightCount <= 0) && !isEnd && !isPause)
 			{
 				EndGame();
 			}
