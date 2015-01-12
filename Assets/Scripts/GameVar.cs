@@ -15,7 +15,7 @@ namespace PongJutsu
 			players.left.reference = GameObject.FindGameObjectWithTag("PlayerLeft");
 			players.right.reference = GameObject.FindGameObjectWithTag("PlayerRight");
 			river.reference = GameObject.FindGameObjectWithTag("River");
-			shuriken.reference = Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/Shuriken.prefab");
+			shuriken.reference = GameReferences.shuriken;
 		}
 
 		public static void Update()

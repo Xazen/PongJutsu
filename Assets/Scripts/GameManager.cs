@@ -23,7 +23,9 @@ namespace PongJutsu
 		{
 			ui = GameObject.Find("UI").GetComponent<Animator>();
 			flow = this.GetComponent<GameFlow>();
-
+		}
+		void Start()
+		{
 			if (instantPlay)
 			{
 				ui.SetTrigger("InstantGame");
@@ -87,7 +89,7 @@ namespace PongJutsu
 			foreach (Item item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
 				item.resetProbability();
 
-			Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/Shuriken.prefab").GetComponent<Shuriken>().reset();
+			 GameReferences.shuriken.GetComponent<Shuriken>().reset(); 
 		}
 
 		void OnApplicationQuit()
