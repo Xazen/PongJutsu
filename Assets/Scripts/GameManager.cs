@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PongJutsu
 {
 	public class GameManager : MonoBehaviour
 	{
-		public bool allowPause = true;
-		public bool instantPlay = false;
+		[SerializeField] private bool allowPause = true;
+		[SerializeField] private bool instantPlay = false;
 
 		public static bool allowInput = false;
 
@@ -123,14 +124,18 @@ namespace PongJutsu
 
 		void updateEnd()
 		{
-			if ((GameVar.forts.leftCount <= 0 || GameVar.forts.rightCount <= 0) && !isEnd && !isPause)
+			if (!isEnd && !isPause)
 			{
-				EndGame();
+				if (GameVar.forts.leftCount <= 0)
+					EndRound("left");
+				else if (GameVar.forts.rightCount <= 0)
+					EndRound("right");
 			}
 		}
 
 		public static void StartGame()
 		{
+			GameMatch.newMatch();
 			LoadGame();
 		}
 
@@ -155,12 +160,20 @@ namespace PongJutsu
 		public static void RestartGame()
 		{
 			UnloadGame();
+			ui.SetTrigger("RestartGame");
+			StartGame();
+		}
+
+		public static void NextRound()
+		{
+			UnloadGame();
+			ui.SetTrigger("NextRound");
 			LoadGame();
 		}
 
-		public static void EndGame()
+		public static void EndRound(string winner)
 		{
-			ui.SetTrigger("EndGame");
+			GameMatch.addWinner(winner);
 
 			foreach (PlayerMovement pm in GameObject.FindObjectsOfType<PlayerMovement>())
 			{
@@ -169,12 +182,55 @@ namespace PongJutsu
 
 			isEnd = true;
 			allowInput = false;
+
+			ui.SetTrigger("EndRound");
+		}
+
+		public static void EndGame()
+		{
+			ui.SetTrigger("EndGame");
 		}
 
 		public static void ExitGame()
 		{
 			ui.SetTrigger("ExitGame");
 			UnloadGame();
+		}
+	}
+
+	public class GameMatch : MonoBehaviour
+	{
+		private static List<string> results = new List<string>();
+		private static int minRoundsToWin = 2;
+
+		public static void newMatch()
+		{
+			results.Clear();
+		}
+
+		public static void addWinner(string winner)
+		{
+			results.Add(winner);
+		}
+
+		public static List<string> getWinnerList()
+		{
+			return results;
+		}
+
+		public static string getLastWinner()
+		{
+			return results[results.Count - 1];
+		}
+
+		public static string getMatchWinner()
+		{
+			if (results.FindAll(x => x == "left").Count >= minRoundsToWin)
+				return "left";
+			else if (results.FindAll(x => x == "right").Count >= minRoundsToWin)
+				return "right";
+			else
+				return null;
 		}
 	}
 }
