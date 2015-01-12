@@ -89,7 +89,7 @@ namespace PongJutsu
 			foreach (Item item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
 				item.resetProbability();
 
-			 GameReferences.shuriken.GetComponent<Shuriken>().reset(); 
+			 Storage.shuriken.GetComponent<Shuriken>().reset(); 
 		}
 
 		void OnApplicationQuit()
