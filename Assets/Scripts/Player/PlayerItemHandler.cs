@@ -7,14 +7,48 @@ namespace PongJutsu
 	{
 		void Update()
 		{
+			updateInverter();
 			updateExpand();
 		}
 
 		// - - - - - - - - - - - - - - - - - - - - -
 
+		private bool isInverted = false;
+		private float invertTime;
+
+		public void Inverter(Inverter inverter)
+		{
+			if (!isInverted)
+			{
+				this.GetComponent<PlayerMovement>().invertDirection = true;
+				invertTime = inverter.duration;
+				isInverted = true;
+			}
+			else
+			{
+				invertTime = inverter.duration;
+			}
+		}
+
+		void updateInverter()
+		{
+			if (isInverted)
+			{
+				invertTime -= Time.deltaTime;
+
+				if (invertTime < 0f)
+				{
+					this.GetComponent<PlayerMovement>().invertDirection = false;
+					isInverted = false;
+				}
+			}
+		}
+
+		// - - - - - - - - - - - - - - - - - - - - -
+
 		private bool isExpanded = false;
+		private float expandTime;
 		private Vector2 initScale;
-		private float expandDuration;
 
 		public void ShieldExpander(ShieldExpander shieldExpander)
 		{
@@ -25,13 +59,13 @@ namespace PongJutsu
 				// Expand shield
 				initScale = shield.transform.localScale;
 				shield.transform.localScale = new Vector2(shield.transform.localScale.x, shield.transform.localScale.y * shieldExpander.scaleMultiplier);
+				expandTime = shieldExpander.duration;
 				isExpanded = true;
-				expandDuration = shieldExpander.duration;
 			}
 			else
 			{
 				// Set expand duration
-				expandDuration = shieldExpander.duration;
+				expandTime = shieldExpander.duration;
 			}
 		}
 
@@ -39,9 +73,9 @@ namespace PongJutsu
 		{
 			if (isExpanded)
 			{
-				expandDuration -= Time.deltaTime;
+				expandTime -= Time.deltaTime;
 
-				if (expandDuration <= 0)
+				if (expandTime < 0f)
 				{
 					this.GetComponentInChildren<PlayerShield>().transform.localScale = new Vector2(initScale.x, initScale.y);
 					isExpanded = false;

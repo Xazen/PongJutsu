@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace PongJutsu
 {
@@ -29,6 +30,8 @@ namespace PongJutsu
 		private float lastDash;
 
 		public float playerCollisionOffset = 0.3f;
+
+		[HideInInspector] public bool invertDirection = false;
 
 		void Update()
 		{
@@ -105,7 +108,7 @@ namespace PongJutsu
 			if (isDashing)
 			{
 				dashLerp += dashSpeed * Time.deltaTime;
-				position = Mathf.Lerp(dashStartPosition, dashStartPosition + dashDistance * Direction(dashDirection), dashLerp);
+				position = Mathf.Lerp(dashStartPosition, dashStartPosition + dashDistance * dashDirection, dashLerp);
 				currentSpeed = dashSpeed;
 
 				if (dashLerp >= 1f)
@@ -158,7 +161,7 @@ namespace PongJutsu
 			if (f != 0f)
 				f = Mathf.Sign(f);
 
-			return f;
+			return f * (Convert.ToInt32(invertDirection) * -2 + 1);
 		}
 	}
 }
