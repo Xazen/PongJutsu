@@ -7,12 +7,10 @@ namespace PongJutsu
 	{
 		public int heal = 100;
 
-		public override void content(Collider2D col)
+		public override void content(Shuriken shuriken)
 		{
-			base.content(col);
-
 			GameObject weakestFort = null;
-			foreach (GameObject fort in col.GetComponent<Shuriken>().lastHitOwner.GetComponent<Player>().forts)
+			foreach (GameObject fort in shuriken.lastHitOwner.GetComponent<Player>().forts)
 			{
 				int health = fort.GetComponent<Fort>().health;
 
@@ -31,7 +29,7 @@ namespace PongJutsu
 			if (weakestFort != null)
 				weakestFort.GetComponent<Fort>().TakeHeal(heal);
 
-			this.Remove();
+			base.content(shuriken);
 		}
 	}
 }

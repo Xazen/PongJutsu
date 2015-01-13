@@ -45,6 +45,7 @@ GameObject:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400004}
+  - 114: {fileID: 11460354}
   - 95: {fileID: 9500000}
   m_Layer: 0
   m_Name: Player
@@ -278,8 +279,10 @@ MonoBehaviour:
     type: 2}
   ninjaRightController: {fileID: 22100000, guid: 59cf7cfb89f807f428f35b09c4b80ed1,
     type: 2}
+  forts: []
   mirror: 0
   direction: 1
+  comboCount: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -331,8 +334,17 @@ MonoBehaviour:
   shieldAngleMultiplier: 4
   shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
   shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
-  isExpanded: 0
-  expandDuration: 0
+--- !u!114 &11460354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c03c6d2a85f655409060cfb02dd705b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

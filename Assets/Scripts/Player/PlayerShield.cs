@@ -11,10 +11,6 @@ namespace PongJutsu
 		public Sprite shieldLeftSprite;
 		public Sprite shieldRightSprite;
 
-		private Vector2 initScale;
-		[HideInInspector] public bool isExpanded = false;
-		[HideInInspector] public float expandDuration;
-
 		void Start()
 		{
 			// Set different sprites for each player
@@ -22,8 +18,6 @@ namespace PongJutsu
 				this.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
 			else if (this.transform.parent.tag == "PlayerRight")
 				this.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
-
-			initScale = this.transform.localScale;
 		}
 
 		void OnTriggerEnter2D(Collider2D col)
@@ -58,26 +52,6 @@ namespace PongJutsu
 				{
 					this.transform.parent.GetComponent<Player>().addCombo();
 					shurikenGameObject.GetComponent<Shuriken>().Remove();
-				}
-			}
-		}
-
-		void Update()
-		{
-			updateExpand();
-		}
-
-		void updateExpand()
-		{
-			// Check expand
-			if (isExpanded)
-			{
-				expandDuration -= Time.deltaTime;
-
-				if (expandDuration <= 0)
-				{
-					transform.localScale = new Vector2(initScale.x, initScale.y);
-					isExpanded = false;
 				}
 			}
 		}
