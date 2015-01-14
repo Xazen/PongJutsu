@@ -8,14 +8,12 @@ namespace PongJutsu
 
 		public float firerate = 1.5f;
 		private float nextFire;
-		public float angle = 3f;
 
-		public int maxActiveShots = 1;
-		[HideInInspector] public int shotCount = 0;
+		public float maxAngle = 3.5f;
 
 		public GameObject shotObject;
-
-		int direction;
+		public int maxActiveShots = 1;
+		[HideInInspector] public int shotCount = 0;
 
 		void Start()
 		{
@@ -24,6 +22,7 @@ namespace PongJutsu
 
 		void Update()
 		{
+			Debug.Log(this.GetComponentInParent<PlayerMovement>().movementNormalized);
 			if (GameManager.allowInput)
 			{
 				Shooting();
@@ -33,28 +32,16 @@ namespace PongJutsu
 		void Shooting()
 		{
 			nextFire += Time.deltaTime;
-			if (nextFire >= firerate && shotCount < maxActiveShots)
+			if (nextFire >= firerate && shotCount < maxActiveShots && Input.GetButton(this.transform.parent.tag + " shoot"))
 			{
-				if (Input.GetButton(this.transform.parent.tag + " shoot straight"))
-				{
-					triggerShoot(0);
-				}
-				else if (Input.GetButton(this.transform.parent.tag + " shoot up"))
-				{
-					triggerShoot(1);
-				}
-				else if (Input.GetButton(this.transform.parent.tag + " shoot down"))
-				{
-					triggerShoot(-1);
-				}
+				triggerShoot();
 			}
 		}
 
-		void triggerShoot(int dir)
+		void triggerShoot()
 		{
 			// Trigger Animation... wait for throw
 			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
-			direction = dir;
 			nextFire = 0;
 		}
 
@@ -63,10 +50,8 @@ namespace PongJutsu
 			// Create a new shot
 			GameObject shotInstance = (GameObject)Instantiate(shotObject, this.transform.position, Quaternion.identity);
 			shotInstance.GetComponent<Shuriken>().owner = this.transform.parent.gameObject;
-			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * direction);
+			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, this.GetComponentInParent<PlayerMovement>().movementNormalized * maxAngle);
 			this.audio.Play();
-
-			direction = 0;
 		}
 	}
 }
