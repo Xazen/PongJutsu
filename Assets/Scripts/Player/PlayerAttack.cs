@@ -22,7 +22,6 @@ namespace PongJutsu
 
 		void Update()
 		{
-			Debug.Log(this.GetComponentInParent<PlayerMovement>().movementNormalized);
 			if (GameManager.allowInput)
 			{
 				Shooting();
