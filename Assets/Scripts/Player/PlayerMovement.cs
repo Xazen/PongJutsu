@@ -21,8 +21,6 @@ namespace PongJutsu
 		public float dashCooldown = 0.5f;
 		public float dashButtonInterval = 0.2f;
 
-		private float lastInputDeltaTime;
-		private float lastInputDirection;
 		private float dashStartPosition;
 		private bool isDashing = false;
 		private float dashDirection;
@@ -44,21 +42,9 @@ namespace PongJutsu
 
 		void Dashing()
 		{
-			lastInputDeltaTime += Time.deltaTime;
 			lastDash += Time.deltaTime;
 
-			if (Input.GetButtonDown(this.tag))
-			{
-				if (lastInputDeltaTime < dashButtonInterval && lastInputDirection == Direction(Input.GetAxisRaw(this.tag)))
-				{
-					dash();
-				}
-
-				// Set last Input
-				lastInputDeltaTime = 0f;
-				lastInputDirection = Direction(Input.GetAxisRaw(this.tag));
-			}
-			else if (Input.GetAxisRaw(this.tag) != 0f && Input.GetButtonDown(this.tag + " dash"))
+			if (Input.GetButtonDown(this.tag + " dash") && Input.GetAxisRaw(this.tag) != 0f)
 			{
 				dash();
 			}
