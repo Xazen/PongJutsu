@@ -35,7 +35,7 @@ namespace PongJutsu
 			nextFire += Time.deltaTime;
 			if (nextFire >= firerate && shotCount < maxActiveShots)
 			{
-				if (Input.GetButton(this.transform.parent.tag + " shoot forward"))
+				if (Input.GetButton(this.transform.parent.tag + " shoot straight"))
 				{
 					triggerShoot(0);
 				}

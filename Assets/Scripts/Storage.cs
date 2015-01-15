@@ -3,8 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class Value : MonoBehaviour
+public class Storage : MonoBehaviour
 {
+	[SerializeField]
+	private GameObject _shuriken;
+	public static GameObject shuriken { get; private set; }
+
+	void Awake()
+	{
+		shuriken = _shuriken;
+	}
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 	private static List<Variable> variables = new List<Variable>();
 
 	public static float Assign(string name, float value)

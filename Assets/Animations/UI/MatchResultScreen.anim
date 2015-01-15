@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: EndScreen
+  m_Name: MatchResultScreen
   serializedVersion: 4
   m_AnimationType: 2
   m_Compressed: 0
@@ -31,7 +31,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_IsActive
-    path: GameOverlay/EndScreen
+    path: GameOverlay/MatchResultScreen
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -42,7 +42,7 @@ AnimationClip:
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
     genericBindings:
-    - path: 4282665194
+    - path: 3567873094
       attribute: 2086281974
       script: {fileID: 0}
       classID: 1
@@ -83,7 +83,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_IsActive
-    path: GameOverlay/EndScreen
+    path: GameOverlay/MatchResultScreen
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves: []

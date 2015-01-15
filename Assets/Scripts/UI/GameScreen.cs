@@ -10,8 +10,8 @@ namespace PongJutsu
 		{
 			if (GameManager.allowInput)
 			{
-				this.transform.FindChild("ComboCounterLeft").GetComponent<Text>().text = "x" + GameFlow.combosPlayerLeft;
-				this.transform.FindChild("ComboCounterRight").GetComponent<Text>().text = "x" + GameFlow.combosPlayerRight;
+				this.transform.FindChild("ComboCounterLeft").GetComponent<Text>().text = "x" + GameVar.players.left.comboCount;
+				this.transform.FindChild("ComboCounterRight").GetComponent<Text>().text = "x" + GameVar.players.right.comboCount;
 			}
 		}
 	}

@@ -53,11 +53,11 @@ namespace PongJutsu
 
 		public void reset()
 		{
-			speed = Value.Assign("speed", speed);
-			damage = (int)Value.Assign("damage", (float)damage);
-			explosionRadius = Value.Assign("explosionRadius", explosionRadius);
-			explosionDamageMultiplier = Value.Assign("explosionDamageMultiplier", explosionDamageMultiplier);
-			reflectionDamageMultiplier = Value.Assign("reflectionDamageMultiplier", reflectionDamageMultiplier);
+			speed = Storage.Assign("speed", speed);
+			damage = (int)Storage.Assign("damage", (float)damage);
+			explosionRadius = Storage.Assign("explosionRadius", explosionRadius);
+			explosionDamageMultiplier = Storage.Assign("explosionDamageMultiplier", explosionDamageMultiplier);
+			reflectionDamageMultiplier = Storage.Assign("reflectionDamageMultiplier", reflectionDamageMultiplier);
 		}
 
 		public void setInitialMovement(int directionX, float movementY)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace PongJutsu
 {
@@ -20,8 +21,6 @@ namespace PongJutsu
 		public float dashCooldown = 0.5f;
 		public float dashButtonInterval = 0.2f;
 
-		private float lastInputDeltaTime;
-		private float lastInputDirection;
 		private float dashStartPosition;
 		private bool isDashing = false;
 		private float dashDirection;
@@ -29,6 +28,8 @@ namespace PongJutsu
 		private float lastDash;
 
 		public float playerCollisionOffset = 0.3f;
+
+		[HideInInspector] public bool invertDirection = false;
 
 		void Update()
 		{
@@ -41,21 +42,9 @@ namespace PongJutsu
 
 		void Dashing()
 		{
-			lastInputDeltaTime += Time.deltaTime;
 			lastDash += Time.deltaTime;
 
-			if (Input.GetButtonDown(this.tag))
-			{
-				if (lastInputDeltaTime < dashButtonInterval && lastInputDirection == Direction(Input.GetAxisRaw(this.tag)))
-				{
-					dash();
-				}
-
-				// Set last Input
-				lastInputDeltaTime = 0f;
-				lastInputDirection = Direction(Input.GetAxisRaw(this.tag));
-			}
-			else if (Input.GetAxisRaw(this.tag) != 0f && Input.GetButtonDown(this.tag + " dash"))
+			if (Input.GetButtonDown(this.tag + " dash") && Input.GetAxisRaw(this.tag) != 0f)
 			{
 				dash();
 			}
@@ -105,7 +94,7 @@ namespace PongJutsu
 			if (isDashing)
 			{
 				dashLerp += dashSpeed * Time.deltaTime;
-				position = Mathf.Lerp(dashStartPosition, dashStartPosition + dashDistance * Direction(dashDirection), dashLerp);
+				position = Mathf.Lerp(dashStartPosition, dashStartPosition + dashDistance * dashDirection, dashLerp);
 				currentSpeed = dashSpeed;
 
 				if (dashLerp >= 1f)
@@ -158,7 +147,7 @@ namespace PongJutsu
 			if (f != 0f)
 				f = Mathf.Sign(f);
 
-			return f;
+			return f * (Convert.ToInt32(invertDirection) * -2 + 1);
 		}
 	}
 }
