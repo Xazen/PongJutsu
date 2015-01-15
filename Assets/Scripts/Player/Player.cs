@@ -22,8 +22,7 @@ namespace PongJutsu
 			{
 				// Mirror the Player
 				direction = -1;
-				Vector3 scale = this.transform.localScale;
-				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
+				this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 			}
 
 			// Setup different players
