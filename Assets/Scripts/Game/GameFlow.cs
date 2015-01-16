@@ -68,9 +68,9 @@ namespace PongJutsu
 		/// Buffs the losing player.
 		/// </summary>
 		/// <param name="player">Player.</param>
-		private void BuffLosingPlayer(Player player)
+		private void BuffLosingPlayer(GameVar.players.player player)
 		{
-
+			
 		}
 
 		/// <summary>
