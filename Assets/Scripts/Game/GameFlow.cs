@@ -36,7 +36,7 @@ namespace PongJutsu
 
 		public void UpdateFlow()
 		{
-			// Increase spawn frequency regulary
+			// Regularaly increase spawn frequency
 			int updateRiverSpeedUpCounter = Mathf.FloorToInt(GameVar.ingameTime / riverTimeSpawnMultiplierFrequency);
 			if (riverSpeedUpCounter < updateRiverSpeedUpCounter) 
 			{
@@ -44,12 +44,29 @@ namespace PongJutsu
 				IncreaseRiverSpawnFrequency (riverTimeSpawnMultiplier);
 			}
 
-			// Increase spawn frequency when few forts are available
+			// Enter critical mode when conditions are met
 			if (GameVar.ingameTime > minimumTimeForCriticalMode && !isCritical && GameVar.forts.allCount <= 4 && GameVar.forts.leftCount <= 2 && GameVar.forts.rightCount <= 2) 
 			{
 				isCritical = true;
 				EnterCriticalMode ();
 			}
+
+			// Buff losing player
+			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
+			if (Mathf.Abs (deltaFortCount) >= 3) 
+			{
+				if (deltaFortCount < 0)
+				{
+					BuffLosingPlayer(GameVar.players.left);
+				} else {
+					BuffLosingPlayer(GameVar.players.right);
+				}
+			}
+		}
+
+		private void BuffLosingPlayer(Player player)
+		{
+
 		}
 
 		/// <summary>
