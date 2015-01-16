@@ -7,20 +7,26 @@ namespace PongJutsu
 	{
 
 		public float speed = 7f;
+		[SerializeField] private float speedAdjustment = 1.05f;
+		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
+
+		[SerializeField] private bool selfCollision = false;
+		[HideInInspector] public bool ignoreSpawnCollision = false;
+
 		public int damage = 25;
 
-		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
-		public float speedAdjustment = 1.05f;
-		public float shieldAngleMultiplier = 5f;
-
-		public bool selfCollision = false;
-
+		[SerializeField] private GameObject explosion;
 		public float explosionRadius = 2f;
-		public float explosionDamageMultiplier = 0.4f;
-		public bool explosionDamagerPerDistance = false;
+		[SerializeField] private float explosionDamageMultiplier = 0.4f;
+		[SerializeField] private bool explosionDamagerPerDistance = false;
 
-		public Color colorPlayerLeft = Color.red;
-		public Color colorPlayerRight = Color.blue;
+		public float reflectionDamageMultiplier = 0.8f;
+
+		[SerializeField] private Color shurikenLeftColor = Color.red;
+		[SerializeField] private Color shurikenRightColor = Color.blue;
+
+		[SerializeField] private Sprite shurikenLeftSprite;
+		[SerializeField] private Sprite shurikenRightSprite;
 
 		[HideInInspector] public GameObject owner;
 		[HideInInspector] public GameObject lastHitOwner;
@@ -34,9 +40,24 @@ namespace PongJutsu
 
 			// Set different Color for different owner
 			if (owner.tag == "PlayerLeft")
-				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerLeft;
+			{
+				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenLeftSprite;
+				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenLeftColor;
+			}
 			else if (owner.tag == "PlayerRight")
-				this.GetComponentInChildren<SpriteRenderer>().color = colorPlayerRight;
+			{
+				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
+				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
+			}
+		}
+
+		public void reset()
+		{
+			speed = Storage.Assign("speed", speed);
+			damage = (int)Storage.Assign("damage", (float)damage);
+			explosionRadius = Storage.Assign("explosionRadius", explosionRadius);
+			explosionDamageMultiplier = Storage.Assign("explosionDamageMultiplier", explosionDamageMultiplier);
+			reflectionDamageMultiplier = Storage.Assign("reflectionDamageMultiplier", reflectionDamageMultiplier);
 		}
 
 		public void setInitialMovement(int directionX, float movementY)
@@ -44,7 +65,7 @@ namespace PongJutsu
 			// Set initial movement
 			movement.x = speed * directionX;
 			movement.y = movementY;
-			movement = adjustSpeed(movement);
+			this.adjustSpeed();
 		}
 
 		void Update()
@@ -58,15 +79,27 @@ namespace PongJutsu
 			// Get Collisions GameObject
 			GameObject colObject = col.gameObject;
 
-			if (colObject.tag == "Shuriken" && selfCollision)
+			// Collision with Shuriken
+			if (colObject.tag == "Shuriken" && selfCollision && !ignoreSpawnCollision)
 			{
-				Destroy(col.gameObject);
-				Destroy(this.gameObject);
+				col.GetComponent<Shuriken>().Remove();
+				Remove();
 			}
-			
+
+			// Collision with Shields
+			if (colObject.tag == "Shield" && this.owner != colObject.transform.parent.gameObject)
+			{
+				damage = (int)(damage * this.reflectionDamageMultiplier);
+			}
+
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
-				explode(colObject);
+			{
+				lastHitOwner.GetComponent<Player>().addCombo();
+				colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
+
+				Explode(colObject);
+			}
 
 			// Collision with StageColliders
 			if (colObject.tag == "BoundaryTop")
@@ -74,32 +107,11 @@ namespace PongJutsu
 			else if (colObject.tag == "BoundaryBottom")
 				movement.y = Mathf.Abs(movement.y);
 			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
-				Destroy(this.gameObject);
-
-			// Collision with Shields
-			if (colObject.tag == "Shield" && owner != col.transform.parent.gameObject)
-			{
-				movement.x = -movement.x;
-
-				float a = this.transform.position.y - colObject.transform.parent.transform.position.y;
-				float b = colObject.transform.localScale.y * colObject.GetComponent<BoxCollider2D>().size.y;
-				float c = a / (b * 0.5f);
-
-				movement.y = c * shieldAngleMultiplier;
-
-				movement = adjustSpeed(movement);
-
-				lastHitOwner = colObject.transform.parent.gameObject;
-				bounceBack = true;
-			}
-			else if (colObject.tag == "Shield" && owner == col.transform.parent.gameObject && bounceBack)
-			{
-				Destroy(this.gameObject);
-			}
+				Remove();
 		}
 
 		// make sure that the shot doesn't stuck in the Boundarys
-		void OnCollisionStay2D(Collision2D col)
+		void OnTriggerStay2D(Collider2D col)
 		{
 			GameObject colObject = col.gameObject;
 
@@ -115,17 +127,31 @@ namespace PongJutsu
 					movement.y = Mathf.Abs(movement.y);
 					this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f + this.GetComponent<CircleCollider2D>().radius * 1.15f);
 			}
+			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
+			{
+				Remove();
+			}
 		}
 
-		Vector2 adjustSpeed(Vector2 vector)
+		// prevent self collision on spawn
+		void OnTriggerExit2D(Collider2D col)
 		{
-			vector.x += (Mathf.Sqrt(Vector2.SqrMagnitude(vector)) - speed) * (Mathf.Sign(vector.x) * -1) * (speedAdjustment * 1.1f);
-			return vector;
+			if (col.gameObject.tag == "Shuriken")
+				ignoreSpawnCollision = false;
 		}
 
-		void explode(GameObject hitObject)
+		public void adjustSpeed()
+		{
+			movement.x += (Mathf.Sqrt(Vector2.SqrMagnitude(movement)) - speed) * (Mathf.Sign(movement.x) * -1) * (speedAdjustment * 1.08f);
+		}
+
+		void Explode(GameObject hitObject)
 		{
 			hitObject.GetComponent<Fort>().TakeDamage(damage);
+
+			GameObject explosionAnimation = (GameObject)Instantiate(explosion, this.transform.position, Quaternion.identity);
+			explosionAnimation.GetComponent<ShurikenExplosion>().explosionRadius = explosionRadius;
+			explosionAnimation.GetComponent<ShurikenExplosion>().direction = Mathf.Sign(movement.x);
 
 			Collider2D[] expl = Physics2D.OverlapCircleAll(this.transform.position, explosionRadius);
 			foreach (Collider2D col in expl)
@@ -143,12 +169,13 @@ namespace PongJutsu
 				}
 			}
 
-			Destroy(this.gameObject);
+			Remove();
 		}
 
-		void OnDestroy()
+		public void Remove()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount--;
+			Destroy(this.gameObject);
 		}
 	}
 }

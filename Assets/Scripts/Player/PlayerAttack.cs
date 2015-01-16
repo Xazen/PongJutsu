@@ -7,7 +7,7 @@ namespace PongJutsu
 	{
 
 		public float firerate = 1.5f;
-		private float nextFire = 0f;
+		private float nextFire;
 		public float angle = 3f;
 
 		public int maxActiveShots = 1;
@@ -17,13 +17,25 @@ namespace PongJutsu
 
 		int direction;
 
+		void Start()
+		{
+			nextFire = firerate;
+		}
 
 		void Update()
+		{
+			if (GameManager.allowInput)
+			{
+				Shooting();
+			}
+		}
+
+		void Shooting()
 		{
 			nextFire += Time.deltaTime;
 			if (nextFire >= firerate && shotCount < maxActiveShots)
 			{
-				if (Input.GetButton(this.transform.parent.tag + " shoot forward"))
+				if (Input.GetButton(this.transform.parent.tag + " shoot straight"))
 				{
 					triggerShoot(0);
 				}
@@ -49,7 +61,7 @@ namespace PongJutsu
 		public void Shoot()
 		{
 			// Create a new shot
-			GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
+			GameObject shotInstance = (GameObject)Instantiate(shotObject, this.transform.position, Quaternion.identity);
 			shotInstance.GetComponent<Shuriken>().owner = this.transform.parent.gameObject;
 			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * direction);
 			this.audio.Play();

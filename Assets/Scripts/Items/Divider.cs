@@ -10,14 +10,12 @@ namespace PongJutsu
 		public float angularDistance = 1f;
 		public float damagePercentage = 0.5f;
 
-		public override void content(Collider2D col)
+		public override void content(Shuriken shuriken)
 		{
-			base.content(col);
-
 			// Split shuriken
 			for (int i = 0; splits > i; i++)
 			{
-				GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, new Quaternion());
+				GameObject shotInstance = (GameObject) Instantiate(shotObject, this.transform.position, Quaternion.identity);
 
 				// Calculate y-movement
 				float movementY;
@@ -27,14 +25,16 @@ namespace PongJutsu
 					movementY = i * angularDistance - angularDistance * ((splits -1f) / 2f);
 
 				// Init values
-				shotInstance.GetComponent<Shuriken>().owner = col.GetComponent<Shuriken>().owner;
-				shotInstance.GetComponent<Shuriken>().damage = (int)(col.GetComponent<Shuriken>().damage * damagePercentage);
-				shotInstance.GetComponent<Shuriken>().setInitialMovement((int)Mathf.Sign(col.GetComponent<Shuriken>().movement.x), col.GetComponent<Shuriken>().movement.y + movementY);
-				shotInstance.GetComponent<Shuriken>().bounceBack = col.GetComponent<Shuriken>().bounceBack;
+				shotInstance.GetComponent<Shuriken>().owner = shuriken.owner;
+				shotInstance.GetComponent<Shuriken>().damage = (int)(shuriken.damage * damagePercentage);
+				shotInstance.GetComponent<Shuriken>().setInitialMovement((int)Mathf.Sign(shuriken.movement.x), shuriken.movement.y + movementY);
+				shotInstance.GetComponent<Shuriken>().bounceBack = shuriken.bounceBack;
+				shotInstance.GetComponent<Shuriken>().ignoreSpawnCollision = true;
 			}
 
-			Destroy(col.gameObject);
-			this.Remove();
+			shuriken.Remove();
+
+			base.content(shuriken);
 		}
 	}
 }

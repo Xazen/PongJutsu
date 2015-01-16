@@ -5,36 +5,16 @@ namespace PongJutsu
 {
 	public class ShieldExpander : Item
 	{
-		public float sizeMultiplier = 1.5f;
+		public float scaleMultiplier = 1.5f;
 		public float duration = 5f;
 
-		private GameObject shield;
-		private bool isActivated = false;
+		private PlayerShield shield;
 
-		public override void content(Collider2D col)
+		public override void content(Shuriken shuriken)
 		{
-			base.content(col);
+			shuriken.lastHitOwner.GetComponent<PlayerItemHandler>().ShieldExpander(this);
 
-			// Scale shield
-			shield = col.GetComponent<Shuriken>().lastHitOwner.transform.FindChild("Shield").gameObject;
-			shield.transform.localScale = new Vector2(shield.transform.localScale.x, shield.transform.localScale.y * sizeMultiplier);
-			isActivated = true;
-
-			this.Hide();
-		}
-
-		void Update()
-		{
-			// Shield scale timer
-			if (isActivated)
-			{
-				duration -= Time.deltaTime;
-			}
-			if (duration <= 0)
-			{
-				shield.transform.localScale = new Vector2(shield.transform.localScale.x, shield.transform.localScale.y / sizeMultiplier);
-				this.Remove();
-			}
+			base.content(shuriken);
 		}
 	}
 }

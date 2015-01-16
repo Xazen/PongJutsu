@@ -8,11 +8,12 @@ namespace PongJutsu
 		public AnimatorOverrideController ninjaLeftController;
 		public AnimatorOverrideController ninjaRightController;
 
-		public Sprite shieldLeftSprite;
-		public Sprite shieldRightSprite;
+		[HideInInspector] public GameObject[] forts;
 
 		public bool mirror = false;
 		[HideInInspector] public int direction = 1;
+
+		[HideInInspector] public int comboCount = 0;
 
 
 		void Start()
@@ -21,21 +22,29 @@ namespace PongJutsu
 			{
 				// Mirror the Player
 				direction = -1;
-				Vector3 scale = this.transform.localScale;
-				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
+				this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 			}
 
-			// set different sprites for each player
+			// Setup different players
 			if (this.tag == "PlayerLeft")
 			{
 				this.GetComponent<Animator>().runtimeAnimatorController = ninjaLeftController;
-				this.transform.FindChild("Shield").GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
+				forts = GameObject.FindGameObjectsWithTag("FortLeft");
 			}
 			else if (this.tag == "PlayerRight")
 			{
 				this.GetComponent<Animator>().runtimeAnimatorController = ninjaRightController;
-				this.transform.FindChild("Shield").GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
+				forts = GameObject.FindGameObjectsWithTag("FortRight");
 			}
+		}
+
+		public void addCombo()
+		{
+			comboCount++;
+		}
+		public void resetCombo()
+		{
+			comboCount = 0;
 		}
 
 		// --- Forward animation event (ae) ---
