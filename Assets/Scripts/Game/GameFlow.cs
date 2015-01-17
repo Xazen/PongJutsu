@@ -24,7 +24,8 @@ namespace PongJutsu
 		// Increase shuriken speed for combos
 
 		// Buff loosing Player
-		private bool isBuffed = false;
+		private bool buffedLeft = false;
+		private bool buffedRight = false;
 		[SerializeField]
 		private int requiredFortDeltaForBuff = 2;
 		[SerializeField]
@@ -41,7 +42,8 @@ namespace PongJutsu
 		public void StartFlow()
 		{
 			riverSpeedUpCounter = 0;
-			isBuffed = false;
+			buffedLeft = false;
+			buffedRight = false;
 			isCritical = false;
 		}
 
@@ -61,13 +63,12 @@ namespace PongJutsu
 			// Enter critical mode when conditions are met
 			if (GameVar.ingameTime > minimumTimeForCriticalMode && !isCritical && GameVar.forts.allCount <= 4 && GameVar.forts.leftCount <= 2 && GameVar.forts.rightCount <= 2) 
 			{
-				isCritical = true;
 				EnterCriticalMode ();
 			}
 
 			// Buff losing player
 			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
-			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !isBuffed) 
+			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !buffedLeft && !buffedRight) 
 			{
 				if (deltaFortCount < 0) 
 				{
@@ -78,9 +79,11 @@ namespace PongJutsu
 					BuffLosingPlayer (GameVar.players.right);
 				}
 			} 
-			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && isBuffed)
+			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && (buffedLeft || buffedRight))
 			{
 				DebuffPlayers ();
+				buffedLeft = false;
+				buffedRight = false;
 			}
 		}
 
@@ -95,9 +98,10 @@ namespace PongJutsu
 				Debug.Log ("---GameFlow---");
 			}
 
+			buffedLeft = (player == GameVar.players.left);
+			buffedRight = (player == GameVar.players.right);
+			
 			player.damageMultiplier += (buffedDamageMultiplier-1.0f);
-
-			isBuffed = true;
 
 			// Log new values
 			if (consoleLog)
@@ -118,10 +122,16 @@ namespace PongJutsu
 				Debug.Log ("---GameFlow---");
 			}
 
-			GameVar.players.left.damageMultiplier = 1.0f;
-			GameVar.players.right.damageMultiplier = 1.0f;
+			if (buffedLeft) 
+			{
+				GameVar.players.left.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
+			}
 
-			isBuffed = false;
+
+			if (buffedRight) 
+			{
+				GameVar.players.right.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
+			}
 
 			// Log new values
 			if (consoleLog)
@@ -142,6 +152,8 @@ namespace PongJutsu
 			{
 				Debug.Log ("---GameFlow---");
 			}
+
+			isCritical = true;
 
 			IncreaseRiverSpawnFrequency (riverCriticalSpawnMultiplier);
 
