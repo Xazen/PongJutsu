@@ -94,7 +94,7 @@ namespace PongJutsu
 				int fortsCount = 0;
 				foreach (Fort fort in GameObject.FindObjectsOfType<Fort>())
 				{
-					if (fort.health > 0 && fort.tag == tag)
+					if (!fort.isDestroyed && fort.tag == tag)
 						fortsCount++;
 				}
 
