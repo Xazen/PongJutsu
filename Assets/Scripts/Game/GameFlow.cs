@@ -14,34 +14,48 @@ namespace PongJutsu
 		[SerializeField]
 		private float riverMinimumSpawnFrequency = 3.0f;
 
-		// Increase Spawn frequency
+		// Regularly increase Spawn frequency
+		private int riverSpeedUpCounter = 0;
 		[SerializeField]
 		private float riverTimeSpawnMultiplier = 0.75f;
 		[SerializeField]
 		private float riverTimeSpawnMultiplierFrequency = 30.0f;
 
+		// Increase shuriken speed for combos
+
+		// Buff loosing Player
+		private bool isBuffed = false;
+		[SerializeField]
+		private int requiredFortDeltaForBuff = 2;
+		[SerializeField]
+		private float buffedDamageMultiplier = 1.5f;
+
 		// Critical Mode
+		private bool isCritical = false;
 		[SerializeField]
 		private float minimumTimeForCriticalMode = 45.0f;
 		[SerializeField]
 		private float riverCriticalSpawnMultiplier = 0.33f;
 
-		private int riverSpeedUpCounter = 0;
-		private bool isCritical = false;
 
 		public void StartFlow()
 		{
-
+			riverSpeedUpCounter = 0;
+			isBuffed = false;
+			isCritical = false;
 		}
 
 		public void UpdateFlow()
 		{
-			// Regularaly increase spawn frequency
+			// Regularly increase spawn frequency
 			int updateRiverSpeedUpCounter = Mathf.FloorToInt(GameVar.ingameTime / riverTimeSpawnMultiplierFrequency);
 			if (riverSpeedUpCounter < updateRiverSpeedUpCounter) 
 			{
 				riverSpeedUpCounter = updateRiverSpeedUpCounter;
 				IncreaseRiverSpawnFrequency (riverTimeSpawnMultiplier);
+
+				// Also change flow direction
+				InvertRiverFlow();
 			}
 
 			// Enter critical mode when conditions are met
@@ -53,14 +67,20 @@ namespace PongJutsu
 
 			// Buff losing player
 			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
-			if (Mathf.Abs (deltaFortCount) >= 3) 
+			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !isBuffed) 
 			{
-				if (deltaFortCount < 0)
+				if (deltaFortCount < 0) 
 				{
-					BuffLosingPlayer(GameVar.players.left);
-				} else {
-					BuffLosingPlayer(GameVar.players.right);
+					BuffLosingPlayer (GameVar.players.left);
+				} 
+				else 
+				{
+					BuffLosingPlayer (GameVar.players.right);
 				}
+			} 
+			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && isBuffed)
+			{
+				DebuffPlayers ();
 			}
 		}
 
@@ -68,9 +88,49 @@ namespace PongJutsu
 		/// Buffs the losing player.
 		/// </summary>
 		/// <param name="player">Player.</param>
-		private void BuffLosingPlayer(Player player)
+		private void BuffLosingPlayer(GameVar.players.player player)
 		{
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
 
+			player.damageMultiplier += (buffedDamageMultiplier-1.0f);
+
+			isBuffed = true;
+
+			// Log new values
+			if (consoleLog)
+			{
+				Debug.Log("Buffed player: " + player + "\n" +
+				          "  player damage multiplier   : " + player.damageMultiplier
+				          );
+			}
+		}
+
+		/// <summary>
+		/// Debuffs the players.
+		/// </summary>
+		private void DebuffPlayers()
+		{
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
+
+			GameVar.players.left.damageMultiplier = 1.0f;
+			GameVar.players.right.damageMultiplier = 1.0f;
+
+			isBuffed = false;
+
+			// Log new values
+			if (consoleLog)
+			{
+				Debug.Log("Debuff player:\n" +
+				          "  player left damage multiplier   : " + GameVar.players.left.damageMultiplier + "\n" +
+				          "  player right damage multiplier  : " + GameVar.players.right.damageMultiplier
+				          );
+			}
 		}
 
 		/// <summary>
@@ -114,6 +174,11 @@ namespace PongJutsu
 		/// <param name="multiplier">Multiplier for the river spawn frequency. The smaller the value the faster the items are spawning.</param>
 		private void IncreaseRiverSpawnFrequency(float multiplier)
 		{
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
+
 			// Validate new river speed before update
 			if (GameVar.river.spawnFrequency * multiplier > riverMinimumSpawnFrequency)
 			{
@@ -133,12 +198,19 @@ namespace PongJutsu
 			// Log new values
 			if (consoleLog)
 			{
-				Debug.Log("---GameFlow---\n" +
-				          "Inreased river speed.\n" +
+				Debug.Log("Inreased river speed.\n" +
 				          "  River Spawn Frequency       : " + GameVar.river.spawnFrequency + "\n" +
 				          "  River Frequency Randomizer  : " + GameVar.river.frequencyRandomizer + "\n" +
 				          "---------");
 			}
+		}
+
+		/// <summary>
+		/// Inverts the river flow.
+		/// </summary>
+		private void InvertRiverFlow()
+		{
+			GameVar.river.flowSpeed *= -1.0f;
 		}
 	}
 }

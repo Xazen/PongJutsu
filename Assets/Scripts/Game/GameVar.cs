@@ -51,6 +51,19 @@ namespace PongJutsu
 					set { reference.GetComponentInChildren<PlayerAttack>().firerate = value; }
 				}
 
+				public float damageMultiplier
+				{
+					get { return reference.GetComponentInChildren<PlayerAttack> ().damageMultiplier; }
+					set { reference.GetComponentInChildren<PlayerAttack>().damageMultiplier = value; }
+				}
+
+				
+				public float speedMultiplier
+				{
+					get { return reference.GetComponentInChildren<PlayerAttack> ().speedMultiplier; }
+					set { reference.GetComponentInChildren<PlayerAttack>().speedMultiplier = value; }
+				}
+
 				public float minMovementSpeed
 				{
 					get { return reference.GetComponentInChildren<PlayerMovement>().minMovementSpeed; }
