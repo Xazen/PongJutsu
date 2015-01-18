@@ -62,8 +62,8 @@ TextureImporter:
         y: 4096
         width: 1024
         height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: ShieldRed_Catch_1
       rect:
@@ -72,108 +72,38 @@ TextureImporter:
         y: 4096
         width: 1024
         height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: ShieldRed_Catch_2
       rect:
         serializedVersion: 2
-        x: 2055
-        y: 4096
+        x: 0
+        y: 2048
         width: 1024
         height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: ShieldRed_Catch_3
       rect:
         serializedVersion: 2
-        x: 3072
-        y: 4096
+        x: 1024
+        y: 2048
         width: 1024
         height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: ShieldRed_Catch_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 2048
-        width: 1024
-        height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ShieldRed_Catch_5
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 2048
-        width: 1024
-        height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ShieldRed_Catch_6
-      rect:
-        serializedVersion: 2
-        x: 2048
-        y: 2048
-        width: 1024
-        height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ShieldRed_Catch_7
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 2048
-        width: 1024
-        height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ShieldRed_Catch_8
-      rect:
-        serializedVersion: 2
-        x: 0
         y: 0
         width: 1024
         height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ShieldRed_Catch_9
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 1024
-        height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ShieldRed_Catch_10
-      rect:
-        serializedVersion: 2
-        x: 2048
-        y: 0
-        width: 1024
-        height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ShieldRed_Catch_11
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 0
-        width: 1024
-        height: 2048
-      alignment: 9
-      pivot: {x: .200000003, y: .5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

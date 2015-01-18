@@ -23,16 +23,6 @@ AnimationClip:
         inSlope: -2.3529408
         outSlope: -2.3529408
         tangentMode: 10
-      - time: .0666666701
-        value: .764705896
-        inSlope: -.81447947
-        outSlope: -.81447947
-        tangentMode: 10
-      - time: .283333331
-        value: .921568632
-        inSlope: .723981857
-        outSlope: .723981857
-        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_Color.r
@@ -46,16 +36,6 @@ AnimationClip:
         value: .921568632
         inSlope: -2.3529408
         outSlope: -2.3529408
-        tangentMode: 10
-      - time: .0666666701
-        value: .764705896
-        inSlope: -.81447947
-        outSlope: -.81447947
-        tangentMode: 10
-      - time: .283333331
-        value: .921568632
-        inSlope: .723981857
-        outSlope: .723981857
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -71,16 +51,6 @@ AnimationClip:
         inSlope: -2.3529408
         outSlope: -2.3529408
         tangentMode: 10
-      - time: .0666666701
-        value: .764705896
-        inSlope: -.81447947
-        outSlope: -.81447947
-        tangentMode: 10
-      - time: .283333331
-        value: .921568632
-        inSlope: .723981857
-        outSlope: .723981857
-        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_Color.b
@@ -94,16 +64,6 @@ AnimationClip:
         value: .882352948
         inSlope: -6.17647028
         outSlope: -6.17647028
-        tangentMode: 10
-      - time: .0666666701
-        value: .470588237
-        inSlope: -2.13800883
-        outSlope: -2.13800883
-        tangentMode: 10
-      - time: .283333331
-        value: .882352948
-        inSlope: 1.90045249
-        outSlope: 1.90045249
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -147,7 +107,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: .283333331
+    m_StopTime: 0
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -170,16 +130,6 @@ AnimationClip:
         inSlope: -2.3529408
         outSlope: -2.3529408
         tangentMode: 10
-      - time: .0666666701
-        value: .764705896
-        inSlope: -.81447947
-        outSlope: -.81447947
-        tangentMode: 10
-      - time: .283333331
-        value: .921568632
-        inSlope: .723981857
-        outSlope: .723981857
-        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_Color.r
@@ -193,16 +143,6 @@ AnimationClip:
         value: .921568632
         inSlope: -2.3529408
         outSlope: -2.3529408
-        tangentMode: 10
-      - time: .0666666701
-        value: .764705896
-        inSlope: -.81447947
-        outSlope: -.81447947
-        tangentMode: 10
-      - time: .283333331
-        value: .921568632
-        inSlope: .723981857
-        outSlope: .723981857
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -218,16 +158,6 @@ AnimationClip:
         inSlope: -2.3529408
         outSlope: -2.3529408
         tangentMode: 10
-      - time: .0666666701
-        value: .764705896
-        inSlope: -.81447947
-        outSlope: -.81447947
-        tangentMode: 10
-      - time: .283333331
-        value: .921568632
-        inSlope: .723981857
-        outSlope: .723981857
-        tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_Color.b
@@ -241,16 +171,6 @@ AnimationClip:
         value: .882352948
         inSlope: -6.17647028
         outSlope: -6.17647028
-        tangentMode: 10
-      - time: .0666666701
-        value: .470588237
-        inSlope: -2.13800883
-        outSlope: -2.13800883
-        tangentMode: 10
-      - time: .283333331
-        value: .882352948
-        inSlope: 1.90045249
-        outSlope: 1.90045249
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
