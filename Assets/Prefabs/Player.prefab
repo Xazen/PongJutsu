@@ -445,7 +445,7 @@ SpriteRenderer:
   m_SortingLayerID: 4218480587
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
-  m_Color: {r: .921568632, g: .921568632, b: .921568632, a: .882352948}
+  m_Color: {r: .960784316, g: .960784316, b: .960784316, a: .882352948}
 --- !u!212 &21200002
 SpriteRenderer:
   m_ObjectHideFlags: 1
