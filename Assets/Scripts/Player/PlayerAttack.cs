@@ -34,12 +34,12 @@ namespace PongJutsu
 		{
 			if (shotCount < maxActiveShots)
 			{
-				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.active == false)
+				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == false)
 					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(true);
 			}
 			else
 			{
-				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.active == true)
+				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == true)
 					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(false);
 			}
 		}
