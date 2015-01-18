@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace PongJutsu
 {
@@ -15,14 +16,14 @@ namespace PongJutsu
 
 		// Aniamtion Events
 
-		void transition_loadgame()
+		void transition_loadgame(int waitForBuildup)
 		{
-			GameManager.LoadGame();
+			GameManager.LoadGame(Convert.ToBoolean(waitForBuildup));
 		}
 
 		void transition_buildup()
 		{
-
+			GameManager.BuildupGame();
 		}
 
 		void transition_startgame()

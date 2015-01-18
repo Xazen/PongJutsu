@@ -2434,7 +2434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowPause: 1
-  instantPlay: 0
+  instantPlay: 1
 --- !u!4 &1757980358
 Transform:
   m_ObjectHideFlags: 0

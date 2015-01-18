@@ -33,12 +33,12 @@ namespace PongJutsu
 		private static void InstantGame()
 		{
 			GameMatch.newMatch();
-			LoadGame();
+			LoadGame(false);
 			StartGame();
 			ui.SetTrigger("InstantGame");
 		}
 
-		public static void LoadGame()
+		public static void LoadGame(bool waitForBuildup)
 		{
 			if (!isIngame)
 			{
@@ -60,6 +60,12 @@ namespace PongJutsu
 				allowInput = false;
 
 				Time.timeScale = 1;
+
+				// prepare construction
+				if (waitForBuildup)
+				{
+					// hide objects
+				}
 			}
 		}
 
@@ -87,6 +93,11 @@ namespace PongJutsu
 
 				Time.timeScale = 1;
 			}
+		}
+
+		public static void BuildupGame()
+		{
+			// buildup objects
 		}
 
 		static void resetChangedPrefabs()
