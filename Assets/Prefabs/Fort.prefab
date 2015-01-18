@@ -190,7 +190,10 @@ MonoBehaviour:
   FortLeftController: {fileID: 22100000, guid: e9dbdca7f4fa8b14faa76a1e22b3632e, type: 2}
   FortRightController: {fileID: 22100000, guid: 0ad00ccf0750cc742a6edc0ffa8d277e,
     type: 2}
+  disableAtDestroy: 0
   removeAtDestroy: 0
+  isDestroyed: 0
+  owner: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
