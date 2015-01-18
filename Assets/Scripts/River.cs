@@ -23,7 +23,7 @@ namespace PongJutsu
 
 		private List<GameObject> spawnedItems = new List<GameObject>();
 
-		void Awake()
+		public void Setup()
 		{
 			foreach (GameObject item in items)
 				itemList.Add(item.name, item.GetComponent<Item>());
@@ -35,7 +35,8 @@ namespace PongJutsu
 
 		void Update()
 		{
-			updateSpawn();
+			if (GameManager.allowInput)
+				updateSpawn();
 		}
 
 		void setNextSpawn()
