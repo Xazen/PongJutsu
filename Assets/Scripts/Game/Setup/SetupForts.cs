@@ -51,9 +51,19 @@ namespace PongJutsu
 			instance.transform.position = position;
 			instance.GetComponent<Fort>().mirror = mirror;
 
-			instance.GetComponent<Fort>().Setup();
+			Instances.Add(instance);
 
 			return instance;
+		}
+
+		public override void postbuild()
+		{
+			base.postbuild();
+
+			foreach(GameObject instance in Instances)
+			{
+				instance.GetComponent<Fort>().Setup();
+			}			
 		}
 
 		void OnDrawGizmos()

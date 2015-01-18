@@ -14,6 +14,12 @@ namespace PongJutsu
 
 			MainInstance = (GameObject)Instantiate(riverPrefab, new Vector2(0f, 0f), Quaternion.identity);
 			MainInstance.name = riverPrefab.name;
+		}
+
+		public override void postbuild()
+		{
+			base.postbuild();
+
 			MainInstance.GetComponent<River>().Setup();
 		}
 

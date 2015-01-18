@@ -37,11 +37,21 @@ namespace PongJutsu
 			instance.transform.position = position;
 			instance.GetComponent<Player>().mirror = mirror;
 
-			instance.GetComponent<Player>().Setup();
-			instance.GetComponentInChildren<PlayerAttack>().Setup();
-			instance.GetComponentInChildren<PlayerShield>().Setup();
+			Instances.Add(instance);
 
 			return instance;
+		}
+
+		public override void postbuild()
+		{
+			base.postbuild();
+
+			foreach (GameObject instance in Instances)
+			{
+				instance.GetComponent<Player>().Setup();
+				instance.GetComponentInChildren<PlayerAttack>().Setup();
+				instance.GetComponentInChildren<PlayerShield>().Setup();
+			}
 		}
 
 		void OnDrawGizmos()
