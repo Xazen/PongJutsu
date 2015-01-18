@@ -11,5 +11,28 @@ namespace PongJutsu
 		{
 			ui = GameObject.Find("UI").GetComponent<Animator>();
 		}
+
+
+		// Aniamtion Events
+
+		void transition_loadgame()
+		{
+			GameManager.LoadGame();
+		}
+
+		void transition_buildup()
+		{
+
+		}
+
+		void transition_startgame()
+		{
+			GameManager.StartGame();
+		}
+
+		void transition_unloadgame()
+		{
+			GameManager.UnloadGame();
+		}
 	}
 }

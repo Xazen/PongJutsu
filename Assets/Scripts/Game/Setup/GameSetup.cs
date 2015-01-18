@@ -16,7 +16,7 @@ namespace PongJutsu
 		{
 			if (MainInstance != null)
 			{
-				DestroyImmediate(MainInstance);
+				Destroy(MainInstance);
 			}
 		}
 	}

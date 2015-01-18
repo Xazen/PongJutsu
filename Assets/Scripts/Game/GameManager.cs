@@ -27,13 +27,18 @@ namespace PongJutsu
 		void Start()
 		{
 			if (instantPlay)
-			{
-				ui.SetTrigger("InstantGame");
-				StartGame();
-			}
+				InstantGame();
 		}
 
-		static void LoadGame()
+		private static void InstantGame()
+		{
+			GameMatch.newMatch();
+			LoadGame();
+			StartGame();
+			ui.SetTrigger("InstantGame");
+		}
+
+		public static void LoadGame()
 		{
 			if (!isIngame)
 			{
@@ -52,13 +57,13 @@ namespace PongJutsu
 				isIngame = true;
 				isPause = false;
 				isEnd = false;
-				allowInput = true;
+				allowInput = false;
 
 				Time.timeScale = 1;
 			}
 		}
 
-		static void UnloadGame()
+		public static void UnloadGame()
 		{
 			if (isIngame)
 			{
@@ -72,7 +77,7 @@ namespace PongJutsu
 				}
 				foreach (Shuriken s in GameObject.FindObjectsOfType<Shuriken>())
 				{
-					DestroyImmediate(s.gameObject);
+					Destroy(s.gameObject);
 				}
 
 				isIngame = false;
@@ -135,10 +140,15 @@ namespace PongJutsu
 			}
 		}
 
-		public static void StartGame()
+		public static void NewGame()
 		{
 			GameMatch.newMatch();
-			LoadGame();
+			ui.SetTrigger("StartGame");
+		}
+
+		public static void StartGame()
+		{
+			allowInput = true;
 		}
 
 		public static void PauseGame()
@@ -161,16 +171,12 @@ namespace PongJutsu
 
 		public static void RestartGame()
 		{
-			UnloadGame();
 			ui.SetTrigger("RestartGame");
-			StartGame();
 		}
 
 		public static void NextRound()
 		{
-			UnloadGame();
 			ui.SetTrigger("NextRound");
-			LoadGame();
 		}
 
 		public static void EndRound(string winner)
