@@ -13,6 +13,8 @@ namespace PongJutsu
 		// Min und Max values
 		[SerializeField]
 		private float riverMinimumSpawnFrequency = 3.0f;
+		[SerializeField]
+		private float shurikenMaximumSpeed = 1.5f;
 
 		// Regularly increase Spawn frequency
 		private int riverSpeedUpCounter = 0;
@@ -22,10 +24,16 @@ namespace PongJutsu
 		private float riverTimeSpawnMultiplierFrequency = 30.0f;
 
 		// Increase shuriken speed for combos
+		private int comboBuffCounterLeft = 0;
+		private int comboBuffCounterRight = 0;
+		[SerializeField]
+		private int comboBuffFrequency = 5;
+		[SerializeField]
+		private float comboSpeedMultiplier = 1.15f;
 
 		// Buff loosing Player
-		private bool buffedLeft = false;
-		private bool buffedRight = false;
+		private bool looseBuffLeft = false;
+		private bool looseBuffRight = false;
 		[SerializeField]
 		private int requiredFortDeltaForBuff = 2;
 		[SerializeField]
@@ -42,8 +50,10 @@ namespace PongJutsu
 		public void StartFlow()
 		{
 			riverSpeedUpCounter = 0;
-			buffedLeft = false;
-			buffedRight = false;
+			comboBuffCounterLeft = 0;
+			comboBuffCounterRight = 0;
+			looseBuffLeft = false;
+			looseBuffRight = false;
 			isCritical = false;
 		}
 
@@ -60,6 +70,31 @@ namespace PongJutsu
 				InvertRiverFlow();
 			}
 
+			// Regularly buff player for combo
+			int updateComboBuffCounterLeft = Mathf.FloorToInt (GameVar.players.left.comboCount / comboBuffFrequency);
+			int updateComboBuffCounterRight = Mathf.FloorToInt (GameVar.players.right.comboCount / comboBuffFrequency);
+			if (updateComboBuffCounterLeft > comboBuffCounterLeft) 
+			{
+				comboBuffCounterLeft = updateComboBuffCounterLeft;
+				ComboBuffPlayer (GameVar.players.left);
+			} 
+			else if (updateComboBuffCounterLeft == 0 && comboBuffCounterLeft > 0)
+			{
+				ComboDebuffPlayer(GameVar.players.left, comboBuffCounterLeft);
+				comboBuffCounterLeft = 0;
+			}
+
+			if (updateComboBuffCounterRight > comboBuffCounterRight) 
+			{
+				comboBuffCounterRight = updateComboBuffCounterRight;
+				ComboBuffPlayer (GameVar.players.right);
+			} 
+			else if (updateComboBuffCounterRight == 0 && comboBuffCounterRight > 0) 
+			{
+				ComboDebuffPlayer(GameVar.players.right, comboBuffCounterRight);
+				comboBuffCounterRight = 0;
+			}
+
 			// Enter critical mode when conditions are met
 			if (GameVar.ingameTime > minimumTimeForCriticalMode && !isCritical && GameVar.forts.allCount <= 4 && GameVar.forts.leftCount <= 2 && GameVar.forts.rightCount <= 2) 
 			{
@@ -68,7 +103,7 @@ namespace PongJutsu
 
 			// Buff losing player
 			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
-			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !buffedLeft && !buffedRight) 
+			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !looseBuffLeft && !looseBuffRight) 
 			{
 				if (deltaFortCount < 0) 
 				{
@@ -79,11 +114,69 @@ namespace PongJutsu
 					BuffLosingPlayer (GameVar.players.right);
 				}
 			} 
-			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && (buffedLeft || buffedRight))
+			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && (looseBuffLeft || looseBuffRight))
 			{
 				DebuffPlayers ();
-				buffedLeft = false;
-				buffedRight = false;
+				looseBuffLeft = false;
+				looseBuffRight = false;
+			}
+		}
+
+		/// <summary>
+		/// Combos the buff player.
+		/// </summary>
+		/// <param name="player">Player.</param>
+		private void ComboBuffPlayer(GameVar.players.player player)
+		{
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
+
+			if (player.speedMultiplier + (comboSpeedMultiplier - 1.0f) < shurikenMaximumSpeed) 
+			{
+				player.speedMultiplier += (comboSpeedMultiplier - 1.0f);
+			} 
+			else 
+			{
+				player.speedMultiplier = shurikenMaximumSpeed;
+			}
+
+			// Log new values
+			if (consoleLog)
+			{
+				Debug.Log("Combo buff player: " + player + "\n" +
+				          "  Player speed multiplier   : " + player.speedMultiplier
+				          );
+			}
+		}
+
+		/// <summary>
+		/// Combos the debuff player.
+		/// </summary>
+		/// <param name="player">Player.</param>
+		/// <param name="comboCounter">Combo counter.</param>
+		private void ComboDebuffPlayer(GameVar.players.player player, int comboCounter)
+		{
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
+
+			if (player.speedMultiplier - ((comboSpeedMultiplier - 1.0f) * comboCounter) > 1.0f) 
+			{
+				player.speedMultiplier -= ((comboSpeedMultiplier - 1.0f) * comboCounter);
+			} else 
+			{
+				player.speedMultiplier = 1.0f;
+			}
+
+			// Log new values
+			if (consoleLog)
+			{
+				Debug.Log("Combo debuff player: " + player + "\n" +
+				          "  Player speed multiplier   : " + player.speedMultiplier
+				          );
 			}
 		}
 
@@ -98,8 +191,8 @@ namespace PongJutsu
 				Debug.Log ("---GameFlow---");
 			}
 
-			buffedLeft = (player == GameVar.players.left);
-			buffedRight = (player == GameVar.players.right);
+			looseBuffLeft = (player == GameVar.players.left);
+			looseBuffRight = (player == GameVar.players.right);
 			
 			player.damageMultiplier += (buffedDamageMultiplier-1.0f);
 
@@ -122,13 +215,13 @@ namespace PongJutsu
 				Debug.Log ("---GameFlow---");
 			}
 
-			if (buffedLeft) 
+			if (looseBuffLeft) 
 			{
 				GameVar.players.left.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
 			}
 
 
-			if (buffedRight) 
+			if (looseBuffRight) 
 			{
 				GameVar.players.right.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
 			}

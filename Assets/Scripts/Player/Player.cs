@@ -15,6 +15,9 @@ namespace PongJutsu
 
 		[HideInInspector] public int comboCount = 0;
 
+		[SerializeField]
+		private float resetComboTime = 4.0f;
+		private float passedTimeSinceCombo = 0.0f;
 
 		void Start()
 		{
@@ -38,8 +41,22 @@ namespace PongJutsu
 			}
 		}
 
+		public void Update()
+		{
+			if (comboCount > 0) 
+			{
+				passedTimeSinceCombo += Time.deltaTime;
+
+				if (passedTimeSinceCombo >= resetComboTime)
+				{
+					resetCombo();
+				}
+			}
+		}
+
 		public void addCombo()
 		{
+			passedTimeSinceCombo = 0.0f;
 			comboCount++;
 		}
 		public void resetCombo()

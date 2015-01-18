@@ -95,9 +95,8 @@ namespace PongJutsu
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 			{
-				lastHitOwner.GetComponent<Player>().addCombo();
-				colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
-
+				//colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
+				lastHitOwner.GetComponent<Player>().resetCombo();
 				Explode(colObject);
 			}
 
