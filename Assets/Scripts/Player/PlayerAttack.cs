@@ -24,9 +24,23 @@ namespace PongJutsu
 
 		void Update()
 		{
+			setGlow();
+
 			if (GameManager.allowInput)
-			{
 				Shooting();
+		}
+
+		void setGlow()
+		{
+			if (shotCount < maxActiveShots)
+			{
+				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == false)
+					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(true);
+			}
+			else
+			{
+				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == true)
+					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(false);
 			}
 		}
 
