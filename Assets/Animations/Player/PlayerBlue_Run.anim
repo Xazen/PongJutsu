@@ -37,6 +37,27 @@ AnimationClip:
     path: Ninja
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: -0
+      value: {fileID: 21300000, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - time: .0500000007
+      value: {fileID: 21300002, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - time: .100000001
+      value: {fileID: 21300004, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - time: .150000006
+      value: {fileID: 21300006, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - time: .200000003
+      value: {fileID: 21300008, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - time: .25
+      value: {fileID: 21300010, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - time: .300000012
+      value: {fileID: 21300012, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - time: .350000024
+      value: {fileID: 21300014, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    attribute: m_Sprite
+    path: Ninja/Glow
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 20
   m_WrapMode: 0
   m_Bounds:
@@ -45,6 +66,12 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - path: 2149686645
+      attribute: 0
+      script: {fileID: 0}
+      classID: 212
+      customType: 23
+      isPPtrCurve: 1
+    - path: 2460839077
       attribute: 0
       script: {fileID: 0}
       classID: 212
@@ -59,6 +86,14 @@ AnimationClip:
     - {fileID: 21300010, guid: a23ba21005d75484db3ba1ae201f3bda, type: 3}
     - {fileID: 21300012, guid: a23ba21005d75484db3ba1ae201f3bda, type: 3}
     - {fileID: 21300014, guid: a23ba21005d75484db3ba1ae201f3bda, type: 3}
+    - {fileID: 21300000, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - {fileID: 21300002, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - {fileID: 21300004, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - {fileID: 21300006, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - {fileID: 21300008, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - {fileID: 21300010, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - {fileID: 21300012, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
+    - {fileID: 21300014, guid: 67897cded397f204e8e8bf83f367c12c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
