@@ -111,7 +111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .699999988, y: 0, z: 0}
+  m_LocalPosition: {x: .449999988, y: 0, z: 0}
   m_LocalScale: {x: .469999999, y: .5, z: .5}
   m_Children:
   - {fileID: 407930}
@@ -370,9 +370,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firerate: .200000003
   angle: 3.5
+  shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
   maxActiveShots: 1
   shotCount: 0
-  shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -443,7 +443,7 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 4218480587
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
   m_Color: {r: .960784316, g: .960784316, b: .960784316, a: .882352948}
 --- !u!212 &21200002
@@ -487,7 +487,7 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 4218480587
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21215276
