@@ -36,7 +36,12 @@ namespace PongJutsu
 		void Start()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
-			lastHitOwner = owner;
+
+			// Last hit owner might had been set by an item
+			if (!lastHitOwner) 
+			{
+				lastHitOwner = owner;
+			}
 
 			// Set different Color for different owner
 			if (owner.tag == "PlayerLeft")
