@@ -15,6 +15,7 @@ namespace PongJutsu
 
 		public int maxActiveShots = 1;
 		[HideInInspector] public int shotCount = 0;
+		private bool waitForShot = false;
 
 		public GameObject shotObject;
 
@@ -36,7 +37,7 @@ namespace PongJutsu
 		void Shooting()
 		{
 			nextFire += Time.deltaTime;
-			if (nextFire >= firerate && shotCount < maxActiveShots)
+			if (nextFire >= firerate && shotCount < maxActiveShots && !waitForShot)
 			{
 				if (Input.GetButton(this.transform.parent.tag + " shoot straight"))
 				{
@@ -57,8 +58,10 @@ namespace PongJutsu
 		{
 			// Trigger Animation... wait for throw
 			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
-			direction = dir;
+
 			nextFire = 0;
+			waitForShot = true;
+			direction = dir;
 		}
 
 		public void Shoot()
@@ -72,6 +75,7 @@ namespace PongJutsu
 			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage*damageMultiplier);
 			this.audio.Play();
 
+			waitForShot = false;
 			direction = 0;
 		}
 	}
