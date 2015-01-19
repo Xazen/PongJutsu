@@ -45,10 +45,29 @@ namespace PongJutsu
 					get { return reference.GetComponentInChildren<PlayerAttack>().maxActiveShots; }
 					set { reference.GetComponentInChildren<PlayerAttack>().maxActiveShots = value; }
 				}
+
 				public float firerate
 				{
 					get { return reference.GetComponentInChildren<PlayerAttack>().firerate; }
 					set { reference.GetComponentInChildren<PlayerAttack>().firerate = value; }
+				}
+
+				public float angle
+				{
+					get { return reference.GetComponentInChildren<PlayerAttack>().maxAngle; }
+					set { reference.GetComponentInChildren<PlayerAttack>().maxAngle = value; }
+				}
+
+				public float damageMultiplier
+				{
+					get { return reference.GetComponentInChildren<PlayerAttack> ().damageMultiplier; }
+					set { reference.GetComponentInChildren<PlayerAttack>().damageMultiplier = value; }
+				}
+								
+				public float speedMultiplier
+				{
+					get { return reference.GetComponentInChildren<PlayerAttack> ().speedMultiplier; }
+					set { reference.GetComponentInChildren<PlayerAttack>().speedMultiplier = value; }
 				}
 
 				public float minMovementSpeed
@@ -94,7 +113,7 @@ namespace PongJutsu
 				int fortsCount = 0;
 				foreach (Fort fort in GameObject.FindObjectsOfType<Fort>())
 				{
-					if (fort.health > 0 && fort.tag == tag)
+					if (!fort.isDestroyed && fort.tag == tag)
 						fortsCount++;
 				}
 

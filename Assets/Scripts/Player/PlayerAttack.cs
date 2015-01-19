@@ -11,9 +11,14 @@ namespace PongJutsu
 
 		public float maxAngle = 3.5f;
 
-		public GameObject shotObject;
+		public float damageMultiplier = 1.0f;
+		public float speedMultiplier = 1.0f;
+
 		public int maxActiveShots = 1;
 		[HideInInspector] public int shotCount = 0;
+		private bool waitForShot = false;
+
+		public GameObject shotObject;
 
 		void Start()
 		{
@@ -31,7 +36,7 @@ namespace PongJutsu
 		void Shooting()
 		{
 			nextFire += Time.deltaTime;
-			if (nextFire >= firerate && shotCount < maxActiveShots && Input.GetButton(this.transform.parent.tag + " shoot"))
+			if (nextFire >= firerate && shotCount < maxActiveShots && !waitForShot && Input.GetButton(this.transform.parent.tag + " shoot"))
 			{
 				triggerShoot();
 			}
@@ -41,16 +46,23 @@ namespace PongJutsu
 		{
 			// Trigger Animation... wait for throw
 			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
+
 			nextFire = 0;
+			waitForShot = true;
 		}
 
 		public void Shoot()
 		{
 			// Create a new shot
 			GameObject shotInstance = (GameObject)Instantiate(shotObject, this.transform.position, Quaternion.identity);
-			shotInstance.GetComponent<Shuriken>().owner = this.transform.parent.gameObject;
-			shotInstance.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, this.GetComponentInParent<PlayerMovement>().movementNormalized * maxAngle);
+			Shuriken shuriken = shotInstance.GetComponent<Shuriken> ();
+			shuriken.owner = this.transform.parent.gameObject;
+			shuriken.speed *= speedMultiplier;
+			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage*damageMultiplier);
+			shuriken.setInitialMovement(this.GetComponentInParent<Player>().direction, this.GetComponentInParent<PlayerMovement>().movementNormalized * maxAngle);
 			this.audio.Play();
+
+			waitForShot = false;
 		}
 	}
 }

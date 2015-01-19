@@ -15,6 +15,9 @@ namespace PongJutsu
 
 		[HideInInspector] public int comboCount = 0;
 
+		[SerializeField]
+		private float resetComboTime = 4.0f;
+		private float passedTimeSinceCombo = 0.0f;
 
 		void Start()
 		{
@@ -22,8 +25,7 @@ namespace PongJutsu
 			{
 				// Mirror the Player
 				direction = -1;
-				Vector3 scale = this.transform.localScale;
-				this.transform.localScale = new Vector3(scale.x * -1, scale.y);
+				this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 			}
 
 			// Setup different players
@@ -39,8 +41,22 @@ namespace PongJutsu
 			}
 		}
 
+		public void Update()
+		{
+			if (comboCount > 0) 
+			{
+				passedTimeSinceCombo += Time.deltaTime;
+
+				if (passedTimeSinceCombo >= resetComboTime)
+				{
+					resetCombo();
+				}
+			}
+		}
+
 		public void addCombo()
 		{
+			passedTimeSinceCombo = 0.0f;
 			comboCount++;
 		}
 		public void resetCombo()

@@ -36,7 +36,12 @@ namespace PongJutsu
 		void Start()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
-			lastHitOwner = owner;
+
+			// Last hit owner might had been set by an item
+			if (!lastHitOwner) 
+			{
+				lastHitOwner = owner;
+			}
 
 			// Set different Color for different owner
 			if (owner.tag == "PlayerLeft")
@@ -95,9 +100,8 @@ namespace PongJutsu
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 			{
-				lastHitOwner.GetComponent<Player>().addCombo();
-				colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
-
+				//colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
+				lastHitOwner.GetComponent<Player>().resetCombo();
 				Explode(colObject);
 			}
 

@@ -26,6 +26,8 @@ namespace PongJutsu
 
 				// Init values
 				shotInstance.GetComponent<Shuriken>().owner = shuriken.owner;
+				shotInstance.GetComponent<Shuriken>().lastHitOwner = shuriken.lastHitOwner;
+				shotInstance.GetComponent<Shuriken>().speed *= shuriken.owner.GetComponentInChildren<PlayerAttack>().speedMultiplier;
 				shotInstance.GetComponent<Shuriken>().damage = (int)(shuriken.damage * damagePercentage);
 				shotInstance.GetComponent<Shuriken>().setInitialMovement((int)Mathf.Sign(shuriken.movement.x), shuriken.movement.y + movementY);
 				shotInstance.GetComponent<Shuriken>().bounceBack = shuriken.bounceBack;
