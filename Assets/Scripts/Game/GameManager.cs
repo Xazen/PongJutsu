@@ -64,7 +64,8 @@ namespace PongJutsu
 				// prepare construction
 				if (waitForBuildup)
 				{
-					// hide objects
+					GameVar.players.left.reference.transform.FindChild("Shield").GetComponent<SpriteRenderer>().enabled = false;
+					GameVar.players.right.reference.transform.FindChild("Shield").GetComponent<SpriteRenderer>().enabled = false;
 				}
 			}
 		}
@@ -94,10 +95,13 @@ namespace PongJutsu
 				Time.timeScale = 1;
 			}
 		}
-
+		
 		public static void BuildupGame()
 		{
-			// buildup objects
+			GameVar.players.left.reference.transform.FindChild("Shield").GetComponent<SpriteRenderer>().enabled = true;
+			GameVar.players.right.reference.transform.FindChild("Shield").GetComponent<SpriteRenderer>().enabled = true;
+			GameVar.players.left.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
+			GameVar.players.right.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
 		}
 
 		static void resetChangedPrefabs()
