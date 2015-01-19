@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Smoke4
+  m_Name: DustStorm
   m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -17,7 +17,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: d3b7d84ffb95cc04aaeb74f19a10f034, type: 3}
+          m_Texture: {fileID: 2800000, guid: 65fb74f285bbb4d11a3b64d99c0a53b0, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -33,7 +33,7 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: 1, g: 1, b: 1, a: .470588237}
+        second: {r: .461538434, g: .461538434, b: .461538434, a: .286274523}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6
