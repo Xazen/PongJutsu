@@ -509,7 +509,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 26.3899994}
+  m_AnchoredPosition: {x: 0, y: 26.3999996}
   m_SizeDelta: {x: 20.6000004, y: 11.6000004}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &163740741
@@ -1868,7 +1868,7 @@ GameObject:
   - 222: {fileID: 653907965}
   - 114: {fileID: 653907964}
   m_Layer: 5
-  m_Name: Menu_BG
+  m_Name: f_Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

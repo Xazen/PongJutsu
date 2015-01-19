@@ -19,17 +19,17 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 9a0411bf695962f478e01fae45f49ae9, type: 3}
-    - time: .200000003
+    - time: .166666672
       value: {fileID: 21300002, guid: 9a0411bf695962f478e01fae45f49ae9, type: 3}
-    - time: .400000006
+    - time: .333333343
       value: {fileID: 21300004, guid: 9a0411bf695962f478e01fae45f49ae9, type: 3}
-    - time: .600000024
+    - time: .5
       value: {fileID: 21300006, guid: 9a0411bf695962f478e01fae45f49ae9, type: 3}
     attribute: m_Sprite
     path: Doors
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 5
+  m_SampleRate: 6
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -50,7 +50,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: .800000012
+    m_StopTime: .666666687
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
