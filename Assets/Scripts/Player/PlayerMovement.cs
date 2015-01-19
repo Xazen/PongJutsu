@@ -31,7 +31,7 @@ namespace PongJutsu
 
 		[HideInInspector] public bool invertDirection = false;
 
-		public float movementNormalized { get { return (currentSpeed * moveDirection) / maxMovementSpeed; } }
+		public float movementNormalized { get { return (Mathf.Min(currentSpeed, maxMovementSpeed) * moveDirection) / maxMovementSpeed; } }
 
 		void Update()
 		{
