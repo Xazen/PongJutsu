@@ -331,11 +331,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minMovementSpeed: 1
   maxMovementSpeed: 8
-  accelerationSpeed: .275000006
+  accelerationSpeed: .349999994
   decelerationSpeed: 1.5
   resetMovementAtTurn: 1
   dashDistance: 1.5
-  dashSpeed: 10
+  dashSpeed: 12
   dashCooldown: .5
   dashButtonInterval: .200000003
   playerCollisionOffset: .649999976
