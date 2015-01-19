@@ -45,10 +45,17 @@ namespace PongJutsu
 					get { return reference.GetComponentInChildren<PlayerAttack>().maxActiveShots; }
 					set { reference.GetComponentInChildren<PlayerAttack>().maxActiveShots = value; }
 				}
+
 				public float firerate
 				{
 					get { return reference.GetComponentInChildren<PlayerAttack>().firerate; }
 					set { reference.GetComponentInChildren<PlayerAttack>().firerate = value; }
+				}
+
+				public float angle
+				{
+					get { return reference.GetComponentInChildren<PlayerAttack>().angle; }
+					set { reference.GetComponentInChildren<PlayerAttack>().angle = value; }
 				}
 
 				public float damageMultiplier
@@ -56,8 +63,7 @@ namespace PongJutsu
 					get { return reference.GetComponentInChildren<PlayerAttack> ().damageMultiplier; }
 					set { reference.GetComponentInChildren<PlayerAttack>().damageMultiplier = value; }
 				}
-
-				
+								
 				public float speedMultiplier
 				{
 					get { return reference.GetComponentInChildren<PlayerAttack> ().speedMultiplier; }

@@ -299,6 +299,7 @@ MonoBehaviour:
   mirror: 0
   direction: 1
   comboCount: 0
+  resetComboTime: 5
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,6 +313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firerate: .200000003
   angle: 3.5
+  damageMultiplier: 1
+  speedMultiplier: 1
   maxActiveShots: 1
   shotCount: 0
   shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}

@@ -10,11 +10,12 @@ namespace PongJutsu
 		[SerializeField]
 		private bool consoleLog = true;
 
-		// Min und Max values
+		// Min, Max and Default values
 		[SerializeField]
 		private float riverMinimumSpawnFrequency = 3.0f;
 		[SerializeField]
 		private float shurikenMaximumSpeed = 1.5f;
+		private float angleDefaultValue;
 
 		// Regularly increase Spawn frequency
 		private int riverSpeedUpCounter = 0;
@@ -49,6 +50,7 @@ namespace PongJutsu
 
 		public void StartFlow()
 		{
+			angleDefaultValue = GameVar.players.left.angle;
 			riverSpeedUpCounter = 0;
 			comboBuffCounterLeft = 0;
 			comboBuffCounterRight = 0;
@@ -136,9 +138,11 @@ namespace PongJutsu
 			if (player.speedMultiplier + (comboSpeedMultiplier - 1.0f) < shurikenMaximumSpeed) 
 			{
 				player.speedMultiplier += (comboSpeedMultiplier - 1.0f);
+				player.angle += angleDefaultValue*(comboSpeedMultiplier - 1.0f);
 			} 
 			else 
 			{
+				player.angle *= (shurikenMaximumSpeed/player.speedMultiplier);
 				player.speedMultiplier = shurikenMaximumSpeed;
 			}
 
@@ -163,12 +167,28 @@ namespace PongJutsu
 				Debug.Log ("---GameFlow---");
 			}
 
+			// Correctly debuffs only buffs aquired from combo buff method
 			if (player.speedMultiplier - ((comboSpeedMultiplier - 1.0f) * comboCounter) > 1.0f) 
 			{
+				// Speed multiplier
 				player.speedMultiplier -= ((comboSpeedMultiplier - 1.0f) * comboCounter);
+
+				// Player angle
+				for (int i = 0; i < comboCounter; i++)
+				{
+					player.angle -= angleDefaultValue*(comboSpeedMultiplier-1.0f);
+				}
+
+				// Ensure player angle has minimum value
+				if (player.angle < angleDefaultValue)
+				{
+					player.angle = angleDefaultValue;
+				}
 			} else 
 			{
+				// Ensure speed multiplier and player angle have minimum value;
 				player.speedMultiplier = 1.0f;
+				player.angle = angleDefaultValue;
 			}
 
 			// Log new values
