@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5f4c4820882534c9a567e10135179d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 1.70000005
-  height: 11.6000004
+  width: 1.29999995
+  height: 16
   snapToVertical: 0
   spawnFrequency: 9
   frequencyRandomizer: 3
