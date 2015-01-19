@@ -25,8 +25,8 @@ InputManager:
     m_Name: PlayerRight
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: '`'
-    positiveButton: p
+    negativeButton: k
+    positiveButton: i
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -122,7 +122,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: l
+    positiveButton: j
     altNegativeButton: 
     altPositiveButton: joystick 2 button 2
     gravity: 0
@@ -170,7 +170,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: left shift
+    positiveButton: a
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -186,7 +186,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: right shift
+    positiveButton: l
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0

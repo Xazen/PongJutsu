@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firerate: .200000003
-  angle: 3.5
+  maxAngle: 4.5
   damageMultiplier: 1
   speedMultiplier: 1
   maxActiveShots: 1
@@ -334,8 +334,9 @@ MonoBehaviour:
   accelerationSpeed: .275000006
   decelerationSpeed: 1.5
   resetMovementAtTurn: 1
-  dashDistance: 1.5
-  dashSpeed: 10
+  currentSpeed: 0
+  dashDistance: 1.625
+  dashSpeed: 12
   dashCooldown: .5
   dashButtonInterval: .200000003
   playerCollisionOffset: .649999976
