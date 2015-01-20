@@ -7,8 +7,7 @@ namespace PongJutsu
 	{
 		public void click_Start()
 		{
-			ui.SetTrigger("StartGame");
-			GameManager.StartGame();
+			GameManager.NewGame();
 		}
 
 		public void click_Credits()

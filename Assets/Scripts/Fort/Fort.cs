@@ -14,11 +14,14 @@ namespace PongJutsu
 		public AnimatorOverrideController FortLeftController;
 		public AnimatorOverrideController FortRightController;
 
+		public bool disableAtDestroy = false;
 		public bool removeAtDestroy = false;
+
+		[HideInInspector] public bool isDestroyed = false;
 
 		[HideInInspector] public GameObject owner;
 
-		void Start()
+		public void Setup()
 		{
 			if (mirror)
 			{
@@ -52,25 +55,33 @@ namespace PongJutsu
 
 		public void TakeHeal(int heal)
 		{
-			health += heal;
-			health = Mathf.Clamp(health, 0, maxHealth);
+			if (!isDestroyed)
+			{
+				health += heal;
+				health = Mathf.Clamp(health, 0, maxHealth);
 
-			UpdateHealthValues();
+				UpdateHealthValues(); 
+			}
 		}
 
 		public void TakeDamage(int damage)
 		{
-			health -= damage;
-			health = Mathf.Clamp(health, 0, maxHealth);
+			if (!isDestroyed)
+			{
+				health -= damage;
+				health = Mathf.Clamp(health, 0, maxHealth);
 
-			UpdateHealthValues();
+				UpdateHealthValues();
 
-			if (health <= 0)
-				DestroyFort();
+				if (health <= 0)
+					DestroyFort();
+			}
 		}
 
 		void DestroyFort()
 		{
+			isDestroyed = true;
+
 			if (this.tag == "FortLeft")
 				GameObject.FindGameObjectWithTag("PlayerRight").GetComponent<Player>().addCombo();
 			else if (this.tag == "FortRight")
@@ -81,7 +92,7 @@ namespace PongJutsu
 				// Destroy Fort
 				Destroy(this.gameObject);
 			}
-			else
+			else if (disableAtDestroy)
 			{
 				// Disable Fort
 				this.collider2D.enabled = false;

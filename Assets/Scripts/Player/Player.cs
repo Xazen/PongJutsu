@@ -16,7 +16,7 @@ namespace PongJutsu
 		[HideInInspector] public int comboCount = 0;
 
 
-		void Start()
+		public void Setup()
 		{
 			if (mirror)
 			{

@@ -16,7 +16,7 @@ namespace PongJutsu
 
 				if (weakestFort != null)
 				{
-					if (health < weakestFort.GetComponent<Fort>().health && health > 0)
+					if (health < weakestFort.GetComponent<Fort>().health && !fort.GetComponent<Fort>().isDestroyed)
 						weakestFort = fort;
 				}
 				else
