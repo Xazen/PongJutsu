@@ -14,7 +14,7 @@ namespace PongJutsu
 		public Sprite shieldLeftSprite;
 		public Sprite shieldRightSprite;
 
-		void Start()
+		public void Setup()
 		{
 			// Set different sprites for each player
 			if (this.transform.parent.tag == "PlayerLeft")

@@ -17,7 +17,7 @@ namespace PongJutsu
 
 		int direction;
 
-		void Start()
+		public void Setup()
 		{
 			nextFire = firerate;
 		}
