@@ -32,6 +32,13 @@ namespace PongJutsu
 		[SerializeField]
 		private float comboSpeedMultiplier = 1.15f;
 
+		// Increase shuriken speed over time
+		private float addedSpeedOverTime = 0.0f;
+		[SerializeField]
+		private float maxSpeedDuration = 180.0f;
+		[SerializeField]
+		private float mercyDuration = 30.0f;
+
 		// Buff loosing Player
 		private bool looseBuffLeft = false;
 		private bool looseBuffRight = false;
@@ -54,6 +61,7 @@ namespace PongJutsu
 			riverSpeedUpCounter = 0;
 			comboBuffCounterLeft = 0;
 			comboBuffCounterRight = 0;
+			addedSpeedOverTime = 0;
 			looseBuffLeft = false;
 			looseBuffRight = false;
 			isCritical = false;
@@ -122,6 +130,26 @@ namespace PongJutsu
 				looseBuffLeft = false;
 				looseBuffRight = false;
 			}
+
+			// Increase shuriken speed after time
+			if (GameVar.ingameTime >= mercyDuration) 
+			{
+				if (addedSpeedOverTime <= shurikenMaximumSpeed-1.0f) 
+				{
+					addedSpeedOverTime += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
+				}
+
+				if (GameVar.players.left.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)) < shurikenMaximumSpeed)
+				{
+					GameVar.players.left.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
+					GameVar.players.left.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)));
+				} else {
+					GameVar.players.left.angle *= (shurikenMaximumSpeed / GameVar.players.left.speedMultiplier);
+					GameVar.players.left.speedMultiplier = shurikenMaximumSpeed;
+				}
+			}
+
+			Debug.Log ("left player shuriken speed multiplier: " + GameVar.players.left.speedMultiplier);
 		}
 
 		/// <summary>
@@ -184,6 +212,14 @@ namespace PongJutsu
 				{
 					player.angle = angleDefaultValue;
 				}
+
+				// Ensure added speed over time stays active
+				if (player.speedMultiplier <= 1.0f+addedSpeedOverTime)
+				{
+					player.speedMultiplier = 1.0f+addedSpeedOverTime;
+					player.angle = 1.0f+angleDefaultValue*addedSpeedOverTime;
+				}
+
 			} else 
 			{
 				// Ensure speed multiplier and player angle have minimum value;
@@ -272,7 +308,7 @@ namespace PongJutsu
 
 			GameVar.river.itemList["Divider"].spawnProbability *= 2;
 			GameVar.river.itemList["Inverter"].spawnProbability *= 2;
-			GameVar.river.itemList["Repair"].spawnProbability /= 2;
+			GameVar.river.itemList["Repair"].spawnProbability = 0;
 			GameVar.river.itemList["ShieldExpander"].spawnProbability /= 2;
 			//GameVar.river.itemList["Divider"].spawnProbability *= 2;
 			//GameVar.river.itemList["Divider"].spawnProbability *= 2;
