@@ -165,11 +165,13 @@ namespace PongJutsu
 		public static void NewGame()
 		{
 			GameMatch.newMatch();
+			SoundManager.current.FadeOut(3f);
 			ui.SetTrigger("StartGame");
 		}
 
 		public static void StartGame()
 		{
+			SoundManager.current.PlayState(SoundState.InGame);
 			allowInput = true;
 		}
 
@@ -193,11 +195,13 @@ namespace PongJutsu
 
 		public static void RestartGame()
 		{
+			SoundManager.current.FadeOut(1f);
 			ui.SetTrigger("RestartGame");
 		}
 
 		public static void NextRound()
 		{
+			SoundManager.current.FadeOut(1f);
 			ui.SetTrigger("NextRound");
 		}
 
@@ -224,6 +228,7 @@ namespace PongJutsu
 		public static void ExitGame()
 		{
 			ui.SetTrigger("ExitGame");
+			SoundManager.current.FadeToState(0.4f, SoundState.MainMenu);
 			UnloadGame();
 		}
 	}

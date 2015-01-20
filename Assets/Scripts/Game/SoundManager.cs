@@ -8,28 +8,26 @@ namespace PongJutsu
 	{
 		[SerializeField] private SoundState defaultState = SoundState.MainMenu;
 		[SerializeField] private StateClip[] clips;
+		
+		public static SoundManager current;
 
 		[System.Serializable]
-		public class StateClip
+		private class StateClip
 		{
-			public AudioClip clip;
-			public SoundState state;
+			public AudioClip clip = null;
+			public SoundState state = 0;
 		}
 
 
 		void Awake()
 		{
-			SetState(defaultState, 0f);
+			current = this;
+			PlayState(defaultState);
 		}
 
 		void Update()
 		{
 			checkMute();
-
-			if (Input.GetKeyDown("f3"))
-			{
-				SetState(SoundState.InGame, 2f);
-			}
 		}
 
 		void checkMute()
@@ -51,19 +49,19 @@ namespace PongJutsu
 			}
 		}
 
-		public void SetState(SoundState state, float fadeoutDuration)
+		public void PlayState(SoundState state)
 		{
-			AudioSource audio = this.GetComponent<AudioSource>();
-			List<StateClip> clipsList = new List<StateClip>(clips);
+			PlayClip(getRandomClip(state));
+		}
 
-			if (audio.clip == null)
-			{
-				Play(getRandomClip(state));
-			}
-			else
-			{
-				StartCoroutine(FadeToClip(fadeoutDuration, getRandomClip(state)));
-			}
+		public void FadeOut(float duration)
+		{
+			StartCoroutine(IFadeout(duration));
+		}
+
+		public void FadeToState(float duration, SoundState state)
+		{
+			StartCoroutine(IFadeToState(duration, state));
 		}
 
 		AudioClip getRandomClip(SoundState state)
@@ -74,7 +72,7 @@ namespace PongJutsu
 			return stateClips[Random.Range(0, stateClips.Length - 1)].clip;
 		}
 
-		void Play(AudioClip clip)
+		void PlayClip(AudioClip clip)
 		{
 			this.GetComponent<AudioSource>().clip = clip;
 			this.GetComponent<AudioSource>().volume = 1f;
@@ -84,7 +82,19 @@ namespace PongJutsu
 				audio.Play();
 		}
 
-		IEnumerator FadeToClip(float duration, AudioClip clip)
+		IEnumerator IFadeout(float duration)
+		{
+			AudioSource audio = this.GetComponent<AudioSource>();
+
+			while (audio.volume > 0f)
+			{
+				float volume = audio.volume - (1f / duration) * Time.deltaTime;
+				audio.volume = Mathf.Clamp(volume, 0f, 1f);
+				yield return new WaitForEndOfFrame();
+			}
+		}
+
+		IEnumerator IFadeToState(float duration, SoundState state)
 		{
 			AudioSource audio = this.GetComponent<AudioSource>();
 
@@ -95,7 +105,7 @@ namespace PongJutsu
 				yield return new WaitForEndOfFrame();
 			}
 
-			Play(clip);
+			PlayState(state);
 		}
 	}
 }

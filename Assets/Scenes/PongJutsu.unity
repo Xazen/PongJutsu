@@ -2774,10 +2774,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultState: 0
   clips:
+  - clip: {fileID: 8300000, guid: 9afa8770918cee54eb3e7d6cb9677986, type: 3}
+    state: 0
   - clip: {fileID: 8300000, guid: f860fc5ff9dfa12498aa9be3f48b837e, type: 3}
     state: 1
-  - clip: {fileID: 8300000, guid: f860fc5ff9dfa12498aa9be3f48b837e, type: 3}
-    state: 0
 --- !u!4 &1112967540
 Transform:
   m_ObjectHideFlags: 0
