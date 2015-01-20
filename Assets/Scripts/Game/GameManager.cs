@@ -127,13 +127,13 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (GameManager.allowInput)
+			if (allowInput)
 			{
 				GameVar.Update();
 				flow.UpdateFlow();
 			}
 
-			if (allowPause && isIngame)
+			if (allowPause && isIngame && allowInput)
 				updatePause();
 
 			if (isIngame)
