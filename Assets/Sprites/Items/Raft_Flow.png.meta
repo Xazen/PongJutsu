@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: b13838f7270580046a92b00d2156fc1f
+guid: c4a12b6e3ebe7c54a86dd76156766f9e
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Item_Flow_0
-    21300002: Item_Flow_1
+    21300000: Raft_Flow_0
+    21300002: Raft_Flow_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -39,31 +39,31 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 400
+  spritePixelsToUnits: 525
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Item_Flow_0
+    - name: Raft_Flow_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 500
-        height: 2000
+        width: 2000
+        height: 4000
       alignment: 9
-      pivot: {x: .5, y: .150000006}
+      pivot: {x: .5, y: .104999997}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Item_Flow_1
+    - name: Raft_Flow_1
       rect:
         serializedVersion: 2
-        x: 496
+        x: 2000
         y: 0
-        width: 500
-        height: 2000
+        width: 2000
+        height: 4000
       alignment: 9
-      pivot: {x: .5, y: .150000006}
+      pivot: {x: .5, y: .104999997}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
