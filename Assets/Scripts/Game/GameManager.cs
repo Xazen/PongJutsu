@@ -170,6 +170,7 @@ namespace PongJutsu
 
 		public static void StartGame()
 		{
+			GameObject.Find("Arena").GetComponent<AudioSource>().Play();
 			allowInput = true;
 		}
 
@@ -223,6 +224,7 @@ namespace PongJutsu
 
 		public static void ExitGame()
 		{
+			GameObject.Find("Arena").GetComponent<AudioSource>().Stop();
 			ui.SetTrigger("ExitGame");
 		}
 	}
