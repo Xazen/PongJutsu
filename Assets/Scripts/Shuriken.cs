@@ -33,6 +33,9 @@ namespace PongJutsu
 
 		[HideInInspector] public bool bounceBack = false;
 
+		[SerializeField] private bool resetComboOnDamageDealt = false;
+		[SerializeField] private bool resetComboOnDamageTaken = true;
+
 		void Start()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
@@ -100,8 +103,18 @@ namespace PongJutsu
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 			{
-				//colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
-				lastHitOwner.GetComponent<Player>().resetCombo();
+				if (!colObject.GetComponent<Fort>().isDestroyed)
+				{
+					if (resetComboOnDamageTaken)
+					{
+						colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
+					}
+
+					if (resetComboOnDamageDealt)
+					{
+						lastHitOwner.GetComponent<Player>().resetCombo();
+					}
+				}
 				Explode(colObject);
 			}
 
