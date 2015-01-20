@@ -54,6 +54,9 @@ namespace PongJutsu
 		[SerializeField]
 		private float riverCriticalSpawnMultiplier = 0.33f;
 
+		// Force critical items
+		[SerializeField] private float forceCriticalItems = 150;
+
 
 		public void StartFlow()
 		{
@@ -77,7 +80,7 @@ namespace PongJutsu
 				IncreaseRiverSpawnFrequency (riverTimeSpawnMultiplier);
 
 				// Also change flow direction
-				InvertRiverFlow();
+				// InvertRiverFlow();
 			}
 
 			// Regularly buff player for combo
@@ -111,6 +114,12 @@ namespace PongJutsu
 				EnterCriticalMode ();
 			}
 
+			// Critical item setup to speed up the game round
+			if (GameVar.ingameTime >= forceCriticalItems && !isCritical) 
+			{
+				EnableCriticalItems();
+			}
+
 			// Buff losing player
 			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
 			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !looseBuffLeft && !looseBuffRight) 
@@ -139,17 +148,25 @@ namespace PongJutsu
 					addedSpeedOverTime += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
 				}
 
-				if (GameVar.players.left.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)) < shurikenMaximumSpeed)
-				{
-					GameVar.players.left.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
-					GameVar.players.left.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)));
-				} else {
-					GameVar.players.left.angle *= (shurikenMaximumSpeed / GameVar.players.left.speedMultiplier);
-					GameVar.players.left.speedMultiplier = shurikenMaximumSpeed;
-				}
+				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.left);
+				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.right);
 			}
+		}
 
-			Debug.Log ("left player shuriken speed multiplier: " + GameVar.players.left.speedMultiplier);
+		/// <summary>
+		/// Increases the shuriken speed over time for player.
+		/// </summary>
+		/// <param name="player">Player.</param>
+		private void IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.player player)
+		{
+			if (player.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)) < shurikenMaximumSpeed)
+			{
+				player.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
+				player.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)));
+			} else {
+				player.angle *= (shurikenMaximumSpeed / player.speedMultiplier);
+				player.speedMultiplier = shurikenMaximumSpeed;
+			}
 		}
 
 		/// <summary>
@@ -306,13 +323,21 @@ namespace PongJutsu
 
 			IncreaseRiverSpawnFrequency (riverCriticalSpawnMultiplier);
 
+			EnableCriticalItems ();
+		}
+
+		/// <summary>
+		/// Enables the critical items.
+		/// </summary>
+		private void EnableCriticalItems()
+		{
 			GameVar.river.itemList["Divider"].spawnProbability *= 2;
 			GameVar.river.itemList["Inverter"].spawnProbability *= 2;
 			GameVar.river.itemList["Repair"].spawnProbability = 0;
 			GameVar.river.itemList["ShieldExpander"].spawnProbability /= 2;
 			//GameVar.river.itemList["Divider"].spawnProbability *= 2;
 			//GameVar.river.itemList["Divider"].spawnProbability *= 2;
-
+			
 			// Log new values
 			if (consoleLog)
 			{
@@ -325,7 +350,6 @@ namespace PongJutsu
 				          //"  Divider probability : " + GameVar.river.itemList + "\n" +
 				          ""
 				          );
-
 			}
 		}
 
