@@ -224,7 +224,6 @@ namespace PongJutsu
 		public static void ExitGame()
 		{
 			ui.SetTrigger("ExitGame");
-			UnloadGame();
 		}
 	}
 

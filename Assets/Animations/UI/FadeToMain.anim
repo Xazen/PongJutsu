@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BootToMain
+  m_Name: FadeToMain
   serializedVersion: 4
   m_AnimationType: 2
   m_Compressed: 0

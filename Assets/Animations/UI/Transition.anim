@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TransitionToGame
+  m_Name: Transition
   serializedVersion: 4
   m_AnimationType: 2
   m_Compressed: 0
@@ -167,14 +167,14 @@ AnimationClip:
     script: {fileID: 0}
   m_EulerEditorCurves: []
   m_Events:
-  - time: .433333337
+  - time: .439999998
     functionName: transition_unloadgame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: .533333361
+  - time: .560000002
     functionName: transition_loadgame
     data: 
     objectReferenceParameter: {fileID: 0}
