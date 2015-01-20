@@ -34,8 +34,8 @@ namespace PongJutsu
 			{
 				// remove healthbar
 				Destroy(this.gameObject);
-				Destroy(this.transform.parent.transform.FindChild("HealthbarFrame").gameObject);
-				Destroy(this.transform.parent.transform.FindChild("HealthbarBackground").gameObject);
+				Destroy(this.transform.parent.transform.FindChild("Frame").gameObject);
+				Destroy(this.transform.parent.transform.FindChild("Background").gameObject);
 			}
 		}
 	}
