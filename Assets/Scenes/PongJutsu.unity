@@ -150,7 +150,7 @@ Transform:
   - {fileID: 516479623}
   - {fileID: 1680450309}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!95 &54465491
 Animator:
   serializedVersion: 3
@@ -241,7 +241,7 @@ Transform:
   - {fileID: 1027884406}
   - {fileID: 1729497809}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!212 &162001430
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -429,6 +429,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+--- !u!1 &186293029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 186293031}
+  - 114: {fileID: 186293030}
+  m_Layer: 9
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &186293030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 186293029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34e51010bdc240b47a8afec3651d37c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - clip: {fileID: 8300000, guid: f860fc5ff9dfa12498aa9be3f48b837e, type: 3}
+    state: 1
+  - clip: {fileID: 8300000, guid: f860fc5ff9dfa12498aa9be3f48b837e, type: 3}
+    state: 0
+--- !u!4 &186293031
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 186293029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &210897892
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,7 +2721,7 @@ Transform:
   m_Children:
   - {fileID: 273957606}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &1757980359
 MonoBehaviour:
   m_ObjectHideFlags: 0
