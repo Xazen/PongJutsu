@@ -33,10 +33,18 @@ namespace PongJutsu
 
 		[HideInInspector] public bool bounceBack = false;
 
+		[SerializeField] private bool resetComboOnDamageDealt = false;
+		[SerializeField] private bool resetComboOnDamageTaken = true;
+
 		void Start()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
-			lastHitOwner = owner;
+
+			// Last hit owner might had been set by an item
+			if (!lastHitOwner) 
+			{
+				lastHitOwner = owner;
+			}
 
 			// Set different Color for different owner
 			if (owner.tag == "PlayerLeft")
@@ -95,9 +103,18 @@ namespace PongJutsu
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 			{
-				lastHitOwner.GetComponent<Player>().addCombo();
-				colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
+				if (!colObject.GetComponent<Fort>().isDestroyed)
+				{
+					if (resetComboOnDamageTaken)
+					{
+						colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
+					}
 
+					if (resetComboOnDamageDealt)
+					{
+						lastHitOwner.GetComponent<Player>().resetCombo();
+					}
+				}
 				Explode(colObject);
 			}
 

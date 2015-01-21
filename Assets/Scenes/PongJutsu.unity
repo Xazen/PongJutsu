@@ -4564,6 +4564,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27ce57e0ff343242b96f60b401bee97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  consoleLog: 1
+  riverMinimumSpawnFrequency: 3
+  shurikenMaximumSpeed: 2.5
+  riverTimeSpawnMultiplier: .75
+  riverTimeSpawnMultiplierFrequency: 30
+  comboBuffFrequency: 3
+  comboSpeedMultiplier: 1.29999995
+  maxSpeedDuration: 180
+  mercyDuration: 30
+  requiredFortDeltaForBuff: 2
+  buffedDamageMultiplier: 1.5
+  minimumTimeForCriticalMode: 45
+  riverCriticalSpawnMultiplier: .330000013
+  forceCriticalItems: 150
 --- !u!1 &1806585992
 GameObject:
   m_ObjectHideFlags: 0

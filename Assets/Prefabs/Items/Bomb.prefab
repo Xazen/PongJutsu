@@ -80,8 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df42bb64ff6bd7648bfc4ba7a861a022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnProbability: 100
-  damageMultiplier: .5
+  _spawnProbability: 0
+  damageMultiplier: .300000012
 --- !u!212 &21294496
 SpriteRenderer:
   m_ObjectHideFlags: 1
