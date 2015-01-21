@@ -56,6 +56,7 @@ namespace PongJutsu
 		private float riverCriticalSpawnMultiplier = 0.33f;
 
 		// Force critical items
+		private bool isCriticalItemForced = false;
 		[SerializeField] private float forceCriticalItems = 150;
 
 
@@ -68,6 +69,7 @@ namespace PongJutsu
 			looseBuffLeft = false;
 			looseBuffRight = false;
 			isCritical = false;
+			isCriticalItemForced = false;
 		}
 
 		public void UpdateFlow()
@@ -109,7 +111,7 @@ namespace PongJutsu
 			}
 
 			// Enable defensive items for main game
-			if (GameVar.forts.allCount <= 8) 
+			if (GameVar.forts.allCount <= 8 && !isCriticalItemForced)
 			{
 				AdjustItemsForMainPhase();
 			}
@@ -345,6 +347,8 @@ namespace PongJutsu
 		/// </summary>
 		private void EnableCriticalItems()
 		{
+			isCriticalItemForced = true;
+
 			GameVar.river.itemList["Divider"].spawnProbability *= 2;
 			GameVar.river.itemList["Inverter"].spawnProbability *= 2;
 			GameVar.river.itemList["Repair"].spawnProbability = 0;
