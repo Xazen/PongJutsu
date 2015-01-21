@@ -39,25 +39,6 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - time: .0166666675
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 31
-      - time: 7
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 31
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-    attribute: m_PlayOnAwake
-    path: DirtySound
-    classID: 82
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
       - time: 0
         value: 0
         inSlope: Infinity
@@ -68,6 +49,25 @@ AnimationClip:
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 31
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Enabled
+    path: DirtySound/TaikoDrums
+    classID: 82
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: .0166666675
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      - time: .0500000007
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
       - time: 7
         value: 1
         inSlope: Infinity
@@ -75,8 +75,8 @@ AnimationClip:
         tangentMode: 31
       m_PreInfinity: 2
       m_PostInfinity: 2
-    attribute: m_Enabled
-    path: DirtySound
+    attribute: m_PlayOnAwake
+    path: DirtySound/TaikoDrums
     classID: 82
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -93,14 +93,14 @@ AnimationClip:
       classID: 4
       customType: 0
       isPPtrCurve: 0
-    - path: 2701778194
-      attribute: 2720275347
+    - path: 2342667995
+      attribute: 3305885265
       script: {fileID: 0}
       classID: 82
       customType: 0
       isPPtrCurve: 0
-    - path: 2701778194
-      attribute: 3305885265
+    - path: 2342667995
+      attribute: 2720275347
       script: {fileID: 0}
       classID: 82
       customType: 0
@@ -179,25 +179,6 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - time: .0166666675
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 31
-      - time: 7
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 31
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-    attribute: m_PlayOnAwake
-    path: DirtySound
-    classID: 82
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
       - time: 0
         value: 0
         inSlope: Infinity
@@ -208,6 +189,25 @@ AnimationClip:
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 31
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Enabled
+    path: DirtySound/TaikoDrums
+    classID: 82
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: .0166666675
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      - time: .0500000007
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
       - time: 7
         value: 1
         inSlope: Infinity
@@ -215,8 +215,8 @@ AnimationClip:
         tangentMode: 31
       m_PreInfinity: 2
       m_PostInfinity: 2
-    attribute: m_Enabled
-    path: DirtySound
+    attribute: m_PlayOnAwake
+    path: DirtySound/TaikoDrums
     classID: 82
     script: {fileID: 0}
   m_EulerEditorCurves: []
