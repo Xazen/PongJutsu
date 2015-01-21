@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1be08af4aab444e822eb61f513127e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnProbability: 100
+  _spawnProbability: 0
   heal: 100
 --- !u!212 &21261002
 SpriteRenderer:

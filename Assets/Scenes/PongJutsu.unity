@@ -4269,10 +4269,13 @@ MonoBehaviour:
   riverTimeSpawnMultiplierFrequency: 30
   comboBuffFrequency: 3
   comboSpeedMultiplier: 1.29999995
+  maxSpeedDuration: 180
+  mercyDuration: 30
   requiredFortDeltaForBuff: 2
   buffedDamageMultiplier: 1.5
   minimumTimeForCriticalMode: 45
   riverCriticalSpawnMultiplier: .330000013
+  forceCriticalItems: 150
 --- !u!1 &1806585992
 GameObject:
   m_ObjectHideFlags: 0

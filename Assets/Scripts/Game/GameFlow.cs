@@ -353,8 +353,8 @@ namespace PongJutsu
 			GameVar.river.itemList["Inverter"].spawnProbability *= 2;
 			GameVar.river.itemList["Repair"].spawnProbability = 0;
 			GameVar.river.itemList["ShieldExpander"].spawnProbability /= 2;
-			GameVar.river.itemList["Bomb"].spawnProbability = GameVar.river.itemList["Divider"].spawnProbability/3;
-			GameVar.river.itemList["Slow"].spawnProbability /= 2;
+			GameVar.river.itemList["Bomb"].spawnProbability = GameVar.river.itemList["Divider"].spawnProbability;
+			GameVar.river.itemList["Slow"].spawnProbability *= 2;
 			
 			// Log new values
 			if (consoleLog)
