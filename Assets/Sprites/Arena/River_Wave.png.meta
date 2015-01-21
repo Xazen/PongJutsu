@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: c5867e79dcec909499bf487fa4a95d43
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: River_Wave_0
+    21300002: River_Wave_1
+    21300004: River_Wave_2
+    21300006: River_Wave_3
+    21300008: River_Wave_4
+    21300010: River_Wave_5
+    21300012: River_Wave_6
+    21300014: River_Wave_7
+    21300016: River_Wave_8
+    21300018: River_Wave_9
+    21300020: River_Wave_10
+    21300022: River_Wave_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 186
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: River_Wave_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2268
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_1
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 2268
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_2
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 2268
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_3
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 2268
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1134
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_5
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 1134
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_6
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 1134
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_7
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 1134
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_9
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 0
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_10
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 0
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Wave_11
+      rect:
+        serializedVersion: 2
+        x: 1785
+        y: 0
+        width: 595
+        height: 1134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
