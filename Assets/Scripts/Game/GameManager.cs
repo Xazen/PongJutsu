@@ -27,22 +27,27 @@ namespace PongJutsu
 		void Start()
 		{
 			if (instantPlay)
-			{
-				ui.SetTrigger("InstantGame");
-				StartGame();
-			}
+				InstantGame();
 		}
 
-		static void LoadGame()
+		private static void InstantGame()
+		{
+			GameMatch.newMatch();
+			LoadGame(false);
+			StartGame();
+			ui.SetTrigger("InstantGame");
+		}
+
+		public static void LoadGame(bool waitForBuildup)
 		{
 			if (!isIngame)
 			{
 				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
 
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
-				{
 					gs.build();
-				}
+				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
+					gs.postbuild();
 
 				resetChangedPrefabs();
 
@@ -52,13 +57,19 @@ namespace PongJutsu
 				isIngame = true;
 				isPause = false;
 				isEnd = false;
-				allowInput = true;
+				allowInput = false;
 
 				Time.timeScale = 1;
+
+				// prepare construction
+				if (waitForBuildup)
+				{
+					PrepareBuildup();
+				}
 			}
 		}
 
-		static void UnloadGame()
+		public static void UnloadGame()
 		{
 			if (isIngame)
 			{
@@ -72,7 +83,7 @@ namespace PongJutsu
 				}
 				foreach (Shuriken s in GameObject.FindObjectsOfType<Shuriken>())
 				{
-					DestroyImmediate(s.gameObject);
+					Destroy(s.gameObject);
 				}
 
 				isIngame = false;
@@ -82,6 +93,22 @@ namespace PongJutsu
 
 				Time.timeScale = 1;
 			}
+		}
+		
+		public static void PrepareBuildup()
+		{
+			GameVar.players.left.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Standby");
+			GameVar.players.right.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Standby");
+
+			GameObject.Find("Arena").GetComponent<Animator>().SetTrigger("Standby");
+		}
+
+		public static void BuildupGame()
+		{
+			GameVar.players.left.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
+			GameVar.players.right.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
+
+			GameObject.Find("Arena").GetComponent<Animator>().SetTrigger("Buildup");
 		}
 
 		static void resetChangedPrefabs()
@@ -100,13 +127,13 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (GameManager.allowInput)
+			if (allowInput)
 			{
 				GameVar.Update();
 				flow.UpdateFlow();
 			}
 
-			if (allowPause && isIngame)
+			if (allowPause && isIngame && allowInput)
 				updatePause();
 
 			if (isIngame)
@@ -135,10 +162,16 @@ namespace PongJutsu
 			}
 		}
 
-		public static void StartGame()
+		public static void NewGame()
 		{
 			GameMatch.newMatch();
-			LoadGame();
+			ui.SetTrigger("StartGame");
+		}
+
+		public static void StartGame()
+		{
+			GameObject.Find("Arena").GetComponent<AudioSource>().Play();
+			allowInput = true;
 		}
 
 		public static void PauseGame()
@@ -161,16 +194,12 @@ namespace PongJutsu
 
 		public static void RestartGame()
 		{
-			UnloadGame();
 			ui.SetTrigger("RestartGame");
-			StartGame();
 		}
 
 		public static void NextRound()
 		{
-			UnloadGame();
 			ui.SetTrigger("NextRound");
-			LoadGame();
 		}
 
 		public static void EndRound(string winner)
@@ -195,8 +224,8 @@ namespace PongJutsu
 
 		public static void ExitGame()
 		{
+			GameObject.Find("Arena").GetComponent<AudioSource>().Stop();
 			ui.SetTrigger("ExitGame");
-			UnloadGame();
 		}
 	}
 

@@ -19,7 +19,7 @@ namespace PongJutsu
 		private float resetComboTime = 4.0f;
 		private float passedTimeSinceCombo = 0.0f;
 
-		void Start()
+		public void Setup()
 		{
 			if (mirror)
 			{

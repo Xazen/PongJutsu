@@ -21,7 +21,7 @@ namespace PongJutsu
 
 		[HideInInspector] public GameObject owner;
 
-		void Start()
+		public void Setup()
 		{
 			if (mirror)
 			{

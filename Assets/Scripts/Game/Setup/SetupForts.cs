@@ -28,7 +28,7 @@ namespace PongJutsu
 			{
 				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 				Vector2 position = new Vector2(-offsetX - -width / 2, size.y * i - offsetY + size.y / 2);
-				spawnFort(position, size, MainInstance, "FortLeft", "FortLeft", i);
+				spawnFort(position, size, false, MainInstance, "FortLeft", "FortLeft", i);
 			}
 
 			// Forts Player 2
@@ -36,11 +36,11 @@ namespace PongJutsu
 			{
 				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 				Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
-				spawnFort(position, size, MainInstance, "FortRight", "FortRight", i).GetComponent<Fort>().mirror = autoMirror;
+				spawnFort(position, size, autoMirror, MainInstance, "FortRight", "FortRight", i);
 			}
 		}
 
-		private GameObject spawnFort(Vector2 position, Vector2 size, GameObject parent, string name, string tag, int i)
+		private GameObject spawnFort(Vector2 position, Vector2 size, bool mirror, GameObject parent, string name, string tag, int i)
 		{
 			GameObject instance = (GameObject)Instantiate(fortPrefab);
 
@@ -49,8 +49,21 @@ namespace PongJutsu
 			instance.transform.parent = parent.transform;
 			instance.GetComponent<BoxCollider2D>().size = size;
 			instance.transform.position = position;
+			instance.GetComponent<Fort>().mirror = mirror;
+
+			Instances.Add(instance);
 
 			return instance;
+		}
+
+		public override void postbuild()
+		{
+			base.postbuild();
+
+			foreach(GameObject instance in Instances)
+			{
+				instance.GetComponent<Fort>().Setup();
+			}			
 		}
 
 		void OnDrawGizmos()

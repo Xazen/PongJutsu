@@ -9,11 +9,48 @@ namespace PongJutsu
 		{
 			updateInverter();
 			updateExpand();
+			updateSlow();
 		}
 
 		// - - - - - - - - - - - - - - - - - - - - -
 
-		private bool isInverted = false;
+		[HideInInspector] public bool isSlow = false;
+		private float slowTime;
+
+		private float originalSpeed;
+
+		public void Slow(Slow slow)
+		{
+			if (!isSlow)
+			{
+				originalSpeed = this.GetComponent<PlayerMovement>().maxMovementSpeed;
+				this.GetComponent<PlayerMovement>().maxMovementSpeed *= slow.speedMuliplier;
+				slowTime = slow.duration;
+				isSlow = true;
+			}
+			else
+			{
+				slowTime = slow.duration;
+			}
+		}
+
+		void updateSlow()
+		{
+			if (isSlow)
+			{
+				slowTime -= Time.deltaTime;
+
+				if (slowTime < 0f)
+				{
+					this.GetComponent<PlayerMovement>().maxMovementSpeed = originalSpeed;
+					isSlow = false;
+				}
+			}
+		}
+
+		// - - - - - - - - - - - - - - - - - - - - -
+
+		[HideInInspector] public bool isInverted = false;
 		private float invertTime;
 
 		public void Inverter(Inverter inverter)
@@ -46,7 +83,7 @@ namespace PongJutsu
 
 		// - - - - - - - - - - - - - - - - - - - - -
 
-		private bool isExpanded = false;
+		[HideInInspector] public bool isExpanded = false;
 		private float expandTime;
 		private Vector2 initScale;
 
