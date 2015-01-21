@@ -41,15 +41,15 @@ namespace PongJutsu
 		private float mercyDuration = 30.0f;
 
 		// Buff loosing Player
-		private bool looseBuffLeft = false;
-		private bool looseBuffRight = false;
+		private bool isBuffLeftPhase = false;
+		private bool isBuffRightPhase = false;
 		[SerializeField]
 		private int requiredFortDeltaForBuff = 2;
 		[SerializeField]
 		private float buffedDamageMultiplier = 1.5f;
 
 		// Critical Mode
-		private bool isCritical = false;
+		private bool isCriticalPhase = false;
 		[SerializeField]
 		private float minimumTimeForCriticalMode = 45.0f;
 		[SerializeField]
@@ -66,9 +66,9 @@ namespace PongJutsu
 			comboBuffCounterLeft = 0;
 			comboBuffCounterRight = 0;
 			addedSpeedOverTime = 0;
-			looseBuffLeft = false;
-			looseBuffRight = false;
-			isCritical = false;
+			isBuffLeftPhase = false;
+			isBuffRightPhase = false;
+			isCriticalPhase = false;
 			isCriticalItemForced = false;
 		}
 
@@ -113,39 +113,39 @@ namespace PongJutsu
 			// Enable defensive items for main game
 			if (GameVar.forts.allCount <= 8 && !isCriticalItemForced)
 			{
-				AdjustItemsForMainPhase();
+				EnterMainPhase();
 			}
 
 			// Enter critical mode when conditions are met
-			if (GameVar.ingameTime > minimumTimeForCriticalMode && !isCritical && GameVar.forts.allCount <= 4 && GameVar.forts.leftCount <= 2 && GameVar.forts.rightCount <= 2) 
+			if (GameVar.ingameTime > minimumTimeForCriticalMode && !isCriticalPhase && GameVar.forts.allCount <= 4 && GameVar.forts.leftCount <= 2 && GameVar.forts.rightCount <= 2) 
 			{
-				EnterCriticalMode ();
+				EnterCriticalPhase ();
 			}
 
 			// Critical item setup to speed up the game round
-			if (GameVar.ingameTime >= forceCriticalItems && !isCritical) 
+			if (GameVar.ingameTime >= forceCriticalItems && !isCriticalPhase) 
 			{
 				EnableCriticalItems();
 			}
 
 			// Buff losing player
 			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
-			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !looseBuffLeft && !looseBuffRight) 
+			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !isBuffLeftPhase && !isBuffRightPhase) 
 			{
 				if (deltaFortCount < 0) 
 				{
-					BuffLosingPlayer (GameVar.players.left);
+					EnterBuffPhaseWithPlayer (GameVar.players.left);
 				} 
 				else 
 				{
-					BuffLosingPlayer (GameVar.players.right);
+					EnterBuffPhaseWithPlayer (GameVar.players.right);
 				}
 			} 
-			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && (looseBuffLeft || looseBuffRight))
+			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && (isBuffLeftPhase || isBuffRightPhase))
 			{
-				DebuffPlayers ();
-				looseBuffLeft = false;
-				looseBuffRight = false;
+				ExitBuffPhase ();
+				isBuffLeftPhase = false;
+				isBuffRightPhase = false;
 			}
 
 			// Increase shuriken speed after time
@@ -265,15 +265,15 @@ namespace PongJutsu
 		/// Buffs the losing player.
 		/// </summary>
 		/// <param name="player">Player.</param>
-		private void BuffLosingPlayer(GameVar.players.player player)
+		private void EnterBuffPhaseWithPlayer(GameVar.players.player player)
 		{
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
 			}
 
-			looseBuffLeft = (player == GameVar.players.left);
-			looseBuffRight = (player == GameVar.players.right);
+			isBuffLeftPhase = (player == GameVar.players.left);
+			isBuffRightPhase = (player == GameVar.players.right);
 			
 			player.damageMultiplier += (buffedDamageMultiplier-1.0f);
 
@@ -289,20 +289,20 @@ namespace PongJutsu
 		/// <summary>
 		/// Debuffs the players.
 		/// </summary>
-		private void DebuffPlayers()
+		private void ExitBuffPhase()
 		{
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
 			}
 
-			if (looseBuffLeft) 
+			if (isBuffLeftPhase) 
 			{
 				GameVar.players.left.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
 			}
 
 
-			if (looseBuffRight) 
+			if (isBuffRightPhase) 
 			{
 				GameVar.players.right.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
 			}
@@ -320,7 +320,7 @@ namespace PongJutsu
 		/// <summary>
 		/// Adjusts the items for main phase.
 		/// </summary>
-		private void AdjustItemsForMainPhase()
+		private void EnterMainPhase()
 		{
 			GameVar.river.itemList ["Repair"].spawnProbability = (int)itemDefaultSpawnProbability;
 		}
@@ -328,14 +328,14 @@ namespace PongJutsu
 		/// <summary>
 		/// Enters the critical mode.
 		/// </summary>
-		private void EnterCriticalMode()
+		private void EnterCriticalPhase()
 		{
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
 			}
 
-			isCritical = true;
+			isCriticalPhase = true;
 
 			IncreaseRiverSpawnFrequency (riverCriticalSpawnMultiplier);
 
