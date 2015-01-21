@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9102e4d305115419b4ab150082af70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSelected: {fileID: 1352377312}
   ui: {fileID: 0}
 --- !u!1 &41391930
 GameObject:
@@ -297,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c56a294c70540b489c47a53c6f3fdc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSelected: {fileID: 0}
   ui: {fileID: 0}
 --- !u!1 &78192660
 GameObject:
@@ -340,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212b1861dd123034a89a845e657b652b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSelected: {fileID: 1634267413}
   ui: {fileID: 0}
 --- !u!1 &94024991
 GameObject:
@@ -728,6 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd254d0a16ce51459c048c51ba0fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSelected: {fileID: 1293957543}
   ui: {fileID: 0}
 --- !u!82 &163740745
 AudioSource:
@@ -1627,7 +1631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: bc64cc9a3df53cd4d8aeb88de50e2ea5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 363233f3550fe2c49a2ca7988ce7500f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2413,6 +2417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a83e79734213f94e8d8e4c7dcfecb23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSelected: {fileID: 0}
   ui: {fileID: 0}
 --- !u!1 &1006722381
 GameObject:
@@ -4228,8 +4233,8 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1293957543}
-  m_sendNavigationEvents: 1
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 0
   m_DragThreshold: 5
 --- !u!4 &1680450309
 Transform:
@@ -4419,6 +4424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5473870b30261ad46bd9e633b43bea23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSelected: {fileID: 1513351785}
   ui: {fileID: 0}
   RoundEndObjectContainer: {fileID: 1266457117}
   MatchEndObjectContainer: {fileID: 1695257369}
