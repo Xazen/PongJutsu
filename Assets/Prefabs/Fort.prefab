@@ -233,9 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796fc8aad6d0cea408faa7bc54672fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorFullHealth: {r: .91911763, g: .84231323, b: .49334991, a: 1}
-  colorMediumHealth: {r: .992647052, g: .575654745, b: .197069645, a: 1}
-  colorLowHealth: {r: 1, g: .117647052, b: .117647052, a: 1}
+  colorFullHealth: {r: 1, g: 1, b: 0, a: 1}
+  colorMediumHealth: {r: 0, g: 1, b: .674509823, a: 1}
+  colorLowHealth: {r: 0, g: 0, b: .827450991, a: 1}
   removeAtDestroy: 0
 --- !u!212 &21200000
 SpriteRenderer:
