@@ -59,7 +59,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 4096
+        y: 2048
         width: 1024
         height: 2048
       alignment: 0
@@ -69,7 +69,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1024
-        y: 4096
+        y: 2048
         width: 1024
         height: 2048
       alignment: 0
@@ -78,7 +78,7 @@ TextureImporter:
     - name: ShieldRed_Catch_2
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2048
         y: 2048
         width: 1024
         height: 2048
@@ -88,8 +88,8 @@ TextureImporter:
     - name: ShieldRed_Catch_3
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 2048
+        x: 0
+        y: 0
         width: 1024
         height: 2048
       alignment: 0
@@ -98,7 +98,7 @@ TextureImporter:
     - name: ShieldRed_Catch_4
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1024
         y: 0
         width: 1024
         height: 2048
