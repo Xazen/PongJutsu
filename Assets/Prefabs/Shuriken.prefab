@@ -29,6 +29,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200000}
   - 111: {fileID: 11100000}
+  - 114: {fileID: 11402560}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Shuriken
@@ -173,6 +174,22 @@ MonoBehaviour:
   owner: {fileID: 0}
   lastHitOwner: {fileID: 0}
   bounceBack: 0
+--- !u!114 &11402560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0abe4fc70a6db49aa671f76c2efb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightAboveGround: .0900000036
+  shadowColor: {r: 0, g: 0, b: 0, a: .235294119}
+  AddAsChild: 1
+  updateSprite: 0
+  customSprite: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
