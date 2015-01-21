@@ -42,8 +42,6 @@ namespace PongJutsu
 		{
 			if (!isIngame)
 			{
-				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
-
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
 					gs.build();
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
@@ -73,8 +71,6 @@ namespace PongJutsu
 		{
 			if (isIngame)
 			{
-				FindObjectOfType<EventSystem>().sendNavigationEvents = true;
-
 				resetChangedPrefabs();
 
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
