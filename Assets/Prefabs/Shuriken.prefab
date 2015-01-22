@@ -29,6 +29,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200000}
   - 111: {fileID: 11100000}
+  - 114: {fileID: 11402560}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Shuriken
@@ -154,15 +155,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3cf503a4f771d47b5d3912b1e37df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  damage: 40
-  movement: {x: 0, y: 0}
+  speed: 6
   speedAdjustment: 1
+  movement: {x: 0, y: 0}
   selfCollision: 0
+  ignoreSpawnCollision: 0
+  damage: 40
   explosion: {fileID: 100000, guid: 6159ab0ca61b4e34891358d29fa7451f, type: 2}
   explosionRadius: 1.64999998
   explosionDamageMultiplier: .400000006
   explosionDamagerPerDistance: 0
+  reflectionDamageMultiplier: .800000012
   shurikenLeftColor: {r: .926470578, g: .408737034, b: .408737034, a: 1}
   shurikenRightColor: {r: .396078467, g: .950020254, b: 1, a: 1}
   shurikenLeftSprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
@@ -171,6 +174,22 @@ MonoBehaviour:
   owner: {fileID: 0}
   lastHitOwner: {fileID: 0}
   bounceBack: 0
+--- !u!114 &11402560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0abe4fc70a6db49aa671f76c2efb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightAboveGround: .0700000003
+  shadowColor: {r: 0, g: 0, b: 0, a: .176470593}
+  AddAsChild: 1
+  updateSprite: 0
+  customSprite: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

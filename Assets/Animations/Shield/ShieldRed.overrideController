@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ShieldRed
+  m_Controller: {fileID: 9100000, guid: 681c494442978d4478a82eba8622ef9a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: a9b98da0f434d9e4396c60a5992b5b65, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a9b98da0f434d9e4396c60a5992b5b65, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 944f5c5300586cb45923bffead0f38dc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 944f5c5300586cb45923bffead0f38dc, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2c4e334d1eea072418b70c5969c4c9f6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 14e6313cb7beb8d48a8c1b60a3fa5a46, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4a365152c02477246a722e83b33ba5af, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d54bcb452dc891346bc0e2aba63dcc64, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 39bebf52588c136478bc0e9e96af3878, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 39bebf52588c136478bc0e9e96af3878, type: 2}

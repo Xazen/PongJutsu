@@ -8,22 +8,25 @@ namespace PongJutsu
 
 		public float shieldAngleMultiplier = 5f;
 
+		public AnimatorOverrideController shieldLeftController;
+		public AnimatorOverrideController shieldRightController;
+
 		public Sprite shieldLeftSprite;
 		public Sprite shieldRightSprite;
 
-		private Vector2 initScale;
-		[HideInInspector] public bool isExpanded = false;
-		[HideInInspector] public float expandDuration;
-
-		void Start()
+		public void Setup()
 		{
 			// Set different sprites for each player
 			if (this.transform.parent.tag == "PlayerLeft")
+			{
 				this.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
+				this.GetComponent<Animator>().runtimeAnimatorController = shieldLeftController;
+			}
 			else if (this.transform.parent.tag == "PlayerRight")
+			{
 				this.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
-
-			initScale = this.transform.localScale;
+				this.GetComponent<Animator>().runtimeAnimatorController = shieldRightController;
+			}
 		}
 
 		void OnTriggerEnter2D(Collider2D col)
@@ -46,30 +49,22 @@ namespace PongJutsu
 					shuriken.movement.y = c * shieldAngleMultiplier;
 					shuriken.adjustSpeed();
 
-					this.audio.Play();
+					this.GetComponents<AudioSource>()[0].Play();
+					this.GetComponent<Animator>().SetTrigger("Reflect");
 
 					shuriken.lastHitOwner = this.transform.parent.gameObject;
 					shuriken.bounceBack = true;
+
+					this.transform.parent.GetComponent<Player>().addCombo();
 				}
 				// Catch
 				else if (shuriken.owner == this.transform.parent.gameObject && shuriken.bounceBack)
 				{
-					Destroy(shurikenGameObject);
-				}
-			}
-		}
+					this.GetComponents<AudioSource>()[1].Play();
+					this.GetComponent<Animator>().SetTrigger("Catch");
 
-		void Update()
-		{
-			// Check expand
-			if (isExpanded)
-			{
-				expandDuration -= Time.deltaTime;
-
-				if (expandDuration <= 0)
-				{
-					transform.localScale = new Vector2(initScale.x, initScale.y);
-					isExpanded = false;
+					this.transform.parent.GetComponent<Player>().addCombo();
+					shurikenGameObject.GetComponent<Shuriken>().Remove();
 				}
 			}
 		}
