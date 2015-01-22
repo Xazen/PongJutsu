@@ -57,6 +57,9 @@ namespace PongJutsu
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
 			}
+
+			this.GetComponent<TrailRenderer>().sortingLayerName = this.GetComponentInChildren<SpriteRenderer>().sortingLayerName;
+			this.GetComponent<TrailRenderer>().sortingLayerID = this.GetComponentInChildren<SpriteRenderer>().sortingLayerID;
 		}
 
 		public void reset()
