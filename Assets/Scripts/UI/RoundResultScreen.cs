@@ -8,25 +8,30 @@ namespace PongJutsu
 		public GameObject RoundEndObjectContainer;
 		public GameObject MatchEndObjectContainer;
 
+		private bool isMatchEnd = false;
+
 		void OnEnable()
 		{
 			if (GameMatch.getMatchWinner() != null)
 			{
 				RoundEndObjectContainer.SetActive(false);
 				MatchEndObjectContainer.SetActive(true);
+				isMatchEnd = true;
 			}
 			else
 			{
 				RoundEndObjectContainer.SetActive(true);
 				MatchEndObjectContainer.SetActive(false);
+				isMatchEnd = false;
 			}
 
 			this.setDefaultSelection();
 		}
 
-		public void click_Continue()
+		void Update()
 		{
-			GameManager.EndGame();
+			if (isMatchEnd && Input.anyKeyDown)
+				GameManager.EndGame();
 		}
 
 		public void click_Exit()

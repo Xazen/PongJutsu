@@ -203,7 +203,7 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110261354}
   m_DstState: {fileID: 110222458}
-  m_TransitionDuration: 0
+  m_TransitionDuration: .496461689
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 1
@@ -223,8 +223,8 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110273107}
   m_DstState: {fileID: 110222458}
-  m_TransitionDuration: 9.31620598e-05
-  m_TransitionOffset: 0
+  m_TransitionDuration: .500403404
+  m_TransitionOffset: .00310676405
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: ExitGame
@@ -323,7 +323,7 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110222390}
   m_DstState: {fileID: 110222458}
-  m_TransitionDuration: 0
+  m_TransitionDuration: .500558436
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 1
