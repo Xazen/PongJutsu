@@ -20,6 +20,8 @@ namespace PongJutsu
 				RoundEndObjectContainer.SetActive(true);
 				MatchEndObjectContainer.SetActive(false);
 			}
+
+			this.setDefaultSelection();
 		}
 
 		public void click_Continue()
