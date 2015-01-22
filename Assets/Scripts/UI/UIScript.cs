@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System;
 
 namespace PongJutsu
 {
@@ -62,29 +61,6 @@ namespace PongJutsu
 		public void removeSelection()
 		{
 			EventSystem.current.SetSelectedGameObject(null);
-		}
-
-
-		// Aniamtion Events
-
-		void transition_loadgame(int waitForBuildup)
-		{
-			GameManager.LoadGame(Convert.ToBoolean(waitForBuildup));
-		}
-
-		void transition_buildup()
-		{
-			GameManager.BuildupGame();
-		}
-
-		void transition_startgame()
-		{
-			GameManager.StartGame();
-		}
-
-		void transition_unloadgame()
-		{
-			GameManager.UnloadGame();
 		}
 	}
 }
