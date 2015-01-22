@@ -129,7 +129,7 @@ namespace PongJutsu
 				flow.UpdateFlow();
 			}
 
-			if (allowPause && isIngame && allowInput)
+			if ((allowPause && isIngame && allowInput) || isPause)
 				updatePause();
 
 			if (isIngame)
