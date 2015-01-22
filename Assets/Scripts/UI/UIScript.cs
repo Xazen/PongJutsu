@@ -54,10 +54,13 @@ namespace PongJutsu
 		private void setDefaultSelection()
 		{
 			if (defaultSelected != null && hasButtons)
+			{
+				removeSelection();
 				EventSystem.current.SetSelectedGameObject(defaultSelected);
+			}
 		}
 
-		public void removeSelection()
+		private void removeSelection()
 		{
 			EventSystem.current.SetSelectedGameObject(null);
 		}
