@@ -10,8 +10,7 @@ namespace PongJutsu
 		[SerializeField] private GameObject defaultSelected;
 		private bool hasButtons = false;
 
-		[HideInInspector]
-		public Animator ui;
+		[HideInInspector] public Animator ui;
 
 		void Awake()
 		{
