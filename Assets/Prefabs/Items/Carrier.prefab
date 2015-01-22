@@ -27,6 +27,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200000}
+  - 114: {fileID: 11422552}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Carrier
@@ -141,6 +142,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac7ee35763d7654393cb0490431fee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11422552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0abe4fc70a6db49aa671f76c2efb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightAboveGround: -.0299999993
+  shadowColor: {r: .0469290651, g: .145549461, b: .227941155, a: .235294119}
+  AddAsChild: 1
+  updateSprite: 0
+  customSprite: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
