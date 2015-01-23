@@ -5,8 +5,8 @@ namespace PongJutsu
 {
 	public class RoundResultScreen : UIScript
 	{
-		public GameObject RoundEndObjectContainer;
-		public GameObject MatchEndObjectContainer;
+		public GameObject RoundEndElements;
+		public GameObject MatchEndElements;
 
 		private bool isMatchEnd = false;
 
@@ -14,22 +14,24 @@ namespace PongJutsu
 		{
 			if (GameMatch.getMatchWinner() != null)
 			{
-				RoundEndObjectContainer.SetActive(false);
-				MatchEndObjectContainer.SetActive(true);
+				RoundEndElements.SetActive(false);
+				MatchEndElements.SetActive(true);
 				isMatchEnd = true;
 			}
 			else
 			{
-				RoundEndObjectContainer.SetActive(true);
-				MatchEndObjectContainer.SetActive(false);
+				RoundEndElements.SetActive(true);
+				MatchEndElements.SetActive(false);
 				isMatchEnd = false;
 			}
 
 			this.setDefaultSelection();
 		}
 
-		void Update()
+		public override void UIpdate()
 		{
+			base.UIpdate();
+
 			if (isMatchEnd && Input.anyKeyDown)
 				GameManager.EndGame();
 		}

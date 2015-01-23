@@ -10,12 +10,8 @@ namespace PongJutsu
 		[SerializeField] private GameObject defaultSelected;
 		private bool hasButtons = false;
 
-		[HideInInspector] public Animator ui;
-
 		void Awake()
 		{
-			ui = GameObject.Find("UI").GetComponent<Animator>();
-
 			if (this.GetComponentsInChildren<Button>().Length > 0)
 				hasButtons = true;
 		}
@@ -26,6 +22,11 @@ namespace PongJutsu
 		}
 
 		void Update()
+		{
+			UIpdate();
+		}
+
+		public virtual void UIpdate()
 		{
 			if (hasButtons)
 			{
@@ -55,14 +56,9 @@ namespace PongJutsu
 		{
 			if (defaultSelected != null && hasButtons)
 			{
-				removeSelection();
+				EventSystem.current.SetSelectedGameObject(null);
 				EventSystem.current.SetSelectedGameObject(defaultSelected);
 			}
-		}
-
-		private void removeSelection()
-		{
-			EventSystem.current.SetSelectedGameObject(null);
 		}
 	}
 }
