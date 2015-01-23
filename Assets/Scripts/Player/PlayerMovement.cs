@@ -77,7 +77,7 @@ namespace PongJutsu
 				if (currentSpeed == 0)
 					currentSpeed = minMovementSpeed;
 
-				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed, 0f, maxMovementSpeed);
+				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed * Mathf.Abs(Input.GetAxisRaw(this.tag)), 0f, maxMovementSpeed);
 				moveDirection = Direction(Input.GetAxisRaw(this.tag));
 			}
 			else
