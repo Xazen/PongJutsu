@@ -100,7 +100,7 @@ TrailRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -174,6 +174,8 @@ MonoBehaviour:
   owner: {fileID: 0}
   lastHitOwner: {fileID: 0}
   bounceBack: 0
+  resetComboOnDamageDealt: 0
+  resetComboOnDamageTaken: 1
 --- !u!114 &11402560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -202,7 +204,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
