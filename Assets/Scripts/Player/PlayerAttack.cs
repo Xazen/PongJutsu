@@ -18,6 +18,7 @@ namespace PongJutsu
 		private bool waitForShot = false;
 
 		public GameObject shotObject;
+		public GameObject shotSonic;
 
 		int direction;
 
@@ -88,6 +89,8 @@ namespace PongJutsu
 			shuriken.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * direction);
 			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage*damageMultiplier);
 			this.audio.Play();
+
+			Instantiate(shotSonic, this.transform.position, this.transform.rotation);
 
 			waitForShot = false;
 			direction = 0;

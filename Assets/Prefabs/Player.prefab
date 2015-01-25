@@ -435,6 +435,7 @@ MonoBehaviour:
   maxActiveShots: 1
   shotCount: 0
   shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
+  shotSonic: {fileID: 184568, guid: 180d685d106507a498a775bef30779a4, type: 2}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
