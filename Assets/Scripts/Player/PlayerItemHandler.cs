@@ -85,17 +85,21 @@ namespace PongJutsu
 
 		[HideInInspector] public bool isExpanded = false;
 		private float expandTime;
-		private Vector2 initScale;
+		private Vector2 initScaleExpander;
+		private Vector2 initSizeCollider;
 
 		public void ShieldExpander(ShieldExpander shieldExpander)
 		{
-			PlayerShield shield = this.GetComponentInChildren<PlayerShield>();
+			BoxCollider2D collider = this.GetComponentInChildren<PlayerShield>().GetComponent<BoxCollider2D>();
+			Transform expander = this.GetComponentInChildren<PlayerShield>().transform.FindChild("Expander").transform;
 
 			if (!isExpanded)
 			{
 				// Expand shield
-				initScale = shield.transform.localScale;
-				shield.transform.localScale = new Vector2(shield.transform.localScale.x, shield.transform.localScale.y * shieldExpander.scaleMultiplier);
+				initScaleExpander = expander.localScale;
+				initSizeCollider = collider.size;
+				expander.localScale = new Vector2(expander.localScale.x, shieldExpander.scaleMultiplier / 1.5f);
+				collider.size = new Vector2(collider.size.x, collider.size.y * shieldExpander.scaleMultiplier);
 				expandTime = shieldExpander.duration;
 				isExpanded = true;
 			}
@@ -114,7 +118,9 @@ namespace PongJutsu
 
 				if (expandTime < 0f)
 				{
-					this.GetComponentInChildren<PlayerShield>().transform.localScale = new Vector2(initScale.x, initScale.y);
+					//this.GetComponentInChildren<PlayerShield>().transform.localScale = new Vector2(initScaleExpander.x, initScaleExpander.y);
+					this.GetComponentInChildren<PlayerShield>().transform.FindChild("Expander").transform.localScale = initScaleExpander;
+					this.GetComponentInChildren<PlayerShield>().GetComponent<BoxCollider2D>().size = initSizeCollider;
 					isExpanded = false;
 				}
 			}
