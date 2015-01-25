@@ -88,7 +88,7 @@ namespace PongJutsu
 			}
 
 			// Set temp position
-			position = this.transform.position.y + currentSpeed * moveDirection * Time.deltaTime;
+			position += (currentSpeed * moveDirection) * Time.deltaTime;
 
 			// Override at dashing
 			if (isDashing)
