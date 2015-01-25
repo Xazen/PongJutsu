@@ -10,15 +10,29 @@ namespace PongJutsu
 		[SerializeField] private GameObject defaultSelected;
 		private bool hasButtons = false;
 
+		public static Animator ui;
+
 		void Awake()
 		{
+			if (ui == null)
+				ui = GameObject.Find("UI").GetComponent<Animator>();
+
 			if (this.GetComponentsInChildren<Button>().Length > 0)
 				hasButtons = true;
 		}
 
 		void OnEnable()
 		{
+			ResetTriggers();
 			setDefaultSelection();
+		}
+
+		void ResetTriggers()
+		{
+			foreach (string parameter in ui.GetComponent<AnimatorParameter>().trigger)
+			{
+				ui.ResetTrigger(parameter);
+			}
 		}
 
 		void Update()
