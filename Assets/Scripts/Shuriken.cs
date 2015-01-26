@@ -22,8 +22,8 @@ namespace PongJutsu
 
 		public float reflectionDamageMultiplier = 0.8f;
 
-		[SerializeField] private Color shurikenLeftColor = Color.red;
-		[SerializeField] private Color shurikenRightColor = Color.blue;
+		public Color shurikenLeftColor = Color.red;
+		public Color shurikenRightColor = Color.blue;
 
 		[SerializeField] private Sprite shurikenLeftSprite;
 		[SerializeField] private Sprite shurikenRightSprite;
@@ -33,10 +33,18 @@ namespace PongJutsu
 
 		[HideInInspector] public bool bounceBack = false;
 
+		[SerializeField] private bool resetComboOnDamageDealt = false;
+		[SerializeField] private bool resetComboOnDamageTaken = true;
+
 		void Start()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
-			lastHitOwner = owner;
+
+			// Last hit owner might had been set by an item
+			if (!lastHitOwner) 
+			{
+				lastHitOwner = owner;
+			}
 
 			// Set different Color for different owner
 			if (owner.tag == "PlayerLeft")
@@ -49,6 +57,9 @@ namespace PongJutsu
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
 			}
+
+			this.GetComponent<TrailRenderer>().sortingLayerName = this.GetComponentInChildren<SpriteRenderer>().sortingLayerName;
+			this.GetComponent<TrailRenderer>().sortingLayerID = this.GetComponentInChildren<SpriteRenderer>().sortingLayerID;
 		}
 
 		public void reset()
@@ -95,9 +106,18 @@ namespace PongJutsu
 			// Collision with Forts
 			if (colObject.tag == "FortLeft" || colObject.tag == "FortRight")
 			{
-				lastHitOwner.GetComponent<Player>().addCombo();
-				colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
+				if (!colObject.GetComponent<Fort>().isDestroyed)
+				{
+					if (resetComboOnDamageTaken)
+					{
+						colObject.GetComponent<Fort>().owner.GetComponent<Player>().resetCombo();
+					}
 
+					if (resetComboOnDamageDealt)
+					{
+						lastHitOwner.GetComponent<Player>().resetCombo();
+					}
+				}
 				Explode(colObject);
 			}
 

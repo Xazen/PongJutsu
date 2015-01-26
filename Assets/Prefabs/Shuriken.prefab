@@ -29,6 +29,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 212: {fileID: 21200000}
   - 111: {fileID: 11100000}
+  - 114: {fileID: 11402560}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Shuriken
@@ -99,7 +100,7 @@ TrailRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -154,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3cf503a4f771d47b5d3912b1e37df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 6
   speedAdjustment: 1
   movement: {x: 0, y: 0}
   selfCollision: 0
@@ -173,6 +174,24 @@ MonoBehaviour:
   owner: {fileID: 0}
   lastHitOwner: {fileID: 0}
   bounceBack: 0
+  resetComboOnDamageDealt: 0
+  resetComboOnDamageTaken: 1
+--- !u!114 &11402560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0abe4fc70a6db49aa671f76c2efb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightAboveGround: .0700000003
+  shadowColor: {r: 0, g: 0, b: 0, a: .176470593}
+  AddAsChild: 1
+  updateSprite: 0
+  customSprite: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -185,7 +204,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

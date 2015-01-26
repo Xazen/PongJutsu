@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TransitionToGame
+  m_Name: Transition
   serializedVersion: 4
   m_AnimationType: 2
   m_Compressed: 0
@@ -28,7 +28,7 @@ AnimationClip:
         tangentMode: 1666413676
       m_PreInfinity: 2
       m_PostInfinity: 2
-    path: GameOverlay/Transition
+    path: Game/Transition
   m_ScaleCurves: []
   m_FloatCurves:
   - curve:
@@ -47,7 +47,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_IsActive
-    path: GameOverlay/Transition
+    path: Game/Transition
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -105,7 +105,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_LocalPosition.x
-    path: GameOverlay/Transition
+    path: Game/Transition
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -124,7 +124,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_LocalPosition.y
-    path: GameOverlay/Transition
+    path: Game/Transition
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -143,7 +143,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_LocalPosition.z
-    path: GameOverlay/Transition
+    path: Game/Transition
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -162,19 +162,19 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_IsActive
-    path: GameOverlay/Transition
+    path: Game/Transition
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves: []
   m_Events:
-  - time: .433333337
+  - time: .439999998
     functionName: transition_unloadgame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: .533333361
+  - time: .560000002
     functionName: transition_loadgame
     data: 
     objectReferenceParameter: {fileID: 0}

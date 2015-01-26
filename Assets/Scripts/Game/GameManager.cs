@@ -42,8 +42,6 @@ namespace PongJutsu
 		{
 			if (!isIngame)
 			{
-				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
-
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
 					gs.build();
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
@@ -73,8 +71,6 @@ namespace PongJutsu
 		{
 			if (isIngame)
 			{
-				FindObjectOfType<EventSystem>().sendNavigationEvents = true;
-
 				resetChangedPrefabs();
 
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
@@ -133,7 +129,7 @@ namespace PongJutsu
 				flow.UpdateFlow();
 			}
 
-			if (allowPause && isIngame && allowInput)
+			if ((allowPause && isIngame && allowInput) || isPause)
 				updatePause();
 
 			if (isIngame)
@@ -156,22 +152,21 @@ namespace PongJutsu
 			if (!isEnd && !isPause)
 			{
 				if (GameVar.forts.leftCount <= 0)
-					EndRound("left");
-				else if (GameVar.forts.rightCount <= 0)
 					EndRound("right");
+				else if (GameVar.forts.rightCount <= 0)
+					EndRound("left");
 			}
 		}
 
 		public static void NewGame()
 		{
 			GameMatch.newMatch();
-			SoundManager.current.FadeOut(3f);
 			ui.SetTrigger("StartGame");
 		}
 
 		public static void StartGame()
 		{
-			SoundManager.current.PlayState(SoundState.InGame);
+			GameObject.Find("Arena").GetComponent<AudioSource>().Play();
 			allowInput = true;
 		}
 
@@ -195,13 +190,11 @@ namespace PongJutsu
 
 		public static void RestartGame()
 		{
-			SoundManager.current.FadeOut(1f);
 			ui.SetTrigger("RestartGame");
 		}
 
 		public static void NextRound()
 		{
-			SoundManager.current.FadeOut(1f);
 			ui.SetTrigger("NextRound");
 		}
 
@@ -227,9 +220,8 @@ namespace PongJutsu
 
 		public static void ExitGame()
 		{
+			GameObject.Find("Arena").GetComponent<AudioSource>().Stop();
 			ui.SetTrigger("ExitGame");
-			SoundManager.current.FadeToState(0.4f, SoundState.MainMenu);
-			UnloadGame();
 		}
 	}
 

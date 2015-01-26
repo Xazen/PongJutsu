@@ -27,7 +27,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106829}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -45,25 +45,25 @@ ParticleAnimator:
   Does Animate Color?: 1
   colorAnimation[0]:
     serializedVersion: 2
-    rgba: 13290186
+    rgba: 97176266
   colorAnimation[1]:
     serializedVersion: 2
-    rgba: 482920648
+    rgba: 432589000
   colorAnimation[2]:
     serializedVersion: 2
-    rgba: 596479373
+    rgba: 428707213
   colorAnimation[3]:
     serializedVersion: 2
     rgba: 263632566
   colorAnimation[4]:
     serializedVersion: 2
-    rgba: 7895160
+    rgba: 142112888
   worldRotationAxis: {x: 0, y: 0, z: 0}
   localRotationAxis: {x: 0, y: 0, z: 0}
-  sizeGrow: .400000006
+  sizeGrow: .300000012
   rndForce: {x: 0, y: 0, z: 0}
   force: {x: 0, y: 0, z: 0}
-  damping: .5
+  damping: .899999976
   stopSimulation: 0
   autodestruct: 0
 --- !u!1002 &1200001
@@ -78,23 +78,23 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: 4
-  maxSize: 5
+  minSize: 2
+  maxSize: 3
   minEnergy: 3
-  maxEnergy: 3
-  minEmission: 25
-  maxEmission: 35
+  maxEnergy: 5.5
+  minEmission: 9
+  maxEmission: 14
   worldVelocity: {x: 0, y: 0, z: 0}
-  localVelocity: {x: .800000012, y: 0, z: 0}
-  rndVelocity: {x: .00999999978, y: .0299999993, z: .00999999978}
+  localVelocity: {x: 0, y: 1.64999998, z: 0}
+  rndVelocity: {x: 0, y: .349999994, z: 0}
   emitterVelocityScale: .0500000007
   tangentVelocity: {x: 0, y: 0, z: 0}
   angularVelocity: 0
   rndAngularVelocity: 0
-  rndRotation: 0
+  rndRotation: 1
   Simulate in Worldspace?: 1
   m_OneShot: 0
-  m_Ellipsoid: {x: 15, y: .100000001, z: 15}
+  m_Ellipsoid: {x: 4.4000001, y: .100000001, z: 0}
   m_MinEmitterRange: 0
 --- !u!1002 &1500001
 EditorExtensionImpl:
@@ -120,7 +120,7 @@ ParticleRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_CameraVelocityScale: 2
+  m_CameraVelocityScale: 1
   m_StretchParticles: 0
   m_LengthScale: 1
   m_VelocityScale: 1

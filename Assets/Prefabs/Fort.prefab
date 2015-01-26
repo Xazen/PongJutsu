@@ -233,9 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796fc8aad6d0cea408faa7bc54672fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorFullHealth: {r: .91911763, g: .84231323, b: .49334991, a: 1}
-  colorMediumHealth: {r: .992647052, g: .575654745, b: .197069645, a: 1}
-  colorLowHealth: {r: 1, g: .117647052, b: .117647052, a: 1}
+  colorFullHealth: {r: 1, g: 1, b: 0, a: 1}
+  colorMediumHealth: {r: 0, g: 1, b: .674509823, a: 1}
+  colorLowHealth: {r: 0, g: 0, b: .827450991, a: 1}
   removeAtDestroy: 0
 --- !u!212 &21200000
 SpriteRenderer:
@@ -249,7 +249,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -271,7 +271,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -293,7 +293,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -315,7 +315,7 @@ SpriteRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
