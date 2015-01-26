@@ -56,6 +56,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44553c4dcb542224585799bd6a722a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sonicLeftController: {fileID: 22100000, guid: aff9517f390469b4db6f1309d6292a3d,
+    type: 2}
+  sonicRightController: {fileID: 22100000, guid: 6ced02189c0dce44c98266c7ab289306,
+    type: 2}
 --- !u!212 &21284568
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -76,8 +80,8 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 4218480587
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300006, guid: cdb305a117d070a4ea6896e7f0af0ac2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300004, guid: ba6f0bbbbacac5f4dbb865c6bb8c0eef, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: .745098054}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

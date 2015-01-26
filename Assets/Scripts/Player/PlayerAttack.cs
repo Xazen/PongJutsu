@@ -91,11 +91,7 @@ namespace PongJutsu
 			this.audio.Play();
 
 			GameObject sonicInstance = (GameObject)Instantiate(shotSonic, this.transform.position, this.transform.rotation);
-
-			if (this.transform.parent.tag == "PlayerLeft")
-				sonicInstance.GetComponent<ShurikenSonic>().setColor(shotInstance.GetComponentInChildren<Shuriken>().shurikenLeftColor);
-			else if (this.transform.parent.tag == "PlayerRight")
-				sonicInstance.GetComponent<ShurikenSonic>().setColor(shotInstance.GetComponentInChildren<Shuriken>().shurikenRightColor);
+			sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.transform.parent.gameObject);
 
 			waitForShot = false;
 			direction = 0;
