@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firerate: .200000003
-  angle: 3.5
+  maxAngle: 3.5
   damageMultiplier: 1
   speedMultiplier: 1
   maxActiveShots: 1
