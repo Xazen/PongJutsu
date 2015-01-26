@@ -1,14 +1,13 @@
 fileFormatVersion: 2
-guid: cdb305a117d070a4ea6896e7f0af0ac2
+guid: de53510b96b9a48458a62debcb113f38
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Shuriken_Throw_0
-    21300002: Shuriken_Throw_1
-    21300004: Shuriken_Throw_2
-    21300006: Shuriken_Throw_3
-    21300008: Shuriken_Throw_4
-    21300010: Shuriken_Throw_5
-    21300012: Shuriken_Throw_6
+    21300000: ShurikenBlue_Sonic_0
+    21300002: ShurikenBlue_Sonic_1
+    21300004: ShurikenBlue_Sonic_2
+    21300006: ShurikenBlue_Sonic_3
+    21300008: ShurikenBlue_Sonic_4
+    21300010: ShurikenBlue_Sonic_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -29,7 +28,7 @@ TextureImporter:
   generateCubemap: 0
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 4096
+  maxTextureSize: 2048
   textureSettings:
     filterMode: 2
     aniso: 16
@@ -44,13 +43,13 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 750
+  spritePixelsToUnits: 700
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Shuriken_Throw_0
+    - name: ShurikenBlue_Sonic_0
       rect:
         serializedVersion: 2
         x: 0
@@ -60,7 +59,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Shuriken_Throw_1
+    - name: ShurikenBlue_Sonic_1
       rect:
         serializedVersion: 2
         x: 2048
@@ -70,7 +69,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Shuriken_Throw_2
+    - name: ShurikenBlue_Sonic_2
       rect:
         serializedVersion: 2
         x: 0
@@ -80,7 +79,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Shuriken_Throw_3
+    - name: ShurikenBlue_Sonic_3
       rect:
         serializedVersion: 2
         x: 2048
@@ -90,7 +89,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Shuriken_Throw_4
+    - name: ShurikenBlue_Sonic_4
       rect:
         serializedVersion: 2
         x: 0
@@ -100,21 +99,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Shuriken_Throw_5
+    - name: ShurikenBlue_Sonic_5
       rect:
         serializedVersion: 2
         x: 2048
         y: 2048
-        width: 2048
-        height: 2048
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Shuriken_Throw_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
         width: 2048
         height: 2048
       alignment: 0

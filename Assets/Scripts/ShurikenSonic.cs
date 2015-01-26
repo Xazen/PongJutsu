@@ -3,9 +3,15 @@ using System.Collections;
 
 public class ShurikenSonic : MonoBehaviour 
 {
-	public void setColor(Color color)
+	[SerializeField] private AnimatorOverrideController sonicLeftController;
+	[SerializeField] private AnimatorOverrideController sonicRightController;
+
+	public void setOwner(GameObject owner)
 	{
-		this.GetComponent<SpriteRenderer>().color = color;
+		if (owner.tag == "PlayerLeft")
+			this.GetComponent<Animator>().runtimeAnimatorController = sonicLeftController;
+		if (owner.tag == "PlayerRight")
+			this.GetComponent<Animator>().runtimeAnimatorController = sonicRightController;
 	}
 
 	void ae_Remove()
