@@ -456,7 +456,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -7.5, y: 1}
+  m_AnchoredPosition: {x: -7.5, y: 0}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &96652683
@@ -470,9 +470,9 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: acdfcd4859e2a2141ba51b49b5924a41, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5201,7 +5201,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 7.5, y: 1}
+  m_AnchoredPosition: {x: 7.5, y: 0}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1769045874
@@ -5215,9 +5215,9 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d8d9dca488415194195327b5744afd72, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5339,10 +5339,10 @@ MonoBehaviour:
   defaultSelected: {fileID: 1513351785}
   RoundEndElements: {fileID: 1721072429}
   MatchEndElements: {fileID: 1951476503}
-  leftWinSprite: {fileID: 21300000, guid: e7c3d902f78c7584998124d7785352ce, type: 3}
-  leftLoseSprite: {fileID: 21300000, guid: 217f3783b170809409c056ba143182a8, type: 3}
-  rightWinSprite: {fileID: 21300000, guid: 27350ef3604ce0b49b31371d8cd7597d, type: 3}
-  rightLoseSprite: {fileID: 21300000, guid: 5280d49cf57fcf44997ec9b91b1fc86d, type: 3}
+  leftWinSprite: {fileID: 21300000, guid: acdfcd4859e2a2141ba51b49b5924a41, type: 3}
+  leftLoseSprite: {fileID: 21300000, guid: dde927b33540fe14ebb5dccc7c217f01, type: 3}
+  rightWinSprite: {fileID: 21300000, guid: d8d9dca488415194195327b5744afd72, type: 3}
+  rightLoseSprite: {fileID: 21300000, guid: b5543cd72d7f2b04fb851058c37870f0, type: 3}
 --- !u!1 &1821018223
 GameObject:
   m_ObjectHideFlags: 0
