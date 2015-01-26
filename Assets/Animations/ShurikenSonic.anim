@@ -19,23 +19,23 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: cdb305a117d070a4ea6896e7f0af0ac2, type: 3}
-    - time: .0588235296
+    - time: .0333333351
       value: {fileID: 21300002, guid: cdb305a117d070a4ea6896e7f0af0ac2, type: 3}
-    - time: .117647059
+    - time: .0666666701
       value: {fileID: 21300004, guid: cdb305a117d070a4ea6896e7f0af0ac2, type: 3}
-    - time: .176470593
+    - time: .100000001
       value: {fileID: 21300006, guid: cdb305a117d070a4ea6896e7f0af0ac2, type: 3}
-    - time: .235294119
+    - time: .13333334
       value: {fileID: 21300008, guid: cdb305a117d070a4ea6896e7f0af0ac2, type: 3}
-    - time: .294117659
+    - time: .166666672
       value: {fileID: 21300010, guid: cdb305a117d070a4ea6896e7f0af0ac2, type: 3}
-    - time: .352941185
+    - time: .200000003
       value: {fileID: 21300012, guid: cdb305a117d070a4ea6896e7f0af0ac2, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 17
+  m_SampleRate: 30
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -59,7 +59,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: .411764711
+    m_StopTime: .233333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -76,7 +76,7 @@ AnimationClip:
   m_EditorCurves: []
   m_EulerEditorCurves: []
   m_Events:
-  - time: .411764711
+  - time: .233333334
     functionName: ae_Remove
     data: 
     objectReferenceParameter: {fileID: 0}

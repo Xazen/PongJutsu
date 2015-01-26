@@ -83,14 +83,19 @@ namespace PongJutsu
 		{
 			// Create a new shot
 			GameObject shotInstance = (GameObject)Instantiate(shotObject, this.transform.position, Quaternion.identity);
-			Shuriken shuriken = shotInstance.GetComponent<Shuriken> ();
+			Shuriken shuriken = shotInstance.GetComponent<Shuriken>();
 			shuriken.owner = this.transform.parent.gameObject;
 			shuriken.speed *= speedMultiplier;
 			shuriken.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * direction);
 			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage*damageMultiplier);
 			this.audio.Play();
 
-			Instantiate(shotSonic, this.transform.position, this.transform.rotation);
+			GameObject sonicInstance = (GameObject)Instantiate(shotSonic, this.transform.position, this.transform.rotation);
+
+			if (this.transform.parent.tag == "PlayerLeft")
+				sonicInstance.GetComponent<ShurikenSonic>().setColor(shotInstance.GetComponentInChildren<Shuriken>().shurikenLeftColor);
+			else if (this.transform.parent.tag == "PlayerRight")
+				sonicInstance.GetComponent<ShurikenSonic>().setColor(shotInstance.GetComponentInChildren<Shuriken>().shurikenRightColor);
 
 			waitForShot = false;
 			direction = 0;
