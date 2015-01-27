@@ -14,11 +14,6 @@ public class SoundPool : MonoBehaviour
 			PlayRandom();
 	}
 
-	void Update()
-	{
-		Debug.Log(Random.Range(0, 100) < randomProbability);
-	}
-
 	public void PlayElement(int index)
 	{
 		this.audio.PlayOneShot(sounds[index]);
