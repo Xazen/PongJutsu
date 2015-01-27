@@ -10,14 +10,19 @@ namespace PongJutsu
 			GameManager.NewGame();
 		}
 
-		public void click_Credits()
-		{
-			ui.SetTrigger("Credits");
-		}
-
 		public void click_Help()
 		{
 
+		}
+
+		public void click_Options()
+		{
+
+		}
+
+		public void click_Credits()
+		{
+			ui.SetTrigger("Credits");
 		}
 
 		public void click_Exit()

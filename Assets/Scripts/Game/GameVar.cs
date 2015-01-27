@@ -54,8 +54,8 @@ namespace PongJutsu
 
 				public float angle
 				{
-					get { return reference.GetComponentInChildren<PlayerAttack>().angle; }
-					set { reference.GetComponentInChildren<PlayerAttack>().angle = value; }
+					get { return reference.GetComponentInChildren<PlayerAttack>().maxAngle; }
+					set { reference.GetComponentInChildren<PlayerAttack>().maxAngle = value; }
 				}
 
 				public float damageMultiplier
