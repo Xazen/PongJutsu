@@ -48,9 +48,6 @@ namespace PongJutsu
 					AudioListener.pause = true;
 			}
 
-			if (Input.GetKeyDown("0"))
-				EndMusic();
-
 			if (Input.GetKeyDown("1"))
 				PlayPeakLayer();
 			else if (Input.GetKeyDown("2"))
@@ -60,11 +57,24 @@ namespace PongJutsu
 				Play(layers[1], layers[1].clips[0]);
 			else if (Input.GetKeyDown("4"))
 				MuteLayer(layers[1]);
+
+			if (Input.GetKeyDown("5"))
+				NextClip(layers[0]);
 		}
 
 		public void StartMusic()
 		{
 			PlaySolo(layers[0], layers[0].clips[0]);
+		}
+
+		public void EndMusic()
+		{
+			foreach (AudioSource audio in this.GetComponents<AudioSource>())
+			{
+				audio.Stop();
+				audio.clip = null;
+				audio.mute = false;
+			}
 		}
 
 		public void PauseMusic()
@@ -85,24 +95,18 @@ namespace PongJutsu
 			}
 		}
 
-		public void EndMusic()
-		{
-			foreach (AudioSource audio in this.GetComponents<AudioSource>())
-			{
-				audio.Stop();
-				audio.clip = null;
-				audio.mute = false;
-			}
-		}
-
 		public void PlayPeakLayer()
 		{
+			StartCoroutine(IFadeout(layers[0].source, 0.5f));
+			StartCoroutine(IFadeout(layers[1].source, 0.5f));
 			Play(peakLayer, peakLayer.clips[0]);
 		}
 
 		public void StopPeakLayer()
 		{
-			StopLayer(peakLayer);
+			StartCoroutine(IFadein(layers[0].source, 1f));
+			StartCoroutine(IFadein(layers[1].source, 1f));
+			StartCoroutine(IFadeout(peakLayer.source, 1f));
 		}
 
 		private void Play(Layer layer, AudioClip clip)
@@ -127,6 +131,17 @@ namespace PongJutsu
 
 			if (!layer.source.isPlaying)
 				layer.source.Play();
+		}
+
+		public void NextClip(Layer layer)
+		{
+			StartCoroutine(WaitForNextClip(layer));
+		}
+
+		IEnumerator WaitForNextClip(Layer layer)
+		{
+			yield return new WaitForSeconds(layer.source.clip.length - layer.source.time);
+			Play(layer, layer.clips[1]);
 		}
 
 		private void StopLayer(Layer layer)

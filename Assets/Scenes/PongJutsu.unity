@@ -1382,8 +1382,8 @@ MonoBehaviour:
   layers:
   - source: {fileID: 309831656}
     clips:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 8300000, guid: fa48af0c4a7ca7b4c969f4db6a98855c, type: 3}
+    - {fileID: 8300000, guid: 2e84ffc257df2bd41b6ad9859763f8af, type: 3}
     - {fileID: 0}
     - {fileID: 0}
   - source: {fileID: 309831655}
