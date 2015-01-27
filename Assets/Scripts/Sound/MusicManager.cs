@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace PongJutsu
 {
-	public class SoundManager : MonoBehaviour
+	public class MusicManager : MonoBehaviour
 	{
 		[SerializeField] private SoundState defaultState = SoundState.MainMenu;
 		[SerializeField] private StateClip[] clips;
-		
-		public static SoundManager current;
+
+		public static MusicManager current;
 
 		[System.Serializable]
 		private class StateClip
