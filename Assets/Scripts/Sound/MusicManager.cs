@@ -6,6 +6,7 @@ namespace PongJutsu
 {
 	public class MusicManager : MonoBehaviour
 	{
+		[SerializeField] private float masterVolume = 1f;
 		[SerializeField] private Layer[] layers;
 
 		public static MusicManager current;
@@ -17,10 +18,10 @@ namespace PongJutsu
 			public AudioClip[] clips;
 		}
 
-
 		void Awake()
 		{
-			current = this;
+			if (current == null)
+				current = this;
 		}
 
 		void Update()
