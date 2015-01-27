@@ -8,11 +8,12 @@ namespace PongJutsu
 	{
 		[SerializeField] private float masterVolume = 1f;
 		[SerializeField] private Layer[] layers;
+		[SerializeField] private Layer peakLayer;
 
 		public static MusicManager current;
 
 		[System.Serializable]
-		private class Layer
+		public class Layer
 		{
 			public AudioSource source;
 			public AudioClip[] clips;
@@ -26,10 +27,10 @@ namespace PongJutsu
 
 		void Update()
 		{
-			checkMute();
+			checkTrigger();
 		}
 
-		void checkMute()
+		void checkTrigger()
 		{
 			if (Input.GetKeyDown("f1"))
 			{
@@ -46,33 +47,118 @@ namespace PongJutsu
 				else
 					AudioListener.pause = true;
 			}
+
+			if (Input.GetKeyDown("0"))
+				EndMusic();
+
+			if (Input.GetKeyDown("1"))
+				PlayPeakLayer();
+			else if (Input.GetKeyDown("2"))
+				StopPeakLayer();
+
+			if (Input.GetKeyDown("3"))
+				Play(layers[1], layers[1].clips[0]);
+			else if (Input.GetKeyDown("4"))
+				MuteLayer(layers[1]);
 		}
 
-		public void FadeOut(float duration)
+		public void StartMusic()
 		{
-			StartCoroutine(IFadeout(duration));
+			PlaySolo(layers[0], layers[0].clips[0]);
 		}
 
-		void PlayClip(AudioClip clip)
+		public void PauseMusic()
 		{
-			this.GetComponent<AudioSource>().clip = clip;
-			this.GetComponent<AudioSource>().volume = 1f;
-			audio.time = 0f;
-
-			if (!audio.isPlaying)
-				audio.Play();
-		}
-
-		IEnumerator IFadeout(float duration)
-		{
-			AudioSource audio = this.GetComponent<AudioSource>();
-
-			while (audio.volume > 0f)
+			foreach (AudioSource source in this.GetComponents<AudioSource>())
 			{
-				float volume = audio.volume - (1f / duration) * Time.deltaTime;
-				audio.volume = Mathf.Clamp(volume, 0f, 1f);
+				if (layers[0].source != source)
+					StartCoroutine(IFadeout(source, 1f));
+			}
+		}
+
+		public void ResumeMusic()
+		{
+			foreach (AudioSource source in this.GetComponents<AudioSource>())
+			{
+				if (layers[0].source != source)
+					StartCoroutine(IFadein(source, 1f));
+			}
+		}
+
+		public void EndMusic()
+		{
+			foreach (AudioSource audio in this.GetComponents<AudioSource>())
+			{
+				audio.Stop();
+				audio.clip = null;
+				audio.mute = false;
+			}
+		}
+
+		public void PlayPeakLayer()
+		{
+			Play(peakLayer, peakLayer.clips[0]);
+		}
+
+		public void StopPeakLayer()
+		{
+			StopLayer(peakLayer);
+		}
+
+		private void Play(Layer layer, AudioClip clip)
+		{
+			layer.source.clip = clip;
+
+			layer.source.mute = false;
+
+			if (!layer.source.isPlaying)
+				layer.source.Play();
+		}
+
+		private void PlaySolo(Layer layer, AudioClip clip)
+		{
+			foreach (Layer l in layers)
+			{
+				if (l != layer)
+					StopLayer(l);
+			}
+
+			layer.source.clip = clip;
+
+			if (!layer.source.isPlaying)
+				layer.source.Play();
+		}
+
+		private void StopLayer(Layer layer)
+		{
+			layer.source.Stop();
+		}
+
+		private void MuteLayer(Layer layer)
+		{
+			layer.source.mute = true;
+		}
+
+		IEnumerator IFadein(AudioSource source, float duration)
+		{
+			source.Play();
+			while (source.volume < 1f)
+			{
+				float volume = source.volume + (1f / duration) * Time.unscaledDeltaTime;
+				source.volume = Mathf.Clamp(volume, 0f, 1f);
 				yield return new WaitForEndOfFrame();
 			}
+		}
+
+		IEnumerator IFadeout(AudioSource source, float duration)
+		{
+			while (source.volume > 0f)
+			{
+				float volume = source.volume - (1f / duration) * Time.unscaledDeltaTime;
+				source.volume = Mathf.Clamp(volume, 0f, 1f);
+				yield return new WaitForEndOfFrame();
+			}
+			source.Pause();
 		}
 	}
 }
