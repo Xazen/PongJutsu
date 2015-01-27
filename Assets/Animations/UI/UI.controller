@@ -275,7 +275,7 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110261354}
   m_DstState: {fileID: 110242694}
-  m_TransitionDuration: 0
+  m_TransitionDuration: .499160588
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 1
@@ -355,7 +355,7 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110200000}
   m_DstState: {fileID: 110222390}
-  m_TransitionDuration: 9.31322575e-05
+  m_TransitionDuration: .497575045
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 1
@@ -395,7 +395,7 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110222390}
   m_DstState: {fileID: 110242694}
-  m_TransitionDuration: .00145888329
+  m_TransitionDuration: .497244924
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 1
