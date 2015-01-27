@@ -31,6 +31,8 @@ namespace PongJutsu
 
 		[HideInInspector] public bool invertDirection = false;
 
+		public float movementNormalized { get { return (Mathf.Min(currentSpeed, maxMovementSpeed) * moveDirection) / maxMovementSpeed; } }
+
 		void Update()
 		{
 			if (GameManager.allowInput)
@@ -44,7 +46,7 @@ namespace PongJutsu
 		{
 			lastDash += Time.deltaTime;
 
-			if (Input.GetButtonDown(this.tag + " dash") && Input.GetAxisRaw(this.tag) != 0f)
+			if (Input.GetAxisRaw(this.tag + " dash") != 0f && Input.GetAxisRaw(this.tag) != 0f)
 			{
 				dash();
 			}

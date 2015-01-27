@@ -38,118 +38,6 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: PlayerLeft shoot up
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: e
-    altNegativeButton: 
-    altPositiveButton: joystick 1 button 3
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: PlayerLeft shoot straight
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: d
-    altNegativeButton: 
-    altPositiveButton: joystick 1 button 2
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: PlayerLeft shoot down
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: c
-    altNegativeButton: 
-    altPositiveButton: joystick 1 button 0
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: PlayerRight shoot up
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: u
-    altNegativeButton: 
-    altPositiveButton: joystick 2 button 3
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: PlayerRight shoot straight
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: j
-    altNegativeButton: 
-    altPositiveButton: joystick 2 button 2
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: PlayerRight shoot down
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: m
-    altNegativeButton: 
-    altPositiveButton: joystick 2 button 0
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: Pause
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: escape
-    altNegativeButton: 
-    altPositiveButton: joystick button 7
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
     m_Name: PlayerLeft
     descriptiveName: 
     descriptiveNegativeName: 
@@ -214,13 +102,61 @@ InputManager:
     axis: 5
     joyNum: 2
   - serializedVersion: 3
-    m_Name: River
+    m_Name: PlayerLeft shoot
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: r
+    positiveButton: d
     altNegativeButton: 
-    altPositiveButton: joystick button 6
+    altPositiveButton: 
+    gravity: 0
+    dead: .00100000005
+    sensitivity: 0
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: PlayerRight shoot
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: j
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: .00100000005
+    sensitivity: 0
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: PlayerLeft shoot
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 2
+    altNegativeButton: 
+    altPositiveButton: joystick 1 button 0
+    gravity: 0
+    dead: .00100000005
+    sensitivity: 0
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: PlayerRight shoot
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 2 button 2
+    altNegativeButton: 
+    altPositiveButton: joystick 2 button 0
     gravity: 0
     dead: .00100000005
     sensitivity: 0
@@ -253,6 +189,86 @@ InputManager:
     positiveButton: joystick 2 button 4
     altNegativeButton: 
     altPositiveButton: joystick 2 button 5
+    gravity: 0
+    dead: .00100000005
+    sensitivity: 0
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: PlayerLeft dash
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: .100000001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: PlayerRight dash
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: .100000001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: PlayerLeft dash
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: a
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: .00100000005
+    sensitivity: 0
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: PlayerRight dash
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: l
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: .00100000005
+    sensitivity: 0
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Pause
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: escape
+    altNegativeButton: 
+    altPositiveButton: joystick button 7
     gravity: 0
     dead: .00100000005
     sensitivity: 0
@@ -350,7 +366,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: .300000012
+    dead: .100000001
     sensitivity: 1
     snap: 0
     invert: 1
@@ -366,7 +382,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: .300000012
+    dead: .100000001
     sensitivity: 1
     snap: 0
     invert: 0
@@ -398,7 +414,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: .300000012
+    dead: .100000001
     sensitivity: 1
     snap: 0
     invert: 1
@@ -414,42 +430,10 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: .300000012
+    dead: .100000001
     sensitivity: 1
     snap: 0
     invert: 0
     type: 2
     axis: 6
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: PlayerLeft dash
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: a
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: PlayerRight dash
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: l
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: .00100000005
-    sensitivity: 0
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
     joyNum: 0
