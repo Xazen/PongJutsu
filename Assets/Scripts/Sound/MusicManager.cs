@@ -6,7 +6,8 @@ namespace PongJutsu
 {
 	public class MusicManager : MonoBehaviour
 	{
-		[SerializeField] private float masterVolume = 1f;
+		[SerializeField] private int startLayerElement = 0;
+		[SerializeField] private int pauseLayerElement = 0;
 		[SerializeField] private Layer[] layers;
 		[SerializeField] private Layer peakLayer;
 
@@ -17,6 +18,8 @@ namespace PongJutsu
 		{
 			public AudioSource source;
 			public AudioClip[] clips;
+			[HideInInspector] public int currentClipIndex = 0;
+			[HideInInspector] public int nextClipIndex = 0;
 		}
 
 		void Awake()
@@ -59,12 +62,12 @@ namespace PongJutsu
 				MuteLayer(layers[1]);
 
 			if (Input.GetKeyDown("5"))
-				NextClip(layers[0]);
+				NextClipInLayer(layers[0]);
 		}
 
 		public void StartMusic()
 		{
-			PlaySolo(layers[0], layers[0].clips[0]);
+			StartLayer(layers[startLayerElement]);
 		}
 
 		public void EndMusic()
@@ -81,8 +84,8 @@ namespace PongJutsu
 		{
 			foreach (AudioSource source in this.GetComponents<AudioSource>())
 			{
-				if (layers[0].source != source)
-					StartCoroutine(IFadeout(source, 1f));
+				if (layers[pauseLayerElement].source != source)
+					StartCoroutine(IFadeout(source, 0.7f));
 			}
 		}
 
@@ -90,7 +93,7 @@ namespace PongJutsu
 		{
 			foreach (AudioSource source in this.GetComponents<AudioSource>())
 			{
-				if (layers[0].source != source)
+				if (layers[pauseLayerElement].source != source)
 					StartCoroutine(IFadein(source, 1f));
 			}
 		}
@@ -119,29 +122,28 @@ namespace PongJutsu
 				layer.source.Play();
 		}
 
-		private void PlaySolo(Layer layer, AudioClip clip)
+		private void StartLayer(Layer layer)
 		{
-			foreach (Layer l in layers)
-			{
-				if (l != layer)
-					StopLayer(l);
-			}
-
-			layer.source.clip = clip;
-
-			if (!layer.source.isPlaying)
-				layer.source.Play();
+			Play(layer, layer.clips[0]);
 		}
 
-		public void NextClip(Layer layer)
+		public void NextClipInLayer(Layer layer)
 		{
-			StartCoroutine(WaitForNextClip(layer));
+			if (layer.currentClipIndex != layer.nextClipIndex)
+			{
+				layer.nextClipIndex = Mathf.Clamp(layer.currentClipIndex + 1, 0, layer.clips.Length - 1);
+			}
+			else
+			{
+				layer.nextClipIndex = Mathf.Clamp(layer.currentClipIndex + 1, 0, layer.clips.Length - 1);
+				StartCoroutine(WaitForNextClip(layer));
+			}
 		}
 
 		IEnumerator WaitForNextClip(Layer layer)
 		{
 			yield return new WaitForSeconds(layer.source.clip.length - layer.source.time);
-			Play(layer, layer.clips[1]);
+			Play(layer, layer.clips[layer.nextClipIndex]);
 		}
 
 		private void StopLayer(Layer layer)
