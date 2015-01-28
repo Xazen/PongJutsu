@@ -6,6 +6,29 @@ namespace PongJutsu
 {
 	public class GameFlow : MonoBehaviour
 	{
+		// Singleton implementation
+		private static GameFlow _instance;
+		public static GameFlow instance
+		{
+			get{
+				if (_instance == null)
+				{
+					_instance = GameObject.FindObjectOfType<GameFlow>();
+				}
+				return _instance;
+			}
+		}
+
+		// Events & Delegates
+		public delegate void GameFlowDelegateWithPlayer(GameVar.players.player player);
+		public delegate void GameFlowDelegate();
+		public GameFlowDelegateWithPlayer OnEnterBuffPlayerPhase;
+		public GameFlowDelegate OnExitBuffPlayerPhase;
+		public GameFlowDelegate OnEnterMainPhase;
+		public GameFlowDelegate OnEnterCriticalPhase;
+		public GameFlowDelegateWithPlayer OnComboBuffPlayer;
+		public GameFlowDelegateWithPlayer OnComboDebuffPlayer;
+
 		// Debug
 		[SerializeField]
 		private bool consoleLog = true;
@@ -123,7 +146,7 @@ namespace PongJutsu
 			}
 
 			// Critical item setup to speed up the game round
-			if (GameVar.ingameTime >= forceCriticalItems && !isCriticalPhase) 
+			if (GameVar.ingameTime >= forceCriticalItems && !isCriticalItemForced) 
 			{
 				EnableCriticalItems();
 			}
@@ -183,28 +206,35 @@ namespace PongJutsu
 		/// <param name="player">Player.</param>
 		private void ComboBuffPlayer(GameVar.players.player player)
 		{
-			if (consoleLog) 
+			if (player.speedMultiplier <= shurikenMaximumSpeed) 
 			{
-				Debug.Log ("---GameFlow---");
-			}
+				if (OnComboBuffPlayer != null)
+				{
+				    OnComboBuffPlayer(player);
+				}
 
-			if (player.speedMultiplier + (comboSpeedMultiplier - 1.0f) < shurikenMaximumSpeed) 
-			{
-				player.speedMultiplier += (comboSpeedMultiplier - 1.0f);
-				player.angle += angleDefaultValue*(comboSpeedMultiplier - 1.0f);
-			} 
-			else 
-			{
-				player.angle *= (shurikenMaximumSpeed/player.speedMultiplier);
-				player.speedMultiplier = shurikenMaximumSpeed;
-			}
+				if (consoleLog) 
+				{
+					Debug.Log ("---GameFlow---");
+				}
+				if (player.speedMultiplier + (comboSpeedMultiplier - 1.0f) < shurikenMaximumSpeed) 
+				{
+					player.speedMultiplier += (comboSpeedMultiplier - 1.0f);
+					player.angle += angleDefaultValue*(comboSpeedMultiplier - 1.0f);
+				} 
+				else 
+				{
+					player.angle *= (shurikenMaximumSpeed/player.speedMultiplier);
+					player.speedMultiplier = shurikenMaximumSpeed;
+				}
 
-			// Log new values
-			if (consoleLog)
-			{
-				Debug.Log("Combo buff player: " + player + "\n" +
-				          "  Player speed multiplier   : " + player.speedMultiplier
-				          );
+				// Log new values
+				if (consoleLog)
+				{
+					Debug.Log("Combo buff player: " + player + "\n" +
+					          "  Player speed multiplier   : " + player.speedMultiplier
+					          );
+				}
 			}
 		}
 
@@ -215,6 +245,11 @@ namespace PongJutsu
 		/// <param name="comboCounter">Combo counter.</param>
 		private void ComboDebuffPlayer(GameVar.players.player player, int comboCounter)
 		{
+			if (OnComboDebuffPlayer != null) 
+			{
+				OnComboDebuffPlayer (player);
+			}
+
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
@@ -267,6 +302,11 @@ namespace PongJutsu
 		/// <param name="player">Player.</param>
 		private void EnterBuffPhaseWithPlayer(GameVar.players.player player)
 		{
+			if (OnEnterBuffPlayerPhase != null) 
+			{
+				OnEnterBuffPlayerPhase (player);
+			}
+
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
@@ -291,6 +331,11 @@ namespace PongJutsu
 		/// </summary>
 		private void ExitBuffPhase()
 		{
+			if (OnExitBuffPlayerPhase != null) 
+			{
+				OnExitBuffPlayerPhase ();
+			}
+
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
@@ -322,6 +367,10 @@ namespace PongJutsu
 		/// </summary>
 		private void EnterMainPhase()
 		{
+			if (OnEnterMainPhase != null) 
+			{
+				OnEnterMainPhase ();
+			}
 			GameVar.river.itemList ["Repair"].spawnProbability = (int)itemDefaultSpawnProbability;
 		}
 
@@ -330,6 +379,11 @@ namespace PongJutsu
 		/// </summary>
 		private void EnterCriticalPhase()
 		{
+			if (OnEnterCriticalPhase != null) 
+			{	
+				OnEnterCriticalPhase ();
+			}
+
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
