@@ -22,8 +22,8 @@ namespace PongJutsu
 		// Events & Delegates
 		public delegate void GameFlowDelegateWithPlayer(GameVar.players.player player);
 		public delegate void GameFlowDelegate();
-		public GameFlowDelegateWithPlayer OnEnterBuffPlayerPhase;
-		public GameFlowDelegate OnExitBuffPlayerPhase;
+		public GameFlowDelegateWithPlayer OnEnterDisadvantageBuffPlayerPhase;
+		public GameFlowDelegate OnExitDisadvantageBuffPlayerPhase;
 		public GameFlowDelegate OnEnterMainPhase;
 		public GameFlowDelegate OnEnterCriticalPhase;
 		public GameFlowDelegateWithPlayer OnComboBuffPlayer;
@@ -64,12 +64,15 @@ namespace PongJutsu
 		private float mercyDuration = 30.0f;
 
 		// Buff loosing Player
-		private bool isBuffLeftPhase = false;
-		private bool isBuffRightPhase = false;
+		private bool isDisadvantageBuffLeftPhase = false;
+		private bool isDisadvantageBuffRightPhase = false;
+		private float disadvantageBuffTimer = 0.0f;
 		[SerializeField]
-		private int requiredFortDeltaForBuff = 2;
+		private float disadvantageBuffDuration = 15.0f;
 		[SerializeField]
-		private float buffedDamageMultiplier = 1.5f;
+		private int requiredFortDeltaForDisadvantageBuff = 2;
+		[SerializeField]
+		private float disadvantageBuffDamageMultiplier = 1.5f;
 
 		// Critical Mode
 		private bool isCriticalPhase = false;
@@ -89,8 +92,9 @@ namespace PongJutsu
 			comboBuffCounterLeft = 0;
 			comboBuffCounterRight = 0;
 			addedSpeedOverTime = 0;
-			isBuffLeftPhase = false;
-			isBuffRightPhase = false;
+			disadvantageBuffTimer = 0;
+			isDisadvantageBuffLeftPhase = false;
+			isDisadvantageBuffRightPhase = false;
 			isCriticalPhase = false;
 			isCriticalItemForced = false;
 		}
@@ -151,24 +155,32 @@ namespace PongJutsu
 				EnableCriticalItems();
 			}
 
-			// Buff losing player
-			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
-			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !isBuffLeftPhase && !isBuffRightPhase) 
+			// Buff player in disadvantage
+			if (isDisadvantageBuffLeftPhase || isDisadvantageBuffRightPhase) 
 			{
+				disadvantageBuffTimer += Time.deltaTime;
+			}
+
+			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
+			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForDisadvantageBuff && !isDisadvantageBuffLeftPhase && !isDisadvantageBuffRightPhase) 
+			{
+				disadvantageBuffTimer = 0.0f;
+
 				if (deltaFortCount < 0) 
 				{
-					EnterBuffPhaseWithPlayer (GameVar.players.left);
+					EnterDisadvantageBuffPhaseWithPlayer (GameVar.players.left);
 				} 
 				else 
 				{
-					EnterBuffPhaseWithPlayer (GameVar.players.right);
+					EnterDisadvantageBuffPhaseWithPlayer (GameVar.players.right);
 				}
 			} 
-			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && (isBuffLeftPhase || isBuffRightPhase))
+			else if (disadvantageBuffTimer >= disadvantageBuffDuration && (isDisadvantageBuffLeftPhase || isDisadvantageBuffRightPhase))
 			{
-				ExitBuffPhase ();
-				isBuffLeftPhase = false;
-				isBuffRightPhase = false;
+				ExitDisadvantageBuffPhase ();
+				disadvantageBuffTimer = 0.0f;
+				isDisadvantageBuffLeftPhase = false;
+				isDisadvantageBuffRightPhase = false;
 			}
 
 			// Increase shuriken speed after time
@@ -300,11 +312,11 @@ namespace PongJutsu
 		/// Buffs the losing player.
 		/// </summary>
 		/// <param name="player">Player.</param>
-		private void EnterBuffPhaseWithPlayer(GameVar.players.player player)
+		private void EnterDisadvantageBuffPhaseWithPlayer(GameVar.players.player player)
 		{
-			if (OnEnterBuffPlayerPhase != null) 
+			if (OnEnterDisadvantageBuffPlayerPhase != null) 
 			{
-				OnEnterBuffPlayerPhase (player);
+				OnEnterDisadvantageBuffPlayerPhase (player);
 			}
 
 			if (consoleLog) 
@@ -312,10 +324,10 @@ namespace PongJutsu
 				Debug.Log ("---GameFlow---");
 			}
 
-			isBuffLeftPhase = (player == GameVar.players.left);
-			isBuffRightPhase = (player == GameVar.players.right);
-			
-			player.damageMultiplier += (buffedDamageMultiplier-1.0f);
+			isDisadvantageBuffLeftPhase = (player == GameVar.players.left);
+			isDisadvantageBuffRightPhase = (player == GameVar.players.right);
+
+			player.damageMultiplier += (disadvantageBuffDamageMultiplier-1.0f);
 
 			// Log new values
 			if (consoleLog)
@@ -329,11 +341,11 @@ namespace PongJutsu
 		/// <summary>
 		/// Debuffs the players.
 		/// </summary>
-		private void ExitBuffPhase()
+		private void ExitDisadvantageBuffPhase()
 		{
-			if (OnExitBuffPlayerPhase != null) 
+			if (OnExitDisadvantageBuffPlayerPhase != null) 
 			{
-				OnExitBuffPlayerPhase ();
+				OnExitDisadvantageBuffPlayerPhase ();
 			}
 
 			if (consoleLog) 
@@ -341,15 +353,14 @@ namespace PongJutsu
 				Debug.Log ("---GameFlow---");
 			}
 
-			if (isBuffLeftPhase) 
+			if (isDisadvantageBuffLeftPhase) 
 			{
-				GameVar.players.left.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
+				GameVar.players.left.damageMultiplier -= (disadvantageBuffDamageMultiplier - 1.0f);
 			}
 
-
-			if (isBuffRightPhase) 
+			if (isDisadvantageBuffRightPhase) 
 			{
-				GameVar.players.right.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
+				GameVar.players.right.damageMultiplier -= (disadvantageBuffDamageMultiplier - 1.0f);
 			}
 
 			// Log new values
