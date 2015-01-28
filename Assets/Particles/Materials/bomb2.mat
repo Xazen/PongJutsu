@@ -29,4 +29,4 @@ Material:
       data:
         first:
           name: _EmisColor
-        second: {r: 1, g: .694117665, b: .470588237, a: 0}
+        second: {r: .858823538, g: .552941203, b: 0, a: 0}
