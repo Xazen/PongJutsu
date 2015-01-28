@@ -19,11 +19,12 @@ namespace PongJutsu
 		public float explosionRadius = 2f;
 		[SerializeField] private float explosionDamageMultiplier = 0.4f;
 		[SerializeField] private bool explosionDamagerPerDistance = false;
+		[HideInInspector] public bool isBomb = false;
 
 		public float reflectionDamageMultiplier = 0.8f;
 
-		[SerializeField] private Color shurikenLeftColor = Color.red;
-		[SerializeField] private Color shurikenRightColor = Color.blue;
+		public Color shurikenLeftColor = Color.red;
+		public Color shurikenRightColor = Color.blue;
 
 		[SerializeField] private Sprite shurikenLeftSprite;
 		[SerializeField] private Sprite shurikenRightSprite;
@@ -167,25 +168,35 @@ namespace PongJutsu
 
 		void Explode(GameObject hitObject)
 		{
-			hitObject.GetComponent<Fort>().TakeDamage(damage);
-
 			GameObject explosionAnimation = (GameObject)Instantiate(explosion, this.transform.position, Quaternion.identity);
 			explosionAnimation.GetComponent<ShurikenExplosion>().explosionRadius = explosionRadius;
 			explosionAnimation.GetComponent<ShurikenExplosion>().direction = Mathf.Sign(movement.x);
 
-			Collider2D[] expl = Physics2D.OverlapCircleAll(this.transform.position, explosionRadius);
-			foreach (Collider2D col in expl)
+			if (!isBomb)
 			{
-				// Check if the Fort isn't the direct hit fort
-				if (col.gameObject != hitObject && col.gameObject.GetComponent<Fort>() != null)
-				{
-					GameObject fort = col.gameObject;
+				hitObject.GetComponent<Fort>().TakeDamage(damage);
 
-					// Set Damage Per Distance or Damage Multiplier
-					if (explosionDamagerPerDistance)
-						fort.GetComponent<Fort>().TakeDamage((int)(damage / Vector2.Distance(this.transform.position, fort.transform.position)));
-					else
-						fort.GetComponent<Fort>().TakeDamage((int)(damage * explosionDamageMultiplier));
+				Collider2D[] expl = Physics2D.OverlapCircleAll(this.transform.position, explosionRadius);
+				foreach (Collider2D col in expl)
+				{
+					// Check if the Fort isn't the direct hit fort
+					if (col.gameObject != hitObject && col.gameObject.GetComponent<Fort>() != null)
+					{
+						GameObject fort = col.gameObject;
+
+						// Set Damage Per Distance or Damage Multiplier
+						if (explosionDamagerPerDistance)
+							fort.GetComponent<Fort>().TakeDamage((int)(damage / Vector2.Distance(this.transform.position, fort.transform.position)));
+						else
+							fort.GetComponent<Fort>().TakeDamage((int)(damage * explosionDamageMultiplier));
+					}
+				}
+			}
+			else
+			{
+				foreach (GameObject fort in hitObject.GetComponent<Fort>().owner.GetComponent<Player>().forts)
+				{
+					fort.GetComponent<Fort>().TakeDamage(damage);
 				}
 			}
 

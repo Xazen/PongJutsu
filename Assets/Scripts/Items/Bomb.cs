@@ -10,22 +10,13 @@ namespace PongJutsu
 
 		public override void content(Shuriken shuriken)
 		{
-			if (shuriken.lastHitOwner.tag == GameVar.players.left.reference.tag)
-				damageForts(GameVar.players.right.reference.GetComponent<Player>().forts, shuriken);
-			else if (shuriken.lastHitOwner.tag == GameVar.players.right.reference.tag)
-				damageForts(GameVar.players.left.reference.GetComponent<Player>().forts, shuriken);
+			if (!shuriken.isBomb)
+			{
+				shuriken.isBomb = true;
+				shuriken.damage = Mathf.RoundToInt(shuriken.damage * damageMultiplier);
+			}
 
 			base.content(shuriken);
-		}
-
-		private void damageForts(GameObject[] forts, Shuriken shuriken)
-		{
-			int damage = (int)(shuriken.damage * damageMultiplier);
-
-			foreach (GameObject fort in forts)
-			{
-				fort.GetComponent<Fort>().TakeDamage(damage);
-			}
 		}
 	}
 }

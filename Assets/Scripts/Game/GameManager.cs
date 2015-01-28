@@ -152,9 +152,9 @@ namespace PongJutsu
 			if (!isEnd && !isPause)
 			{
 				if (GameVar.forts.leftCount <= 0)
-					EndRound("left");
-				else if (GameVar.forts.rightCount <= 0)
 					EndRound("right");
+				else if (GameVar.forts.rightCount <= 0)
+					EndRound("left");
 			}
 		}
 

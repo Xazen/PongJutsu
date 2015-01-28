@@ -31,7 +31,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_IsActive
-    path: GameOverlay/PauseScreen
+    path: Game/PauseScreen
     classID: 1
     script: {fileID: 0}
   - curve:
@@ -103,7 +103,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
     attribute: m_IsActive
-    path: GameOverlay/PauseScreen
+    path: Game/PauseScreen
     classID: 1
     script: {fileID: 0}
   - curve:
