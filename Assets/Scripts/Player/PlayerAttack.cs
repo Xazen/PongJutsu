@@ -8,7 +8,8 @@ namespace PongJutsu
 
 		public float firerate = 1.5f;
 		private float nextFire;
-		public float angle = 3f;
+
+		public float maxAngle = 3.5f;
 
 		public float damageMultiplier = 1.0f;
 		public float speedMultiplier = 1.0f;
@@ -18,6 +19,7 @@ namespace PongJutsu
 		private bool waitForShot = false;
 
 		public GameObject shotObject;
+		public GameObject shotSonic;
 
 		int direction;
 
@@ -51,46 +53,36 @@ namespace PongJutsu
 		void Shooting()
 		{
 			nextFire += Time.deltaTime;
-			if (nextFire >= firerate && shotCount < maxActiveShots && !waitForShot)
-			{
-				if (Input.GetButton(this.transform.parent.tag + " shoot straight"))
+			if (nextFire >= firerate && shotCount < maxActiveShots && !waitForShot && Input.GetButton(this.transform.parent.tag + " shoot"))
 				{
-					triggerShoot(0);
-				}
-				else if (Input.GetButton(this.transform.parent.tag + " shoot up"))
-				{
-					triggerShoot(1);
-				}
-				else if (Input.GetButton(this.transform.parent.tag + " shoot down"))
-				{
-					triggerShoot(-1);
-				}
+				triggerShoot();
 			}
 		}
 
-		void triggerShoot(int dir)
+		void triggerShoot()
 		{
 			// Trigger Animation... wait for throw
 			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
 
 			nextFire = 0;
 			waitForShot = true;
-			direction = dir;
 		}
 
 		public void Shoot()
 		{
 			// Create a new shot
 			GameObject shotInstance = (GameObject)Instantiate(shotObject, this.transform.position, Quaternion.identity);
-			Shuriken shuriken = shotInstance.GetComponent<Shuriken> ();
+			Shuriken shuriken = shotInstance.GetComponent<Shuriken>();
 			shuriken.owner = this.transform.parent.gameObject;
 			shuriken.speed *= speedMultiplier;
-			shuriken.GetComponent<Shuriken>().setInitialMovement(this.GetComponentInParent<Player>().direction, angle * direction);
 			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage*damageMultiplier);
+			shuriken.setInitialMovement(this.GetComponentInParent<Player>().direction, this.GetComponentInParent<PlayerMovement>().movementNormalized * maxAngle);
 			this.audio.Play();
 
+			GameObject sonicInstance = (GameObject)Instantiate(shotSonic, this.transform.position, this.transform.rotation);
+			sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.transform.parent.gameObject);
+
 			waitForShot = false;
-			direction = 0;
 		}
 	}
 }

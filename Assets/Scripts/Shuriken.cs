@@ -22,8 +22,8 @@ namespace PongJutsu
 
 		public float reflectionDamageMultiplier = 0.8f;
 
-		[SerializeField] private Color shurikenLeftColor = Color.red;
-		[SerializeField] private Color shurikenRightColor = Color.blue;
+		public Color shurikenLeftColor = Color.red;
+		public Color shurikenRightColor = Color.blue;
 
 		[SerializeField] private Sprite shurikenLeftSprite;
 		[SerializeField] private Sprite shurikenRightSprite;
@@ -57,6 +57,9 @@ namespace PongJutsu
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
 			}
+
+			this.GetComponent<TrailRenderer>().sortingLayerName = this.GetComponentInChildren<SpriteRenderer>().sortingLayerName;
+			this.GetComponent<TrailRenderer>().sortingLayerID = this.GetComponentInChildren<SpriteRenderer>().sortingLayerID;
 		}
 
 		public void reset()

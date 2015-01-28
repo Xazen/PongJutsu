@@ -49,7 +49,7 @@ namespace PongJutsu
 					shuriken.movement.y = c * shieldAngleMultiplier;
 					shuriken.adjustSpeed();
 
-					this.audio.Play();
+					this.GetComponent<SoundPool>().PlayElement(0);
 					this.GetComponent<Animator>().SetTrigger("Reflect");
 
 					shuriken.lastHitOwner = this.transform.parent.gameObject;
@@ -60,6 +60,7 @@ namespace PongJutsu
 				// Catch
 				else if (shuriken.owner == this.transform.parent.gameObject && shuriken.bounceBack)
 				{
+					this.GetComponent<SoundPool>().PlayElement(1);
 					this.GetComponent<Animator>().SetTrigger("Catch");
 
 					this.transform.parent.GetComponent<Player>().addCombo();

@@ -42,8 +42,6 @@ namespace PongJutsu
 		{
 			if (!isIngame)
 			{
-				FindObjectOfType<EventSystem>().sendNavigationEvents = false;
-
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
 					gs.build();
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
@@ -73,8 +71,6 @@ namespace PongJutsu
 		{
 			if (isIngame)
 			{
-				FindObjectOfType<EventSystem>().sendNavigationEvents = true;
-
 				resetChangedPrefabs();
 
 				foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
@@ -133,7 +129,7 @@ namespace PongJutsu
 				flow.UpdateFlow();
 			}
 
-			if (allowPause && isIngame && allowInput)
+			if ((allowPause && isIngame && allowInput) || isPause)
 				updatePause();
 
 			if (isIngame)
@@ -156,9 +152,9 @@ namespace PongJutsu
 			if (!isEnd && !isPause)
 			{
 				if (GameVar.forts.leftCount <= 0)
-					EndRound("left");
-				else if (GameVar.forts.rightCount <= 0)
 					EndRound("right");
+				else if (GameVar.forts.rightCount <= 0)
+					EndRound("left");
 			}
 		}
 

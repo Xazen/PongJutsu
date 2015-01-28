@@ -1,39 +1,78 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace PongJutsu
 {
 	public class UIScript : MonoBehaviour
 	{
-		[HideInInspector] public Animator ui;
+		[SerializeField] private GameObject defaultSelected;
+		private bool hasButtons = false;
+
+		public static Animator ui;
 
 		void Awake()
 		{
-			ui = GameObject.Find("UI").GetComponent<Animator>();
+			if (ui == null)
+				ui = GameObject.Find("UI").GetComponent<Animator>();
+
+			if (this.GetComponentsInChildren<Button>().Length > 0)
+				hasButtons = true;
 		}
 
-
-		// Aniamtion Events
-
-		void transition_loadgame(int waitForBuildup)
+		void OnEnable()
 		{
-			GameManager.LoadGame(Convert.ToBoolean(waitForBuildup));
+			ResetTriggers();
+			setDefaultSelection();
 		}
 
-		void transition_buildup()
+		void ResetTriggers()
 		{
-			GameManager.BuildupGame();
+			foreach (string parameter in ui.GetComponent<AnimatorParameter>().trigger)
+			{
+				ui.ResetTrigger(parameter);
+			}
 		}
 
-		void transition_startgame()
+		void Update()
 		{
-			GameManager.StartGame();
+			UIpdate();
 		}
 
-		void transition_unloadgame()
+		public virtual void UIpdate()
 		{
-			GameManager.UnloadGame();
+			if (hasButtons)
+			{
+				bool selectInMenu = false;
+				foreach (Button button in this.GetComponentsInChildren<Button>())
+				{
+					if (button.gameObject == EventSystem.current.lastSelectedGameObject || button.gameObject == EventSystem.current.currentSelectedGameObject)
+					{
+						selectInMenu = true;
+						break;
+					}
+				}
+
+				if (getInputUI() && !selectInMenu)
+					setDefaultSelection();
+				else if (getInputUI() && EventSystem.current.currentSelectedGameObject == null)
+					EventSystem.current.SetSelectedGameObject(EventSystem.current.lastSelectedGameObject);
+			}
+		}
+
+		private bool getInputUI()
+		{
+			return (Input.GetButtonDown("Vertical") || Input.GetAxisRaw("Vertical") != 0f || Input.GetButtonDown("Horizontal") || Input.GetAxisRaw("Horizontal") != 0f);
+		}
+
+		internal void setDefaultSelection()
+		{
+			if (defaultSelected != null && hasButtons)
+			{
+				EventSystem.current.SetSelectedGameObject(null);
+				EventSystem.current.SetSelectedGameObject(defaultSelected);
+			}
 		}
 	}
 }
