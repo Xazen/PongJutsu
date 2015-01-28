@@ -165,6 +165,7 @@ MonoBehaviour:
   explosionRadius: 1.64999998
   explosionDamageMultiplier: .400000006
   explosionDamagerPerDistance: 0
+  isBomb: 0
   reflectionDamageMultiplier: .800000012
   shurikenLeftColor: {r: .926470578, g: .408737034, b: .408737034, a: 1}
   shurikenRightColor: {r: .396078467, g: .950020254, b: 1, a: 1}
