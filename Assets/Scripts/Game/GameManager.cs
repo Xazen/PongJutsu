@@ -190,6 +190,7 @@ namespace PongJutsu
 
 		public static void RestartGame()
 		{
+			GameMatch.newMatch();
 			ui.SetTrigger("RestartGame");
 		}
 

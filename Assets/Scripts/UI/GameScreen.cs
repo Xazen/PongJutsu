@@ -6,8 +6,10 @@ namespace PongJutsu
 {
 	public class GameScreen : UIScript
 	{
-		void Update()
+		public override void UIpdate()
 		{
+			base.UIpdate();
+
 			if (GameVar.players.left.reference == null && GameVar.players.right.reference == null)
 			{
 				this.transform.FindChild("ComboCounterLeft").GetComponent<Text>().text = "x0";
