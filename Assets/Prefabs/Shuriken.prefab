@@ -163,7 +163,7 @@ MonoBehaviour:
   damage: 40
   explosion: {fileID: 100000, guid: 6159ab0ca61b4e34891358d29fa7451f, type: 2}
   explosionRadius: 1.64999998
-  explosionDamageMultiplier: .400000006
+  explosionDamageMultiplier: .200000003
   explosionDamagerPerDistance: 0
   isBomb: 0
   reflectionDamageMultiplier: .800000012

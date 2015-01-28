@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnProbability: 0
-  damageMultiplier: .300000012
+  damageMultiplier: .5
 --- !u!212 &21294496
 SpriteRenderer:
   m_ObjectHideFlags: 1
