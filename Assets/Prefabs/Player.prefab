@@ -452,7 +452,7 @@ MonoBehaviour:
   accelerationSpeed: .275000006
   decelerationSpeed: 1.5
   resetMovementAtTurn: 1
-  dashDistance: 1.5
+  dashDistance: 2.5
   dashSpeed: 10
   dashCooldown: .5
   dashButtonInterval: .200000003

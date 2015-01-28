@@ -26,6 +26,7 @@ namespace PongJutsu
 		public GameFlowDelegate OnExitDisadvantageBuffPlayerPhase;
 		public GameFlowDelegate OnEnterMainPhase;
 		public GameFlowDelegate OnEnterCriticalPhase;
+		// One fort left
 		public GameFlowDelegateWithPlayer OnComboBuffPlayer;
 		public GameFlowDelegateWithPlayer OnComboDebuffPlayer;
 
@@ -39,7 +40,7 @@ namespace PongJutsu
 		[SerializeField]
 		private float shurikenMaximumSpeed = 1.5f;
 		private float angleDefaultValue = 3.5f;
-		private float itemDefaultSpawnProbability = 100.0f;
+		private int itemDefaultSpawnProbability = 100;
 
 		// Regularly increase Spawn frequency
 		private int riverSpeedUpCounter = 0;
@@ -74,6 +75,9 @@ namespace PongJutsu
 		[SerializeField]
 		private float disadvantageBuffDamageMultiplier = 1.5f;
 
+		// Main Phase
+		private bool isMainPhase = false;
+
 		// Critical Mode
 		private bool isCriticalPhase = false;
 		[SerializeField]
@@ -88,15 +92,32 @@ namespace PongJutsu
 
 		public void StartFlow()
 		{
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
+
 			riverSpeedUpCounter = 0;
 			comboBuffCounterLeft = 0;
 			comboBuffCounterRight = 0;
 			addedSpeedOverTime = 0;
 			disadvantageBuffTimer = 0;
+			isMainPhase = false;
 			isDisadvantageBuffLeftPhase = false;
 			isDisadvantageBuffRightPhase = false;
 			isCriticalPhase = false;
 			isCriticalItemForced = false;
+
+			if (consoleLog)
+			{
+				Debug.Log("Start new game.\n" +
+				          "  Divider probability        : " + GameVar.river.itemList["Divider"].spawnProbability + "\n" +
+				          "  ShieldExpander probability : " + GameVar.river.itemList["ShieldExpander"].spawnProbability + "\n" +
+				          "  Inverter probability       : " + GameVar.river.itemList["Inverter"].spawnProbability + "\n" +
+				          "  Repair probability         : " + GameVar.river.itemList["Repair"].spawnProbability + "\n" +
+				          "  Bomb probability : " + GameVar.river.itemList["Bomb"].spawnProbability + "\n" +
+				          "  Slow probability : " + GameVar.river.itemList["Slow"].spawnProbability);
+			}
 		}
 
 		public void UpdateFlow()
@@ -138,7 +159,7 @@ namespace PongJutsu
 			}
 
 			// Enable defensive items for main game
-			if (GameVar.forts.allCount <= 8 && !isCriticalItemForced)
+			if (GameVar.forts.allCount <= 8 && !isMainPhase)
 			{
 				EnterMainPhase();
 			}
@@ -193,6 +214,12 @@ namespace PongJutsu
 
 				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.left);
 				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.right);
+			}
+
+			// Activate bomb when one of the ninjas have only 2 forts left
+			if (GameVar.forts.leftCount == 2 || GameVar.forts.rightCount == 2) 
+			{
+				GameVar.river.itemList["Bomb"].spawnProbability = itemDefaultSpawnProbability;
 			}
 		}
 
@@ -378,11 +405,30 @@ namespace PongJutsu
 		/// </summary>
 		private void EnterMainPhase()
 		{
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
+
 			if (OnEnterMainPhase != null) 
 			{
 				OnEnterMainPhase ();
 			}
-			GameVar.river.itemList ["Repair"].spawnProbability = (int)itemDefaultSpawnProbability;
+
+			isMainPhase = true;
+
+			GameVar.river.itemList ["Repair"].spawnProbability = itemDefaultSpawnProbability;
+			// Log new values
+			if (consoleLog)
+			{
+				Debug.Log("Enter main mode.\n" +
+				          "  Divider probability        : " + GameVar.river.itemList["Divider"].spawnProbability + "\n" +
+				          "  ShieldExpander probability : " + GameVar.river.itemList["ShieldExpander"].spawnProbability + "\n" +
+				          "  Inverter probability       : " + GameVar.river.itemList["Inverter"].spawnProbability + "\n" +
+				          "  Repair probability         : " + GameVar.river.itemList["Repair"].spawnProbability + "\n" +
+				          "  Bomb probability : " + GameVar.river.itemList["Bomb"].spawnProbability + "\n" +
+				          "  Slow probability : " + GameVar.river.itemList["Slow"].spawnProbability);
+			}
 		}
 
 		/// <summary>
@@ -418,7 +464,7 @@ namespace PongJutsu
 			GameVar.river.itemList["Inverter"].spawnProbability *= 2;
 			GameVar.river.itemList["Repair"].spawnProbability = 0;
 			GameVar.river.itemList["ShieldExpander"].spawnProbability /= 2;
-			GameVar.river.itemList["Bomb"].spawnProbability = GameVar.river.itemList["Divider"].spawnProbability;
+			GameVar.river.itemList["Bomb"].spawnProbability = (int)itemDefaultSpawnProbability*2;
 			GameVar.river.itemList["Slow"].spawnProbability *= 2;
 			
 			// Log new values

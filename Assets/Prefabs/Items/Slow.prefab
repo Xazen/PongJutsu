@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnProbability: 100
-  duration: 8
+  duration: 16
   speedMuliplier: .400000006
   slowDownWinningPlayerOnly: 1
 --- !u!212 &21236758
