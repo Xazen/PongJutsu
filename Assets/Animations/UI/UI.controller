@@ -768,7 +768,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: PauseToHelp
-  m_Speed: 1
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 84f17d950c2f8b744815deb150ebe00c, type: 2}
@@ -828,7 +828,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HelpToMain
-  m_Speed: -1
+  m_Speed: -2
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: fb2313c9b7d626541b59583e407f62ef, type: 2}
@@ -873,7 +873,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: PauseFadein
-  m_Speed: -1
+  m_Speed: -2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: acdf23ce547ea0d4586bfa862ab8324d, type: 2}
@@ -918,7 +918,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: PauseFadeout
-  m_Speed: 1
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: acdf23ce547ea0d4586bfa862ab8324d, type: 2}
@@ -1008,7 +1008,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HelpToPause
-  m_Speed: -1
+  m_Speed: -2.5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 84f17d950c2f8b744815deb150ebe00c, type: 2}
@@ -1038,7 +1038,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MainFadeout
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 6829490f7fbeaed47aec316fdcda3722, type: 2}
@@ -1053,7 +1053,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MainToHelp
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: fb2313c9b7d626541b59583e407f62ef, type: 2}
@@ -1068,7 +1068,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MainFadein
-  m_Speed: -1
+  m_Speed: -2
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 6829490f7fbeaed47aec316fdcda3722, type: 2}
@@ -1111,30 +1111,6 @@ StateMachine:
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
-    data:
-      first: {fileID: 110282758}
-      second:
-      - {fileID: 110183824}
-    data:
-      first: {fileID: 110222926}
-      second:
-      - {fileID: 110146388}
-    data:
-      first: {fileID: 110294522}
-      second:
-      - {fileID: 110172708}
-    data:
-      first: {fileID: 110245372}
-      second:
-      - {fileID: 110113040}
-    data:
-      first: {fileID: 110254672}
-      second:
-      - {fileID: 110162988}
-    data:
-      first: {fileID: 110287736}
-      second:
-      - {fileID: 110153420}
     data:
       first: {fileID: 0}
       second:
@@ -1211,6 +1187,30 @@ StateMachine:
       first: {fileID: 110221574}
       second:
       - {fileID: 110133566}
+    data:
+      first: {fileID: 110287736}
+      second:
+      - {fileID: 110153420}
+    data:
+      first: {fileID: 110254672}
+      second:
+      - {fileID: 110162988}
+    data:
+      first: {fileID: 110245372}
+      second:
+      - {fileID: 110113040}
+    data:
+      first: {fileID: 110294522}
+      second:
+      - {fileID: 110172708}
+    data:
+      first: {fileID: 110222926}
+      second:
+      - {fileID: 110146388}
+    data:
+      first: {fileID: 110282758}
+      second:
+      - {fileID: 110183824}
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: 48, y: 324, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
