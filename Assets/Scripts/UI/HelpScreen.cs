@@ -32,12 +32,14 @@ namespace PongJutsu
 
 		public void back()
 		{
-
+			currentIndex = (int)Mathf.Repeat(currentIndex - 1, helpImage.Length);
+			content.sprite = helpImage[currentIndex];
 		}
 
 		public void next()
 		{
-
+			currentIndex = (int)Mathf.Repeat(currentIndex + 1, helpImage.Length);
+			content.sprite = helpImage[currentIndex];
 		}
 	}
 }
