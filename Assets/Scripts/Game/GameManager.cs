@@ -11,6 +11,7 @@ namespace PongJutsu
 		[SerializeField] private bool instantPlay = false;
 
 		public static bool allowInput = false;
+		public static bool allowPauseSwitch = true;
 
 		private static bool isIngame = false;
 		private static bool isPause = false;
@@ -129,7 +130,7 @@ namespace PongJutsu
 				flow.UpdateFlow();
 			}
 
-			if ((allowPause && isIngame && allowInput) || isPause)
+			if ((allowPause && isIngame && allowInput) || (isPause && allowPauseSwitch))
 				updatePause();
 
 			if (isIngame)

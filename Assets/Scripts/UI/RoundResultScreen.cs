@@ -54,9 +54,9 @@ namespace PongJutsu
 			}
 		}
 
-		public override void UIpdate()
+		public override void uiUpdate()
 		{
-			base.UIpdate();
+			base.uiUpdate();
 
 			if (isMatchEnd && Input.anyKeyDown)
 				GameManager.EndGame();

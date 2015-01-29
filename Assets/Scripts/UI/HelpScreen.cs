@@ -6,9 +6,9 @@ namespace PongJutsu
 {
 	public class HelpScreen : UIScript
 	{
-		public override void UIpdate()
+		public override void uiUpdate()
 		{
-			base.UIpdate();
+			base.uiUpdate();
 
 			if (Input.anyKeyDown)
 				ui.SetTrigger("Back");

@@ -23,6 +23,11 @@ namespace PongJutsu
 
 		void OnEnable()
 		{
+			uiEnable();
+		}
+
+		public virtual void uiEnable()
+		{
 			ResetTriggers();
 			setDefaultSelection();
 		}
@@ -37,10 +42,10 @@ namespace PongJutsu
 
 		void Update()
 		{
-			UIpdate();
+			uiUpdate();
 		}
 
-		public virtual void UIpdate()
+		public virtual void uiUpdate()
 		{
 			if (hasButtons)
 			{

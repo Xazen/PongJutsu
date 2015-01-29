@@ -6,9 +6,9 @@ namespace PongJutsu
 {
 	public class GameScreen : UIScript
 	{
-		public override void UIpdate()
+		public override void uiUpdate()
 		{
-			base.UIpdate();
+			base.uiUpdate();
 
 			if (GameVar.players.left.reference == null && GameVar.players.right.reference == null)
 			{

@@ -828,7 +828,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: HelpToMain
-  m_Speed: -2
+  m_Speed: -.800000012
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: fb2313c9b7d626541b59583e407f62ef, type: 2}
@@ -1038,7 +1038,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MainFadeout
-  m_Speed: 2
+  m_Speed: .800000012
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 6829490f7fbeaed47aec316fdcda3722, type: 2}
@@ -1053,7 +1053,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MainToHelp
-  m_Speed: 2
+  m_Speed: .800000012
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: fb2313c9b7d626541b59583e407f62ef, type: 2}
@@ -1068,7 +1068,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MainFadein
-  m_Speed: -2
+  m_Speed: -.800000012
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 6829490f7fbeaed47aec316fdcda3722, type: 2}

@@ -5,6 +5,13 @@ namespace PongJutsu
 {
 	public class PauseScreen : UIScript
 	{
+		public override void uiEnable()
+		{
+			base.uiEnable();
+
+			GameManager.allowPauseSwitch = true;
+		}
+
 		public void click_Resume()
 		{
 			GameManager.ResumeGame();
@@ -13,6 +20,7 @@ namespace PongJutsu
 		public void click_Help()
 		{
 			ui.SetTrigger("Help");
+			GameManager.allowPauseSwitch = false;
 		}
 
 		public void click_Exit()
