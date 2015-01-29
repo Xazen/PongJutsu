@@ -8,7 +8,7 @@ namespace PongJutsu
 
 		public float damageMultiplier = 0.5f;
 
-		public override void content(Shuriken shuriken)
+		public override void OnActivation(Shuriken shuriken)
 		{
 			if (!shuriken.isBomb)
 			{
@@ -16,7 +16,7 @@ namespace PongJutsu
 				shuriken.damage = Mathf.RoundToInt(shuriken.damage * damageMultiplier);
 			}
 
-			base.content(shuriken);
+			base.OnActivation(shuriken);
 		}
 	}
 }

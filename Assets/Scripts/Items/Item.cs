@@ -21,16 +21,33 @@ namespace PongJutsu
 				spawnProbability = defaultProbability;
 		}
 
-		public virtual void content(Shuriken shuriken)
+		public float duration = 0f;
+		[SerializeField] private GameObject feedback;
+
+		public virtual void OnActivation(Shuriken shuriken)
 		{
 			Destroy(this.gameObject);
+		}
+
+		public void placeFeedback(GameObject gameObject)
+		{
+			if (feedback != null)
+			{
+				GameObject f = (GameObject)Instantiate(feedback, gameObject.transform.position, Quaternion.identity);
+				f.name = this.gameObject.name + "(Feedback)";
+
+				if (duration > 0f)
+					f.transform.GetComponent<ItemFeedback>().Setup(gameObject, duration);
+				else
+					f.transform.GetComponent<ItemFeedback>().Setup(gameObject);
+			}
 		}
 
 		void OnTriggerEnter2D(Collider2D col)
 		{
 			if (col.GetComponent<Shuriken>() != null)
 			{
-				content(col.GetComponent<Shuriken>());
+				OnActivation(col.GetComponent<Shuriken>());
 			}
 		}
 	}

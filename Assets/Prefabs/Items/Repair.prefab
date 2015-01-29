@@ -81,6 +81,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnProbability: 0
+  duration: 0
+  feedback: {fileID: 126810, guid: 30a3651a94436da4e8ad7001f2b73c79, type: 2}
   heal: 100
 --- !u!212 &21261002
 SpriteRenderer:
