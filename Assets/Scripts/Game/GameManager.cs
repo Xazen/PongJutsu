@@ -58,6 +58,8 @@ namespace PongJutsu
 				isEnd = false;
 				allowInput = false;
 
+				Screen.showCursor = false;
+
 				Time.timeScale = 1;
 
 				// prepare construction
@@ -176,6 +178,8 @@ namespace PongJutsu
 			Time.timeScale = 0;
 			isPause = true;
 			allowInput = false;
+
+			Screen.showCursor = true;
 	
 			ui.SetTrigger("PauseGame");
 		}
@@ -187,6 +191,8 @@ namespace PongJutsu
 			Time.timeScale = 1;
 			isPause = false;
 			allowInput = true;
+
+			Screen.showCursor = false;
 		}
 
 		public static void RestartGame()
@@ -211,6 +217,8 @@ namespace PongJutsu
 
 			isEnd = true;
 			allowInput = false;
+
+			Screen.showCursor = true;
 
 			ui.SetTrigger("EndRound");
 		}
