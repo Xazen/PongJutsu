@@ -5,16 +5,19 @@ namespace PongJutsu
 {
 	public class Inverter : Item
 	{
-		public float duration = 8f;
-
-		public override void content(Shuriken shuriken)
+		public override void OnActivation(Shuriken shuriken)
 		{
-			if (shuriken.lastHitOwner.tag == GameVar.players.left.reference.tag)
-				GameVar.players.right.reference.GetComponent<PlayerItemHandler>().Inverter(this);
-			else if (shuriken.lastHitOwner.tag == GameVar.players.right.reference.tag)
-				GameVar.players.left.reference.GetComponent<PlayerItemHandler>().Inverter(this);
+			GameObject affectedPlayer = null;
 
-			base.content(shuriken);
+			if (shuriken.lastHitOwner.tag == GameVar.players.left.reference.tag)
+				affectedPlayer = GameVar.players.right.reference;
+			else if (shuriken.lastHitOwner.tag == GameVar.players.right.reference.tag)
+				affectedPlayer = GameVar.players.left.reference;
+
+			affectedPlayer.GetComponent<PlayerItemHandler>().Inverter(this);
+			placeFeedback(affectedPlayer);
+
+			base.OnActivation(shuriken);
 		}
 	}
 }

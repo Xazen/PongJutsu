@@ -10,7 +10,7 @@ namespace PongJutsu
 		public float angularDistance = 1f;
 		public float damagePercentage = 0.5f;
 
-		public override void content(Shuriken shuriken)
+		public override void OnActivation(Shuriken shuriken)
 		{
 			// Split shuriken
 			for (int i = 0; splits > i; i++)
@@ -38,7 +38,7 @@ namespace PongJutsu
 
 			shuriken.Remove();
 
-			base.content(shuriken);
+			base.OnActivation(shuriken);
 		}
 	}
 }

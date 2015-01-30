@@ -7,7 +7,7 @@ namespace PongJutsu
 	{
 		public int heal = 100;
 
-		public override void content(Shuriken shuriken)
+		public override void OnActivation(Shuriken shuriken)
 		{
 			GameObject weakestFort = null;
 			foreach (GameObject fort in shuriken.lastHitOwner.GetComponent<Player>().forts)
@@ -27,9 +27,12 @@ namespace PongJutsu
 			}
 
 			if (weakestFort != null)
+			{
 				weakestFort.GetComponent<Fort>().TakeHeal(heal);
+				placeFeedback(weakestFort);
+			}
 
-			base.content(shuriken);
+			base.OnActivation(shuriken);
 		}
 	}
 }

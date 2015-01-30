@@ -11,6 +11,7 @@ namespace PongJutsu
 		[SerializeField] private bool instantPlay = false;
 
 		public static bool allowInput = false;
+		public static bool allowPauseSwitch = true;
 
 		private static bool isIngame = false;
 		private static bool isPause = false;
@@ -56,6 +57,8 @@ namespace PongJutsu
 				isPause = false;
 				isEnd = false;
 				allowInput = false;
+
+				Screen.showCursor = false;
 
 				Time.timeScale = 1;
 
@@ -129,7 +132,7 @@ namespace PongJutsu
 				flow.UpdateFlow();
 			}
 
-			if ((allowPause && isIngame && allowInput) || isPause)
+			if ((allowPause && isIngame && allowInput) || (isPause && allowPauseSwitch))
 				updatePause();
 
 			if (isIngame)
@@ -175,6 +178,8 @@ namespace PongJutsu
 			Time.timeScale = 0;
 			isPause = true;
 			allowInput = false;
+
+			Screen.showCursor = true;
 	
 			ui.SetTrigger("PauseGame");
 		}
@@ -186,10 +191,13 @@ namespace PongJutsu
 			Time.timeScale = 1;
 			isPause = false;
 			allowInput = true;
+
+			Screen.showCursor = false;
 		}
 
 		public static void RestartGame()
 		{
+			GameMatch.newMatch();
 			ui.SetTrigger("RestartGame");
 		}
 
@@ -209,6 +217,8 @@ namespace PongJutsu
 
 			isEnd = true;
 			allowInput = false;
+
+			Screen.showCursor = true;
 
 			ui.SetTrigger("EndRound");
 		}

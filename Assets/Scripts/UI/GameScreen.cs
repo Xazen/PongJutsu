@@ -6,18 +6,32 @@ namespace PongJutsu
 {
 	public class GameScreen : UIScript
 	{
-		void Update()
+		[SerializeField]
+		private GameObject comboCounterLeft;
+		[SerializeField]
+		private GameObject comboCounterRight;
+
+		public override void uiUpdate()
 		{
+			base.uiUpdate();
+
 			if (GameVar.players.left.reference == null && GameVar.players.right.reference == null)
 			{
-				this.transform.FindChild("ComboCounterLeft").GetComponent<Text>().text = "x0";
-				this.transform.FindChild("ComboCounterRight").GetComponent<Text>().text = "x0";
+				setComboCouter(0, 0);
 			}
 			else if (GameManager.allowInput)
 			{
-				this.transform.FindChild("ComboCounterLeft").GetComponent<Text>().text = "x" + GameVar.players.left.comboCount;
-				this.transform.FindChild("ComboCounterRight").GetComponent<Text>().text = "x" + GameVar.players.right.comboCount;
+				setComboCouter(GameVar.players.left.comboCount, GameVar.players.right.comboCount);
 			}
+		}
+
+		void setComboCouter(int left, int right)
+		{
+			comboCounterLeft.GetComponent<Text>().text = "x" + left;
+			comboCounterRight.GetComponent<Text>().text = "x" + right;
+
+			comboCounterLeft.transform.GetChild(0).particleSystem.emissionRate = left;
+			comboCounterRight.transform.GetChild(0).particleSystem.emissionRate = right;
 		}
 	}
 }
