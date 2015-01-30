@@ -70,6 +70,8 @@ namespace PongJutsu
 		// Buff loosing Player
 		private bool isDisadvantageBuffLeftPhase = false;
 		private bool isDisadvantageBuffRightPhase = false;
+		private bool isDisadvantageBuffRoundLeft = false;
+		private bool isDisadvantageBuffRoundRight = false;
 		private float disadvantageBuffTimer = 0.0f;
 		[SerializeField]
 		private float disadvantageBuffDuration = 15.0f;
@@ -108,6 +110,8 @@ namespace PongJutsu
 			isMainPhase = false;
 			isDisadvantageBuffLeftPhase = false;
 			isDisadvantageBuffRightPhase = false;
+			isDisadvantageBuffRoundLeft = false;
+			isDisadvantageBuffRoundRight = false;
 			isCriticalPhase = false;
 			isCriticalItemForced = false;
 			onMercyTimerEndTriggered = false;
@@ -226,16 +230,20 @@ namespace PongJutsu
 			}
 
 			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
-			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForDisadvantageBuff && !isDisadvantageBuffLeftPhase && !isDisadvantageBuffRightPhase) 
+			if (!isCriticalPhase &&
+				Mathf.Abs (deltaFortCount) >= requiredFortDeltaForDisadvantageBuff && 
+			    !isDisadvantageBuffLeftPhase && !isDisadvantageBuffRightPhase) 
 			{
 				disadvantageBuffTimer = 0.0f;
 
-				if (deltaFortCount < 0) 
+				if (deltaFortCount < 0 && !isDisadvantageBuffRoundLeft) 
 				{
+					isDisadvantageBuffRoundLeft = true;
 					EnterDisadvantageBuffPhaseWithPlayer (GameVar.players.left);
 				} 
-				else 
+				else if (!isDisadvantageBuffRoundRight)
 				{
+					isDisadvantageBuffRoundRight = true;
 					EnterDisadvantageBuffPhaseWithPlayer (GameVar.players.right);
 				}
 			} 
