@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class ShurikenExplosion : MonoBehaviour
+	public class ShurikenExplosion : Destructor
 	{
 		[HideInInspector] public float explosionRadius;
 		[HideInInspector] public float direction;
@@ -11,11 +11,6 @@ namespace PongJutsu
 		void Start()
 		{
 			this.transform.localScale = new Vector2(-direction * explosionRadius / 2f, explosionRadius / 2f);
-		}
-
-		void ae_Remove()
-		{
-			Destroy(this.gameObject);
 		}
 
 		void OnDrawGizmos()

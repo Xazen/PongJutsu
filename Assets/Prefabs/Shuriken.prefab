@@ -177,6 +177,7 @@ MonoBehaviour:
   bounceBack: 0
   resetComboOnDamageDealt: 0
   resetComboOnDamageTaken: 1
+  wallCollision: {fileID: 131172, guid: d268c7a7d76033144aeba636e7a12fb3, type: 2}
 --- !u!114 &11402560
 MonoBehaviour:
   m_ObjectHideFlags: 1

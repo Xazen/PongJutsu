@@ -37,6 +37,8 @@ namespace PongJutsu
 		[SerializeField] private bool resetComboOnDamageDealt = false;
 		[SerializeField] private bool resetComboOnDamageTaken = true;
 
+		[SerializeField] private GameObject wallCollision;
+
 		void Start()
 		{
 			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
@@ -124,9 +126,15 @@ namespace PongJutsu
 
 			// Collision with StageColliders
 			if (colObject.tag == "BoundaryTop")
+			{
 				movement.y = Mathf.Abs(movement.y) * -1;
+				Instantiate(wallCollision, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
+			}
 			else if (colObject.tag == "BoundaryBottom")
+			{
 				movement.y = Mathf.Abs(movement.y);
+				Instantiate(wallCollision, this.transform.position, Quaternion.Euler(0f, 0f, 180f));
+			}
 			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
 				Remove();
 		}
