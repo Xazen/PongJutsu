@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &176460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 476460}
+  - 114: {fileID: 11476450}
+  - 114: {fileID: 11476448}
+  m_Layer: 9
+  m_Name: Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &176462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 476462}
+  - 114: {fileID: 11476452}
+  - 114: {fileID: 11476454}
+  - 114: {fileID: 11476456}
+  - 114: {fileID: 11476458}
+  - 114: {fileID: 11476460}
+  - 114: {fileID: 11476462}
+  m_Layer: 9
+  m_Name: Setup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &476460
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176460}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 476462}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &476462
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176462}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 476460}
+  m_RootOrder: 0
+--- !u!114 &11476448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27ce57e0ff343242b96f60b401bee97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  consoleLog: 1
+  riverMinimumSpawnFrequency: 3
+  shurikenMaximumSpeed: 2.5
+  riverTimeSpawnMultiplier: .75
+  riverTimeSpawnMultiplierFrequency: 30
+  comboBuffFrequency: 3
+  comboSpeedMultiplier: 1.29999995
+  maxSpeedDuration: 140
+  mercyDuration: 10
+  disadvantageBuffDuration: 15
+  requiredFortDeltaForDisadvantageBuff: 2
+  disadvantageBuffDamageMultiplier: 1.35000002
+  minimumTimeForCriticalMode: 0
+  riverCriticalSpawnMultiplier: .330000013
+  forceCriticalItems: 150
+--- !u!114 &11476450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff806f182fab9284eb64f0057277fb40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowPause: 1
+  instantPlay: 1
+--- !u!114 &11476452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf8d3dd50d896b84bb6b0563fa49c02b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainInstance: {fileID: 0}
+  Instances: []
+  width: 10.3013048
+  height: 4.19999981
+  snapToVertical: 0
+--- !u!114 &11476454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a15e3c4fe45574bbc84e6425b44fa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainInstance: {fileID: 0}
+  Instances: []
+  fortPrefab: {fileID: 100000, guid: 93d921584172c194b9b6fd12053632dc, type: 2}
+  numberOfForts: 5
+  width: 1
+  offset: 1
+  autoMirror: 1
+--- !u!114 &11476456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e6fa6719989b31439f8f0f01fa43a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainInstance: {fileID: 0}
+  Instances: []
+  boundaryPrefab: {fileID: 100000, guid: f0af85b6d0f16e147ad604c9254e52f3, type: 2}
+--- !u!114 &11476458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7e6c744a65371419b38a5634ee20e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainInstance: {fileID: 0}
+  Instances: []
+  playerPrefab: {fileID: 100004, guid: bdc082fda1c2ccc4c871513a95fe9e35, type: 2}
+  offset: .899999976
+  autoMirror: 1
+--- !u!114 &11476460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf451b1db5976ad45bbafbd9b836c8a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainInstance: {fileID: 0}
+  Instances: []
+  riverPrefab: {fileID: 138860, guid: 6cfe2f26f19124742bfb651dead58541, type: 2}
+--- !u!114 &11476462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42088cb8e1158464284ef60c76fa9196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shuriken: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 176460}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

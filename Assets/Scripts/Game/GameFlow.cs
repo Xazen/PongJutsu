@@ -200,6 +200,13 @@ namespace PongJutsu
 			//*******************
 			// Critical phase
 			//*******************
+			
+			// Activate bomb when one of the ninjas have only 2 forts left
+			if (GameVar.forts.leftCount == 2 || GameVar.forts.rightCount == 2 && !isCriticalPhase && 
+			    GameVar.river.itemList["Bomb"].spawnProbability != itemDefaultSpawnProbability) 
+			{
+				GameVar.river.itemList["Bomb"].spawnProbability = itemDefaultSpawnProbability;
+			}
 
 			// Enter critical mode when conditions are met
 			if (GameVar.ingameTime > minimumTimeForCriticalMode && !isCriticalPhase && GameVar.forts.allCount <= 4 && GameVar.forts.leftCount <= 2 && GameVar.forts.rightCount <= 2) 
@@ -211,12 +218,6 @@ namespace PongJutsu
 			if (GameVar.ingameTime >= forceCriticalItems && !isCriticalItemForced) 
 			{
 				EnableCriticalItems();
-			}
-
-			// Activate bomb when one of the ninjas have only 2 forts left
-			if (GameVar.forts.leftCount == 2 || GameVar.forts.rightCount == 2) 
-			{
-				GameVar.river.itemList["Bomb"].spawnProbability = itemDefaultSpawnProbability;
 			}
 
 			//*******************
@@ -459,8 +460,9 @@ namespace PongJutsu
 			}
 
 			isMainPhase = true;
-
 			GameVar.river.itemList ["Repair"].spawnProbability = Mathf.RoundToInt(itemDefaultSpawnProbability*1.5f);
+			GameVar.river.itemList ["Slow"].spawnProbability = Mathf.RoundToInt(itemDefaultSpawnProbability*1f);
+
 			// Log new values
 			if (consoleLog)
 			{
