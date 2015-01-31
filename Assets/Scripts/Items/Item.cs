@@ -22,18 +22,27 @@ namespace PongJutsu
 		}
 
 		public float duration = 0f;
-		[SerializeField] private GameObject feedback;
+
+		[SerializeField] private GameObject activationEffect;
+
+		[SerializeField] private GameObject feedbackEffect;
 
 		public virtual void OnActivation(Shuriken shuriken)
 		{
+			if (activationEffect != null)
+			{
+				GameObject instance = (GameObject) Instantiate(activationEffect, this.transform.position, Quaternion.identity);
+				instance.transform.parent = this.transform.parent;
+			}
+
 			Destroy(this.gameObject);
 		}
 
 		public void placeFeedback(GameObject gameObject)
 		{
-			if (feedback != null)
+			if (feedbackEffect != null)
 			{
-				GameObject f = (GameObject)Instantiate(feedback, gameObject.transform.position, Quaternion.identity);
+				GameObject f = (GameObject)Instantiate(feedbackEffect, gameObject.transform.position, Quaternion.identity);
 				f.name = this.gameObject.name + "(Feedback)";
 
 				if (duration > 0f)
