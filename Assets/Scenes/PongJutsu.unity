@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 1205523906}
+  interactable: 1
 --- !u!1 &41391930
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 1634267413}
+  interactable: 1
 --- !u!1 &94024991
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,6 +901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 1293957543}
+  interactable: 1
 --- !u!1 &169463779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2184,6 +2187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 0}
+  interactable: 1
 --- !u!1 &588560678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2363,6 +2367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 0}
+  interactable: 1
   helpImage:
   - {fileID: 21300000, guid: c69360e8f3408e84dab08efed9e62700, type: 3}
 --- !u!114 &615477722
@@ -3444,6 +3449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 0}
+  interactable: 0
   comboCounterLeft: {fileID: 659889050}
   comboCounterRight: {fileID: 1875791557}
 --- !u!1 &1006722381
@@ -4923,6 +4929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 0}
+  interactable: 0
 --- !u!82 &1429492132
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6145,6 +6152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 1513351785}
+  interactable: 1
   RoundEndElements: {fileID: 1721072429}
   MatchEndElements: {fileID: 1951476503}
   leftWinSprite: {fileID: 21300000, guid: acdfcd4859e2a2141ba51b49b5924a41, type: 3}

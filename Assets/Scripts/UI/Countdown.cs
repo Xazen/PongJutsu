@@ -8,8 +8,10 @@ namespace PongJutsu
 	{
 		private string defaultRoundText = "Round";
 
-		void OnEnable()
+		public override void uiEnable()
 		{
+ 			base.uiEnable();
+
 			this.GetComponent<SoundPool>().PlayElement(GameMatch.getWinnerList().Count);
 			this.transform.FindChild("Round").GetComponent<Text>().text = defaultRoundText + " " + (GameMatch.getWinnerList().Count + 1);
 		}
