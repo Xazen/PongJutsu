@@ -27,8 +27,9 @@ namespace PongJutsu
 
 		[SerializeField] private int startLayerElement = 0;
 		[SerializeField] private int pauseLayerElement = 0;
+		[SerializeField] private int peakLayerElement = 0;
+
 		[SerializeField] private Layer[] layers;
-		[SerializeField] private Layer peakLayer;
 
 		public static MusicManager current;
 
@@ -68,14 +69,6 @@ namespace PongJutsu
 					AudioListener.pause = false;
 				else
 					AudioListener.pause = true;
-			}
-
-			if (Input.GetKeyDown("f3"))
-			{
-				if (masterVolume <= 0.4f)
-					masterVolume = 1.0f;
-				else
-					masterVolume = 0.4f;
 			}
 
 			if (Input.GetKeyDown("1"))
@@ -124,14 +117,14 @@ namespace PongJutsu
 		{
 			StartCoroutine(IFadeout(layers[0].source, 0.5f));
 			StartCoroutine(IFadeout(layers[1].source, 0.5f));
-			Play(peakLayer, peakLayer.clips[0]);
+			Play(layers[peakLayerElement], layers[peakLayerElement].clips[0]);
 		}
 
 		public void StopPeakLayer()
 		{
 			StartCoroutine(IFadein(layers[0].source, 1f));
 			StartCoroutine(IFadein(layers[1].source, 1f));
-			StartCoroutine(IFadeout(peakLayer.source, 1f));
+			StartCoroutine(IFadeout(layers[peakLayerElement].source, 1f));
 		}
 
 		private void Play(Layer layer, AudioClip clip)
@@ -139,6 +132,7 @@ namespace PongJutsu
 			layer.source.clip = clip;
 
 			layer.source.mute = false;
+			layer.source.volume = masterVolume;
 
 			if (!layer.source.isPlaying)
 				layer.source.Play();
@@ -166,16 +160,6 @@ namespace PongJutsu
 		{
 			yield return new WaitForSeconds(layer.source.clip.length - layer.source.time);
 			Play(layer, layer.clips[layer.nextClipIndex]);
-		}
-
-		private void StopLayer(Layer layer)
-		{
-			layer.source.Stop();
-		}
-
-		private void MuteLayer(Layer layer)
-		{
-			layer.source.mute = true;
 		}
 
 		IEnumerator IFadein(AudioSource source, float duration)

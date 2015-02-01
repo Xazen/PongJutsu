@@ -1535,9 +1535,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e51010bdc240b47a8afec3651d37c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 1
   startLayerElement: 0
   pauseLayerElement: 0
+  peakLayerElement: 2
   layers:
   - source: {fileID: 309831656}
     clips:
@@ -1555,10 +1555,9 @@ MonoBehaviour:
     - {fileID: 0}
     currentClipIndex: 0
     nextClipIndex: 0
-  peakLayer:
-    source: {fileID: 309831657}
+  - source: {fileID: 309831657}
     clips:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: a2a18511be1857d449bfd0fc20b588ad, type: 3}
     currentClipIndex: 0
     nextClipIndex: 0
 --- !u!4 &309831654
