@@ -8011,7 +8011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8fe6e18f4a79c43b1233936a1f268d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSelected: {fileID: 0}
+  defaultSelected: {fileID: 1572976429}
   interactable: 1
 --- !u!1 &2016079850
 GameObject:
