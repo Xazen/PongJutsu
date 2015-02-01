@@ -9,13 +9,27 @@ namespace PongJutsu
 		[SerializeField] private Sprite[] helpImage;
 		[SerializeField] private GameObject pageIndicator;
 
-		private int currentIndex = 0;
+		private int _currentPageIndex = 0;
+		private int currentPageIndex { get { return _currentPageIndex; } set { _currentPageIndex = value; setPageIndex(value); } }
 
 		private bool blockScrolling;
 
 		private Image content;
 
-		void Start()
+		public override void uiEnable()
+		{
+			base.uiEnable();
+
+			if (content == null)
+			{
+				content = this.transform.FindChild("Content").GetComponent<Image>();
+				setupPageIndicators();
+			}
+
+			currentPageIndex = 0;
+		}
+
+		private void setupPageIndicators()
 		{
 			for (int i = 0; i < helpImage.Length; i++)
 			{
@@ -25,19 +39,6 @@ namespace PongJutsu
 				float width = indicator.GetComponent<RectTransform>().rect.width;
 				indicator.GetComponent<RectTransform>().anchoredPosition = new Vector2(i * width - (width * helpImage.Length) / 2f, 0f);
 			}
-
-			setPageIndex(currentIndex);
-		}
-
-		public override void uiEnable()
-		{
-			base.uiEnable();
-
-			if (content == null)
-				content = this.transform.FindChild("Content").GetComponent<Image>();
-
-			currentIndex = 0;
-			content.sprite = helpImage[currentIndex];			
 		}
 
 		public override void uiUpdate()
@@ -58,14 +59,12 @@ namespace PongJutsu
 
 		public void back()
 		{
-			currentIndex = (int)Mathf.Repeat(currentIndex + 1, helpImage.Length);
-			setPageIndex(currentIndex);		
+			currentPageIndex = (int)Mathf.Repeat(currentPageIndex + 1, helpImage.Length);
 		}
 
 		public void next()
 		{
-			currentIndex = (int)Mathf.Repeat(currentIndex - 1, helpImage.Length);
-			setPageIndex(currentIndex);
+			currentPageIndex = (int)Mathf.Repeat(currentPageIndex - 1, helpImage.Length);
 		}
 
 		public void setPageIndex(int index)
@@ -74,9 +73,11 @@ namespace PongJutsu
 
 			foreach (Toggle indicator in this.transform.FindChild("Indicators").GetComponentsInChildren<Toggle>())
 			{
-				indicator.isOn = false;
+				if (indicator.transform.GetSiblingIndex() == index)
+					indicator.isOn = true;
+				else
+					indicator.isOn = false;
 			}
-			this.transform.FindChild("Indicators").GetChild(index).GetComponent<Toggle>().isOn = true;
 
 			blockScrolling = true;
 		}

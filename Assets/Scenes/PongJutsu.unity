@@ -2591,8 +2591,11 @@ MonoBehaviour:
   defaultSelected: {fileID: 0}
   interactable: 1
   helpImage:
-  - {fileID: 21300000, guid: c69360e8f3408e84dab08efed9e62700, type: 3}
-  - {fileID: 21300000, guid: c69360e8f3408e84dab08efed9e62700, type: 3}
+  - {fileID: 21300000, guid: 8a3bf19d188672949a476277e5806ed9, type: 3}
+  - {fileID: 21300000, guid: 8c0a8fed37f44bc4bbe6f2461e3d2aad, type: 3}
+  - {fileID: 21300000, guid: e65011812e0f28749bef8dcf0273bf27, type: 3}
+  - {fileID: 21300000, guid: 94a8dac1e859486438d0f59e1c8e0f6b, type: 3}
+  - {fileID: 21300000, guid: e06884b3a3d672e4992f80047e627b24, type: 3}
   pageIndicator: {fileID: 161080, guid: 13fff8517e0e6fd4cbaa9e8e9abeedec, type: 2}
 --- !u!114 &615477722
 MonoBehaviour:
@@ -6368,14 +6371,14 @@ RectTransform:
   m_GameObject: {fileID: 1630270522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .689999998, y: .889999986, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 615477720}
   m_RootOrder: 1
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: 5.8499999}
-  m_SizeDelta: {x: 12, y: 10.8000002}
+  m_AnchorMin: {x: .5, y: 1}
+  m_AnchorMax: {x: .5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -2.75}
+  m_SizeDelta: {x: 8.19999981, y: 6.5}
   m_Pivot: {x: .5, y: 1}
 --- !u!114 &1630270524
 MonoBehaviour:
@@ -6390,7 +6393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: c69360e8f3408e84dab08efed9e62700, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
