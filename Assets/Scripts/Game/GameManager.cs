@@ -84,6 +84,10 @@ namespace PongJutsu
 				{
 					Destroy(s.gameObject);
 				}
+				foreach (ItemFeedback s in GameObject.FindObjectsOfType<ItemFeedback>())
+				{
+					Destroy(s.gameObject);
+				}
 
 				isIngame = false;
 				isPause = false;

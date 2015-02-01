@@ -8,7 +8,9 @@ namespace PongJutsu
 	public class UIScript : MonoBehaviour
 	{
 		[SerializeField] private GameObject defaultSelected;
+		[SerializeField] private bool interactable = false;
 		private bool hasButtons = false;
+		private bool allowInput = true;
 
 		public static Animator ui;
 
@@ -24,6 +26,12 @@ namespace PongJutsu
 		void OnEnable()
 		{
 			uiEnable();
+
+			if (getUInputAny() || !interactable)
+			{
+				allowInput = false;
+				EventSystem.current.sendNavigationEvents = false;
+			}
 		}
 
 		public virtual void uiEnable()
@@ -32,17 +40,18 @@ namespace PongJutsu
 			setDefaultSelection();
 		}
 
-		void ResetTriggers()
+		void LateUpdate()
 		{
-			foreach (string parameter in ui.GetComponent<AnimatorParameter>().trigger)
+			if (interactable && !allowInput)
 			{
-				ui.ResetTrigger(parameter);
+				if (!getUInputAny())
+					allowInput = true;
+				else
+					EventSystem.current.sendNavigationEvents = false;
 			}
-		}
 
-		void Update()
-		{
-			uiUpdate();
+			if (allowInput || !interactable)
+				uiUpdate();
 		}
 
 		public virtual void uiUpdate()
@@ -59,16 +68,29 @@ namespace PongJutsu
 					}
 				}
 
-				if (getInputUI() && !selectInMenu)
+				if (getUInputDown() && !selectInMenu)
 					setDefaultSelection();
-				else if (getInputUI() && EventSystem.current.currentSelectedGameObject == null)
+				else if (getUInputDown() && EventSystem.current.currentSelectedGameObject == null)
 					EventSystem.current.SetSelectedGameObject(EventSystem.current.lastSelectedGameObject);
 			}
 		}
 
-		private bool getInputUI()
+		private bool getUInputDown()
 		{
 			return (Input.GetButtonDown("Vertical") || Input.GetAxisRaw("Vertical") != 0f || Input.GetButtonDown("Horizontal") || Input.GetAxisRaw("Horizontal") != 0f);
+		}
+
+		private bool getUInputAny()
+		{
+			return getUInputDown() || Input.anyKey;
+		}
+
+		void ResetTriggers()
+		{
+			foreach (string parameter in ui.GetComponent<AnimatorParameter>().trigger)
+			{
+				ui.ResetTrigger(parameter);
+			}
 		}
 
 		internal void setDefaultSelection()

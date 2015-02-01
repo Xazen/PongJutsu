@@ -16,24 +16,26 @@ namespace PongJutsu
 
 		private bool isMatchEnd = false;
 
-		void OnEnable()
+		public override void uiEnable()
 		{
-			setResult();
+ 			 base.uiEnable();
 
-			if (GameMatch.getMatchWinner() != null)
-			{
-				RoundEndElements.SetActive(false);
-				MatchEndElements.SetActive(true);
-				isMatchEnd = true;
-			}
-			else
-			{
-				RoundEndElements.SetActive(true);
-				MatchEndElements.SetActive(false);
-				isMatchEnd = false;
-			}
+			 setResult();
 
-			this.setDefaultSelection();
+			 if (GameMatch.getMatchWinner() != null)
+			 {
+				 RoundEndElements.SetActive(false);
+				 MatchEndElements.SetActive(true);
+				 isMatchEnd = true;
+			 }
+			 else
+			 {
+				 RoundEndElements.SetActive(true);
+				 MatchEndElements.SetActive(false);
+				 isMatchEnd = false;
+			 }
+
+			 this.setDefaultSelection();
 		}
 
 		void setResult()
