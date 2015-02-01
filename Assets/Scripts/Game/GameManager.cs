@@ -11,6 +11,7 @@ namespace PongJutsu
 		[SerializeField] private bool instantPlay = false;
 
 		public static bool allowInput = false;
+		public static bool allowPauseSwitch = true;
 
 		private static bool isIngame = false;
 		private static bool isPause = false;
@@ -57,6 +58,8 @@ namespace PongJutsu
 				isEnd = false;
 				allowInput = false;
 
+				Screen.showCursor = false;
+
 				Time.timeScale = 1;
 
 				// prepare construction
@@ -78,6 +81,10 @@ namespace PongJutsu
 					gs.remove();
 				}
 				foreach (Shuriken s in GameObject.FindObjectsOfType<Shuriken>())
+				{
+					Destroy(s.gameObject);
+				}
+				foreach (ItemFeedback s in GameObject.FindObjectsOfType<ItemFeedback>())
 				{
 					Destroy(s.gameObject);
 				}
@@ -129,7 +136,7 @@ namespace PongJutsu
 				flow.UpdateFlow();
 			}
 
-			if ((allowPause && isIngame && allowInput) || isPause)
+			if ((allowPause && isIngame && allowInput) || (isPause && allowPauseSwitch))
 				updatePause();
 
 			if (isIngame)
@@ -177,6 +184,8 @@ namespace PongJutsu
 			allowInput = false;
 			MusicManager.current.PauseMusic();
 	
+			Screen.showCursor = true;
+	
 			ui.SetTrigger("PauseGame");
 		}
 
@@ -188,10 +197,13 @@ namespace PongJutsu
 			MusicManager.current.ResumeMusic();
 			isPause = false;
 			allowInput = true;
+
+			Screen.showCursor = false;
 		}
 
 		public static void RestartGame()
 		{
+			GameMatch.newMatch();
 			ui.SetTrigger("RestartGame");
 		}
 
@@ -211,6 +223,8 @@ namespace PongJutsu
 
 			isEnd = true;
 			allowInput = false;
+
+			Screen.showCursor = true;
 
 			ui.SetTrigger("EndRound");
 		}

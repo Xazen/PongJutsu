@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class SoundPool : MonoBehaviour 
 {
 	[SerializeField] private bool playRandomOnAwake = false;

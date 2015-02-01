@@ -81,7 +81,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnProbability: 100
-  duration: 8
+  duration: 16
+  activationEffect: {fileID: 175122, guid: 7e8cd3ce1550a2144827df02c9aee099, type: 2}
+  feedbackEffect: {fileID: 126810, guid: 856212b51ae443a45b943c03e3142d29, type: 2}
   speedMuliplier: .400000006
   slowDownWinningPlayerOnly: 1
 --- !u!212 &21236758
