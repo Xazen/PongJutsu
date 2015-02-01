@@ -12,6 +12,14 @@ namespace PongJutsu
 			GameManager.allowPauseSwitch = true;
 		}
 
+		public override void uiUpdate()
+		{
+			base.uiUpdate();
+
+			if (Input.GetButtonDown("Cancel"))
+				GameManager.ResumeGame();
+		}
+
 		public void click_Resume()
 		{
 			GameManager.ResumeGame();
