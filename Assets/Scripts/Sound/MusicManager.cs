@@ -6,6 +6,25 @@ namespace PongJutsu
 {
 	public class MusicManager : MonoBehaviour
 	{
+		private float _masterVolume = 1f;
+		public float masterVolume
+		{
+			get 
+			{
+				return _masterVolume;
+			}
+			set
+			{
+				_masterVolume = value;
+
+				foreach (Layer layer in layers)
+				{
+					if (layer.source.volume > 0f)
+						layer.source.volume = _masterVolume;
+				}
+			}
+		}
+
 		[SerializeField] private int startLayerElement = 0;
 		[SerializeField] private int pauseLayerElement = 0;
 		[SerializeField] private Layer[] layers;
@@ -51,17 +70,20 @@ namespace PongJutsu
 					AudioListener.pause = true;
 			}
 
+			if (Input.GetKeyDown("f3"))
+			{
+				if (masterVolume <= 0.4f)
+					masterVolume = 1.0f;
+				else
+					masterVolume = 0.4f;
+			}
+
 			if (Input.GetKeyDown("1"))
 				PlayPeakLayer();
 			else if (Input.GetKeyDown("2"))
 				StopPeakLayer();
 
 			if (Input.GetKeyDown("3"))
-				Play(layers[1], layers[1].clips[0]);
-			else if (Input.GetKeyDown("4"))
-				MuteLayer(layers[1]);
-
-			if (Input.GetKeyDown("5"))
 				NextClipInLayer(layers[0]);
 		}
 
@@ -159,10 +181,10 @@ namespace PongJutsu
 		IEnumerator IFadein(AudioSource source, float duration)
 		{
 			source.Play();
-			while (source.volume < 1f)
+			while (source.volume < masterVolume)
 			{
-				float volume = source.volume + (1f / duration) * Time.unscaledDeltaTime;
-				source.volume = Mathf.Clamp(volume, 0f, 1f);
+				float volume = source.volume + (masterVolume / duration) * Time.unscaledDeltaTime;
+				source.volume = Mathf.Clamp(volume, 0f, masterVolume);
 				yield return new WaitForEndOfFrame();
 			}
 		}
@@ -171,8 +193,8 @@ namespace PongJutsu
 		{
 			while (source.volume > 0f)
 			{
-				float volume = source.volume - (1f / duration) * Time.unscaledDeltaTime;
-				source.volume = Mathf.Clamp(volume, 0f, 1f);
+				float volume = source.volume - (masterVolume / duration) * Time.unscaledDeltaTime;
+				source.volume = Mathf.Clamp(volume, 0f, masterVolume);
 				yield return new WaitForEndOfFrame();
 			}
 			source.Pause();

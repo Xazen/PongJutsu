@@ -1535,6 +1535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e51010bdc240b47a8afec3651d37c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVolume: 1
   startLayerElement: 0
   pauseLayerElement: 0
   layers:
@@ -5500,7 +5501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowPause: 1
-  instantPlay: 0
+  instantPlay: 1
 --- !u!4 &1757980358
 Transform:
   m_ObjectHideFlags: 0
