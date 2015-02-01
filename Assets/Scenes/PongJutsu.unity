@@ -1909,7 +1909,7 @@ RectTransform:
   m_LocalScale: {x: 1.00999999, y: 1.00999999, z: 1.00999999}
   m_Children: []
   m_Father: {fileID: 1806585993}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -5785,6 +5785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playRandomOnAwake: 0
+  randomProbability: 100
   sounds:
   - {fileID: 8300000, guid: 2232530bbd6238e49a5e3789d082408f, type: 3}
   - {fileID: 8300000, guid: 556bf889762add146a774495aac26e8c, type: 3}
@@ -7347,6 +7348,7 @@ Transform:
   - {fileID: 2070861284}
   - {fileID: 96652682}
   - {fileID: 1769045873}
+  - {fileID: 341953585}
   m_Father: {fileID: 1978998017}
   m_RootOrder: 4
 --- !u!114 &1806585994
