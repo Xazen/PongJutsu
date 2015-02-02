@@ -6,6 +6,10 @@ namespace PongJutsu
 {
 	public class GameFlow : MonoBehaviour
 	{
+		//*******************
+		// Usage
+		//*******************
+		
 		// Singleton implementation
 		private static GameFlow _instance;
 		public static GameFlow instance
@@ -18,45 +22,14 @@ namespace PongJutsu
 				return _instance;
 			}
 		}
-
-		// Game Intensity Event
-		public enum GameIntensity {
-			Mercy = 1,
-			Early = 2,
-			Main = 3,
-			Late = 4,
-			End = 5
-		}
-
-		/// <summary>
-		/// Occurs when game intensity changes. GameIntensity can be cast to int (1 - 5)
-		/// </summary>
-		public delegate void GameFlowDelgateWithIntensity(GameIntensity gameIntensity);
-		public static event GameFlowDelgateWithIntensity OnGameIntensityChanged;
-		private bool mercyGameIntensityTriggerd = false;
-		private bool earlyGameIntensityTriggerd = false;
-		private bool mainGameIntensityTriggerd = false;
-		private bool lateGameIntensityTriggerd = false;
-		private bool endGameIntensityTriggerd = false;
-
-		// Game Phase Delegates
-		public delegate void GameFlowDelegateWithPlayer(GameVar.players.player player);
-		public delegate void GameFlowDelegate();
-
-		public GameFlowDelegate OnMercyTimerEnd;
-		public GameFlowDelegateWithPlayer OnEnterDisadvantageBuffPlayerPhase;
-		public GameFlowDelegate OnExitDisadvantageBuffPlayerPhase;
-		public GameFlowDelegate OnEnterMainPhase;
-		public GameFlowDelegate OnEnterCriticalPhase;
-		public GameFlowDelegateWithPlayer OnComboBuffPlayer;
-		public GameFlowDelegateWithPlayer OnComboDebuffPlayer;
-		public GameFlowDelegate OnOneFortLeft;
-		private bool onMercyTimerEndTriggered = false;
-		private bool onOneFortLeftTriggered = false;
-
+		
 		// Debug
 		[SerializeField]
 		private bool consoleLog = true;
+
+		//*******************
+		// Main class variables
+		//*******************
 
 		// Min, Max and Default values
 		[SerializeField]
@@ -66,7 +39,7 @@ namespace PongJutsu
 		private float angleDefaultValue = 3.5f;
 		private int itemDefaultSpawnProbability = 100;
 
-		// Regularly increase Spawn frequency
+		// Regularly increase spawn frequency
 		private int riverSpeedUpCounter = 0;
 		[SerializeField]
 		private float riverTimeSpawnMultiplier = 0.75f;
@@ -88,7 +61,7 @@ namespace PongJutsu
 		[SerializeField]
 		private float mercyDuration = 30.0f;
 
-		// Buff loosing Player
+		// Buff loosing player
 		private bool isDisadvantageBuffLeftPhase = false;
 		private bool isDisadvantageBuffRightPhase = false;
 		private bool isDisadvantageBuffRoundLeft = false;
@@ -101,10 +74,10 @@ namespace PongJutsu
 		[SerializeField]
 		private float disadvantageBuffDamageMultiplier = 1.5f;
 
-		// Main Phase
+		// Main phase
 		private bool isMainPhase = false;
 
-		// Critical Mode
+		// Critical mode
 		private bool isCriticalPhase = false;
 		[SerializeField]
 		private float minimumTimeForCriticalMode = 45.0f;
@@ -115,6 +88,39 @@ namespace PongJutsu
 		private bool isCriticalItemForced = false;
 		[SerializeField] private float forceCriticalItems = 150;
 
+		//*******************
+		// Callbacks 
+		//*******************
+
+		// Game ientensity callbacks
+		public enum GameIntensity {
+			Mercy = 1,
+			Early = 2,
+			Main = 3,
+			Late = 4,
+			End = 5
+		}
+		
+		public delegate void GameIntensityDelegate(GameIntensity gameIntensity);
+		public static event GameIntensityDelegate OnGameIntensityChanged;
+		private bool mercyGameIntensityTriggerd = false;
+		private bool earlyGameIntensityTriggerd = false;
+		private bool mainGameIntensityTriggerd = false;
+		private bool lateGameIntensityTriggerd = false;
+		private bool endGameIntensityTriggerd = false;
+		
+		// Disadvantage buff callbacks
+		public delegate void ComboBuffWithPlayerDelegate(GameVar.players.player player);
+		public delegate void ComboBuffDelegate();
+		
+		public ComboBuffWithPlayerDelegate OnComboBuffPlayer;
+		public ComboBuffWithPlayerDelegate OnComboDebuffPlayer;
+		public ComboBuffWithPlayerDelegate OnEnterDisadvantageBuffPlayerPhase;
+		public ComboBuffDelegate OnExitDisadvantageBuffPlayerPhase;
+
+		// Shuriken speed
+		public delegate void ShurikenSpeedDelegate(GameVar.players.player player, int percentageSpeed);
+		public static event ShurikenSpeedDelegate OnShurikenSpeedChanged;
 
 		public void StartFlow()
 		{
@@ -135,8 +141,6 @@ namespace PongJutsu
 			isDisadvantageBuffRoundRight = false;
 			isCriticalPhase = false;
 			isCriticalItemForced = false;
-			onMercyTimerEndTriggered = false;
-			onOneFortLeftTriggered = false;
 			mercyGameIntensityTriggerd = false;
 			earlyGameIntensityTriggerd = false;
 			mainGameIntensityTriggerd = false;
@@ -200,11 +204,6 @@ namespace PongJutsu
 			if (GameVar.ingameTime >= mercyDuration) 
 			{
 				TriggerGameIntensity (GameIntensity.Early, ref earlyGameIntensityTriggerd);
-				if (!onMercyTimerEndTriggered && OnMercyTimerEnd != null)
-				{
-					OnMercyTimerEnd();
-					onMercyTimerEndTriggered = true;
-				}
 
 				if (addedSpeedOverTime <= shurikenMaximumSpeed-1.0f) 
 				{
@@ -291,12 +290,6 @@ namespace PongJutsu
 			if (GameVar.forts.leftCount == 1 || GameVar.forts.rightCount == 1) 
 			{
 				TriggerGameIntensity(GameIntensity.End, ref endGameIntensityTriggerd);
-
-				if (!onOneFortLeftTriggered && OnOneFortLeft != null)
-				{
-					OnOneFortLeft();
-					onOneFortLeftTriggered = true;
-				}
 			}
 		}
 
@@ -306,13 +299,16 @@ namespace PongJutsu
 		/// <param name="player">Player.</param>
 		private void IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.player player)
 		{
-			if (player.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)) < shurikenMaximumSpeed)
+			if (player.speedMultiplier != shurikenMaximumSpeed) 
 			{
-				player.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
-				player.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)));
-			} else {
-				player.angle *= (shurikenMaximumSpeed / player.speedMultiplier);
-				player.speedMultiplier = shurikenMaximumSpeed;
+				if (player.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)) < shurikenMaximumSpeed) {
+					player.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
+					player.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)));
+				} else {
+					player.angle *= (shurikenMaximumSpeed / player.speedMultiplier);
+					player.speedMultiplier = shurikenMaximumSpeed;
+				}
+				ShurikenSpeedCallbackWithPlayer (player);
 			}
 		}
 
@@ -322,7 +318,7 @@ namespace PongJutsu
 		/// <param name="player">Player.</param>
 		private void ComboBuffPlayer(GameVar.players.player player)
 		{
-			if (player.speedMultiplier <= shurikenMaximumSpeed) 
+			if (player.speedMultiplier < shurikenMaximumSpeed) 
 			{
 				if (OnComboBuffPlayer != null)
 				{
@@ -333,6 +329,7 @@ namespace PongJutsu
 				{
 					Debug.Log ("---GameFlow---");
 				}
+
 				if (player.speedMultiplier + (comboSpeedMultiplier - 1.0f) < shurikenMaximumSpeed) 
 				{
 					player.speedMultiplier += (comboSpeedMultiplier - 1.0f);
@@ -343,6 +340,8 @@ namespace PongJutsu
 					player.angle *= (shurikenMaximumSpeed/player.speedMultiplier);
 					player.speedMultiplier = shurikenMaximumSpeed;
 				}
+
+				ShurikenSpeedCallbackWithPlayer(player);
 
 				// Log new values
 				if (consoleLog)
@@ -402,6 +401,8 @@ namespace PongJutsu
 				player.speedMultiplier = 1.0f;
 				player.angle = angleDefaultValue;
 			}
+
+			ShurikenSpeedCallbackWithPlayer (player);
 
 			// Log new values
 			if (consoleLog)
@@ -489,11 +490,6 @@ namespace PongJutsu
 
 			TriggerGameIntensity (GameIntensity.Main, ref mainGameIntensityTriggerd);
 
-			if (OnEnterMainPhase != null) 
-			{
-				OnEnterMainPhase ();
-			}
-
 			isMainPhase = true;
 			GameVar.river.itemList ["Repair"].spawnProbability = Mathf.RoundToInt(itemDefaultSpawnProbability*1.5f);
 			GameVar.river.itemList ["Slow"].spawnProbability = Mathf.RoundToInt(itemDefaultSpawnProbability*1f);
@@ -516,11 +512,6 @@ namespace PongJutsu
 		/// </summary>
 		private void EnterCriticalPhase()
 		{
-			if (OnEnterCriticalPhase != null) 
-			{	
-				OnEnterCriticalPhase ();
-			}
-
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
@@ -605,6 +596,19 @@ namespace PongJutsu
 			GameVar.river.flowSpeed *= -1.0f;
 		}
 
+		//***************
+		// Callbacks
+		//***************
+
+		private void ShurikenSpeedCallbackWithPlayer(GameVar.players.player player)
+		{
+			if (OnShurikenSpeedChanged != null)
+			{
+				int shurikenSpeedPercent = Mathf.RoundToInt((player.speedMultiplier-1.0f)/(shurikenMaximumSpeed-1.0f)*100f);
+				OnShurikenSpeedChanged(player, shurikenSpeedPercent);
+			}
+		}
+
 		/// <summary>
 		/// Triggers the game intensity.
 		/// </summary>
@@ -612,11 +616,10 @@ namespace PongJutsu
 		/// <param name="boolCheck">Bool check.</param>
 		private void TriggerGameIntensity(GameIntensity intensity, ref bool boolCheck)
 		{
-			if (!boolCheck)
+			if (!boolCheck && OnGameIntensityChanged != null)
 			{
-				//OnGameIntensityChanged(intensity);
+				OnGameIntensityChanged(intensity);
 				boolCheck = true;
-				Debug.Log (intensity + " triggerd");
 			}
 		}
 	}
