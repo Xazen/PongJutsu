@@ -208,6 +208,8 @@ namespace PongJutsu
 				}
 			}
 
+			lastHitOwner.GetComponent<PlayerScore>().plusFortHit();
+
 			Remove();
 		}
 
