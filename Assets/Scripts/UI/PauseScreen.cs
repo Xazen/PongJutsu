@@ -24,12 +24,19 @@ namespace PongJutsu
 		{
 			GameManager.ResumeGame();
 		}
-		
+
 		public void click_Help()
 		{
 			ui.SetTrigger("Help");
 			GameManager.allowPauseSwitch = false;
 		}
+
+		public void click_Options()
+		{
+			ui.SetTrigger("Options");
+			GameManager.allowPauseSwitch = false;
+		}
+
 
 		public void click_Exit()
 		{
