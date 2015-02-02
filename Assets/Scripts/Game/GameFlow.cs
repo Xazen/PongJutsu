@@ -19,9 +19,30 @@ namespace PongJutsu
 			}
 		}
 
-		// Events & Delegates
+		// Game Intensity Event
+		public enum GameIntensity {
+			Mercy = 1,
+			Early = 2,
+			Main = 3,
+			Late = 4,
+			End = 5
+		}
+
+		/// <summary>
+		/// Occurs when game intensity changes. GameIntensity can be cast to int (1 - 5)
+		/// </summary>
+		public delegate void GameFlowDelgateWithIntensity(GameIntensity gameIntensity);
+		public static event GameFlowDelgateWithIntensity OnGameIntensityChanged;
+		private bool mercyGameIntensityTriggerd = false;
+		private bool earlyGameIntensityTriggerd = false;
+		private bool mainGameIntensityTriggerd = false;
+		private bool lateGameIntensityTriggerd = false;
+		private bool endGameIntensityTriggerd = false;
+
+		// Game Phase Delegates
 		public delegate void GameFlowDelegateWithPlayer(GameVar.players.player player);
 		public delegate void GameFlowDelegate();
+
 		public GameFlowDelegate OnMercyTimerEnd;
 		public GameFlowDelegateWithPlayer OnEnterDisadvantageBuffPlayerPhase;
 		public GameFlowDelegate OnExitDisadvantageBuffPlayerPhase;
@@ -116,6 +137,11 @@ namespace PongJutsu
 			isCriticalItemForced = false;
 			onMercyTimerEndTriggered = false;
 			onOneFortLeftTriggered = false;
+			mercyGameIntensityTriggerd = false;
+			earlyGameIntensityTriggerd = false;
+			mainGameIntensityTriggerd = false;
+			lateGameIntensityTriggerd = false;
+			endGameIntensityTriggerd = false;
 
 			if (consoleLog)
 			{
@@ -131,6 +157,8 @@ namespace PongJutsu
 
 		public void UpdateFlow()
 		{
+			TriggerGameIntensity (GameIntensity.Mercy, ref mercyGameIntensityTriggerd);
+
 			//*******************
 			// Regularly 
 			//*******************
@@ -171,11 +199,11 @@ namespace PongJutsu
 			// Increase shuriken speed after time
 			if (GameVar.ingameTime >= mercyDuration) 
 			{
+				TriggerGameIntensity (GameIntensity.Early, ref earlyGameIntensityTriggerd);
 				if (!onMercyTimerEndTriggered && OnMercyTimerEnd != null)
 				{
 					OnMercyTimerEnd();
 					onMercyTimerEndTriggered = true;
-					Debug.Log ("mercy over");
 				}
 
 				if (addedSpeedOverTime <= shurikenMaximumSpeed-1.0f) 
@@ -205,6 +233,7 @@ namespace PongJutsu
 			if (GameVar.forts.leftCount == 2 || GameVar.forts.rightCount == 2 && !isCriticalPhase && 
 			    GameVar.river.itemList["Bomb"].spawnProbability != itemDefaultSpawnProbability) 
 			{
+				TriggerGameIntensity (GameIntensity.Late, ref lateGameIntensityTriggerd);
 				GameVar.river.itemList["Bomb"].spawnProbability = itemDefaultSpawnProbability;
 			}
 
@@ -259,11 +288,15 @@ namespace PongJutsu
 			//*******************
 			// Other callback
 			//*******************
-			if ((GameVar.forts.leftCount == 1 || GameVar.forts.rightCount == 1) && !onOneFortLeftTriggered && OnOneFortLeft != null) 
+			if (GameVar.forts.leftCount == 1 || GameVar.forts.rightCount == 1) 
 			{
-				Debug.Log ("one fort left");
-				OnOneFortLeft();
-				onOneFortLeftTriggered = true;
+				TriggerGameIntensity(GameIntensity.End, ref endGameIntensityTriggerd);
+
+				if (!onOneFortLeftTriggered && OnOneFortLeft != null)
+				{
+					OnOneFortLeft();
+					onOneFortLeftTriggered = true;
+				}
 			}
 		}
 
@@ -454,6 +487,8 @@ namespace PongJutsu
 				Debug.Log ("---GameFlow---");
 			}
 
+			TriggerGameIntensity (GameIntensity.Main, ref mainGameIntensityTriggerd);
+
 			if (OnEnterMainPhase != null) 
 			{
 				OnEnterMainPhase ();
@@ -568,6 +603,21 @@ namespace PongJutsu
 		private void InvertRiverFlow()
 		{
 			GameVar.river.flowSpeed *= -1.0f;
+		}
+
+		/// <summary>
+		/// Triggers the game intensity.
+		/// </summary>
+		/// <param name="intensity">Intensity.</param>
+		/// <param name="boolCheck">Bool check.</param>
+		private void TriggerGameIntensity(GameIntensity intensity, ref bool boolCheck)
+		{
+			if (!boolCheck)
+			{
+				//OnGameIntensityChanged(intensity);
+				boolCheck = true;
+				Debug.Log (intensity + " triggerd");
+			}
 		}
 	}
 }
