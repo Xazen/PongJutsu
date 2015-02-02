@@ -14,6 +14,14 @@ namespace PongJutsu
 			this.transform.FindChild("sl_MusicVolume").GetComponent<Slider>().value = GameOptions.musicVolume;
 		}
 
+		public override void uiUpdate()
+		{
+			base.uiUpdate();
+
+			if (Input.GetButtonDown("Cancel"))
+				ui.SetTrigger("Back");
+		}
+
 		public void slide_MasterVolume(float value)
 		{
 			GameOptions.masterVolume = value;

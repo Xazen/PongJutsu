@@ -17,7 +17,7 @@ namespace PongJutsu
 
 		public void click_Options()
 		{
-
+			ui.SetTrigger("Options");
 		}
 
 		public void click_Credits()

@@ -75,7 +75,7 @@ namespace PongJutsu
 			}
 		}
 
-		private bool getUInputDown()
+		public bool getUInputDown()
 		{
 			return (Input.GetButtonDown("Vertical") || Input.GetAxisRaw("Vertical") != 0f || Input.GetButtonDown("Horizontal") || Input.GetAxisRaw("Horizontal") != 0f);
 		}
@@ -93,7 +93,7 @@ namespace PongJutsu
 			}
 		}
 
-		internal void setDefaultSelection()
+		public void setDefaultSelection()
 		{
 			if (defaultSelected != null && hasButtons)
 			{
