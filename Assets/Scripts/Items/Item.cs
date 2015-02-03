@@ -35,7 +35,7 @@ namespace PongJutsu
 				instance.transform.parent = this.transform.parent;
 			}
 
-			shuriken.lastHitOwner.GetComponent<PlayerScore>().plusItemHit();
+			GameScore.GetByPlayer(shuriken.lastHitOwner).plusFortHit();
 
 			Destroy(this.gameObject);
 		}

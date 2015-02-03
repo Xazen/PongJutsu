@@ -247,6 +247,7 @@ namespace PongJutsu
 		public static void newMatch()
 		{
 			results.Clear();
+			GameScore.Clear();
 		}
 
 		public static void addWinner(string winner)
