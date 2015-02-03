@@ -27,7 +27,7 @@ namespace PongJutsu
 
 		[SerializeField] private int startLayerElement = 0;
 		[SerializeField] private int pauseLayerElement = 0;
-		[SerializeField] private int peakLayerElement = 0;
+		[SerializeField] private int bridgeLayerElement = 0;
 
 		[System.Serializable]
 		public class Layer
@@ -52,18 +52,14 @@ namespace PongJutsu
 
 		void Update()
 		{
-			checkTrigger();
-		}
-
-		void checkTrigger()
-		{
 			if (Input.GetKeyDown("1"))
-				PlayPeakLayer();
-			else if (Input.GetKeyDown("2"))
-				StopPeakLayer();
-
+				NextClipInLayer(layers[0], true);
+			if (Input.GetKeyDown("2"))
+				NextClipInLayer(layers[1], true);
 			if (Input.GetKeyDown("3"))
-				NextClipInLayer(layers[0]);
+				NextClipInLayer(layers[0], false);
+			if (Input.GetKeyDown("4"))
+				NextClipInLayer(layers[1], false);	
 		}
 
 		public void StartMusic()
@@ -99,20 +95,6 @@ namespace PongJutsu
 			}
 		}
 
-		public void PlayPeakLayer()
-		{
-			StartCoroutine(IFadeout(layers[0], 0.5f));
-			StartCoroutine(IFadeout(layers[1], 0.5f));
-			Play(layers[peakLayerElement], 0);
-		}
-
-		public void StopPeakLayer()
-		{
-			StartCoroutine(IFadein(layers[0], 1f));
-			StartCoroutine(IFadein(layers[1], 1f));
-			StartCoroutine(IFadeout(layers[peakLayerElement], 1f));
-		}
-
 		private void Play(Layer layer, int clipIndex)
 		{
 			layer.source.clip = layer.clips[clipIndex];
@@ -124,27 +106,44 @@ namespace PongJutsu
 				layer.source.Play();
 		}
 
+		private void PlayOnce(Layer layer, int clipIndex)
+		{
+			layer.source.mute = false;
+			layer.source.volume = masterVolume;
+
+			layer.source.PlayOneShot(layer.clips[clipIndex]);
+		}
+
 		private void StartLayer(Layer layer)
 		{
 			Play(layer, 0);
 		}
 
-		public void NextClipInLayer(Layer layer)
+		public void NextClipInLayer(Layer layer, bool wait)
 		{
-			if (layer.currentClipIndex != layer.nextClipIndex)
+			layer.nextClipIndex = Mathf.Clamp(layer.currentClipIndex + 1, 0, layer.clips.Length - 1);
+
+			if (wait)
 			{
-				layer.nextClipIndex = Mathf.Clamp(layer.currentClipIndex + 1, 0, layer.clips.Length - 1);
+				StartCoroutine(IWaitForNextClip(layer));
 			}
 			else
 			{
-				layer.nextClipIndex = Mathf.Clamp(layer.currentClipIndex + 1, 0, layer.clips.Length - 1);
-				StartCoroutine(WaitForNextClip(layer));
+				StartCoroutine(IFadeout(layer, 1f));
+				StartCoroutine(IPeakTransition(layer));
 			}
 		}
 
-		IEnumerator WaitForNextClip(Layer layer)
+		IEnumerator IWaitForNextClip(Layer layer)
 		{
 			yield return new WaitForSeconds(layer.source.clip.length - layer.source.time);
+			Play(layer, layer.nextClipIndex);
+		}
+
+		IEnumerator IPeakTransition(Layer layer)
+		{
+			PlayOnce(layers[bridgeLayerElement], 0);
+			yield return new WaitForSeconds(layers[bridgeLayerElement].clips[0].length);
 			Play(layer, layer.nextClipIndex);
 		}
 

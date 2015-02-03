@@ -1672,7 +1672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLayerElement: 0
   pauseLayerElement: 0
-  peakLayerElement: 2
+  bridgeLayerElement: 2
   layers:
   - source: {fileID: 309831656}
     clips:
