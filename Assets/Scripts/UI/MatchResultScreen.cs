@@ -11,6 +11,24 @@ namespace PongJutsu
 		[SerializeField]
 		private ScoreOutput scoreOutputRight;
 
+		public override void uiEnable()
+		{
+			base.uiEnable();
+
+			outputScore(scoreOutputLeft, GameScore.GetPlayerLeft());
+			outputScore(scoreOutputRight, GameScore.GetPlayerRight());
+		}
+
+		void outputScore(ScoreOutput scoreOutput, Score score)
+		{
+			scoreOutput.wins.text = "-";
+			scoreOutput.reflected.text = score.resultReflect().ToString();
+			scoreOutput.catched.text = score.resultCatch().ToString();
+			scoreOutput.itemhit.text = score.resultItemHit().ToString();
+			scoreOutput.forthit.text = score.resultFortHit().ToString();
+			scoreOutput.dealtdamage.text = "-";
+		}
+
 		public void click_Exit()
 		{
 			GameManager.ExitGame();
@@ -25,17 +43,11 @@ namespace PongJutsu
 	[System.Serializable]
 	class ScoreOutput
 	{
-		[SerializeField]
-		Text wins;
-		[SerializeField]
-		Text reflected;
-		[SerializeField]
-		Text catched;
-		[SerializeField]
-		Text itemhit;
-		[SerializeField]
-		Text forthit;
-		[SerializeField]
-		Text dealtdamage;
+		public Text wins;
+		public Text reflected;
+		public Text catched;
+		public Text itemhit;
+		public Text forthit;
+		public Text dealtdamage;
 	}
 }

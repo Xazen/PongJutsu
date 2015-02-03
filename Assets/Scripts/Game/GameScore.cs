@@ -17,6 +17,14 @@ namespace PongJutsu
 
 			return null;
 		}
+		public static Score GetPlayerLeft()
+		{
+			return playerLeft;
+		}
+		public static Score GetPlayerRight()
+		{
+			return playerRight;
+		}
 
 		public static void Clear()
 		{
@@ -33,34 +41,49 @@ namespace PongJutsu
 		private int forthits = 0;
 		private int dealtdamage = 0;
 
-		void Update()
-		{
-			//Debug.Log("r:" + reflections + "; c:" + catches + "; i:" + itemhits + "; f:" + forthits);
-		}
-
 		public void plusRefelect()
 		{
 			reflections += 1;
+		}
+		public int resultReflect()
+		{
+			return reflections;
 		}
 
 		public void plusCatch()
 		{
 			catches += 1;
 		}
+		public int resultCatch()
+		{
+			return catches;
+		}
 
 		public void plusItemHit()
 		{
 			itemhits += 1;
+		}
+		public int resultItemHit()
+		{
+			return itemhits;
 		}
 
 		public void plusFortHit()
 		{
 			forthits += 1;
 		}
+		public int resultFortHit()
+		{
+			return forthits;
+		}
 
 		public void plusDealtDamage(int damage)
 		{
 			dealtdamage += damage;
+		}
+		public int resultDealtDamage()
+		{
+			return dealtdamage;
 		}
 	}
 }
