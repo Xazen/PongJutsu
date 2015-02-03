@@ -4,6 +4,32 @@ using System.Collections.Generic;
 
 namespace PongJutsu
 {
+
+	/// <summary>
+	/// How to use GameIntensityCallback.
+	/// </summary>
+	/*
+	void Start()
+	{
+		GameFlow.OnGameIntensityChanged += OnGameIntensityChanged;
+	}
+	
+	private void OnGameIntensityChanged(GameIntensity intensity)
+	{
+		Debug.Log ("GameIntensity: " + intensity + "(" + (int)intensity + ")");
+		int gameIntensity = (int)intensity;
+	}
+	*/
+
+	// Game ientensity callbacks
+	public enum GameIntensity {
+		Mercy = 1,
+		Early = 2,
+		Main = 3,
+		Late = 4,
+		End = 5
+	}
+
 	public class GameFlow : MonoBehaviour
 	{
 		//*******************
@@ -91,16 +117,6 @@ namespace PongJutsu
 		//*******************
 		// Callbacks 
 		//*******************
-
-		// Game ientensity callbacks
-		public enum GameIntensity {
-			Mercy = 1,
-			Early = 2,
-			Main = 3,
-			Late = 4,
-			End = 5
-		}
-		
 		public delegate void GameIntensityDelegate(GameIntensity gameIntensity);
 		public static event GameIntensityDelegate OnGameIntensityChanged;
 		private bool mercyGameIntensityTriggerd = false;
