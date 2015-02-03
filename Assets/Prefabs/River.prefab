@@ -54,8 +54,8 @@ MonoBehaviour:
   width: 1.20000005
   height: 19
   snapToVertical: 0
-  spawnFrequency: 9
-  frequencyRandomizer: 3
+  spawnFrequency: 7
+  frequencyRandomizer: 2
   flowSpeed: -2
   itemCarrier: {fileID: 100000, guid: 2a5c3962f1f8f3d469031e980b4c84ae, type: 2}
   items:

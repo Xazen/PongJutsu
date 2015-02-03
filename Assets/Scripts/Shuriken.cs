@@ -120,6 +120,8 @@ namespace PongJutsu
 					{
 						lastHitOwner.GetComponent<Player>().resetCombo();
 					}
+
+					lastHitOwner.GetComponent<Player>().addCombo();
 				}
 				Explode(colObject);
 			}
