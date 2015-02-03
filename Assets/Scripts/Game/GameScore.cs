@@ -35,55 +35,44 @@ namespace PongJutsu
 
 	public class Score
 	{
-		private int reflections = 0;
-		private int catches = 0;
-		private int itemhits = 0;
-		private int forthits = 0;
-		private int dealtdamage = 0;
+		private int _reflections = 0;
+		public int reflections { get { return _reflections; } private set { } }
 
-		public void plusRefelect()
+		private int _catches = 0;
+		public int catches { get { return _catches; } private set { } }
+
+		private int _itemhits = 0;
+		public int itemhits { get { return _itemhits; } private set { } }
+
+		private int _forthits = 0;
+		public int forthits { get { return _forthits; } private set { } }
+
+		private int _dealtdamage = 0;
+		public int dealtdamage { get { return _dealtdamage; } private set { } }
+
+		public void plusReflect()
 		{
-			reflections += 1;
-		}
-		public int resultReflect()
-		{
-			return reflections;
+			_reflections += 1;
 		}
 
 		public void plusCatch()
 		{
-			catches += 1;
-		}
-		public int resultCatch()
-		{
-			return catches;
+			_catches += 1;
 		}
 
 		public void plusItemHit()
 		{
-			itemhits += 1;
-		}
-		public int resultItemHit()
-		{
-			return itemhits;
+			_itemhits += 1;
 		}
 
 		public void plusFortHit()
 		{
-			forthits += 1;
-		}
-		public int resultFortHit()
-		{
-			return forthits;
+			_forthits += 1;
 		}
 
 		public void plusDealtDamage(int damage)
 		{
-			dealtdamage += damage;
-		}
-		public int resultDealtDamage()
-		{
-			return dealtdamage;
+			_dealtdamage += damage;
 		}
 	}
 }

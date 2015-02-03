@@ -22,10 +22,10 @@ namespace PongJutsu
 		void outputScore(ScoreOutput scoreOutput, Score score)
 		{
 			scoreOutput.wins.text = "-";
-			scoreOutput.reflected.text = score.resultReflect().ToString();
-			scoreOutput.catched.text = score.resultCatch().ToString();
-			scoreOutput.itemhit.text = score.resultItemHit().ToString();
-			scoreOutput.forthit.text = score.resultFortHit().ToString();
+			scoreOutput.reflected.text = score.reflections.ToString();
+			scoreOutput.catched.text = score.catches.ToString();
+			scoreOutput.itemhit.text = score.itemhits.ToString();
+			scoreOutput.forthit.text = score.forthits.ToString();
 			scoreOutput.dealtdamage.text = "-";
 		}
 
