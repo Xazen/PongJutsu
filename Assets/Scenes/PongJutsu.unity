@@ -3652,7 +3652,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 876549859}
   m_Layer: 9
-  m_Name: DirtySound
+  m_Name: BackgroundSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3951,7 +3951,7 @@ GameObject:
   - 4: {fileID: 945891895}
   - 82: {fileID: 945891896}
   m_Layer: 9
-  m_Name: MenuBackground
+  m_Name: MainMenuBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
