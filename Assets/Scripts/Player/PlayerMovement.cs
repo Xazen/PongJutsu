@@ -62,6 +62,8 @@ namespace PongJutsu
 				dashLerp = 0;
 				dashStartPosition = this.transform.position.y;
 				dashDirection = Direction(Input.GetAxisRaw(this.tag));
+
+				this.GetComponent<SoundPool>().PlayElement(1);
 			}
 		}
 

@@ -5,12 +5,12 @@ namespace PongJutsu
 {
 	public class Credits : UIScript
 	{
-		public override void UIpdate()
+		public override void uiUpdate()
 		{
-			base.UIpdate();
+			base.uiUpdate();
 
 			if (Input.anyKeyDown)
-				ui.SetTrigger("MainMenu");			
+				ui.SetTrigger("Back");			
 		}
 	}
 

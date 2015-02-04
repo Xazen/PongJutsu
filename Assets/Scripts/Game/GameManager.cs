@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace PongJutsu
 {
@@ -11,6 +9,7 @@ namespace PongJutsu
 		[SerializeField] private bool instantPlay = false;
 
 		public static bool allowInput = false;
+		public static bool allowPauseSwitch = true;
 
 		private static bool isIngame = false;
 		private static bool isPause = false;
@@ -57,6 +56,8 @@ namespace PongJutsu
 				isEnd = false;
 				allowInput = false;
 
+				Screen.showCursor = false;
+
 				Time.timeScale = 1;
 
 				// prepare construction
@@ -78,6 +79,10 @@ namespace PongJutsu
 					gs.remove();
 				}
 				foreach (Shuriken s in GameObject.FindObjectsOfType<Shuriken>())
+				{
+					Destroy(s.gameObject);
+				}
+				foreach (ItemFeedback s in GameObject.FindObjectsOfType<ItemFeedback>())
 				{
 					Destroy(s.gameObject);
 				}
@@ -129,7 +134,7 @@ namespace PongJutsu
 				flow.UpdateFlow();
 			}
 
-			if ((allowPause && isIngame && allowInput) || isPause)
+			if ((allowPause && isIngame && allowInput) || (isPause && allowPauseSwitch))
 				updatePause();
 
 			if (isIngame)
@@ -175,6 +180,8 @@ namespace PongJutsu
 			Time.timeScale = 0;
 			isPause = true;
 			allowInput = false;
+
+			Screen.showCursor = true;
 	
 			ui.SetTrigger("PauseGame");
 		}
@@ -186,10 +193,13 @@ namespace PongJutsu
 			Time.timeScale = 1;
 			isPause = false;
 			allowInput = true;
+
+			Screen.showCursor = false;
 		}
 
 		public static void RestartGame()
 		{
+			GameMatch.newMatch();
 			ui.SetTrigger("RestartGame");
 		}
 
@@ -210,6 +220,8 @@ namespace PongJutsu
 			isEnd = true;
 			allowInput = false;
 
+			Screen.showCursor = true;
+
 			ui.SetTrigger("EndRound");
 		}
 
@@ -222,42 +234,6 @@ namespace PongJutsu
 		{
 			GameObject.Find("Arena").GetComponent<AudioSource>().Stop();
 			ui.SetTrigger("ExitGame");
-		}
-	}
-
-	public class GameMatch : MonoBehaviour
-	{
-		private static List<string> results = new List<string>();
-		private static int minRoundsToWin = 2;
-
-		public static void newMatch()
-		{
-			results.Clear();
-		}
-
-		public static void addWinner(string winner)
-		{
-			results.Add(winner);
-		}
-
-		public static List<string> getWinnerList()
-		{
-			return results;
-		}
-
-		public static string getLastWinner()
-		{
-			return results[results.Count - 1];
-		}
-
-		public static string getMatchWinner()
-		{
-			if (results.FindAll(x => x == "left").Count >= minRoundsToWin)
-				return "left";
-			else if (results.FindAll(x => x == "right").Count >= minRoundsToWin)
-				return "right";
-			else
-				return null;
 		}
 	}
 }

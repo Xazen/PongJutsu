@@ -4,11 +4,58 @@ using System.Collections.Generic;
 
 namespace PongJutsu
 {
+
+	/// <summary>
+	/// How to use GameIntensityCallback.
+	/// </summary>
+	/*
+	void Start()
+	{
+		GameFlow.OnGameIntensityChanged += OnGameIntensityChanged;
+	}
+	
+	private void OnGameIntensityChanged(GameIntensity intensity)
+	{
+		Debug.Log ("GameIntensity: " + intensity + "(" + (int)intensity + ")");
+		int gameIntensity = (int)intensity;
+	}
+	*/
+
+	// Game ientensity callbacks
+	public enum GameIntensity {
+		Mercy = 1,
+		Early = 2,
+		Main = 3,
+		Late = 4,
+		End = 5
+	}
+
 	public class GameFlow : MonoBehaviour
 	{
+		//*******************
+		// Usage
+		//*******************
+		
+		// Singleton implementation
+		private static GameFlow _instance;
+		public static GameFlow instance
+		{
+			get{
+				if (_instance == null)
+				{
+					_instance = GameObject.FindObjectOfType<GameFlow>();
+				}
+				return _instance;
+			}
+		}
+		
 		// Debug
 		[SerializeField]
 		private bool consoleLog = true;
+
+		//*******************
+		// Main class variables
+		//*******************
 
 		// Min, Max and Default values
 		[SerializeField]
@@ -16,9 +63,9 @@ namespace PongJutsu
 		[SerializeField]
 		private float shurikenMaximumSpeed = 1.5f;
 		private float angleDefaultValue = 3.5f;
-		private float itemDefaultSpawnProbability = 100.0f;
+		private int itemDefaultSpawnProbability = 100;
 
-		// Regularly increase Spawn frequency
+		// Regularly increase spawn frequency
 		private int riverSpeedUpCounter = 0;
 		[SerializeField]
 		private float riverTimeSpawnMultiplier = 0.75f;
@@ -40,15 +87,23 @@ namespace PongJutsu
 		[SerializeField]
 		private float mercyDuration = 30.0f;
 
-		// Buff loosing Player
-		private bool isBuffLeftPhase = false;
-		private bool isBuffRightPhase = false;
+		// Buff loosing player
+		private bool isDisadvantageBuffLeftPhase = false;
+		private bool isDisadvantageBuffRightPhase = false;
+		private bool isDisadvantageBuffRoundLeft = false;
+		private bool isDisadvantageBuffRoundRight = false;
+		private float disadvantageBuffTimer = 0.0f;
 		[SerializeField]
-		private int requiredFortDeltaForBuff = 2;
+		private float disadvantageBuffDuration = 15.0f;
 		[SerializeField]
-		private float buffedDamageMultiplier = 1.5f;
+		private int requiredFortDeltaForDisadvantageBuff = 2;
+		[SerializeField]
+		private float disadvantageBuffDamageMultiplier = 1.5f;
 
-		// Critical Mode
+		// Main phase
+		private bool isMainPhase = false;
+
+		// Critical mode
 		private bool isCriticalPhase = false;
 		[SerializeField]
 		private float minimumTimeForCriticalMode = 45.0f;
@@ -59,61 +114,142 @@ namespace PongJutsu
 		private bool isCriticalItemForced = false;
 		[SerializeField] private float forceCriticalItems = 150;
 
+		//*******************
+		// Callbacks 
+		//*******************
+		public delegate void GameIntensityDelegate(GameIntensity gameIntensity);
+		public static event GameIntensityDelegate OnGameIntensityChanged;
+		private bool mercyGameIntensityTriggerd = false;
+		private bool earlyGameIntensityTriggerd = false;
+		private bool mainGameIntensityTriggerd = false;
+		private bool lateGameIntensityTriggerd = false;
+		private bool endGameIntensityTriggerd = false;
+		
+		// Disadvantage buff callbacks
+		public delegate void ComboBuffWithPlayerDelegate(GameVar.players.player player);
+		public delegate void ComboBuffDelegate();
+		
+		public ComboBuffWithPlayerDelegate OnComboBuffPlayer;
+		public ComboBuffWithPlayerDelegate OnComboDebuffPlayer;
+		public ComboBuffWithPlayerDelegate OnEnterDisadvantageBuffPlayerPhase;
+		public ComboBuffDelegate OnExitDisadvantageBuffPlayerPhase;
+
+		// Shuriken speed
+		public delegate void ShurikenSpeedDelegate(GameVar.players.player player, int percentageSpeed);
+		public static event ShurikenSpeedDelegate OnShurikenSpeedChanged;
 
 		public void StartFlow()
 		{
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
+
 			riverSpeedUpCounter = 0;
 			comboBuffCounterLeft = 0;
 			comboBuffCounterRight = 0;
 			addedSpeedOverTime = 0;
-			isBuffLeftPhase = false;
-			isBuffRightPhase = false;
+			disadvantageBuffTimer = 0;
+			isMainPhase = false;
+			isDisadvantageBuffLeftPhase = false;
+			isDisadvantageBuffRightPhase = false;
+			isDisadvantageBuffRoundLeft = false;
+			isDisadvantageBuffRoundRight = false;
 			isCriticalPhase = false;
 			isCriticalItemForced = false;
+			mercyGameIntensityTriggerd = false;
+			earlyGameIntensityTriggerd = false;
+			mainGameIntensityTriggerd = false;
+			lateGameIntensityTriggerd = false;
+			endGameIntensityTriggerd = false;
+
+			if (consoleLog)
+			{
+				Debug.Log("Start new game.\n" +
+				          "  Divider probability        : " + GameVar.river.itemList["Divider"].spawnProbability + "\n" +
+				          "  ShieldExpander probability : " + GameVar.river.itemList["ShieldExpander"].spawnProbability + "\n" +
+				          "  Inverter probability       : " + GameVar.river.itemList["Inverter"].spawnProbability + "\n" +
+				          "  Repair probability         : " + GameVar.river.itemList["Repair"].spawnProbability + "\n" +
+				          "  Bomb probability : " + GameVar.river.itemList["Bomb"].spawnProbability + "\n" +
+				          "  Slow probability : " + GameVar.river.itemList["Slow"].spawnProbability);
+			}
 		}
 
 		public void UpdateFlow()
 		{
+			TriggerGameIntensity (GameIntensity.Mercy, ref mercyGameIntensityTriggerd);
+
+			//*******************
+			// Regularly 
+			//*******************
+
 			// Regularly increase spawn frequency
 			int updateRiverSpeedUpCounter = Mathf.FloorToInt(GameVar.ingameTime / riverTimeSpawnMultiplierFrequency);
 			if (riverSpeedUpCounter < updateRiverSpeedUpCounter) 
 			{
 				riverSpeedUpCounter = updateRiverSpeedUpCounter;
 				IncreaseRiverSpawnFrequency (riverTimeSpawnMultiplier);
-
-				// Also change flow direction
-				// InvertRiverFlow();
 			}
 
 			// Regularly buff player for combo
-			int updateComboBuffCounterLeft = Mathf.FloorToInt (GameVar.players.left.comboCount / comboBuffFrequency);
-			int updateComboBuffCounterRight = Mathf.FloorToInt (GameVar.players.right.comboCount / comboBuffFrequency);
-			if (updateComboBuffCounterLeft > comboBuffCounterLeft) 
+			int latestComboBuffCounterLeft = Mathf.FloorToInt (GameVar.players.left.comboCount / comboBuffFrequency);
+			int latestComboBuffCounterRight = Mathf.FloorToInt (GameVar.players.right.comboCount / comboBuffFrequency);
+			if (latestComboBuffCounterLeft > comboBuffCounterLeft) 
 			{
-				comboBuffCounterLeft = updateComboBuffCounterLeft;
+				comboBuffCounterLeft = latestComboBuffCounterLeft;
 				ComboBuffPlayer (GameVar.players.left);
 			} 
-			else if (updateComboBuffCounterLeft == 0 && comboBuffCounterLeft > 0)
+			else if (latestComboBuffCounterLeft == 0 && comboBuffCounterLeft > 0)
 			{
 				ComboDebuffPlayer(GameVar.players.left, comboBuffCounterLeft);
 				comboBuffCounterLeft = 0;
 			}
 
-			if (updateComboBuffCounterRight > comboBuffCounterRight) 
+			if (latestComboBuffCounterRight > comboBuffCounterRight) 
 			{
-				comboBuffCounterRight = updateComboBuffCounterRight;
+				comboBuffCounterRight = latestComboBuffCounterRight;
 				ComboBuffPlayer (GameVar.players.right);
 			} 
-			else if (updateComboBuffCounterRight == 0 && comboBuffCounterRight > 0) 
+			else if (latestComboBuffCounterRight == 0 && comboBuffCounterRight > 0) 
 			{
 				ComboDebuffPlayer(GameVar.players.right, comboBuffCounterRight);
 				comboBuffCounterRight = 0;
 			}
 
+			// Increase shuriken speed after time
+			if (GameVar.ingameTime >= mercyDuration) 
+			{
+				TriggerGameIntensity (GameIntensity.Early, ref earlyGameIntensityTriggerd);
+
+				if (addedSpeedOverTime <= shurikenMaximumSpeed-1.0f) 
+				{
+					addedSpeedOverTime += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
+				}
+				
+				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.left);
+				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.right);
+			}
+
+			//*******************
+			// Main game
+			//*******************
+
 			// Enable defensive items for main game
-			if (GameVar.forts.allCount <= 8 && !isCriticalItemForced)
+			if (GameVar.forts.allCount <= 8 && !isMainPhase)
 			{
 				EnterMainPhase();
+			}
+
+			//*******************
+			// Critical phase
+			//*******************
+			
+			// Activate bomb when one of the ninjas have only 2 forts left
+			if (GameVar.forts.leftCount == 2 || GameVar.forts.rightCount == 2 && !isCriticalPhase && 
+			    GameVar.river.itemList["Bomb"].spawnProbability != itemDefaultSpawnProbability) 
+			{
+				TriggerGameIntensity (GameIntensity.Late, ref lateGameIntensityTriggerd);
+				GameVar.river.itemList["Bomb"].spawnProbability = itemDefaultSpawnProbability;
 			}
 
 			// Enter critical mode when conditions are met
@@ -123,41 +259,53 @@ namespace PongJutsu
 			}
 
 			// Critical item setup to speed up the game round
-			if (GameVar.ingameTime >= forceCriticalItems && !isCriticalPhase) 
+			if (GameVar.ingameTime >= forceCriticalItems && !isCriticalItemForced) 
 			{
 				EnableCriticalItems();
 			}
 
-			// Buff losing player
-			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
-			if (Mathf.Abs (deltaFortCount) >= requiredFortDeltaForBuff && !isBuffLeftPhase && !isBuffRightPhase) 
+			//*******************
+			// Other phases
+			//*******************
+
+			// Buff player in disadvantage
+			if (isDisadvantageBuffLeftPhase || isDisadvantageBuffRightPhase) 
 			{
-				if (deltaFortCount < 0) 
-				{
-					EnterBuffPhaseWithPlayer (GameVar.players.left);
-				} 
-				else 
-				{
-					EnterBuffPhaseWithPlayer (GameVar.players.right);
-				}
-			} 
-			else if (Mathf.Abs (deltaFortCount) < requiredFortDeltaForBuff && (isBuffLeftPhase || isBuffRightPhase))
-			{
-				ExitBuffPhase ();
-				isBuffLeftPhase = false;
-				isBuffRightPhase = false;
+				disadvantageBuffTimer += Time.deltaTime;
 			}
 
-			// Increase shuriken speed after time
-			if (GameVar.ingameTime >= mercyDuration) 
+			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
+			if (!isCriticalPhase &&
+				Mathf.Abs (deltaFortCount) >= requiredFortDeltaForDisadvantageBuff && 
+			    !isDisadvantageBuffLeftPhase && !isDisadvantageBuffRightPhase) 
 			{
-				if (addedSpeedOverTime <= shurikenMaximumSpeed-1.0f) 
-				{
-					addedSpeedOverTime += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
-				}
+				disadvantageBuffTimer = 0.0f;
 
-				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.left);
-				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.right);
+				if (deltaFortCount < 0 && !isDisadvantageBuffRoundLeft) 
+				{
+					isDisadvantageBuffRoundLeft = true;
+					EnterDisadvantageBuffPhaseWithPlayer (GameVar.players.left);
+				} 
+				else if (!isDisadvantageBuffRoundRight)
+				{
+					isDisadvantageBuffRoundRight = true;
+					EnterDisadvantageBuffPhaseWithPlayer (GameVar.players.right);
+				}
+			} 
+			else if ((Mathf.Abs (deltaFortCount) < requiredFortDeltaForDisadvantageBuff || disadvantageBuffTimer >= disadvantageBuffDuration) && (isDisadvantageBuffLeftPhase || isDisadvantageBuffRightPhase))
+			{
+				ExitDisadvantageBuffPhase ();
+				disadvantageBuffTimer = 0.0f;
+				isDisadvantageBuffLeftPhase = false;
+				isDisadvantageBuffRightPhase = false;
+			}
+
+			//*******************
+			// Other callback
+			//*******************
+			if (GameVar.forts.leftCount == 1 || GameVar.forts.rightCount == 1) 
+			{
+				TriggerGameIntensity(GameIntensity.End, ref endGameIntensityTriggerd);
 			}
 		}
 
@@ -167,13 +315,16 @@ namespace PongJutsu
 		/// <param name="player">Player.</param>
 		private void IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.player player)
 		{
-			if (player.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)) < shurikenMaximumSpeed)
+			if (player.speedMultiplier != shurikenMaximumSpeed) 
 			{
-				player.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
-				player.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)));
-			} else {
-				player.angle *= (shurikenMaximumSpeed / player.speedMultiplier);
-				player.speedMultiplier = shurikenMaximumSpeed;
+				if (player.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)) < shurikenMaximumSpeed) {
+					player.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
+					player.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)));
+				} else {
+					player.angle *= (shurikenMaximumSpeed / player.speedMultiplier);
+					player.speedMultiplier = shurikenMaximumSpeed;
+				}
+				ShurikenSpeedCallbackWithPlayer (player);
 			}
 		}
 
@@ -183,28 +334,38 @@ namespace PongJutsu
 		/// <param name="player">Player.</param>
 		private void ComboBuffPlayer(GameVar.players.player player)
 		{
-			if (consoleLog) 
+			if (player.speedMultiplier < shurikenMaximumSpeed) 
 			{
-				Debug.Log ("---GameFlow---");
-			}
+				if (OnComboBuffPlayer != null)
+				{
+				    OnComboBuffPlayer(player);
+				}
 
-			if (player.speedMultiplier + (comboSpeedMultiplier - 1.0f) < shurikenMaximumSpeed) 
-			{
-				player.speedMultiplier += (comboSpeedMultiplier - 1.0f);
-				player.angle += angleDefaultValue*(comboSpeedMultiplier - 1.0f);
-			} 
-			else 
-			{
-				player.angle *= (shurikenMaximumSpeed/player.speedMultiplier);
-				player.speedMultiplier = shurikenMaximumSpeed;
-			}
+				if (consoleLog) 
+				{
+					Debug.Log ("---GameFlow---");
+				}
 
-			// Log new values
-			if (consoleLog)
-			{
-				Debug.Log("Combo buff player: " + player + "\n" +
-				          "  Player speed multiplier   : " + player.speedMultiplier
-				          );
+				if (player.speedMultiplier + (comboSpeedMultiplier - 1.0f) < shurikenMaximumSpeed) 
+				{
+					player.speedMultiplier += (comboSpeedMultiplier - 1.0f);
+					player.angle += angleDefaultValue*(comboSpeedMultiplier - 1.0f);
+				} 
+				else 
+				{
+					player.angle *= (shurikenMaximumSpeed/player.speedMultiplier);
+					player.speedMultiplier = shurikenMaximumSpeed;
+				}
+
+				ShurikenSpeedCallbackWithPlayer(player);
+
+				// Log new values
+				if (consoleLog)
+				{
+					Debug.Log("Combo buff player: " + player + "\n" +
+					          "  Player speed multiplier   : " + player.speedMultiplier
+					          );
+				}
 			}
 		}
 
@@ -215,6 +376,11 @@ namespace PongJutsu
 		/// <param name="comboCounter">Combo counter.</param>
 		private void ComboDebuffPlayer(GameVar.players.player player, int comboCounter)
 		{
+			if (OnComboDebuffPlayer != null) 
+			{
+				OnComboDebuffPlayer (player);
+			}
+
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
@@ -252,6 +418,8 @@ namespace PongJutsu
 				player.angle = angleDefaultValue;
 			}
 
+			ShurikenSpeedCallbackWithPlayer (player);
+
 			// Log new values
 			if (consoleLog)
 			{
@@ -265,17 +433,22 @@ namespace PongJutsu
 		/// Buffs the losing player.
 		/// </summary>
 		/// <param name="player">Player.</param>
-		private void EnterBuffPhaseWithPlayer(GameVar.players.player player)
+		private void EnterDisadvantageBuffPhaseWithPlayer(GameVar.players.player player)
 		{
+			if (OnEnterDisadvantageBuffPlayerPhase != null) 
+			{
+				OnEnterDisadvantageBuffPlayerPhase (player);
+			}
+
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
 			}
 
-			isBuffLeftPhase = (player == GameVar.players.left);
-			isBuffRightPhase = (player == GameVar.players.right);
-			
-			player.damageMultiplier += (buffedDamageMultiplier-1.0f);
+			isDisadvantageBuffLeftPhase = (player == GameVar.players.left);
+			isDisadvantageBuffRightPhase = (player == GameVar.players.right);
+
+			player.damageMultiplier += (disadvantageBuffDamageMultiplier-1.0f);
 
 			// Log new values
 			if (consoleLog)
@@ -289,22 +462,26 @@ namespace PongJutsu
 		/// <summary>
 		/// Debuffs the players.
 		/// </summary>
-		private void ExitBuffPhase()
+		private void ExitDisadvantageBuffPhase()
 		{
+			if (OnExitDisadvantageBuffPlayerPhase != null) 
+			{
+				OnExitDisadvantageBuffPlayerPhase ();
+			}
+
 			if (consoleLog) 
 			{
 				Debug.Log ("---GameFlow---");
 			}
 
-			if (isBuffLeftPhase) 
+			if (isDisadvantageBuffLeftPhase) 
 			{
-				GameVar.players.left.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
+				GameVar.players.left.damageMultiplier -= (disadvantageBuffDamageMultiplier - 1.0f);
 			}
 
-
-			if (isBuffRightPhase) 
+			if (isDisadvantageBuffRightPhase) 
 			{
-				GameVar.players.right.damageMultiplier -= (buffedDamageMultiplier - 1.0f);
+				GameVar.players.right.damageMultiplier -= (disadvantageBuffDamageMultiplier - 1.0f);
 			}
 
 			// Log new values
@@ -322,7 +499,28 @@ namespace PongJutsu
 		/// </summary>
 		private void EnterMainPhase()
 		{
-			GameVar.river.itemList ["Repair"].spawnProbability = (int)itemDefaultSpawnProbability;
+			if (consoleLog) 
+			{
+				Debug.Log ("---GameFlow---");
+			}
+
+			TriggerGameIntensity (GameIntensity.Main, ref mainGameIntensityTriggerd);
+
+			isMainPhase = true;
+			GameVar.river.itemList ["Repair"].spawnProbability = Mathf.RoundToInt(itemDefaultSpawnProbability*1.5f);
+			GameVar.river.itemList ["Slow"].spawnProbability = Mathf.RoundToInt(itemDefaultSpawnProbability*1f);
+
+			// Log new values
+			if (consoleLog)
+			{
+				Debug.Log("Enter main mode.\n" +
+				          "  Divider probability        : " + GameVar.river.itemList["Divider"].spawnProbability + "\n" +
+				          "  ShieldExpander probability : " + GameVar.river.itemList["ShieldExpander"].spawnProbability + "\n" +
+				          "  Inverter probability       : " + GameVar.river.itemList["Inverter"].spawnProbability + "\n" +
+				          "  Repair probability         : " + GameVar.river.itemList["Repair"].spawnProbability + "\n" +
+				          "  Bomb probability : " + GameVar.river.itemList["Bomb"].spawnProbability + "\n" +
+				          "  Slow probability : " + GameVar.river.itemList["Slow"].spawnProbability);
+			}
 		}
 
 		/// <summary>
@@ -353,7 +551,7 @@ namespace PongJutsu
 			GameVar.river.itemList["Inverter"].spawnProbability *= 2;
 			GameVar.river.itemList["Repair"].spawnProbability = 0;
 			GameVar.river.itemList["ShieldExpander"].spawnProbability /= 2;
-			GameVar.river.itemList["Bomb"].spawnProbability = GameVar.river.itemList["Divider"].spawnProbability;
+			GameVar.river.itemList["Bomb"].spawnProbability = (int)itemDefaultSpawnProbability*2;
 			GameVar.river.itemList["Slow"].spawnProbability *= 2;
 			
 			// Log new values
@@ -412,6 +610,33 @@ namespace PongJutsu
 		private void InvertRiverFlow()
 		{
 			GameVar.river.flowSpeed *= -1.0f;
+		}
+
+		//***************
+		// Callbacks
+		//***************
+
+		private void ShurikenSpeedCallbackWithPlayer(GameVar.players.player player)
+		{
+			if (OnShurikenSpeedChanged != null)
+			{
+				int shurikenSpeedPercent = Mathf.RoundToInt((player.speedMultiplier-1.0f)/(shurikenMaximumSpeed-1.0f)*100f);
+				OnShurikenSpeedChanged(player, shurikenSpeedPercent);
+			}
+		}
+
+		/// <summary>
+		/// Triggers the game intensity.
+		/// </summary>
+		/// <param name="intensity">Intensity.</param>
+		/// <param name="boolCheck">Bool check.</param>
+		private void TriggerGameIntensity(GameIntensity intensity, ref bool boolCheck)
+		{
+			if (!boolCheck && OnGameIntensityChanged != null)
+			{
+				OnGameIntensityChanged(intensity);
+				boolCheck = true;
+			}
 		}
 	}
 }

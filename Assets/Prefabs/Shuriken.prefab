@@ -163,8 +163,9 @@ MonoBehaviour:
   damage: 40
   explosion: {fileID: 100000, guid: 6159ab0ca61b4e34891358d29fa7451f, type: 2}
   explosionRadius: 1.64999998
-  explosionDamageMultiplier: .400000006
+  explosionDamageMultiplier: .200000003
   explosionDamagerPerDistance: 0
+  isBomb: 0
   reflectionDamageMultiplier: .800000012
   shurikenLeftColor: {r: .926470578, g: .408737034, b: .408737034, a: 1}
   shurikenRightColor: {r: .396078467, g: .950020254, b: 1, a: 1}
@@ -176,6 +177,7 @@ MonoBehaviour:
   bounceBack: 0
   resetComboOnDamageDealt: 0
   resetComboOnDamageTaken: 1
+  wallCollision: {fileID: 131172, guid: d268c7a7d76033144aeba636e7a12fb3, type: 2}
 --- !u!114 &11402560
 MonoBehaviour:
   m_ObjectHideFlags: 1

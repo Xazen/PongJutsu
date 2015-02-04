@@ -316,7 +316,7 @@ InputManager:
     negativeButton: 
     positiveButton: escape
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: backspace
     gravity: 0
     dead: .00100000005
     sensitivity: 0
@@ -369,7 +369,7 @@ InputManager:
     dead: .100000001
     sensitivity: 1
     snap: 0
-    invert: 1
+    invert: 0
     type: 2
     axis: 0
     joyNum: 0
