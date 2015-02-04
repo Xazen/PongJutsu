@@ -83,7 +83,7 @@ MonoBehaviour:
   _spawnProbability: 100
   duration: 8
   activationEffect: {fileID: 175122, guid: 7e8cd3ce1550a2144827df02c9aee099, type: 2}
-  feedbackEffect: {fileID: 126810, guid: 856212b51ae443a45b943c03e3142d29, type: 2}
+  feedbackEffect: {fileID: 112704, guid: a6c0a008019a0fb429f9dfe8a5b03c56, type: 2}
 --- !u!212 &21201552
 SpriteRenderer:
   m_ObjectHideFlags: 1

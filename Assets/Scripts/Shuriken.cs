@@ -16,6 +16,8 @@ namespace PongJutsu
 		public int damage = 25;
 
 		[SerializeField] private GameObject explosion;
+		[SerializeField] private GameObject bombExplosion;
+
 		public float explosionRadius = 2f;
 		[SerializeField] private float explosionDamageMultiplier = 0.4f;
 		[SerializeField] private bool explosionDamagerPerDistance = false;
@@ -28,6 +30,7 @@ namespace PongJutsu
 
 		[SerializeField] private Sprite shurikenLeftSprite;
 		[SerializeField] private Sprite shurikenRightSprite;
+		[SerializeField] private Sprite shurikenBombSprite;
 
 		[HideInInspector] public GameObject owner;
 		[HideInInspector] public GameObject lastHitOwner;
@@ -176,6 +179,13 @@ namespace PongJutsu
 			movement.x += (Mathf.Sqrt(Vector2.SqrMagnitude(movement)) - speed) * (Mathf.Sign(movement.x) * -1) * (speedAdjustment * 1.08f);
 		}
 
+		public void activateBomb(float damageMultiplier)
+		{
+			isBomb = true;
+			this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenBombSprite;
+			damage = Mathf.RoundToInt(damage * damageMultiplier);
+		}
+
 		void Explode(GameObject hitObject)
 		{
 			GameObject explosionAnimation = (GameObject)Instantiate(explosion, this.transform.position, Quaternion.identity);
@@ -207,6 +217,13 @@ namespace PongJutsu
 				foreach (GameObject fort in hitObject.GetComponent<Fort>().owner.GetComponent<Player>().forts)
 				{
 					fort.GetComponent<Fort>().TakeDamage(damage);
+
+					if (bombExplosion != null)
+					{
+						GameObject f = (GameObject)Instantiate(bombExplosion, fort.transform.position, Quaternion.Euler(bombExplosion.transform.eulerAngles.x, bombExplosion.transform.eulerAngles.y * fort.transform.localScale.x, bombExplosion.transform.eulerAngles.z));
+						f.name = fort.name + "(Feedback)";
+						f.transform.GetComponent<ItemFeedback>().Setup(fort);
+					}
 				}
 			}
 

@@ -44,7 +44,7 @@ namespace PongJutsu
 		{
 			if (feedbackEffect != null)
 			{
-				GameObject f = (GameObject)Instantiate(feedbackEffect, gameObject.transform.position, Quaternion.identity);
+				GameObject f = (GameObject)Instantiate(feedbackEffect, gameObject.transform.position, feedbackEffect.transform.rotation);
 				f.name = this.gameObject.name + "(Feedback)";
 
 				if (duration > 0f)

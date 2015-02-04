@@ -22,7 +22,7 @@ public class ItemFeedback : MonoBehaviour
 
 	private float getParticleDuration()
 	{
-		ParticleSystem[] particleSystems = this.GetComponents<ParticleSystem>();
+		ParticleSystem[] particleSystems = this.GetComponentsInChildren<ParticleSystem>();
 
 		float maxParticleDuration = 0f;
 
@@ -39,6 +39,7 @@ public class ItemFeedback : MonoBehaviour
 
 	void LateUpdate () 
 	{
-		this.transform.position = objectReference.transform.position;
+		if (objectReference != null)
+			this.transform.position = objectReference.transform.position;
 	}
 }
