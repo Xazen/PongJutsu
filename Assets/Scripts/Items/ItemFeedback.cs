@@ -39,6 +39,7 @@ public class ItemFeedback : MonoBehaviour
 
 	void LateUpdate () 
 	{
-		this.transform.position = objectReference.transform.position;
+		if (objectReference != null)
+			this.transform.position = objectReference.transform.position;
 	}
 }

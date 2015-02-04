@@ -11,10 +11,7 @@ namespace PongJutsu
 		public override void OnActivation(Shuriken shuriken)
 		{
 			if (!shuriken.isBomb)
-			{
-				shuriken.isBomb = true;
-				shuriken.damage = Mathf.RoundToInt(shuriken.damage * damageMultiplier);
-			}
+				shuriken.activateBomb(damageMultiplier);
 
 			base.OnActivation(shuriken);
 		}
