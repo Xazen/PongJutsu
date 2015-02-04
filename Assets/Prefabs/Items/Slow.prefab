@@ -83,7 +83,7 @@ MonoBehaviour:
   _spawnProbability: 0
   duration: 10
   activationEffect: {fileID: 175122, guid: 7e8cd3ce1550a2144827df02c9aee099, type: 2}
-  feedbackEffect: {fileID: 126810, guid: 856212b51ae443a45b943c03e3142d29, type: 2}
+  feedbackEffect: {fileID: 165802, guid: 0c45f645c7e35234692ee6d5a2c5a5ff, type: 2}
   speedMuliplier: .400000006
   slowDownWinningPlayerOnly: 1
 --- !u!212 &21236758

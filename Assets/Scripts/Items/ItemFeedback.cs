@@ -22,7 +22,7 @@ public class ItemFeedback : MonoBehaviour
 
 	private float getParticleDuration()
 	{
-		ParticleSystem[] particleSystems = this.GetComponents<ParticleSystem>();
+		ParticleSystem[] particleSystems = this.GetComponentsInChildren<ParticleSystem>();
 
 		float maxParticleDuration = 0f;
 
