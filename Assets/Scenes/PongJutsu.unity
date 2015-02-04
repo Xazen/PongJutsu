@@ -1691,6 +1691,8 @@ MonoBehaviour:
   - source: {fileID: 309831657}
     clips:
     - {fileID: 8300000, guid: 16d2c68932ff3d547a8d325bd31babd4, type: 3}
+    - {fileID: 8300000, guid: 6028c6e3c2defba4fae5f567cc2a3023, type: 3}
+    - {fileID: 8300000, guid: afe70e64b7eb97341a59326bf6930ee8, type: 3}
     currentClipIndex: 0
     nextClipIndex: 0
 --- !u!4 &309831654

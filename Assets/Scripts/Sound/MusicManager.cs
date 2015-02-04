@@ -100,6 +100,7 @@ namespace PongJutsu
 		private void Play(Layer layer, int clipIndex)
 		{
 			layer.source.clip = layer.clips[clipIndex];
+			layer.currentClipIndex = clipIndex;
 
 			layer.source.mute = false;
 			layer.source.volume = masterVolume;
@@ -110,6 +111,8 @@ namespace PongJutsu
 
 		private void PlayOnce(Layer layer, int clipIndex)
 		{
+			layer.currentClipIndex = clipIndex;
+
 			layer.source.mute = false;
 			layer.source.volume = masterVolume;
 
@@ -131,8 +134,8 @@ namespace PongJutsu
 			}
 			else
 			{
-				StartCoroutine(IFadeout(layer, 1f));
-				StartCoroutine(IPeakTransition(layer));
+				StartCoroutine(IFadeout(layer, 0.7f));
+				StartCoroutine(IBridgeTransition(layer));
 			}
 		}
 
@@ -142,10 +145,12 @@ namespace PongJutsu
 			Play(layer, layer.nextClipIndex);
 		}
 
-		IEnumerator IPeakTransition(Layer layer)
+		IEnumerator IBridgeTransition(Layer layer)
 		{
-			PlayOnce(layers[bridgeLayerElement], 0);
-			yield return new WaitForSeconds(layers[bridgeLayerElement].clips[0].length);
+			int randomBridgeIndex = Random.Range(0, layers[bridgeLayerElement].clips.Length);
+
+			PlayOnce(layers[bridgeLayerElement], randomBridgeIndex);
+			yield return new WaitForSeconds(layers[bridgeLayerElement].clips[randomBridgeIndex].length);
 			Play(layer, layer.nextClipIndex);
 		}
 
