@@ -34,10 +34,8 @@ namespace PongJutsu
 		{
 			public AudioSource source;
 			public Part[] parts;
-			[HideInInspector]
-			public int currentPartIndex = 0;
-			[HideInInspector]
-			public int nextPartIndex = 0;
+			[HideInInspector] public int currentPartIndex = 0;
+			[HideInInspector] public int nextPartIndex = 0;
 		}
 
 		[System.Serializable]
@@ -45,8 +43,7 @@ namespace PongJutsu
 		{
 			public AudioClip[] clips;
 			public AudioClip currentClip { get { return clips[currentClipIndex]; } }
-			[HideInInspector]
-			public int currentClipIndex = 0;
+			[HideInInspector] public int currentClipIndex = 0;
 		}
 
 		[SerializeField] private Layer[] layers;
@@ -62,13 +59,13 @@ namespace PongJutsu
 		void Update()
 		{
 			if (Input.GetKeyDown("1"))
-				NextClipInLayer(layers[0], true);
+				NextPart(layers[0], true);
 			if (Input.GetKeyDown("2"))
-				NextClipInLayer(layers[0], false);
+				NextPart(layers[0], false);
 			if (Input.GetKeyDown("3"))
-				NextClipInLayer(layers[1], true);
+				NextPart(layers[1], true);
 			if (Input.GetKeyDown("4"))
-				NextClipInLayer(layers[1], false);
+				NextPart(layers[1], false);
 
 			Debug.Log(layers[0].currentPartIndex + " " + layers[0].nextPartIndex + " " + layers[0].parts[layers[0].currentPartIndex].currentClipIndex);
 		}
@@ -82,9 +79,10 @@ namespace PongJutsu
 		{
 			foreach (AudioSource audio in this.GetComponents<AudioSource>())
 			{
+				this.StopAllCoroutines();
 				audio.Stop();
 				audio.clip = null;
-				audio.mute = false;
+				audio.volume = masterVolume;
 			}
 		}
 
@@ -114,7 +112,6 @@ namespace PongJutsu
 			layer.currentPartIndex = partIndex;
 			StartCoroutine(ILoopPart(layer));
 
-			layer.source.mute = false;
 			layer.source.volume = masterVolume;
 
 			if (!layer.source.isPlaying)
@@ -125,7 +122,6 @@ namespace PongJutsu
 		{
 			layer.currentPartIndex = partIndex;
 
-			layer.source.mute = false;
 			layer.source.volume = masterVolume;
 
 			layer.source.PlayOneShot(layer.parts[partIndex].currentClip);
@@ -136,7 +132,7 @@ namespace PongJutsu
 			PlayPart(layer, 0);
 		}
 
-		public void NextClipInLayer(Layer layer, bool wait)
+		public void NextPart(Layer layer, bool wait)
 		{
 			layer.nextPartIndex = Mathf.Clamp(layer.currentPartIndex + 1, 0, layer.parts.Length - 1);
 
@@ -147,7 +143,7 @@ namespace PongJutsu
 			else
 			{
 				StartCoroutine(IFadeout(layer, 0.7f));
-				StartCoroutine(IBridgeTransition(layer));
+				StartCoroutine(IBridgeToNextPart(layer));
 			}
 		}
 
@@ -180,7 +176,7 @@ namespace PongJutsu
 			PlayPart(layer, layer.nextPartIndex);
 		}
 
-		IEnumerator IBridgeTransition(Layer layer)
+		IEnumerator IBridgeToNextPart(Layer layer)
 		{
 			int randomBridgeIndex = Random.Range(0, layers[bridgeLayerElement].parts.Length);
 

@@ -94,6 +94,8 @@ namespace PongJutsu
 				isEnd = false;
 				allowInput = false;
 
+				MusicManager.current.EndMusic();
+
 				Time.timeScale = 1;
 			}
 		}
@@ -236,7 +238,6 @@ namespace PongJutsu
 
 		public static void ExitGame()
 		{
-			MusicManager.current.EndMusic();
 			ui.SetTrigger("ExitGame");
 		}
 	}
