@@ -55,11 +55,13 @@ namespace PongJutsu
 			if (Input.GetKeyDown("1"))
 				NextClipInLayer(layers[0], true);
 			if (Input.GetKeyDown("2"))
-				NextClipInLayer(layers[1], true);
-			if (Input.GetKeyDown("3"))
 				NextClipInLayer(layers[0], false);
+			if (Input.GetKeyDown("3"))
+				NextClipInLayer(layers[1], true);
 			if (Input.GetKeyDown("4"))
-				NextClipInLayer(layers[1], false);	
+				NextClipInLayer(layers[1], false);
+
+			Debug.Log(layers[0].currentClipIndex + " " + layers[0].nextClipIndex);
 		}
 
 		public void StartMusic()
