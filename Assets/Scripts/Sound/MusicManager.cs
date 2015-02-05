@@ -165,15 +165,6 @@ namespace PongJutsu
 			}
 		}
 
-		private void PlayOnce(Layer layer, int partIndex)
-		{
-			currentPartIndex = partIndex;
-
-			layer.source.volume = masterVolume;
-
-			layer.source.PlayOneShot(layer.parts[partIndex].currentClip);
-		}
-
 		public void NextPart(bool wait)
 		{
 			if (currentPartIndex >= nextPartIndex)
@@ -193,6 +184,12 @@ namespace PongJutsu
 			{
 				nextPartIndex = Mathf.Clamp(nextPartIndex + 1, 0, maxPartsCount - 1);
 			}
+		}
+
+		private void PlayBridge(int clipIndex)
+		{
+			bridgeLayer.source.volume = masterVolume;
+			bridgeLayer.source.PlayOneShot(bridgeLayer.parts[0].clips[clipIndex]);
 		}
 
 		IEnumerator ILoopPart(Layer layer)
@@ -229,10 +226,10 @@ namespace PongJutsu
 			foreach (Layer layer in musicLayers)
 				StartCoroutine(IFadeout(layer, 0.7f));
 
-			int randomBridgeIndex = Random.Range(0, bridgeLayer.parts.Length);
-			PlayOnce(bridgeLayer, randomBridgeIndex);
+			int randomBridgeIndex = Random.Range(0, bridgeLayer.parts[0].clips.Length);
+			PlayBridge(randomBridgeIndex);
 
-			yield return new WaitForSeconds(bridgeLayer.parts[randomBridgeIndex].clips.Length);
+			yield return new WaitForSeconds(bridgeLayer.parts[0].clips[randomBridgeIndex].length);
 			PlayPart(nextPartIndex);
 		}
 

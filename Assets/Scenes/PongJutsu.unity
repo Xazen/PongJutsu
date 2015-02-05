@@ -1671,6 +1671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseLayerElement: 0
+  leadingLayerElement: 1
   musicLayers:
   - source: {fileID: 309831656}
     parts:
@@ -1688,6 +1689,8 @@ MonoBehaviour:
     - clips:
       - {fileID: 8300000, guid: e84dedb42d5c6014999b95e2b73b16cd, type: 3}
       - {fileID: 8300000, guid: 5b52d71fff7545344a71f891041b31d4, type: 3}
+      currentClipIndex: 0
+    - clips: []
       currentClipIndex: 0
   - source: {fileID: 309831655}
     parts:
