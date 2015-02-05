@@ -1672,7 +1672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLayerElement: 0
   pauseLayerElement: 0
-  bridgeLayerElement: 2
   layers:
   - source: {fileID: 309831656}
     parts:
@@ -1716,7 +1715,8 @@ MonoBehaviour:
       currentClipIndex: 0
     currentPartIndex: 0
     nextPartIndex: 0
-  - source: {fileID: 309831657}
+  bridgeLayer:
+    source: {fileID: 309831657}
     parts:
     - clips:
       - {fileID: 8300000, guid: 16d2c68932ff3d547a8d325bd31babd4, type: 3}

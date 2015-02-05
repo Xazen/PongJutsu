@@ -27,7 +27,6 @@ namespace PongJutsu
 
 		[SerializeField] private int startLayerElement = 0;
 		[SerializeField] private int pauseLayerElement = 0;
-		[SerializeField] private int bridgeLayerElement = 0;
 
 		[System.Serializable]
 		public class Layer
@@ -59,6 +58,8 @@ namespace PongJutsu
 		}
 
 		[SerializeField] private Layer[] layers;
+		[SerializeField] private Layer bridgeLayer;
+
 
 		public static MusicManager current;
 
@@ -194,10 +195,10 @@ namespace PongJutsu
 
 		IEnumerator IBridgeToNextPart(Layer layer)
 		{
-			int randomBridgeIndex = Random.Range(0, layers[bridgeLayerElement].parts.Length);
+			int randomBridgeIndex = Random.Range(0, bridgeLayer.parts.Length);
 
-			PlayOnce(layers[bridgeLayerElement], randomBridgeIndex);
-			yield return new WaitForSeconds(layers[bridgeLayerElement].parts[randomBridgeIndex].clips.Length);
+			PlayOnce(bridgeLayer, randomBridgeIndex);
+			yield return new WaitForSeconds(bridgeLayer.parts[randomBridgeIndex].clips.Length);
 			PlayPart(layer, layer.nextPartIndex);
 		}
 
