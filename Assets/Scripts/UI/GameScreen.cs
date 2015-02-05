@@ -6,10 +6,12 @@ namespace PongJutsu
 {
 	public class GameScreen : UIScript
 	{
-		[SerializeField]
-		private GameObject comboCounterLeft;
-		[SerializeField]
-		private GameObject comboCounterRight;
+		[SerializeField] private GameObject comboCounterLeft;
+		[SerializeField] private GameObject comboCounterRight;
+
+		[SerializeField] private int startEmissionRate = 4;
+		[SerializeField] private float multiplyEmissionRate = 10f;
+		[SerializeField] private int maxComboEmission = 15;
 
 		public override void uiUpdate()
 		{
@@ -30,8 +32,21 @@ namespace PongJutsu
 			comboCounterLeft.GetComponent<Text>().text = "x" + left;
 			comboCounterRight.GetComponent<Text>().text = "x" + right;
 
-			comboCounterLeft.transform.GetChild(0).particleSystem.emissionRate = left;
-			comboCounterRight.transform.GetChild(0).particleSystem.emissionRate = right;
+			foreach (ParticleSystem particleSystem in comboCounterLeft.GetComponentsInChildren<ParticleSystem>())
+			{
+				if (left > 0)
+					particleSystem.emissionRate = startEmissionRate + Mathf.Min(left, maxComboEmission) * multiplyEmissionRate;
+				else
+					particleSystem.emissionRate = 0;
+			}
+
+			foreach (ParticleSystem particleSystem in comboCounterRight.GetComponentsInChildren<ParticleSystem>())
+			{
+				if (right > 0)
+					particleSystem.emissionRate = startEmissionRate + Mathf.Min(right, maxComboEmission) * multiplyEmissionRate;
+				else
+					particleSystem.emissionRate = 0;
+			}
 		}
 	}
 }
