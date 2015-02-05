@@ -82,6 +82,8 @@ namespace PongJutsu
 			GameObject sonicInstance = (GameObject)Instantiate(shotSonic, this.transform.position, this.transform.rotation);
 			sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.transform.parent.gameObject);
 
+			GameScore.GetByPlayer(this.transform.parent.gameObject).plusThrownShuriken();
+
 			waitForShot = false;
 		}
 	}

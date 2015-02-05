@@ -35,6 +35,9 @@ namespace PongJutsu
 
 	public class Score
 	{
+		private int _thrownshurikens = 0;
+		public int thrownshurikens { get { return _thrownshurikens; } private set { } }
+
 		private int _reflections = 0;
 		public int reflections { get { return _reflections; } private set { } }
 
@@ -68,6 +71,11 @@ namespace PongJutsu
 		public void plusFortHit()
 		{
 			_forthits += 1;
+		}
+
+		public void plusThrownShuriken()
+		{
+			_thrownshurikens += 1;
 		}
 
 		public void plusDealtDamage(int damage)

@@ -227,7 +227,8 @@ namespace PongJutsu
 				}
 			}
 
-			GameScore.GetByPlayer(lastHitOwner).plusFortHit();
+			if (!hitObject.GetComponent<Fort>().isDestroyed)
+				GameScore.GetByPlayer(lastHitOwner).plusFortHit();
 
 			Remove();
 		}
