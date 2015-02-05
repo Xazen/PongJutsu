@@ -3288,10 +3288,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: .80392158, b: 0, a: 1}
+  m_Color: {r: .839215696, g: .827450991, b: .643137276, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: e766b84d65f04dc428012cd90cad3847, type: 3}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -8391,10 +8391,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: .80392158, b: 0, a: 1}
+  m_Color: {r: .839215696, g: .827450991, b: .643137276, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: e766b84d65f04dc428012cd90cad3847, type: 3}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
