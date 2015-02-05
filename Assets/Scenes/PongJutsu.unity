@@ -859,7 +859,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4281102824
+        rgba: 4281085160
       minMaxState: 0
     startSize:
       scalar: .300000012
@@ -5133,7 +5133,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4281102824
+        rgba: 4293449772
       minMaxState: 0
     startSize:
       scalar: .300000012
@@ -7273,6 +7273,14 @@ Prefab:
       propertyPath: m_Pivot.y
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 19818754, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.maxColor.rgba
+      value: 4281085160
+      objectReference: {fileID: 0}
+    - target: {fileID: 19896846, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.maxColor.rgba
+      value: 4281085160
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
   m_RootGameObject: {fileID: 659889050}
@@ -7454,6 +7462,14 @@ Prefab:
     - target: {fileID: 22496846, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
       propertyPath: m_Pivot.y
       value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818754, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.maxColor.rgba
+      value: 4293449772
+      objectReference: {fileID: 0}
+    - target: {fileID: 19896846, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.maxColor.rgba
+      value: 4293449772
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
@@ -11653,7 +11669,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4281102824
+        rgba: 4293449772
       minMaxState: 0
     startSize:
       scalar: .300000012
@@ -12758,7 +12774,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4281102824
+        rgba: 4281085160
       minMaxState: 0
     startSize:
       scalar: .300000012
