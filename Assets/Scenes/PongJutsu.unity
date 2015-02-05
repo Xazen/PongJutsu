@@ -1670,9 +1670,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e51010bdc240b47a8afec3651d37c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLayerElement: 0
   pauseLayerElement: 0
-  layers:
+  musicLayers:
   - source: {fileID: 309831656}
     parts:
     - clips:
@@ -1690,12 +1689,13 @@ MonoBehaviour:
       - {fileID: 8300000, guid: e84dedb42d5c6014999b95e2b73b16cd, type: 3}
       - {fileID: 8300000, guid: 5b52d71fff7545344a71f891041b31d4, type: 3}
       currentClipIndex: 0
-    currentPartIndex: 0
-    nextPartIndex: 0
   - source: {fileID: 309831655}
     parts:
+    - clips: []
+      currentClipIndex: 0
     - clips:
-      - {fileID: 0}
+      - {fileID: 8300000, guid: 626bcfb0e8173d04c88017409bd1b287, type: 3}
+      - {fileID: 8300000, guid: 1bf50ed5ec71d4b4198550d5b63b01fb, type: 3}
       currentClipIndex: 0
     - clips:
       - {fileID: 8300000, guid: f9b69310536aded4593720604b52b23b, type: 3}
@@ -1709,12 +1709,6 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 51feee73a5c61a54086c0d54676b3673, type: 3}
       - {fileID: 8300000, guid: 32d89878206adb347af8309c349ec524, type: 3}
       currentClipIndex: 0
-    - clips:
-      - {fileID: 8300000, guid: 51feee73a5c61a54086c0d54676b3673, type: 3}
-      - {fileID: 8300000, guid: 32d89878206adb347af8309c349ec524, type: 3}
-      currentClipIndex: 0
-    currentPartIndex: 0
-    nextPartIndex: 0
   bridgeLayer:
     source: {fileID: 309831657}
     parts:
@@ -1723,8 +1717,6 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 6028c6e3c2defba4fae5f567cc2a3023, type: 3}
       - {fileID: 8300000, guid: afe70e64b7eb97341a59326bf6930ee8, type: 3}
       currentClipIndex: 0
-    currentPartIndex: 0
-    nextPartIndex: 0
 --- !u!4 &309831654
 Transform:
   m_ObjectHideFlags: 0
