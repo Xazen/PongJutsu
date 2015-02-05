@@ -41,7 +41,10 @@ namespace PongJutsu
 			if (shotCount < maxActiveShots)
 			{
 				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == false)
+				{
 					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(true);
+					this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("GetGlow");
+				}
 			}
 			else
 			{
