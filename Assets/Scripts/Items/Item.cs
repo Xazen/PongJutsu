@@ -23,9 +23,9 @@ namespace PongJutsu
 
 		public float duration = 0f;
 
-		[SerializeField] private GameObject activationEffect;
-
 		[SerializeField] private GameObject feedbackEffect;
+		[SerializeField] private GameObject activationEffect;
+		[SerializeField] private Color activationEffectColor = Color.white;
 
 		public virtual void OnActivation(Shuriken shuriken)
 		{
@@ -33,6 +33,7 @@ namespace PongJutsu
 			{
 				GameObject instance = (GameObject) Instantiate(activationEffect, this.transform.position, Quaternion.identity);
 				instance.transform.parent = this.transform.parent;
+				instance.renderer.material.SetColor("_EmisColor", activationEffectColor);
 			}
 
 			GameScore.GetByPlayer(shuriken.lastHitOwner).plusFortHit();
