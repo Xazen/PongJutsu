@@ -82,8 +82,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnProbability: 100
   duration: 7.5
-  activationEffect: {fileID: 175122, guid: 7e8cd3ce1550a2144827df02c9aee099, type: 2}
   feedbackEffect: {fileID: 0}
+  activationEffect: {fileID: 175122, guid: 7e8cd3ce1550a2144827df02c9aee099, type: 2}
+  activationEffectColor: {r: .534972012, g: .647058845, b: .513840854, a: 1}
   scaleMultiplier: 1.5
 --- !u!212 &21200000
 SpriteRenderer:
