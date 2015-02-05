@@ -8,8 +8,8 @@ namespace PongJutsu
 		[SerializeField] private int _spawnProbability = 100;
 		public int spawnProbability 
 		{
-			get { return Mathf.Clamp(_spawnProbability, 0, 100); }
-			set { _spawnProbability = Mathf.Clamp(value, 0, 100); }
+			get { return Mathf.Clamp(_spawnProbability, 0, 200); }
+			set { _spawnProbability = Mathf.Clamp(value, 0, 200); }
 		}
 
 		[System.NonSerialized] private int defaultProbability = -1;
