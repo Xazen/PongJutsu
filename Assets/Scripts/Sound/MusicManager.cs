@@ -36,13 +36,25 @@ namespace PongJutsu
 			public Part[] parts;
 			[HideInInspector] public int currentPartIndex = 0;
 			[HideInInspector] public int nextPartIndex = 0;
+
+			public void Reset()
+			{
+				currentPartIndex = 0;
+				nextPartIndex = 0;
+
+				source.Stop();
+				source.clip = null;
+
+				foreach (Part part in parts)
+					part.currentClipIndex = 0;
+			}
 		}
 
 		[System.Serializable]
 		public class Part
 		{
 			public AudioClip[] clips;
-			public AudioClip currentClip { get { return clips[currentClipIndex]; } }
+			[HideInInspector] public AudioClip currentClip { get { return clips[currentClipIndex]; } }
 			[HideInInspector] public int currentClipIndex = 0;
 		}
 
@@ -75,15 +87,12 @@ namespace PongJutsu
 			StartLayer(layers[startLayerElement]);
 		}
 
-		public void EndMusic()
+		public void StopMusic()
 		{
-			foreach (AudioSource audio in this.GetComponents<AudioSource>())
-			{
-				this.StopAllCoroutines();
-				audio.Stop();
-				audio.clip = null;
-				audio.volume = masterVolume;
-			}
+			this.StopAllCoroutines();
+
+			foreach (Layer layer in layers)
+				layer.Reset();
 		}
 
 		public void PauseMusic()
@@ -134,16 +143,23 @@ namespace PongJutsu
 
 		public void NextPart(Layer layer, bool wait)
 		{
-			layer.nextPartIndex = Mathf.Clamp(layer.currentPartIndex + 1, 0, layer.parts.Length - 1);
-
-			if (wait)
+			if (layer.currentPartIndex >= layer.nextPartIndex)
 			{
-				StartCoroutine(IWaitForNextPart(layer));
+				layer.nextPartIndex = Mathf.Clamp(layer.currentPartIndex + 1, 0, layer.parts.Length - 1);
+
+				if (wait)
+				{
+					StartCoroutine(IWaitForNextPart(layer));
+				}
+				else
+				{
+					StartCoroutine(IFadeout(layer, 0.7f));
+					StartCoroutine(IBridgeToNextPart(layer));
+				}
 			}
 			else
 			{
-				StartCoroutine(IFadeout(layer, 0.7f));
-				StartCoroutine(IBridgeToNextPart(layer));
+				layer.nextPartIndex = Mathf.Clamp(layer.nextPartIndex + 1, 0, layer.parts.Length - 1);
 			}
 		}
 

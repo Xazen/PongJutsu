@@ -94,7 +94,7 @@ namespace PongJutsu
 				isEnd = false;
 				allowInput = false;
 
-				MusicManager.current.EndMusic();
+				MusicManager.current.StopMusic();
 
 				Time.timeScale = 1;
 			}
