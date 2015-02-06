@@ -11,7 +11,7 @@ namespace PongJutsu
 
 		[SerializeField]
 		private float defaultMusicVolume = 1f;
-		public static float musicVolume { get { return PlayerPrefs.GetFloat("MusicVolume"); } set { PlayerPrefs.SetFloat("MusicVolume", value); PlayerPrefs.Save(); } }
+		public static float musicVolume { get { return MusicManager.current.masterVolume; } set { MusicManager.current.masterVolume = value; PlayerPrefs.SetFloat("MusicVolume", value); PlayerPrefs.Save(); } }
 
 		void Awake()
 		{

@@ -92,6 +92,8 @@ namespace PongJutsu
 				isEnd = false;
 				allowInput = false;
 
+				MusicManager.current.StopMusic();
+
 				Time.timeScale = 1;
 			}
 		}
@@ -171,7 +173,7 @@ namespace PongJutsu
 
 		public static void StartGame()
 		{
-			GameObject.Find("Arena").GetComponent<AudioSource>().Play();
+			MusicManager.current.StartMusic();
 			allowInput = true;
 		}
 
@@ -180,7 +182,8 @@ namespace PongJutsu
 			Time.timeScale = 0;
 			isPause = true;
 			allowInput = false;
-
+			MusicManager.current.PauseMusic();
+	
 			Screen.showCursor = true;
 	
 			ui.SetTrigger("PauseGame");
@@ -191,6 +194,7 @@ namespace PongJutsu
 			ui.SetTrigger("ResumeGame");
 
 			Time.timeScale = 1;
+			MusicManager.current.ResumeMusic();
 			isPause = false;
 			allowInput = true;
 
@@ -232,7 +236,6 @@ namespace PongJutsu
 
 		public static void ExitGame()
 		{
-			GameObject.Find("Arena").GetComponent<AudioSource>().Stop();
 			ui.SetTrigger("ExitGame");
 		}
 	}

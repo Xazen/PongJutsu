@@ -5,6 +5,7 @@ using System.Collections;
 public class SoundPool : MonoBehaviour 
 {
 	[SerializeField] private bool playRandomOnAwake = false;
+	[SerializeField] private int randomProbability = 100;
 
 	[SerializeField] private AudioClip[] sounds;
 
@@ -21,7 +22,8 @@ public class SoundPool : MonoBehaviour
 
 	public void PlayRandom()
 	{
-		this.audio.PlayOneShot(RandomClip());
+		if (Random.Range(0, 100) < randomProbability)
+			this.audio.PlayOneShot(RandomClip());
 	}
 
 	private AudioClip RandomClip()
