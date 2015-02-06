@@ -5,8 +5,8 @@ namespace PongJutsu
 {
 	public class GameScore : MonoBehaviour
 	{
-		private static Score playerLeft = new Score();
-		private static Score playerRight = new Score();
+		private static Score playerLeft;
+		private static Score playerRight;
 
 		public static Score GetByPlayer(GameObject player)
 		{
@@ -36,22 +36,22 @@ namespace PongJutsu
 	public class Score
 	{
 		private int _thrownshurikens = 0;
-		public int thrownshurikens { get { return _thrownshurikens; } private set { } }
+		public int thrownshurikens { get { return _thrownshurikens; }}
 
 		private int _reflections = 0;
-		public int reflections { get { return _reflections; } private set { } }
+		public int reflections { get { return _reflections; }}
 
 		private int _catches = 0;
-		public int catches { get { return _catches; } private set { } }
+		public int catches { get { return _catches; }}
 
 		private int _itemhits = 0;
-		public int itemhits { get { return _itemhits; } private set { } }
+		public int itemhits { get { return _itemhits; }}
 
 		private int _forthits = 0;
-		public int forthits { get { return _forthits; } private set { } }
+		public int forthits { get { return _forthits; }}
 
 		private int _dealtdamage = 0;
-		public int dealtdamage { get { return _dealtdamage; } private set { } }
+		public int dealtdamage { get { return _dealtdamage; }}
 
 		public void plusReflect()
 		{
