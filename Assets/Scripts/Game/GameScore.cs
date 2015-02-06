@@ -17,13 +17,33 @@ namespace PongJutsu
 
 			return null;
 		}
-		public static Score GetPlayerLeft()
+		public static Score GetByEnemyPlayer(GameObject player)
+		{
+			if (player == GameVar.players.left.reference)
+				return playerRight;
+			else if (player == GameVar.players.right.reference)
+				return playerLeft;
+
+			return null;
+		}
+
+		public static Score GetPlayerLeftScore()
 		{
 			return playerLeft;
 		}
-		public static Score GetPlayerRight()
+		public static Score GetPlayerRightScore()
 		{
 			return playerRight;
+		}
+
+		public static Score GetByEnemyScore(Score playerScore)
+		{
+			if (playerScore == playerLeft)
+				return playerRight;
+			else if (playerScore == playerRight)
+				return playerLeft;
+
+			return null;
 		}
 
 		public static void Clear()
@@ -35,6 +55,9 @@ namespace PongJutsu
 
 	public class Score
 	{
+		private int _wins = 0;
+		public int wins { get { return _wins; } }
+
 		private int _thrownshurikens = 0;
 		public int thrownshurikens { get { return _thrownshurikens; }}
 
@@ -52,6 +75,11 @@ namespace PongJutsu
 
 		private int _dealtdamage = 0;
 		public int dealtdamage { get { return _dealtdamage; }}
+
+		public void plusWin()
+		{
+			_wins += 1;
+		}
 
 		public void plusReflect()
 		{

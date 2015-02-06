@@ -18,6 +18,11 @@ namespace PongJutsu
 		public static void addWinner(string winner)
 		{
 			results.Add(winner);
+
+			if (winner == "left")
+				GameScore.GetPlayerLeftScore().plusWin();
+			else if (winner == "right")
+				GameScore.GetPlayerRightScore().plusWin();
 		}
 
 		public static List<string> getWinnerList()
@@ -28,6 +33,15 @@ namespace PongJutsu
 		public static string getLastWinner()
 		{
 			return results[results.Count - 1];
+		}
+
+		public static int getWinsPlayerLeft()
+		{
+			return results.FindAll(x => x == "left").Count;
+		}
+		public static int getWinsPlayerRight()
+		{
+			return results.FindAll(x => x == "right").Count;
 		}
 
 		public static string getMatchWinner()
