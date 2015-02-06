@@ -26,7 +26,7 @@ namespace PongJutsu
 			scoreOutput.catched.text =  Mathf.Clamp((int)(((float)score.catches / (float)GameScore.GetByEnemyScore(score).thrownshurikens) * 100), 0, 100) + "%";
 			scoreOutput.itemhit.text = Mathf.Clamp((int)(((float)score.itemhits / (float)GameScore.GetGlobalScore().spawneditems) * 100), 0, 100) + "%";
 			scoreOutput.forthit.text = Mathf.Clamp((int)(((float)score.forthits / (float)(score.thrownshurikens + score.reflections)) * 100), 0, 100) + "%";
-			scoreOutput.dealtdamage.text = "-";
+			scoreOutput.dealtdamage.text = score.dealtdamage.ToString();
 		}
 
 		public void click_Exit()

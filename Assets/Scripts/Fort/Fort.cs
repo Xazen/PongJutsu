@@ -68,6 +68,8 @@ namespace PongJutsu
 		{
 			if (!isDestroyed)
 			{
+				GameScore.GetByEnemyPlayer(owner).dealtdamage += damage + Mathf.Min(health - damage, 0);
+
 				health -= damage;
 				health = Mathf.Clamp(health, 0, maxHealth);
 
