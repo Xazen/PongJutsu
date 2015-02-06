@@ -165,7 +165,7 @@ namespace PongJutsu
 			}
 		}
 
-		public void NextPart(bool wait)
+		public void NextPart(bool wait = true)
 		{
 			if (currentPartIndex >= nextPartIndex)
 			{
