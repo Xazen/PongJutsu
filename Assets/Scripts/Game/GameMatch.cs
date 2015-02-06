@@ -20,9 +20,9 @@ namespace PongJutsu
 			results.Add(winner);
 
 			if (winner == "left")
-				GameScore.GetPlayerLeftScore().plusWin();
+				GameScore.GetPlayerLeftScore().wins += 1;
 			else if (winner == "right")
-				GameScore.GetPlayerRightScore().plusWin();
+				GameScore.GetPlayerRightScore().wins += 1;
 		}
 
 		public static List<string> getWinnerList()

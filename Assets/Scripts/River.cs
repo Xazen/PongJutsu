@@ -72,7 +72,7 @@ namespace PongJutsu
 
 			spawnedItems.Add(carrier);
 
-			GameScore.GetGlobalScore().plusSpawnedItem();
+			GameScore.GetGlobalScore().spawneditems += 1;
 		}
 
 		// Return a random item based on spawn probabilities

@@ -64,70 +64,30 @@ namespace PongJutsu
 	public class PlayerScore
 	{
 		private int _wins = 0;
-		public int wins { get { return _wins; } }
+		public int wins { get { return _wins; } set { _wins = value; } }
 
 		private int _thrownshurikens = 0;
-		public int thrownshurikens { get { return _thrownshurikens; }}
+		public int thrownshurikens { get { return _thrownshurikens; } set { if (GameManager.allowInput) { _thrownshurikens = value; } } }
 
 		private int _reflections = 0;
-		public int reflections { get { return _reflections; }}
+		public int reflections { get { return _reflections; } set { if (GameManager.allowInput) { _reflections = value; } } }
 
 		private int _catches = 0;
-		public int catches { get { return _catches; }}
+		public int catches { get { return _catches; } set { if (GameManager.allowInput) { _catches = value; } } }
 
 		private int _itemhits = 0;
-		public int itemhits { get { return _itemhits; }}
+		public int itemhits { get { return _itemhits; } set { if (GameManager.allowInput) { _itemhits = value; } } }
 
 		private int _forthits = 0;
-		public int forthits { get { return _forthits; }}
+		public int forthits { get { return _forthits; } set { if (GameManager.allowInput) { _forthits = value; } } }
 
 		private int _dealtdamage = 0;
-		public int dealtdamage { get { return _dealtdamage; }}
-
-		public void plusWin()
-		{
-			_wins += 1;
-		}
-
-		public void plusReflect()
-		{
-			_reflections += 1;
-		}
-
-		public void plusCatch()
-		{
-			_catches += 1;
-		}
-
-		public void plusItemHit()
-		{
-			_itemhits += 1;
-		}
-
-		public void plusFortHit()
-		{
-			_forthits += 1;
-		}
-
-		public void plusThrownShuriken()
-		{
-			_thrownshurikens += 1;
-		}
-
-		public void plusDealtDamage(int damage)
-		{
-			_dealtdamage += damage;
-		}
+		public int dealtdamage { get { return _dealtdamage; } set { if (GameManager.allowInput) { _dealtdamage = value; } } }
 	}
 
 	public class GloablScore
 	{
 		private int _spawneditems = 0;
-		public int spawneditems { get { return _spawneditems; } }
-
-		public void plusSpawnedItem()
-		{
-			_spawneditems += 1;
-		}
+		public int spawneditems { get { return _spawneditems; } set { if (GameManager.allowInput) { _spawneditems = value; } } }
 	}
 }
