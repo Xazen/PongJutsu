@@ -5,10 +5,17 @@ namespace PongJutsu
 {
 	public class GameScore : MonoBehaviour
 	{
-		private static Score playerLeft;
-		private static Score playerRight;
+		private static GloablScore global;
 
-		public static Score GetByPlayer(GameObject player)
+		public static GloablScore GetGlobalScore()
+		{
+			return global;
+		}
+
+		private static PlayerScore playerLeft;
+		private static PlayerScore playerRight;
+
+		public static PlayerScore GetByPlayer(GameObject player)
 		{
 			if (player == GameVar.players.left.reference)
 				return playerLeft;
@@ -17,7 +24,7 @@ namespace PongJutsu
 
 			return null;
 		}
-		public static Score GetByEnemyPlayer(GameObject player)
+		public static PlayerScore GetByEnemyPlayer(GameObject player)
 		{
 			if (player == GameVar.players.left.reference)
 				return playerRight;
@@ -27,16 +34,16 @@ namespace PongJutsu
 			return null;
 		}
 
-		public static Score GetPlayerLeftScore()
+		public static PlayerScore GetPlayerLeftScore()
 		{
 			return playerLeft;
 		}
-		public static Score GetPlayerRightScore()
+		public static PlayerScore GetPlayerRightScore()
 		{
 			return playerRight;
 		}
 
-		public static Score GetByEnemyScore(Score playerScore)
+		public static PlayerScore GetByEnemyScore(PlayerScore playerScore)
 		{
 			if (playerScore == playerLeft)
 				return playerRight;
@@ -48,12 +55,13 @@ namespace PongJutsu
 
 		public static void Clear()
 		{
-			playerLeft = new Score();
-			playerRight = new Score();
+			global = new GloablScore();
+			playerLeft = new PlayerScore();
+			playerRight = new PlayerScore();
 		}
 	}
 
-	public class Score
+	public class PlayerScore
 	{
 		private int _wins = 0;
 		public int wins { get { return _wins; } }
@@ -109,6 +117,17 @@ namespace PongJutsu
 		public void plusDealtDamage(int damage)
 		{
 			_dealtdamage += damage;
+		}
+	}
+
+	public class GloablScore
+	{
+		private int _spawneditems = 0;
+		public int spawneditems { get { return _spawneditems; } }
+
+		public void plusSpawnedItem()
+		{
+			_spawneditems += 1;
 		}
 	}
 }

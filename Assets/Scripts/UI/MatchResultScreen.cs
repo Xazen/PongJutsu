@@ -19,13 +19,13 @@ namespace PongJutsu
 			outputScore(scoreOutputRight, GameScore.GetPlayerRightScore());
 		}
 
-		void outputScore(ScoreOutput scoreOutput, Score score)
+		void outputScore(ScoreOutput scoreOutput, PlayerScore score)
 		{
 			scoreOutput.wins.text = score.wins.ToString();
-			scoreOutput.reflected.text = (int)(((float)score.reflections / (float)GameScore.GetByEnemyScore(score).thrownshurikens) * 100) + "%";
-			scoreOutput.catched.text = (int)(((float)score.catches / (float)GameScore.GetByEnemyScore(score).thrownshurikens) * 100) + "%";
-			scoreOutput.itemhit.text = score.itemhits.ToString();
-			scoreOutput.forthit.text = (int)(((float)score.forthits / (float)(score.thrownshurikens + score.reflections)) * 100) + "%";
+			scoreOutput.reflected.text = Mathf.Clamp((int)(((float)score.reflections / (float)GameScore.GetByEnemyScore(score).thrownshurikens) * 100), 0, 100) + "%";
+			scoreOutput.catched.text =  Mathf.Clamp((int)(((float)score.catches / (float)GameScore.GetByEnemyScore(score).thrownshurikens) * 100), 0, 100) + "%";
+			scoreOutput.itemhit.text = Mathf.Clamp((int)(((float)score.itemhits / (float)GameScore.GetGlobalScore().spawneditems) * 100), 0, 100) + "%";
+			scoreOutput.forthit.text = Mathf.Clamp((int)(((float)score.forthits / (float)(score.thrownshurikens + score.reflections)) * 100), 0, 100) + "%";
 			scoreOutput.dealtdamage.text = "-";
 		}
 

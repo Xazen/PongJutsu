@@ -36,7 +36,7 @@ namespace PongJutsu
 				instance.renderer.material.SetColor("_EmisColor", activationEffectColor);
 			}
 
-			GameScore.GetByPlayer(shuriken.lastHitOwner).plusFortHit();
+			GameScore.GetByPlayer(shuriken.lastHitOwner).plusItemHit();
 
 			Destroy(this.gameObject);
 		}
