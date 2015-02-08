@@ -669,8 +669,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 1070291768}
   m_GameObject: {fileID: 65022656}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -689,7 +689,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
-  m_SortMode: 0
+  m_SortMode: 2
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -856,11 +856,11 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4294967295
+        rgba: 4282795775
       maxColor:
         serializedVersion: 2
         rgba: 4281085160
-      minMaxState: 0
+      minMaxState: 2
     startSize:
       scalar: .300000012
       maxCurve:
@@ -5150,8 +5150,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 1113776169}
   m_GameObject: {fileID: 779119104}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -5170,7 +5170,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
-  m_SortMode: 0
+  m_SortMode: 2
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -5337,11 +5337,11 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4294967295
+        rgba: 4294963813
       maxColor:
         serializedVersion: 2
         rgba: 4293449772
-      minMaxState: 0
+      minMaxState: 2
     startSize:
       scalar: .300000012
       maxCurve:
@@ -7488,6 +7488,26 @@ Prefab:
       propertyPath: InitialModule.startColor.maxColor.rgba
       value: 4281085160
       objectReference: {fileID: 0}
+    - target: {fileID: 19818754, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: EmissionModule.rate.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818754, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.minColor.rgba
+      value: 4282795775
+      objectReference: {fileID: 0}
+    - target: {fileID: 19896846, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.minColor.rgba
+      value: 4282795775
+      objectReference: {fileID: 0}
+    - target: {fileID: 19896846, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.minMaxState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818754, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.minMaxState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
   m_RootGameObject: {fileID: 659889050}
@@ -7677,6 +7697,14 @@ Prefab:
     - target: {fileID: 19896846, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
       propertyPath: InitialModule.startColor.maxColor.rgba
       value: 4293449772
+      objectReference: {fileID: 0}
+    - target: {fileID: 19818754, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.minColor.rgba
+      value: 4294963813
+      objectReference: {fileID: 0}
+    - target: {fileID: 19896846, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
+      propertyPath: InitialModule.startColor.minColor.rgba
+      value: 4294963813
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8aafc86018c98b34081ce2eba0911f4c, type: 2}
@@ -11687,8 +11715,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 1113776169}
   m_GameObject: {fileID: 2038392169}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -11707,7 +11735,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
-  m_SortMode: 0
+  m_SortMode: 2
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -11874,11 +11902,11 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4294967295
+        rgba: 4294963813
       maxColor:
         serializedVersion: 2
         rgba: 4293449772
-      minMaxState: 0
+      minMaxState: 2
     startSize:
       scalar: .300000012
       maxCurve:
@@ -12792,8 +12820,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 1070291768}
   m_GameObject: {fileID: 2039557879}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -12812,7 +12840,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
-  m_SortMode: 0
+  m_SortMode: 2
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -12979,11 +13007,11 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4294967295
+        rgba: 4282795775
       maxColor:
         serializedVersion: 2
         rgba: 4281085160
-      minMaxState: 0
+      minMaxState: 2
     startSize:
       scalar: .300000012
       maxCurve:

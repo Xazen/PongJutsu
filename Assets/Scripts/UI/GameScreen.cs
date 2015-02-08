@@ -35,7 +35,7 @@ namespace PongJutsu
 			foreach (ParticleSystem particleSystem in comboCounterLeft.GetComponentsInChildren<ParticleSystem>())
 			{
 				if (left > 0)
-					particleSystem.emissionRate = startEmissionRate + Mathf.Min(left, maxComboEmission) * multiplyEmissionRate;
+					particleSystem.emissionRate = startEmissionRate + Mathf.Min(left-1, maxComboEmission) * multiplyEmissionRate;
 				else
 					particleSystem.emissionRate = 0;
 			}
@@ -43,7 +43,7 @@ namespace PongJutsu
 			foreach (ParticleSystem particleSystem in comboCounterRight.GetComponentsInChildren<ParticleSystem>())
 			{
 				if (right > 0)
-					particleSystem.emissionRate = startEmissionRate + Mathf.Min(right, maxComboEmission) * multiplyEmissionRate;
+					particleSystem.emissionRate = startEmissionRate + Mathf.Min(right-1, maxComboEmission) * multiplyEmissionRate;
 				else
 					particleSystem.emissionRate = 0;
 			}
