@@ -6980,7 +6980,7 @@ MonoBehaviour:
   interactable: 0
   comboCounterLeft: {fileID: 659889050}
   comboCounterRight: {fileID: 1875791557}
-  startEmissionRate: 1
+  startEmissionRate: 5
   multiplyEmissionRate: 10
   maxComboEmission: 15
 --- !u!212 &996179509
