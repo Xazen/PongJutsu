@@ -138,7 +138,7 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: .400000006
+  m_Time: .5
   m_StartWidth: .200000003
   m_EndWidth: .100000001
   m_Colors:
@@ -198,8 +198,8 @@ MonoBehaviour:
   explosionDamagerPerDistance: 0
   isBomb: 0
   reflectionDamageMultiplier: .800000012
-  shurikenLeftColor: {r: .977941155, g: .179768592, b: .179768592, a: 1}
-  shurikenRightColor: {r: .193771645, g: .879322231, b: .941176474, a: 1}
+  shurikenLeftColor: {r: .97647059, g: .215686277, b: .215686277, a: 1}
+  shurikenRightColor: {r: .235294119, g: .87843138, b: .941176474, a: 1}
   shurikenLeftSprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
   shurikenRightSprite: {fileID: 21300000, guid: 3cc3df1f2c73d494289005f070a8a644,
     type: 3}

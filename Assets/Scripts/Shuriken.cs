@@ -58,14 +58,14 @@ namespace PongJutsu
 			{
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenLeftSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenLeftColor;
-				this.GetComponentInChildren<ParticleSystem>().emissionRate = 2 + Mathf.Min(GameVar.players.left.comboCount - 1, 15) * 2;
+				this.GetComponentInChildren<ParticleSystem>().emissionRate = 1 + Mathf.Min(GameVar.players.left.comboCount, 15);
 				this.GetComponentInChildren<ParticleSystem>().startColor = shurikenLeftColor;
 			}
 			else if (owner.tag == "PlayerRight")
 			{
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
-				this.GetComponentInChildren<ParticleSystem>().emissionRate = 2 + Mathf.Min(GameVar.players.right.comboCount - 1, 15) * 2;
+				this.GetComponentInChildren<ParticleSystem>().emissionRate = 1 + Mathf.Min(GameVar.players.right.comboCount, 15);
 				this.GetComponentInChildren<ParticleSystem>().startColor = shurikenRightColor;
 			}
 
