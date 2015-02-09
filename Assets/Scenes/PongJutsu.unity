@@ -9871,7 +9871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 1663255658}
     m_SelectOnDown: {fileID: 1731909036}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
@@ -10299,7 +10299,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 1731909036}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 1572976431}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 2
@@ -12028,7 +12028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8fe6e18f4a79c43b1233936a1f268d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSelected: {fileID: 1572976429}
+  defaultSelected: {fileID: 1663255656}
   interactable: 1
 --- !u!1 &2016079850
 GameObject:
