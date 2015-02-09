@@ -12,8 +12,8 @@ namespace PongJutsu
 		{
  			base.uiEnable();
 
-			this.GetComponent<SoundPool>().PlayElement(GameMatch.getWinnerList().Count);
-			this.transform.FindChild("Round").GetComponent<Text>().text = defaultRoundText + " " + (GameMatch.getWinnerList().Count + 1);
+			this.GetComponent<SoundPool>().PlayElement(GameMatch.getRound());
+			this.transform.FindChild("Round").GetComponent<Text>().text = defaultRoundText + " " + (GameMatch.getRound() + 1);
 		}
 	}
 }
