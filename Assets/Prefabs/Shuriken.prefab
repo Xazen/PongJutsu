@@ -138,7 +138,7 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: .800000012
+  m_Time: .400000006
   m_StartWidth: .200000003
   m_EndWidth: .100000001
   m_Colors:
@@ -198,8 +198,8 @@ MonoBehaviour:
   explosionDamagerPerDistance: 0
   isBomb: 0
   reflectionDamageMultiplier: .800000012
-  shurikenLeftColor: {r: .926470578, g: .408737034, b: .408737034, a: 1}
-  shurikenRightColor: {r: .396078467, g: .950020254, b: 1, a: 1}
+  shurikenLeftColor: {r: .977941155, g: .179768592, b: .179768592, a: 1}
+  shurikenRightColor: {r: .193771645, g: .879322231, b: .941176474, a: 1}
   shurikenLeftSprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
   shurikenRightSprite: {fileID: 21300000, guid: 3cc3df1f2c73d494289005f070a8a644,
     type: 3}
@@ -243,7 +243,7 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: .449999988
+      scalar: .800000012
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -276,7 +276,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: .449999988
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -297,7 +297,7 @@ ParticleSystem:
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 3
+      minMaxState: 0
     startColor:
       maxGradient:
         key0:
@@ -393,7 +393,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: .400000006
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -426,16 +426,11 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startRotation:
-      scalar: 0
+      scalar: .0157079622
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - time: 1
           value: 1
           inSlope: 0
           outSlope: 0
@@ -446,18 +441,13 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - time: 1
-          value: 0
+          value: -1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 0
+      minMaxState: 3
     gravityModifier: 0
     inheritVelocity: 0
     maxNumParticles: 1000
@@ -465,7 +455,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 1
-    radius: .0799999982
+    radius: .0599999987
     angle: 25
     length: 5
     boxX: 0
@@ -476,7 +466,7 @@ ParticleSystem:
     randomDirection: 1
   EmissionModule:
     enabled: 1
-    m_Type: 1
+    m_Type: 0
     rate:
       scalar: 0
       maxCurve:
@@ -520,14 +510,14 @@ ParticleSystem:
     time3: 0
     m_BurstCount: 0
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 1
+          value: .274509758
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -557,7 +547,7 @@ ParticleSystem:
   RotationModule:
     enabled: 0
     curve:
-      scalar: .785398185
+      scalar: .785398126
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1280,7 +1270,7 @@ ParticleSystemRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 21f8d5008380e8d48a112226bc6e46c8, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1288,7 +1278,7 @@ ParticleSystemRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 4
   m_MaxParticleSize: .5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
@@ -1296,7 +1286,7 @@ ParticleSystemRenderer:
   m_SortingFudge: -10
   m_NormalDirection: 1
   m_SortMode: 2
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
