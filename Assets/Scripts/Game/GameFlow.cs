@@ -138,6 +138,18 @@ namespace PongJutsu
 		public delegate void ShurikenSpeedDelegate(GameVar.players.player player, int percentageSpeed);
 		public static event ShurikenSpeedDelegate OnShurikenSpeedChanged;
 
+		void Start()
+		{
+			GameFlow.OnGameIntensityChanged += OnMusicIntensityChanged;
+		}
+		
+		private void OnMusicIntensityChanged(GameIntensity intensity)
+		{
+			Debug.Log ("on music intensity changed: " + intensity);
+			int gameIntensity = (int)intensity;
+			MusicManager.current.NextPart (intensity != GameIntensity.End);
+		}
+
 		public void StartFlow()
 		{
 			if (consoleLog) 
