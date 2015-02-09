@@ -2001,7 +2001,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2966479741
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: c5867e79dcec909499bf487fa4a95d43, type: 3}
+  m_Sprite: {fileID: 21300014, guid: c5867e79dcec909499bf487fa4a95d43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: .588235319}
 --- !u!1 &160387222
 GameObject:
@@ -4970,7 +4970,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2966479741
   m_SortingOrder: -3
-  m_Sprite: {fileID: 21300000, guid: 986f82c8201280a478a0a9f5024b2a83, type: 3}
+  m_Sprite: {fileID: 21300014, guid: 986f82c8201280a478a0a9f5024b2a83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &751473618
 GameObject:
@@ -14107,7 +14107,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 2966479741
   m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: c5867e79dcec909499bf487fa4a95d43, type: 3}
+  m_Sprite: {fileID: 21300014, guid: c5867e79dcec909499bf487fa4a95d43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: .588235319}
 --- !u!1001 &2126003596
 Prefab:

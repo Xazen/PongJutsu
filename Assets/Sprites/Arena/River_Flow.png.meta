@@ -4,6 +4,24 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: River_Flow_0
     21300002: River_Flow_1
+    21300004: River_Flow_2
+    21300006: River_Flow_3
+    21300008: River_Flow_4
+    21300010: River_Flow_5
+    21300012: River_Flow_6
+    21300014: River_Flow_7
+    21300016: River_Flow_8
+    21300018: River_Flow_9
+    21300020: River_Flow_10
+    21300022: River_Flow_11
+    21300024: River_Flow_12
+    21300026: River_Flow_13
+    21300028: River_Flow_14
+    21300030: River_Flow_15
+    21300032: River_Flow_16
+    21300034: River_Flow_17
+    21300036: River_Flow_18
+    21300038: River_Flow_19
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -24,7 +42,7 @@ TextureImporter:
   generateCubemap: 0
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 4096
   textureSettings:
     filterMode: 2
     aniso: 16
@@ -39,7 +57,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 186
+  spritePixelsToUnits: 180
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
@@ -49,19 +67,199 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 620
-        height: 2035
+        y: 4686
+        width: 302
+        height: 1562
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: River_Flow_1
       rect:
         serializedVersion: 2
-        x: 620
+        x: 302
+        y: 4686
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_2
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 4686
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_3
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 4686
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_4
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 4686
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3124
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_6
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 3124
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_7
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 3124
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_8
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 3124
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_9
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 3124
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1562
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_11
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 1562
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_12
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 1562
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_13
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 1562
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_14
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 1562
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_15
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
-        width: 620
-        height: 2035
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_16
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 0
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_17
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 0
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_18
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 0
+        width: 302
+        height: 1562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: River_Flow_19
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 0
+        width: 302
+        height: 1562
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
