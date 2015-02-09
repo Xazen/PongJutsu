@@ -19,7 +19,7 @@ namespace PongJutsu
 			base.uiUpdate();
 
 			if (Input.GetButtonDown("Cancel"))
-				ui.SetTrigger("Back");
+				click_Back();
 		}
 
 		public void slide_MasterVolume(float value)
@@ -30,6 +30,11 @@ namespace PongJutsu
 		public void slide_MusicVolume(float value)
 		{
 			GameOptions.musicVolume = value;
+		}
+
+		public void click_Back()
+		{
+			ui.SetTrigger("Back");
 		}
 	}
 }

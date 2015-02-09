@@ -49,25 +49,30 @@ namespace PongJutsu
 				blockScrolling = false;
 
 			if (Input.GetAxisRaw("Horizontal") > 0f && !blockScrolling)
-				next();
+				nextPage();
 			else if (Input.GetAxisRaw("Horizontal") < 0f && !blockScrolling)
-				back();
+				backPage();
 
 			if (Input.GetButtonDown("Cancel"))
-				ui.SetTrigger("Back");
+				click_Back();
 		}
 
-		public void next()
+		public void nextPage()
 		{
 			currentPageIndex = (int)Mathf.Repeat(currentPageIndex + 1, helpImage.Length);
 		}
 
-		public void back()
+		public void backPage()
 		{
 			currentPageIndex = (int)Mathf.Repeat(currentPageIndex - 1, helpImage.Length);
 		}
 
-		public void setPageIndex(int index)
+		public void click_Back()
+		{
+			ui.SetTrigger("Back");
+		}
+
+		private void setPageIndex(int index)
 		{
 			content.sprite = helpImage[index];
 
