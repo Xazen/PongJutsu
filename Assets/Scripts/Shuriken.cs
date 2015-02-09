@@ -7,6 +7,7 @@ namespace PongJutsu
 	{
 
 		public float speed = 7f;
+
 		[SerializeField] private float speedAdjustment = 1.05f;
 		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
@@ -57,11 +58,15 @@ namespace PongJutsu
 			{
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenLeftSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenLeftColor;
+				this.GetComponentInChildren<ParticleSystem>().emissionRate = 2 + Mathf.Min(GameVar.players.left.comboCount - 1, 15) * 2;
+				this.GetComponentInChildren<ParticleSystem>().startColor = shurikenLeftColor;
 			}
 			else if (owner.tag == "PlayerRight")
 			{
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
+				this.GetComponentInChildren<ParticleSystem>().emissionRate = 2 + Mathf.Min(GameVar.players.right.comboCount - 1, 15) * 2;
+				this.GetComponentInChildren<ParticleSystem>().startColor = shurikenRightColor;
 			}
 
 			this.GetComponent<TrailRenderer>().sortingLayerName = this.GetComponentInChildren<SpriteRenderer>().sortingLayerName;
