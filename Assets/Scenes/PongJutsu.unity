@@ -7034,8 +7034,8 @@ MonoBehaviour:
   interactable: 0
   comboCounterLeft: {fileID: 659889050}
   comboCounterRight: {fileID: 1875791557}
-  startEmissionRate: 5
-  multiplyEmissionRate: 10
+  startEmissionRate: 3
+  multiplyEmissionRate: 8
   maxComboEmission: 15
   rageIndicatorLeft: {fileID: 1745638595}
   rageIndicatorRight: {fileID: 994326045}
