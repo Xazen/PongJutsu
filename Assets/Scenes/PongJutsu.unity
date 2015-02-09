@@ -6291,6 +6291,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 816887105}
   - 82: {fileID: 816887106}
+  - 114: {fileID: 816887107}
   m_Layer: 9
   m_Name: TaikoDrums
   m_TagString: Untagged
@@ -6368,6 +6369,17 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &816887107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 816887104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead82aa9de5e020489a9e3fc1f29784f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &849826151
 GameObject:
   m_ObjectHideFlags: 0
@@ -6971,6 +6983,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 945891895}
   - 82: {fileID: 945891896}
+  - 114: {fileID: 945891897}
   m_Layer: 9
   m_Name: MainMenuBackground
   m_TagString: Untagged
@@ -7053,6 +7066,17 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &945891897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945891894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead82aa9de5e020489a9e3fc1f29784f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &994326045
 GameObject:
   m_ObjectHideFlags: 0
