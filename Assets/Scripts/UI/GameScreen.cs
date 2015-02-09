@@ -13,6 +13,9 @@ namespace PongJutsu
 		[SerializeField] private float multiplyEmissionRate = 10f;
 		[SerializeField] private int maxComboEmission = 15;
 
+		[SerializeField] private GameObject rageIndicatorLeft;
+		[SerializeField] private GameObject rageIndicatorRight;
+
 		public override void uiUpdate()
 		{
 			base.uiUpdate();
@@ -25,6 +28,16 @@ namespace PongJutsu
 			{
 				setComboCouter(GameVar.players.left.comboCount, GameVar.players.right.comboCount);
 			}
+
+			if (GameFlow.instance.isDisadvantageBuffLeftPhase)
+				rageIndicatorLeft.SetActive(true);
+			else
+				rageIndicatorLeft.SetActive(false);
+
+			if (GameFlow.instance.isDisadvantageBuffRightPhase)
+				rageIndicatorRight.SetActive(true);
+			else
+				rageIndicatorRight.SetActive(false);
 		}
 
 		void setComboCouter(int left, int right)
