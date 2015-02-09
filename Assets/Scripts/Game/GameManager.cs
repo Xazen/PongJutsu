@@ -51,6 +51,8 @@ namespace PongJutsu
 				GameVar.Refresh();
 				flow.StartFlow();
 
+				GameMatch.startRound();
+
 				isIngame = true;
 				isPause = false;
 				isEnd = false;

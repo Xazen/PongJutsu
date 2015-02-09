@@ -81,8 +81,9 @@ namespace PongJutsu
 		private int _forthits = 0;
 		public int forthits { get { return _forthits; } set { if (GameManager.allowInput) { _forthits = value; } } }
 
-		private int _dealtdamage = 0;
-		public int dealtdamage { get { return _dealtdamage; } set { if (GameManager.allowInput) { _dealtdamage = value; } } }
+		private int[] _dealtdamage = {0,0,0};
+		public int dealtdamage { get { int d = 0; foreach (int i in _dealtdamage) { d += i; } return d; } }
+		public int dealtdamageRound { get { return _dealtdamage[GameMatch.getRound()]; } set { if (GameManager.allowInput) { _dealtdamage[GameMatch.getRound()] = value; } } }
 	}
 
 	public class GloablScore

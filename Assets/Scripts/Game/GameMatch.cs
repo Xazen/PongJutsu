@@ -7,12 +7,24 @@ namespace PongJutsu
 	public class GameMatch : MonoBehaviour
 	{
 		private static List<string> results = new List<string>();
+		private static int round = 0;
 		private static int minRoundsToWin = 2;
 
 		public static void newMatch()
 		{
 			results.Clear();
+			round = 0;
 			GameScore.Clear();
+		}
+
+		public static int getRound()
+		{
+			return round;
+		}
+
+		public static void startRound()
+		{
+			round = getWinnerList().Count;
 		}
 
 		public static void addWinner(string winner)

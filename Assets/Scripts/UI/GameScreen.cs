@@ -13,6 +13,9 @@ namespace PongJutsu
 		[SerializeField] private float multiplyEmissionRate = 10f;
 		[SerializeField] private int maxComboEmission = 15;
 
+		[SerializeField] private Text scoreCounterLeft;
+		[SerializeField] private Text scoreCounterRight;
+
 		[SerializeField] private GameObject rageIndicatorLeft;
 		[SerializeField] private GameObject rageIndicatorRight;
 
@@ -20,24 +23,31 @@ namespace PongJutsu
 		{
 			base.uiUpdate();
 
-			if (GameVar.players.left.reference == null && GameVar.players.right.reference == null)
-			{
-				setComboCouter(0, 0);
-			}
-			else if (GameManager.allowInput)
+			if (GameVar.players.left.reference != null && GameVar.players.right.reference != null)
 			{
 				setComboCouter(GameVar.players.left.comboCount, GameVar.players.right.comboCount);
+
+				if (GameFlow.instance.isDisadvantageBuffLeftPhase)
+					rageIndicatorLeft.SetActive(true);
+				else
+					rageIndicatorLeft.SetActive(false);
+
+				if (GameFlow.instance.isDisadvantageBuffRightPhase)
+					rageIndicatorRight.SetActive(true);
+				else
+					rageIndicatorRight.SetActive(false);
+
+				scoreCounterLeft.text = GameScore.GetPlayerLeftScore().dealtdamageRound.ToString();
+				scoreCounterRight.text = GameScore.GetPlayerRightScore().dealtdamageRound.ToString();
 			}
-
-			if (GameFlow.instance.isDisadvantageBuffLeftPhase)
-				rageIndicatorLeft.SetActive(true);
 			else
+			{
+				setComboCouter(0, 0);
 				rageIndicatorLeft.SetActive(false);
-
-			if (GameFlow.instance.isDisadvantageBuffRightPhase)
-				rageIndicatorRight.SetActive(true);
-			else
 				rageIndicatorRight.SetActive(false);
+				scoreCounterLeft.text = "0";
+				scoreCounterRight.text = "0";
+			}
 		}
 
 		void setComboCouter(int left, int right)

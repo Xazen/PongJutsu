@@ -57,7 +57,9 @@ namespace PongJutsu
 		public void addCombo()
 		{
 			passedTimeSinceCombo = 0.0f;
-			comboCount++;
+
+			if (GameManager.allowInput)
+				comboCount++;
 		}
 		public void resetCombo()
 		{
