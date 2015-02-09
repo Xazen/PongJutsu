@@ -169,7 +169,7 @@ namespace PongJutsu
 		{
 			if (currentPartIndex >= nextPartIndex)
 			{
-				nextPartIndex = Mathf.Clamp(currentPartIndex + 1, 0, maxPartsCount - 1);
+				nextPartIndex = Mathf.Clamp(currentPartIndex + 1, 1, maxPartsCount - 1);
 
 				if (wait)
 				{
@@ -182,7 +182,28 @@ namespace PongJutsu
 			}
 			else
 			{
-				nextPartIndex = Mathf.Clamp(nextPartIndex + 1, 0, maxPartsCount - 1);
+				nextPartIndex = Mathf.Clamp(nextPartIndex + 1, 1, maxPartsCount - 1);
+			}
+		}
+
+		public void NextPart(int partIndex, bool wait = true)
+		{
+			if (currentPartIndex >= nextPartIndex)
+			{
+				nextPartIndex = Mathf.Clamp(partIndex, 1, maxPartsCount - 1);
+
+				if (wait)
+				{
+					StartCoroutine(IWaitForNextPart());
+				}
+				else
+				{
+					StartCoroutine(IBridgeToNextPart());
+				}
+			}
+			else
+			{
+				nextPartIndex = Mathf.Clamp(partIndex, 1, maxPartsCount - 1);
 			}
 		}
 
