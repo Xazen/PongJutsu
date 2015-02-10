@@ -167,43 +167,29 @@ namespace PongJutsu
 
 		public void NextPart(bool wait = true)
 		{
-			if (currentPartIndex >= nextPartIndex)
-			{
-				nextPartIndex = Mathf.Clamp(currentPartIndex + 1, 1, maxPartsCount - 1);
+			nextPartIndex = Mathf.Clamp(currentPartIndex + 1, 1, maxPartsCount - 1);
 
-				if (wait)
-				{
-					StartCoroutine(IWaitForNextPart());
-				}
-				else
-				{
-					StartCoroutine(IBridgeToNextPart());
-				}
+			if (wait)
+			{
+				StartCoroutine(IWaitForNextPart());
 			}
 			else
 			{
-				nextPartIndex = Mathf.Clamp(nextPartIndex + 1, 1, maxPartsCount - 1);
+				StartCoroutine(IBridgeToNextPart());
 			}
 		}
 
 		public void NextPart(int partIndex, bool wait = true)
 		{
-			if (currentPartIndex >= nextPartIndex)
-			{
-				nextPartIndex = Mathf.Clamp(partIndex, 1, maxPartsCount - 1);
+			nextPartIndex = Mathf.Clamp(partIndex, 1, maxPartsCount - 1);
 
-				if (wait)
-				{
-					StartCoroutine(IWaitForNextPart());
-				}
-				else
-				{
-					StartCoroutine(IBridgeToNextPart());
-				}
+			if (wait)
+			{
+				StartCoroutine(IWaitForNextPart());
 			}
 			else
 			{
-				nextPartIndex = Mathf.Clamp(partIndex, 1, maxPartsCount - 1);
+				StartCoroutine(IBridgeToNextPart());
 			}
 		}
 
@@ -215,15 +201,15 @@ namespace PongJutsu
 
 		IEnumerator ILoopPart(Layer layer)
 		{
-			int  partIndex = currentPartIndex;
-			while (currentPartIndex == partIndex)
+			int  INextPart = currentPartIndex;
+			while (currentPartIndex == INextPart)
 			{
 				Part currentPart = layer.parts[currentPartIndex];
 				int nextClipIndex = (int)Mathf.Repeat(currentPart.currentClipIndex + 1, currentPart.clips.Length);
 
 				yield return new WaitForSeconds(layer.source.clip.length - layer.source.time);
 
-				if (currentPartIndex == partIndex && layer.parts[currentPartIndex].currentClipIndex != nextClipIndex)
+				if (currentPartIndex == INextPart && layer.parts[currentPartIndex].currentClipIndex != nextClipIndex)
 				{
 					layer.source.clip = currentPart.clips[nextClipIndex];
 					layer.source.time = 0f;
@@ -238,8 +224,12 @@ namespace PongJutsu
 
 		IEnumerator IWaitForNextPart()
 		{
+			int INextPart = nextPartIndex;
+
 			yield return new WaitForSeconds(leadingLayer.source.clip.length - leadingLayer.source.time);
-			PlayPart(nextPartIndex);
+
+			if (INextPart == nextPartIndex)
+				PlayPart(nextPartIndex);
 		}
 
 		IEnumerator IBridgeToNextPart()
