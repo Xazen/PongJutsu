@@ -223,7 +223,7 @@ namespace PongJutsu
 				{
 					fort.GetComponent<Fort>().TakeDamage(damage);
 
-					if (bombExplosion != null)
+					if (bombExplosion != null && !fort.GetComponent<Fort>().isDestroyed)
 					{
 						GameObject f = (GameObject)Instantiate(bombExplosion, fort.transform.position, Quaternion.Euler(bombExplosion.transform.eulerAngles.x, bombExplosion.transform.eulerAngles.y * fort.transform.localScale.x, bombExplosion.transform.eulerAngles.z));
 						f.name = fort.name + "(Feedback)";
