@@ -1781,7 +1781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212b1861dd123034a89a845e657b652b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSelected: {fileID: 1634267413}
+  defaultSelected: {fileID: 281164106}
   interactable: 1
   scoreOutputLeft:
     wins: {fileID: 1065202807}
@@ -2940,7 +2940,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: -3}
+  m_AnchoredPosition: {x: 0, y: -2.0999999}
   m_SizeDelta: {x: 57, y: 7}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &281164108
@@ -22614,7 +22614,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 0, y: -2.0999999}
+  m_AnchoredPosition: {x: 0, y: -3}
   m_SizeDelta: {x: 57, y: 7}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1634267415
