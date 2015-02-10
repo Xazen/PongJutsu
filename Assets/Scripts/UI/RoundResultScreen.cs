@@ -44,15 +44,15 @@ namespace PongJutsu
 			{
 				this.transform.FindChild("PlayerLeftResult").GetComponent<Image>().sprite = leftWinSprite;
 				this.transform.FindChild("PlayerRightResult").GetComponent<Image>().sprite = rightLoseSprite;
-				this.transform.FindChild("Winner").position = new Vector2(this.transform.FindChild("PlayerLeftResult").position.x, 0f);
-				this.transform.FindChild("Loser").position = new Vector2(this.transform.FindChild("PlayerRightResult").position.x, 0f);
+				this.transform.FindChild("Winner").position = new Vector2(this.transform.FindChild("PlayerLeftResult").position.x, this.transform.FindChild("Winner").position.y);
+				this.transform.FindChild("Loser").position = new Vector2(this.transform.FindChild("PlayerRightResult").position.x, this.transform.FindChild("Loser").position.y);
 			}
 			else if (GameMatch.getLastWinner() == "right")
 			{
 				this.transform.FindChild("PlayerLeftResult").GetComponent<Image>().sprite = leftLoseSprite;
 				this.transform.FindChild("PlayerRightResult").GetComponent<Image>().sprite = rightWinSprite;
-				this.transform.FindChild("Winner").position = new Vector2(this.transform.FindChild("PlayerRightResult").position.x, 0f);
-				this.transform.FindChild("Loser").position = new Vector2(this.transform.FindChild("PlayerLeftResult").position.x, 0f);
+				this.transform.FindChild("Winner").position = new Vector2(this.transform.FindChild("PlayerRightResult").position.x, this.transform.FindChild("Winner").position.y);
+				this.transform.FindChild("Loser").position = new Vector2(this.transform.FindChild("PlayerLeftResult").position.x, this.transform.FindChild("Loser").position.y);
 			}
 		}
 
