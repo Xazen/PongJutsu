@@ -176,7 +176,6 @@ namespace PongJutsu
 		public static void StartGame()
 		{
 			MusicManager.current.StartMusic();
-			MusicManager.current.NextPart();
 			allowInput = true;
 		}
 
