@@ -36,7 +36,7 @@ AnimatorController:
     m_Name: River
     m_StateMachine: {fileID: 110732504}
     m_Mask: {fileID: 0}
-    m_BlendingMode: 1
+    m_BlendingMode: 0
     m_SyncedLayerIndex: -1
     m_StateMachineMotionSetIndex: 0
     m_DefaultWeight: 1
@@ -47,7 +47,7 @@ AnimatorController:
     m_Name: Doors
     m_StateMachine: {fileID: 110708050}
     m_Mask: {fileID: 0}
-    m_BlendingMode: 1
+    m_BlendingMode: 0
     m_SyncedLayerIndex: -1
     m_StateMachineMotionSetIndex: 0
     m_DefaultWeight: 1
@@ -58,7 +58,7 @@ AnimatorController:
     m_Name: Waves
     m_StateMachine: {fileID: 110750204}
     m_Mask: {fileID: 0}
-    m_BlendingMode: 1
+    m_BlendingMode: 0
     m_SyncedLayerIndex: -1
     m_StateMachineMotionSetIndex: 0
     m_DefaultWeight: 1
@@ -146,7 +146,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Waves
-  m_Speed: 1
+  m_Speed: .850000024
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: fb74962fc81b1684da16da63be75a05a, type: 2}
