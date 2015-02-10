@@ -23,11 +23,11 @@ namespace PongJutsu
 
 	// Game ientensity callbacks
 	public enum GameIntensity {
-		Mercy = 1,
-		Early = 2,
-		Main = 3,
-		Late = 4,
-		End = 5
+		Mercy = 0,
+		Early = 1,
+		Main = 2,
+		Late = 3,
+		End = 4
 	}
 
 	public class GameFlow : MonoBehaviour
@@ -149,7 +149,7 @@ namespace PongJutsu
 			{
 				Debug.Log ("on music intensity changed: " + intensity);
 				int gameIntensity = (int)intensity;
-				MusicManager.current.NextPart (intensity != GameIntensity.End);
+				MusicManager.current.NextPart (gameIntensity, intensity != GameIntensity.End);
 			}
 		}
 
