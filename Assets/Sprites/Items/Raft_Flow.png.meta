@@ -4,24 +4,6 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: Raft_Flow_0
     21300002: Raft_Flow_1
-    21300004: Raft_Flow_2
-    21300006: Raft_Flow_3
-    21300008: Raft_Flow_4
-    21300010: Raft_Flow_5
-    21300012: Raft_Flow_6
-    21300014: Raft_Flow_7
-    21300016: Raft_Flow_8
-    21300018: Raft_Flow_9
-    21300020: Raft_Flow_10
-    21300022: Raft_Flow_11
-    21300024: Raft_Flow_12
-    21300026: Raft_Flow_13
-    21300028: Raft_Flow_14
-    21300030: Raft_Flow_15
-    21300032: Raft_Flow_16
-    21300034: Raft_Flow_17
-    21300036: Raft_Flow_18
-    21300038: Raft_Flow_19
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -42,7 +24,7 @@ TextureImporter:
   generateCubemap: 0
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 4096
+  maxTextureSize: 2048
   textureSettings:
     filterMode: 2
     aniso: 16
@@ -57,7 +39,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 210
+  spritePixelsToUnits: 525
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
@@ -67,201 +49,21 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 6000
-        width: 182
-        height: 2000
+        y: 0
+        width: 2000
+        height: 4000
       alignment: 9
-      pivot: {x: .5, y: .5}
+      pivot: {x: .5, y: .104999997}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Raft_Flow_1
       rect:
         serializedVersion: 2
-        x: 182
-        y: 6000
-        width: 182
-        height: 2000
+        x: 2000
+        y: 0
+        width: 2000
+        height: 4000
       alignment: 9
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_2
-      rect:
-        serializedVersion: 2
-        x: 364
-        y: 6000
-        width: 182
-        height: 2000
-      alignment: 9
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_3
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 6000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_4
-      rect:
-        serializedVersion: 2
-        x: 728
-        y: 6000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 4000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_6
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 4000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_7
-      rect:
-        serializedVersion: 2
-        x: 364
-        y: 4000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_8
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 4000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_9
-      rect:
-        serializedVersion: 2
-        x: 728
-        y: 4000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_10
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 2000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_11
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 2000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_12
-      rect:
-        serializedVersion: 2
-        x: 364
-        y: 2000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_13
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 2000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_14
-      rect:
-        serializedVersion: 2
-        x: 728
-        y: 2000
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_15
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_16
-      rect:
-        serializedVersion: 2
-        x: 182
-        y: 0
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_17
-      rect:
-        serializedVersion: 2
-        x: 364
-        y: 0
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_18
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 0
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Raft_Flow_19
-      rect:
-        serializedVersion: 2
-        x: 728
-        y: 0
-        width: 182
-        height: 2000
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: .5, y: .104999997}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
