@@ -29,11 +29,10 @@ namespace PongJutsu
 				InstantGame();
 		}
 
-		private static void InstantGame()
+		public static void InstantGame()
 		{
 			GameMatch.newMatch();
 			LoadGame(false);
-			StartGame();
 			ui.SetTrigger("InstantGame");
 		}
 
