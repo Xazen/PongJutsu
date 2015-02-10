@@ -13665,7 +13665,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -5.5, y: -5.55000019}
+  m_AnchoredPosition: {x: -5.5, y: -5.55800009}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1104076527
@@ -13683,7 +13683,7 @@ MonoBehaviour:
   m_Color: {r: .835294127, g: .827450991, b: .643137276, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: e766b84d65f04dc428012cd90cad3847, type: 3}
-    m_FontSize: 30
+    m_FontSize: 31
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -21049,6 +21049,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11447624, guid: 4c875ae6d57afd644a9eb36c010f2568, type: 2}
+      propertyPath: instantPlay
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c875ae6d57afd644a9eb36c010f2568, type: 2}
   m_RootGameObject: {fileID: 1757980352}
@@ -22901,7 +22905,7 @@ MonoBehaviour:
   m_Color: {r: .835294127, g: .827450991, b: .643137276, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: e766b84d65f04dc428012cd90cad3847, type: 3}
-    m_FontSize: 30
+    m_FontSize: 31
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -23343,7 +23347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowPause: 1
-  instantPlay: 1
+  instantPlay: 0
 --- !u!114 &1757980354
 MonoBehaviour:
   m_ObjectHideFlags: 0
