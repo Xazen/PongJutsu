@@ -145,9 +145,12 @@ namespace PongJutsu
 		
 		private void OnMusicIntensityChanged(GameIntensity intensity)
 		{
-			Debug.Log ("on music intensity changed: " + intensity);
-			int gameIntensity = (int)intensity;
-			MusicManager.current.NextPart (intensity != GameIntensity.End);
+			if (intensity != GameIntensity.Mercy) 
+			{
+				Debug.Log ("on music intensity changed: " + intensity);
+				int gameIntensity = (int)intensity;
+				MusicManager.current.NextPart (intensity != GameIntensity.End);
+			}
 		}
 
 		public void StartFlow()
