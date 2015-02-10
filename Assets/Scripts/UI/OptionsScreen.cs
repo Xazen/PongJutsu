@@ -16,7 +16,7 @@ namespace PongJutsu
 
 		public override void uiUpdate()
 		{
-			//base.uiUpdate();
+			base.uiUpdate();
 
 			if (Input.GetButtonDown("Cancel"))
 				click_Back();

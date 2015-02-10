@@ -9,7 +9,7 @@ namespace PongJutsu
 	{
 		[SerializeField] private GameObject defaultSelected;
 		[SerializeField] private bool interactable = false;
-		private bool hasButtons = false;
+		private bool hasInteractable = false;
 		private bool allowInput = true;
 
 		public static Animator ui;
@@ -19,8 +19,8 @@ namespace PongJutsu
 			if (ui == null)
 				ui = GameObject.Find("UI").GetComponent<Animator>();
 
-			if (this.GetComponentsInChildren<Button>().Length > 0)
-				hasButtons = true;
+			if (this.GetComponentsInChildren<Button>().Length > 0 || this.GetComponentsInChildren<Slider>().Length > 0)
+				hasInteractable = true;
 		}
 
 		void OnEnable()
@@ -56,12 +56,20 @@ namespace PongJutsu
 
 		public virtual void uiUpdate()
 		{
-			if (hasButtons)
+			if (hasInteractable)
 			{
 				bool selectInMenu = false;
 				foreach (Button button in this.GetComponentsInChildren<Button>())
 				{
 					if (button.gameObject == EventSystem.current.lastSelectedGameObject || button.gameObject == EventSystem.current.currentSelectedGameObject)
+					{
+						selectInMenu = true;
+						break;
+					}
+				}
+				foreach (Slider slider in this.GetComponentsInChildren<Slider>())
+				{
+					if (slider.gameObject == EventSystem.current.lastSelectedGameObject || slider.gameObject == EventSystem.current.currentSelectedGameObject)
 					{
 						selectInMenu = true;
 						break;
@@ -95,7 +103,7 @@ namespace PongJutsu
 
 		public void setDefaultSelection()
 		{
-			if (defaultSelected != null && hasButtons)
+			if (defaultSelected != null && hasInteractable)
 			{
 				EventSystem.current.SetSelectedGameObject(null);
 				EventSystem.current.SetSelectedGameObject(defaultSelected);
