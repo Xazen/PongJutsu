@@ -346,7 +346,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: .200000003
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -647,8 +647,7 @@ MonoBehaviour:
   playRandomOnAwake: 0
   randomProbability: 100
   sounds:
-  - {fileID: 0}
-  - {fileID: 8300000, guid: ab84f58857ce48e4eaf822f49900ce80, type: 3}
+  - {fileID: 8300000, guid: 45a717094171db74db3b3e08561ba8fb, type: 3}
 --- !u!114 &11495008
 MonoBehaviour:
   m_ObjectHideFlags: 1
