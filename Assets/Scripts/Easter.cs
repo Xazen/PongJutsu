@@ -94,7 +94,7 @@ namespace Easter
 			while (isEaster)
 			{
 				time = Time.unscaledTime - offsetTime;
-				warmupTime = Mathf.Clamp(((Time.unscaledTime - offsetTime) / 10f) - 0.16f, 0f, 1f);
+				warmupTime = Mathf.Clamp(((Time.unscaledTime - offsetTime) / 10f) - 0.18f, 0f, 1f);
 
 				foreach (AudioSource audio in GameObject.FindObjectsOfType<AudioSource>())
 					audio.pitch = 1f + (-0.35f + Mathf.PingPong(time / 10f, 0.7f)) * warmupTime;
