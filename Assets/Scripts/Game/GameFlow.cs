@@ -88,8 +88,8 @@ namespace PongJutsu
 		private float mercyDuration = 30.0f;
 
 		// Buff loosing player
-		public bool isDisadvantageBuffLeftPhase = false;
-		public bool isDisadvantageBuffRightPhase = false;
+		[HideInInspector] public bool isDisadvantageBuffLeftPhase = false;
+		[HideInInspector] public bool isDisadvantageBuffRightPhase = false;
 		private bool isDisadvantageBuffRoundLeft = false;
 		private bool isDisadvantageBuffRoundRight = false;
 		private float disadvantageBuffTimer = 0.0f;

@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27ce57e0ff343242b96f60b401bee97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consoleLog: 1
+  consoleLog: 0
   riverMinimumSpawnFrequency: 3
   shurikenMaximumSpeed: 2.5
   riverTimeSpawnMultiplier: .75
