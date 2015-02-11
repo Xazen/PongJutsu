@@ -30,12 +30,12 @@ namespace Easter
 		public void ActivateEasterSpawn()
 		{
 			if (!isEaster)
-				StartCoroutine(ISpawnEaster());
+				StartCoroutine("ISpawnEaster");
 		}
 
 		public void DeactivateEasterSpawn()
 		{
-			StopCoroutine(ISpawnEaster());
+			StopCoroutine("ISpawnEaster");
 			this.GetComponent<SpriteRenderer>().enabled = false;
 			this.collider2D.enabled = false;
 		}
@@ -50,7 +50,7 @@ namespace Easter
 		{
 			if (!isEaster)
 			{
-				StartCoroutine(IHappyEaster());
+				StartCoroutine("IHappyEaster");
 				PongJutsu.GameManager.InstantGame();
 			}
 		}
@@ -58,7 +58,7 @@ namespace Easter
 		public void StopEaster()
 		{
 			isEaster = false;
-			StopCoroutine(IHappyEaster());
+			StopCoroutine("IHappyEaster");
 
 			material.color = Color.white;
 			Camera.main.transform.rotation = Quaternion.identity;
@@ -87,20 +87,27 @@ namespace Easter
 		{
 			isEaster = true;
 
+			float offsetTime = Time.unscaledTime;
+			float time = 0f;
+			float warmupTime = 0f;
+
 			while (isEaster)
 			{
+				time = Time.unscaledTime - offsetTime;
+				warmupTime = Mathf.Clamp(((Time.unscaledTime - offsetTime) / 10f) - 0.16f, 0f, 1f);
+
 				foreach (AudioSource audio in GameObject.FindObjectsOfType<AudioSource>())
-					audio.pitch = 0.65f + Mathf.PingPong(Time.unscaledTime / 10f, 0.7f);
+					audio.pitch = 1f + (-0.35f + Mathf.PingPong(time / 10f, 0.7f)) * warmupTime;
 
 				if (Time.timeScale != 0f)
-					Time.timeScale = 0.6f + Mathf.PingPong(Time.unscaledTime / 5f, 0.7f);
+					Time.timeScale = 1f + (-0.35f + Mathf.PingPong(time / 5f, 0.7f)) * warmupTime;
 
-				material.color = HSBColor.ToColor(new HSBColor(Mathf.Lerp(0f, 1f, Mathf.Repeat(Time.unscaledTime * speed, 1f)), saturation, 1f));
+				material.color = HSBColor.ToColor(new HSBColor(Mathf.Lerp(0f, 1f, Mathf.Repeat(time * speed, 1f)), saturation * warmupTime, 1f));
 
 				Camera.main.transform.localRotation = Quaternion.Euler(
-					Mathf.SmoothStep(-1f, 1f, Mathf.PingPong(Time.unscaledTime * 0.5f, 1f)),
-					Mathf.SmoothStep(-1f, 1f, Mathf.PingPong(Time.unscaledTime * 0.65f, 1f)),
-					Mathf.SmoothStep(-2f, 2f, Mathf.PingPong(Time.unscaledTime * 0.6f, 1f)));
+					Mathf.SmoothStep(-1f, 1f, 0.5f + (-0.5f + Mathf.PingPong(0.5f + time * 0.5f, 1f)) * warmupTime),
+					Mathf.SmoothStep(-1f, 1f, 0.5f + (-0.5f + Mathf.PingPong(0.5f + time * 0.65f, 1f)) * warmupTime),
+					Mathf.SmoothStep(-2f, 2f, 0.5f + (-0.5f + Mathf.PingPong(0.5f + time * 0.6f, 1f)) * warmupTime));
 
 				yield return new WaitForEndOfFrame();
 			}
