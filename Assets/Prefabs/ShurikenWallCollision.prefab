@@ -113,7 +113,7 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: .5
+      scalar: .550000012
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -146,7 +146,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: 4
+      scalar: 3.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -273,7 +273,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: .5
+      scalar: .620000005
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -345,7 +345,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 1
-    radius: .150000006
+    radius: .125
     angle: 30
     length: 5
     boxX: 1
@@ -358,7 +358,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 80
+      scalar: 87
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -390,7 +390,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    cnt0: 30
+    cnt0: 3
     cnt1: 30
     cnt2: 30
     cnt3: 30
@@ -400,7 +400,7 @@ ParticleSystem:
     time3: 0
     m_BurstCount: 0
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       scalar: 1
       maxCurve:
@@ -412,7 +412,7 @@ ParticleSystem:
           outSlope: 0
           tangentMode: 0
         - time: 1
-          value: .283783764
+          value: .279809177
           inSlope: -2
           outSlope: -2
           tangentMode: 0
@@ -506,7 +506,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 33539
+        atime1: 36044
         atime2: 65535
         atime3: 65535
         atime4: 0
@@ -729,7 +729,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     y:
-      scalar: -.981000006
+      scalar: -2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -901,7 +901,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     magnitude:
-      scalar: 3
+      scalar: 2.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -935,7 +935,7 @@ ParticleSystem:
       minMaxState: 0
     separateAxis: 0
     inWorldSpace: 0
-    dampen: .699999988
+    dampen: .800000012
   SizeBySpeedModule:
     enabled: 0
     curve:
