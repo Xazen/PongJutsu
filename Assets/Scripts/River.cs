@@ -71,6 +71,8 @@ namespace PongJutsu
 			carrier.transform.parent = this.transform;
 
 			spawnedItems.Add(carrier);
+
+			GameScore.GetGlobalScore().spawneditems += 1;
 		}
 
 		// Return a random item based on spawn probabilities

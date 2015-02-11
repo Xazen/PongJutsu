@@ -56,6 +56,7 @@ namespace PongJutsu
 					shuriken.bounceBack = true;
 
 					this.transform.parent.GetComponent<Player>().addCombo();
+					GameScore.GetByPlayer(this.transform.parent.gameObject).reflections += 1;
 				}
 				// Catch
 				else if (shuriken.owner == this.transform.parent.gameObject && shuriken.bounceBack)
@@ -64,6 +65,8 @@ namespace PongJutsu
 					this.GetComponent<Animator>().SetTrigger("Catch");
 
 					this.transform.parent.GetComponent<Player>().addCombo();
+					GameScore.GetByPlayer(this.transform.parent.gameObject).catches += 1;
+
 					shurikenGameObject.GetComponent<Shuriken>().Remove();
 				}
 			}

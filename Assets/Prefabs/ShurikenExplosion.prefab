@@ -48,9 +48,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -59,11 +59,6 @@ AudioSource:
     m_Curve:
     - time: 0
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -115,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 501c091570f900449bf3f14fee547f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destructByParticlesystem: 0
   explosionRadius: 0
   direction: 0
 --- !u!212 &21200000

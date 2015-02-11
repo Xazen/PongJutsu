@@ -8,7 +8,9 @@ namespace PongJutsu
 	public class UIScript : MonoBehaviour
 	{
 		[SerializeField] private GameObject defaultSelected;
-		private bool hasButtons = false;
+		[SerializeField] private bool interactable = false;
+		private bool hasInteractable = false;
+		private bool allowInput = true;
 
 		public static Animator ui;
 
@@ -17,32 +19,44 @@ namespace PongJutsu
 			if (ui == null)
 				ui = GameObject.Find("UI").GetComponent<Animator>();
 
-			if (this.GetComponentsInChildren<Button>().Length > 0)
-				hasButtons = true;
+			if (this.GetComponentsInChildren<Button>().Length > 0 || this.GetComponentsInChildren<Slider>().Length > 0)
+				hasInteractable = true;
 		}
 
 		void OnEnable()
+		{
+			uiEnable();
+
+			if (getUInputAny() || !interactable)
+			{
+				allowInput = false;
+				EventSystem.current.sendNavigationEvents = false;
+			}
+		}
+
+		public virtual void uiEnable()
 		{
 			ResetTriggers();
 			setDefaultSelection();
 		}
 
-		void ResetTriggers()
+		void LateUpdate()
 		{
-			foreach (string parameter in ui.GetComponent<AnimatorParameter>().trigger)
+			if (interactable && !allowInput)
 			{
-				ui.ResetTrigger(parameter);
+				if (!getUInputAny())
+					allowInput = true;
+				else
+					EventSystem.current.sendNavigationEvents = false;
 			}
+
+			if (allowInput || !interactable)
+				uiUpdate();
 		}
 
-		void Update()
+		public virtual void uiUpdate()
 		{
-			UIpdate();
-		}
-
-		public virtual void UIpdate()
-		{
-			if (hasButtons)
+			if (hasInteractable)
 			{
 				bool selectInMenu = false;
 				foreach (Button button in this.GetComponentsInChildren<Button>())
@@ -53,22 +67,43 @@ namespace PongJutsu
 						break;
 					}
 				}
+				foreach (Slider slider in this.GetComponentsInChildren<Slider>())
+				{
+					if (slider.gameObject == EventSystem.current.lastSelectedGameObject || slider.gameObject == EventSystem.current.currentSelectedGameObject)
+					{
+						selectInMenu = true;
+						break;
+					}
+				}
 
-				if (getInputUI() && !selectInMenu)
+				if (getUInputDown() && !selectInMenu)
 					setDefaultSelection();
-				else if (getInputUI() && EventSystem.current.currentSelectedGameObject == null)
+				else if (getUInputDown() && EventSystem.current.currentSelectedGameObject == null)
 					EventSystem.current.SetSelectedGameObject(EventSystem.current.lastSelectedGameObject);
 			}
 		}
 
-		private bool getInputUI()
+		public bool getUInputDown()
 		{
 			return (Input.GetButtonDown("Vertical") || Input.GetAxisRaw("Vertical") != 0f || Input.GetButtonDown("Horizontal") || Input.GetAxisRaw("Horizontal") != 0f);
 		}
 
-		internal void setDefaultSelection()
+		private bool getUInputAny()
 		{
-			if (defaultSelected != null && hasButtons)
+			return getUInputDown() || Input.anyKey;
+		}
+
+		void ResetTriggers()
+		{
+			foreach (string parameter in ui.GetComponent<AnimatorParameter>().trigger)
+			{
+				ui.ResetTrigger(parameter);
+			}
+		}
+
+		public void setDefaultSelection()
+		{
+			if (defaultSelected != null && hasInteractable)
 			{
 				EventSystem.current.SetSelectedGameObject(null);
 				EventSystem.current.SetSelectedGameObject(defaultSelected);

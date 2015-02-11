@@ -7,6 +7,7 @@ namespace PongJutsu
 	{
 
 		public float speed = 7f;
+
 		[SerializeField] private float speedAdjustment = 1.05f;
 		[HideInInspector] public Vector2 movement = new Vector2(0, 0);
 
@@ -16,6 +17,8 @@ namespace PongJutsu
 		public int damage = 25;
 
 		[SerializeField] private GameObject explosion;
+		[SerializeField] private GameObject bombExplosion;
+
 		public float explosionRadius = 2f;
 		[SerializeField] private float explosionDamageMultiplier = 0.4f;
 		[SerializeField] private bool explosionDamagerPerDistance = false;
@@ -28,6 +31,7 @@ namespace PongJutsu
 
 		[SerializeField] private Sprite shurikenLeftSprite;
 		[SerializeField] private Sprite shurikenRightSprite;
+		[SerializeField] private Sprite shurikenBombSprite;
 
 		[HideInInspector] public GameObject owner;
 		[HideInInspector] public GameObject lastHitOwner;
@@ -36,6 +40,8 @@ namespace PongJutsu
 
 		[SerializeField] private bool resetComboOnDamageDealt = false;
 		[SerializeField] private bool resetComboOnDamageTaken = true;
+
+		[SerializeField] private GameObject wallCollision;
 
 		void Start()
 		{
@@ -52,11 +58,15 @@ namespace PongJutsu
 			{
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenLeftSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenLeftColor;
+				this.GetComponentInChildren<ParticleSystem>().emissionRate = 1 + Mathf.Min(GameVar.players.left.comboCount, 15);
+				this.GetComponentInChildren<ParticleSystem>().startColor = shurikenLeftColor;
 			}
 			else if (owner.tag == "PlayerRight")
 			{
 				this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
 				this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
+				this.GetComponentInChildren<ParticleSystem>().emissionRate = 1 + Mathf.Min(GameVar.players.right.comboCount, 15);
+				this.GetComponentInChildren<ParticleSystem>().startColor = shurikenRightColor;
 			}
 
 			this.GetComponent<TrailRenderer>().sortingLayerName = this.GetComponentInChildren<SpriteRenderer>().sortingLayerName;
@@ -118,15 +128,23 @@ namespace PongJutsu
 					{
 						lastHitOwner.GetComponent<Player>().resetCombo();
 					}
+
+					lastHitOwner.GetComponent<Player>().addCombo();
 				}
 				Explode(colObject);
 			}
 
 			// Collision with StageColliders
 			if (colObject.tag == "BoundaryTop")
+			{
 				movement.y = Mathf.Abs(movement.y) * -1;
+				Instantiate(wallCollision, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
+			}
 			else if (colObject.tag == "BoundaryBottom")
+			{
 				movement.y = Mathf.Abs(movement.y);
+				Instantiate(wallCollision, this.transform.position, Quaternion.Euler(0f, 0f, 180f));
+			}
 			else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
 				Remove();
 		}
@@ -166,6 +184,13 @@ namespace PongJutsu
 			movement.x += (Mathf.Sqrt(Vector2.SqrMagnitude(movement)) - speed) * (Mathf.Sign(movement.x) * -1) * (speedAdjustment * 1.08f);
 		}
 
+		public void activateBomb(float damageMultiplier)
+		{
+			isBomb = true;
+			this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenBombSprite;
+			damage = Mathf.RoundToInt(damage * damageMultiplier);
+		}
+
 		void Explode(GameObject hitObject)
 		{
 			GameObject explosionAnimation = (GameObject)Instantiate(explosion, this.transform.position, Quaternion.identity);
@@ -197,8 +222,18 @@ namespace PongJutsu
 				foreach (GameObject fort in hitObject.GetComponent<Fort>().owner.GetComponent<Player>().forts)
 				{
 					fort.GetComponent<Fort>().TakeDamage(damage);
+
+					if (bombExplosion != null && !fort.GetComponent<Fort>().isDestroyed)
+					{
+						GameObject f = (GameObject)Instantiate(bombExplosion, fort.transform.position, Quaternion.Euler(bombExplosion.transform.eulerAngles.x, bombExplosion.transform.eulerAngles.y * fort.transform.localScale.x, bombExplosion.transform.eulerAngles.z));
+						f.name = fort.name + "(Feedback)";
+						f.transform.GetComponent<ItemFeedback>().Setup(fort);
+					}
 				}
 			}
+
+			if (!hitObject.GetComponent<Fort>().isDestroyed)
+				GameScore.GetByPlayer(lastHitOwner).forthits += 1;
 
 			Remove();
 		}

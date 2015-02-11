@@ -62,6 +62,8 @@ namespace PongJutsu
 				dashLerp = 0;
 				dashStartPosition = this.transform.position.y;
 				dashDirection = Direction(Input.GetAxisRaw(this.tag));
+
+				this.GetComponent<SoundPool>().PlayRandom();
 			}
 		}
 
@@ -126,6 +128,7 @@ namespace PongJutsu
 			this.GetComponentInChildren<Animator>().SetInteger("Direction", (int)moveDirection);
 			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
 			this.GetComponentInChildren<Animator>().SetInteger("Input", (int)Direction(Input.GetAxisRaw(this.tag)));
+			this.GetComponentInChildren<Animator>().SetBool("Dash", isDashing);
 
 			// Set animation speed depending on move speed
 			if (Input.GetAxisRaw(this.tag) != 0)
@@ -142,6 +145,7 @@ namespace PongJutsu
 			this.GetComponentInChildren<Animator>().SetInteger("Direction", 0);
 			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
 			this.GetComponentInChildren<Animator>().SetInteger("Input", 0);
+			this.GetComponentInChildren<Animator>().SetBool("Dash", false);
 		}
 
 		float Direction(float f)

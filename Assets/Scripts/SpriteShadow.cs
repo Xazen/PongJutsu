@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Pongjutsu
+namespace PongJutsu
 {
 	public class SpriteShadow : MonoBehaviour
 	{

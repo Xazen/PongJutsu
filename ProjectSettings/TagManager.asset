@@ -61,10 +61,6 @@ TagManager:
     userID: 4
     uniqueID: 2658980047
     locked: 0
-  - name: Default
-    userID: 0
-    uniqueID: 0
-    locked: 0
   - name: Carrier
     userID: 7
     uniqueID: 3734199759
@@ -72,6 +68,10 @@ TagManager:
   - name: Item
     userID: 5
     uniqueID: 1989451851
+    locked: 0
+  - name: Default
+    userID: 0
+    uniqueID: 0
     locked: 0
   - name: Middleground
     userID: 10

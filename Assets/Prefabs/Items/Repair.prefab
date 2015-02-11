@@ -81,6 +81,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnProbability: 0
+  duration: 0
+  feedbackEffect: {fileID: 117540, guid: 4855f0fd5e3b7cd47ad3fae2fcf49fea, type: 2}
+  activationEffect: {fileID: 175122, guid: 7e8cd3ce1550a2144827df02c9aee099, type: 2}
+  activationEffectColor: {r: .0758621693, g: 1, b: 0, a: 1}
   heal: 100
 --- !u!212 &21261002
 SpriteRenderer:

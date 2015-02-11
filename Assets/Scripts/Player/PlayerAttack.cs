@@ -54,7 +54,7 @@ namespace PongJutsu
 		{
 			nextFire += Time.deltaTime;
 			if (nextFire >= firerate && shotCount < maxActiveShots && !waitForShot && Input.GetButton(this.transform.parent.tag + " shoot"))
-				{
+			{
 				triggerShoot();
 			}
 		}
@@ -63,6 +63,11 @@ namespace PongJutsu
 		{
 			// Trigger Animation... wait for throw
 			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
+
+			if (this.transform.parent.tag == "PlayerLeft" && GameFlow.instance.isDisadvantageBuffLeftPhase)
+				this.GetComponentInChildren<SoundPool>().PlayRandom();
+			else if (this.transform.parent.tag == "PlayerRight" && GameFlow.instance.isDisadvantageBuffRightPhase)
+				this.GetComponentInChildren<SoundPool>().PlayRandom();
 
 			nextFire = 0;
 			waitForShot = true;
@@ -81,6 +86,8 @@ namespace PongJutsu
 
 			GameObject sonicInstance = (GameObject)Instantiate(shotSonic, this.transform.position, this.transform.rotation);
 			sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.transform.parent.gameObject);
+
+			GameScore.GetByPlayer(this.transform.parent.gameObject).thrownshurikens += 1;
 
 			waitForShot = false;
 		}

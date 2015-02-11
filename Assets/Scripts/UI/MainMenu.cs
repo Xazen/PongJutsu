@@ -12,12 +12,12 @@ namespace PongJutsu
 
 		public void click_Help()
 		{
-
+			ui.SetTrigger("Help");
 		}
 
 		public void click_Options()
 		{
-
+			ui.SetTrigger("Options");
 		}
 
 		public void click_Credits()

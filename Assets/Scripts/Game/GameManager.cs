@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace PongJutsu
 {
@@ -11,6 +9,7 @@ namespace PongJutsu
 		[SerializeField] private bool instantPlay = false;
 
 		public static bool allowInput = false;
+		public static bool allowPauseSwitch = true;
 
 		private static bool isIngame = false;
 		private static bool isPause = false;
@@ -23,18 +22,26 @@ namespace PongJutsu
 		{
 			ui = GameObject.Find("UI").GetComponent<Animator>();
 			flow = this.GetComponent<GameFlow>();
+
+			StartCoroutine("IWaitForInit");
 		}
+
+		IEnumerator IWaitForInit()
+		{
+			yield return new WaitForSeconds(1f);
+			ui.SetTrigger("Init");
+		}
+
 		void Start()
 		{
 			if (instantPlay)
 				InstantGame();
 		}
 
-		private static void InstantGame()
+		public static void InstantGame()
 		{
 			GameMatch.newMatch();
 			LoadGame(false);
-			StartGame();
 			ui.SetTrigger("InstantGame");
 		}
 
@@ -52,10 +59,14 @@ namespace PongJutsu
 				GameVar.Refresh();
 				flow.StartFlow();
 
+				GameMatch.startRound();
+
 				isIngame = true;
 				isPause = false;
 				isEnd = false;
 				allowInput = false;
+
+				Screen.showCursor = false;
 
 				Time.timeScale = 1;
 
@@ -81,11 +92,17 @@ namespace PongJutsu
 				{
 					Destroy(s.gameObject);
 				}
+				foreach (ItemFeedback s in GameObject.FindObjectsOfType<ItemFeedback>())
+				{
+					Destroy(s.gameObject);
+				}
 
 				isIngame = false;
 				isPause = false;
 				isEnd = false;
 				allowInput = false;
+
+				MusicManager.current.StopMusic();
 
 				Time.timeScale = 1;
 			}
@@ -129,7 +146,7 @@ namespace PongJutsu
 				flow.UpdateFlow();
 			}
 
-			if ((allowPause && isIngame && allowInput) || isPause)
+			if ((allowPause && isIngame && allowInput) || (isPause && allowPauseSwitch))
 				updatePause();
 
 			if (isIngame)
@@ -166,7 +183,7 @@ namespace PongJutsu
 
 		public static void StartGame()
 		{
-			GameObject.Find("Arena").GetComponent<AudioSource>().Play();
+			MusicManager.current.StartMusic();
 			allowInput = true;
 		}
 
@@ -175,6 +192,9 @@ namespace PongJutsu
 			Time.timeScale = 0;
 			isPause = true;
 			allowInput = false;
+			MusicManager.current.PauseMusic();
+	
+			Screen.showCursor = true;
 	
 			ui.SetTrigger("PauseGame");
 		}
@@ -184,12 +204,16 @@ namespace PongJutsu
 			ui.SetTrigger("ResumeGame");
 
 			Time.timeScale = 1;
+			MusicManager.current.ResumeMusic();
 			isPause = false;
 			allowInput = true;
+
+			Screen.showCursor = false;
 		}
 
 		public static void RestartGame()
 		{
+			GameMatch.newMatch();
 			ui.SetTrigger("RestartGame");
 		}
 
@@ -210,6 +234,8 @@ namespace PongJutsu
 			isEnd = true;
 			allowInput = false;
 
+			Screen.showCursor = true;
+
 			ui.SetTrigger("EndRound");
 		}
 
@@ -220,44 +246,7 @@ namespace PongJutsu
 
 		public static void ExitGame()
 		{
-			GameObject.Find("Arena").GetComponent<AudioSource>().Stop();
 			ui.SetTrigger("ExitGame");
-		}
-	}
-
-	public class GameMatch : MonoBehaviour
-	{
-		private static List<string> results = new List<string>();
-		private static int minRoundsToWin = 2;
-
-		public static void newMatch()
-		{
-			results.Clear();
-		}
-
-		public static void addWinner(string winner)
-		{
-			results.Add(winner);
-		}
-
-		public static List<string> getWinnerList()
-		{
-			return results;
-		}
-
-		public static string getLastWinner()
-		{
-			return results[results.Count - 1];
-		}
-
-		public static string getMatchWinner()
-		{
-			if (results.FindAll(x => x == "left").Count >= minRoundsToWin)
-				return "left";
-			else if (results.FindAll(x => x == "right").Count >= minRoundsToWin)
-				return "right";
-			else
-				return null;
 		}
 	}
 }
