@@ -8,4 +8,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Prototype.unity
   - enabled: 1
+    path: Assets/Scenes/GameLoader.unity
+  - enabled: 1
     path: Assets/Scenes/PongJutsu.unity
