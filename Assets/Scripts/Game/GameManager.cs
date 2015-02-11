@@ -22,7 +22,16 @@ namespace PongJutsu
 		{
 			ui = GameObject.Find("UI").GetComponent<Animator>();
 			flow = this.GetComponent<GameFlow>();
+
+			StartCoroutine("IWaitForInit");
 		}
+
+		IEnumerator IWaitForInit()
+		{
+			yield return new WaitForSeconds(1f);
+			ui.SetTrigger("Init");
+		}
+
 		void Start()
 		{
 			if (instantPlay)
