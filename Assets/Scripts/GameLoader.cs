@@ -15,7 +15,7 @@ public class GameLoader : MonoBehaviour
 		loadingtext.text = "";
 
 		if (levelname != "")
-			StartCoroutine(LoadLevel(levelname));
+			StartCoroutine(ILoadLevel(levelname));
 	}
 
 	void Update()
@@ -24,7 +24,7 @@ public class GameLoader : MonoBehaviour
 			loadingtext.text = "Load " + levelname + "... " + Mathf.RoundToInt(async.progress * 100) + "%";
 	}
 
-	private IEnumerator LoadLevel(string level)
+	private IEnumerator ILoadLevel(string level)
 	{
 		yield return new WaitForSeconds(1f);
 		async = Application.LoadLevelAsync(level);
