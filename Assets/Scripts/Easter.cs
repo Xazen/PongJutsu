@@ -3,9 +3,12 @@ using System.Collections;
 
 namespace Easter
 {
-	[RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
+	[RequireComponent(typeof(Collider2D))]
 	public class Easter : MonoBehaviour
 	{
+		[SerializeField]
+		private GameObject egg;
+
 		[SerializeField]
 		private float minSpawnTime = 60f;
 		[SerializeField]
@@ -23,7 +26,7 @@ namespace Easter
 
 		void Awake()
 		{
-			this.GetComponent<SpriteRenderer>().enabled = false;
+			egg.SetActive(false);
 			this.collider2D.enabled = false;
 		}
 
@@ -36,13 +39,13 @@ namespace Easter
 		public void DeactivateEasterSpawn()
 		{
 			StopCoroutine("ISpawnEaster");
-			this.GetComponent<SpriteRenderer>().enabled = false;
+			egg.SetActive(false);
 			this.collider2D.enabled = false;
 		}
 
 		void SpawnEaster()
 		{
-			this.GetComponent<SpriteRenderer>().enabled = true;
+			egg.SetActive(true);
 			this.collider2D.enabled = true;
 		}
 
@@ -61,7 +64,8 @@ namespace Easter
 			StopCoroutine("IHappyEaster");
 
 			material.color = Color.white;
-			Camera.main.transform.rotation = Quaternion.identity;
+			if (Camera.main != null)
+				Camera.main.transform.rotation = Quaternion.identity;
 			Time.timeScale = 1f;
 			foreach (AudioSource audio in GameObject.FindObjectsOfType<AudioSource>())
 				audio.pitch = 1f;
