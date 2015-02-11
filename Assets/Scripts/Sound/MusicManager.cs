@@ -91,6 +91,7 @@ namespace PongJutsu
 		[SerializeField] private Layer[] musicLayers;
 		[SerializeField] private Layer bridgeLayer;
 
+		[SerializeField] private bool debug = false;
 
 		public static MusicManager current;
 
@@ -102,12 +103,15 @@ namespace PongJutsu
 
 		void Update()
 		{
-			if (Input.GetKeyDown("1"))
-				NextPart(true);
-			if (Input.GetKeyDown("2"))
-				NextPart(false);
+			if (debug)
+			{
+				if (Input.GetKeyDown("1"))
+					NextPart(true);
+				if (Input.GetKeyDown("2"))
+					NextPart(false);
 
-			Debug.Log(currentPartIndex + " " + nextPartIndex + " " + musicLayers[1].parts[currentPartIndex].currentClipIndex);
+				Debug.Log(currentPartIndex + " " + nextPartIndex + " " + musicLayers[1].parts[currentPartIndex].currentClipIndex);
+			}
 		}
 
 		public void StartMusic()
@@ -146,6 +150,7 @@ namespace PongJutsu
 
 		private void PlayPart(int partIndex)
 		{
+			StopCoroutine("ILoopPart");
 			currentPartIndex = partIndex;
 
 			foreach (Layer layer in musicLayers)
@@ -155,7 +160,7 @@ namespace PongJutsu
 					layer.source.clip = layer.parts[partIndex].currentClip;
 					layer.source.time = 0f;
 
-					StartCoroutine(ILoopPart(layer));
+					StartCoroutine("ILoopPart", layer);
 
 					layer.source.volume = masterVolume;
 
@@ -167,7 +172,7 @@ namespace PongJutsu
 
 		public void NextPart(bool wait = true)
 		{
-			nextPartIndex = Mathf.Clamp(currentPartIndex + 1, 1, maxPartsCount - 1);
+			nextPartIndex = Mathf.Clamp(nextPartIndex + 1, 1, maxPartsCount - 1);
 
 			if (wait)
 			{
@@ -207,7 +212,12 @@ namespace PongJutsu
 				Part currentPart = layer.parts[currentPartIndex];
 				int nextClipIndex = (int)Mathf.Repeat(currentPart.currentClipIndex + 1, currentPart.clips.Length);
 
-				yield return new WaitForSeconds(layer.source.clip.length - layer.source.time);
+				float waitForSeconds = layer.source.clip.length - layer.source.time;
+				while (waitForSeconds > 0f)
+				{
+					waitForSeconds -= Time.unscaledDeltaTime;
+					yield return new WaitForEndOfFrame();
+				}
 
 				if (currentPartIndex == INextPart && layer.parts[currentPartIndex].currentClipIndex != nextClipIndex)
 				{
@@ -226,7 +236,12 @@ namespace PongJutsu
 		{
 			int INextPart = nextPartIndex;
 
-			yield return new WaitForSeconds(leadingLayer.source.clip.length - leadingLayer.source.time);
+			float waitForSeconds = leadingLayer.source.clip.length - leadingLayer.source.time;
+			while (waitForSeconds > 0f)
+			{
+				waitForSeconds -= Time.unscaledDeltaTime;
+				yield return new WaitForEndOfFrame();
+			}
 
 			if (INextPart == nextPartIndex)
 				PlayPart(nextPartIndex);
@@ -240,7 +255,13 @@ namespace PongJutsu
 			int randomBridgeIndex = Random.Range(0, bridgeLayer.parts[0].clips.Length);
 			PlayBridge(randomBridgeIndex);
 
-			yield return new WaitForSeconds(bridgeLayer.parts[0].clips[randomBridgeIndex].length);
+			float waitForSeconds = bridgeLayer.parts[0].clips[randomBridgeIndex].length;
+			while (waitForSeconds > 0f)
+			{
+				waitForSeconds -= Time.unscaledDeltaTime;
+				yield return new WaitForEndOfFrame();
+			}
+
 			PlayPart(nextPartIndex);
 		}
 
@@ -248,7 +269,6 @@ namespace PongJutsu
 		{
 			AudioSource source = layer.source;
 
-			source.Play();
 			while (source.volume < masterVolume)
 			{
 				float volume = source.volume + (masterVolume / duration) * Time.unscaledDeltaTime;
@@ -267,7 +287,6 @@ namespace PongJutsu
 				source.volume = Mathf.Clamp(volume, 0f, masterVolume);
 				yield return new WaitForEndOfFrame();
 			}
-			source.Pause();
 		}
 	}
 }
