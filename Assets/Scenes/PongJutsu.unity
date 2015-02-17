@@ -22972,6 +22972,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11447624, guid: 4c875ae6d57afd644a9eb36c010f2568, type: 2}
+      propertyPath: instantPlay
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c875ae6d57afd644a9eb36c010f2568, type: 2}
   m_RootGameObject: {fileID: 1757980352}
@@ -23468,7 +23472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowPause: 1
-  instantPlay: 0
+  instantPlay: 1
 --- !u!114 &1757980354
 MonoBehaviour:
   m_ObjectHideFlags: 0
