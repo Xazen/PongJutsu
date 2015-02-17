@@ -77,12 +77,6 @@ namespace PongJutsu
 		{
 			comboCount = 0;
 		}
-
-		// --- Forward animation event (ae) ---
-		public void ae_Shoot()
-		{
-			PlayerAttack.Shoot();
-		}
 	}
 }
 
