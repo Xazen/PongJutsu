@@ -69,7 +69,7 @@ namespace PongJutsu
 		// --- Forward animation event (ae) ---
 		public void ae_Shoot()
 		{
-			this.GetComponentInChildren<PlayerAttack>().Shoot();
+			PlayerAttack.Shoot();
 		}
 	}
 }

@@ -23,8 +23,8 @@ namespace PongJutsu
 		{
 			if (!isSlow)
 			{
-				originalSpeed = this.GetComponent<PlayerMovement>().maxMovementSpeed;
-				this.GetComponent<PlayerMovement>().maxMovementSpeed *= slow.speedMuliplier;
+				originalSpeed = PlayerMovement.maxMovementSpeed;
+				PlayerMovement.maxMovementSpeed *= slow.speedMuliplier;
 				slowTime = slow.duration;
 				isSlow = true;
 			}
@@ -42,7 +42,7 @@ namespace PongJutsu
 
 				if (slowTime < 0f)
 				{
-					this.GetComponent<PlayerMovement>().maxMovementSpeed = originalSpeed;
+					PlayerMovement.maxMovementSpeed = originalSpeed;
 					isSlow = false;
 				}
 			}
@@ -57,7 +57,7 @@ namespace PongJutsu
 		{
 			if (!isInverted)
 			{
-				this.GetComponent<PlayerMovement>().invertDirection = true;
+				PlayerMovement.invertDirection = true;
 				invertTime = inverter.duration;
 				isInverted = true;
 			}
@@ -75,7 +75,7 @@ namespace PongJutsu
 
 				if (invertTime < 0f)
 				{
-					this.GetComponent<PlayerMovement>().invertDirection = false;
+					PlayerMovement.invertDirection = false;
 					isInverted = false;
 				}
 			}
@@ -90,8 +90,8 @@ namespace PongJutsu
 
 		public void ShieldExpander(ShieldExpander shieldExpander)
 		{
-			BoxCollider2D collider = this.GetComponentInChildren<PlayerShield>().GetComponent<BoxCollider2D>();
-			Transform expander = this.GetComponentInChildren<PlayerShield>().transform.FindChild("Expander").transform;
+			BoxCollider2D collider = PlayerShield.GetComponent<BoxCollider2D>();
+			Transform expander = PlayerShield.transform.FindChild("Expander").transform;
 
 			if (!isExpanded)
 			{
@@ -119,8 +119,8 @@ namespace PongJutsu
 				if (expandTime < 0f)
 				{
 					//this.GetComponentInChildren<PlayerShield>().transform.localScale = new Vector2(initScaleExpander.x, initScaleExpander.y);
-					this.GetComponentInChildren<PlayerShield>().transform.FindChild("Expander").transform.localScale = initScaleExpander;
-					this.GetComponentInChildren<PlayerShield>().GetComponent<BoxCollider2D>().size = initSizeCollider;
+					PlayerShield.transform.FindChild("Expander").transform.localScale = initScaleExpander;
+					PlayerShield.GetComponent<BoxCollider2D>().size = initSizeCollider;
 					isExpanded = false;
 				}
 			}

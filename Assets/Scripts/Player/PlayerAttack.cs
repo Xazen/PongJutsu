@@ -81,7 +81,7 @@ namespace PongJutsu
 			shuriken.owner = this.transform.parent.gameObject;
 			shuriken.speed *= speedMultiplier;
 			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage*damageMultiplier);
-			shuriken.setInitialMovement(this.GetComponentInParent<Player>().direction, this.GetComponentInParent<PlayerMovement>().movementNormalized * maxAngle);
+			shuriken.setInitialMovement(Player.direction, PlayerMovement.movementNormalized * maxAngle);
 			this.audio.Play();
 
 			GameObject sonicInstance = (GameObject)Instantiate(shotSonic, this.transform.position, this.transform.rotation);
