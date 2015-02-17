@@ -569,7 +569,6 @@ MonoBehaviour:
   dashDistance: 2.25
   dashSpeed: 10
   dashCooldown: .5
-  dashButtonInterval: .200000003
   playerCollisionOffset: .649999976
   invertDirection: 0
 --- !u!114 &11427610
@@ -602,12 +601,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldAngleMultiplier: 4
-  shieldLeftController: {fileID: 22100000, guid: 04c276c6d627c0c46ab251b8319505b6,
-    type: 2}
-  shieldRightController: {fileID: 22100000, guid: be5b05eb47da2f34f9318e0f9d2d2729,
-    type: 2}
-  shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
-  shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
   shieldReference: {fileID: 100000}
   expanderReference: {fileID: 118704}
 --- !u!114 &11460354

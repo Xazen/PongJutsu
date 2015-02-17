@@ -17,7 +17,8 @@ namespace PongJutsu
 			}
 		}
 
-		public float shieldAngleMultiplier = 5f;
+		[SerializeField]
+		private float shieldAngleMultiplier = 5f;
 
 		public GameObject shieldReference;
 		public GameObject expanderReference;

@@ -65,7 +65,7 @@ namespace PongJutsu
 		// - - - - - - - - - - - - - - - - - - - - -
 
 		bool isExpanded = false;
-		private float expandDuration;
+		float expandDuration;
 
 		public void ShieldExpander(ShieldExpander expander)
 		{

@@ -59,21 +59,31 @@ namespace PongJutsu
 			}
 		}
 
-		public AnimatorOverrideController ninjaLeftController;
-		public AnimatorOverrideController ninjaRightController;
+		[SerializeField]
+		private AnimatorOverrideController ninjaLeftController;
+		[SerializeField]
+		private AnimatorOverrideController ninjaRightController;
 
-		public AnimatorOverrideController shieldLeftController;
-		public AnimatorOverrideController shieldRightController;
+		[SerializeField]
+		private AnimatorOverrideController shieldLeftController;
+		[SerializeField]
+		private AnimatorOverrideController shieldRightController;
 
-		public Sprite shieldLeftSprite;
-		public Sprite shieldRightSprite;
+		[SerializeField]
+		private Sprite shieldLeftSprite;
+		[SerializeField]
+		private Sprite shieldRightSprite;
 
-		[HideInInspector] public GameObject[] forts;
+		[HideInInspector]
+		public GameObject[] forts;
 
-		[HideInInspector] public int direction = 1;
+		[HideInInspector]
+		public int direction = 1;
 
-		[HideInInspector] public int comboCount = 0;
-		[SerializeField] private float resetComboTime = 4.0f;
+		[HideInInspector]
+		public int comboCount = 0;
+		[SerializeField]
+		private float resetComboTime = 4.0f;
 		private float passedTimeSinceCombo = 0.0f;
 
 		public void Update()

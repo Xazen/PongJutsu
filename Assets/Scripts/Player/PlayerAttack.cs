@@ -11,20 +11,25 @@ namespace PongJutsu
 
 		public float maxAngle = 3.5f;
 
+		[HideInInspector]
 		public float damageMultiplier = 1.0f;
+		[HideInInspector]
 		public float speedMultiplier = 1.0f;
 
 		public int maxActiveShots = 1;
 		[HideInInspector] public int shotCount = 0;
 
-		public GameObject shotPrefab;
-		public GameObject shotSonicPrefab;
+		[SerializeField]
+		private GameObject shotPrefab;
+		[SerializeField]
+		private GameObject shotSonicPrefab;
 
-		public GameObject glowReference;
-		public AudioSource attackAudioReference;
-		public SoundPool rageAttackSoundpoolReference;
-
-		int direction;
+		[SerializeField]
+		private GameObject glowReference;
+		[SerializeField]
+		private AudioSource attackAudioReference;
+		[SerializeField]
+		private SoundPool rageAttackSoundpoolReference;
 
 		public void Start()
 		{

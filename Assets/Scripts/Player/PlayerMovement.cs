@@ -11,15 +11,16 @@ namespace PongJutsu
 		public float maxMovementSpeed = 8f;
 		public float accelerationSpeed = 0.5f;
 		public float decelerationSpeed = 1.5f;
-		
-		public bool resetMovementAtTurn = true;
+
+		[SerializeField]
+		private bool resetMovementAtTurn = true;
 		private float currentSpeed = 0f;
 		private float moveDirection;
 
-		public float dashDistance = 2f;
+		[SerializeField]
+		private float dashDistance = 2f;
 		public float dashSpeed = 10f;
 		public float dashCooldown = 0.5f;
-		public float dashButtonInterval = 0.2f;
 
 		private float dashStartPosition;
 		private bool isDashing = false;
@@ -27,10 +28,13 @@ namespace PongJutsu
 		private float dashLerp;
 		private float lastDash;
 
-		public float playerCollisionOffset = 0.3f;
+		[SerializeField]
+		private float playerCollisionOffset = 0.3f;
 
-		[HideInInspector] public bool invertDirection = false;
+		[HideInInspector]
+		public bool invertDirection = false;
 
+		[HideInInspector]
 		public float movementNormalized { get { return (Mathf.Min(currentSpeed, maxMovementSpeed) * moveDirection) / maxMovementSpeed; } }
 
 		void Update()
