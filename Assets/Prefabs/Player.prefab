@@ -47,6 +47,7 @@ GameObject:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400004}
+  - 114: {fileID: 11496920}
   - 114: {fileID: 11460354}
   - 95: {fileID: 9562836}
   - 114: {fileID: 11482364}
@@ -66,7 +67,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400006}
-  - 114: {fileID: 11400002}
   - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: Attack
@@ -541,29 +541,9 @@ MonoBehaviour:
   ninjaRightController: {fileID: 22100000, guid: 59cf7cfb89f807f428f35b09c4b80ed1,
     type: 2}
   forts: []
-  mirror: 0
   direction: 1
   comboCount: 0
   resetComboTime: 4
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3463c6b9cd177f4a97b5a9a591b3662, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firerate: .200000003
-  maxAngle: 3.5
-  damageMultiplier: 1
-  speedMultiplier: 1
-  maxActiveShots: 1
-  shotCount: 0
-  shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
-  shotSonic: {fileID: 184568, guid: 180d685d106507a498a775bef30779a4, type: 2}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -621,7 +601,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c63c6c012f019bb4e9dca9b2ac3e05c7, type: 3}
   - {fileID: 8300000, guid: eb085a98e67458b499dab384a57f5756, type: 3}
   - {fileID: 8300000, guid: deed20b55bdc3024daab4559deacb3a2, type: 3}
-  - {fileID: 8300000, guid: b35fefef18395424b98986a876d0e9cd, type: 3}
+  - {fileID: 0}
 --- !u!114 &11460354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -667,6 +647,28 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: b57fc5488d945734690e248878ad3d46, type: 3}
   - {fileID: 8300000, guid: 7169257ac61047842a2e2580f649811a, type: 3}
+--- !u!114 &11496920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3463c6b9cd177f4a97b5a9a591b3662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firerate: .200000003
+  maxAngle: 3.5
+  damageMultiplier: 1
+  speedMultiplier: 1
+  maxActiveShots: 1
+  shotCount: 0
+  shotPrefab: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
+  shotSonicPrefab: {fileID: 184568, guid: 180d685d106507a498a775bef30779a4, type: 2}
+  glowReference: {fileID: 114184}
+  attackAudioReference: {fileID: 8200000}
+  rageAttackSoundpoolReference: {fileID: 11427610}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

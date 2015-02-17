@@ -18,8 +18,12 @@ namespace PongJutsu
 		[HideInInspector] public int shotCount = 0;
 		private bool waitForShot = false;
 
-		public GameObject shotObject;
-		public GameObject shotSonic;
+		public GameObject shotPrefab;
+		public GameObject shotSonicPrefab;
+
+		public GameObject glowReference;
+		public AudioSource attackAudioReference;
+		public SoundPool rageAttackSoundpoolReference;
 
 		int direction;
 
@@ -40,20 +44,20 @@ namespace PongJutsu
 		{
 			if (shotCount < maxActiveShots)
 			{
-				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == false)
-					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(true);
+				if (glowReference.activeSelf == false)
+					glowReference.SetActive(true);
 			}
 			else
 			{
-				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == true)
-					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(false);
+				if (glowReference.activeSelf == true)
+					glowReference.SetActive(false);
 			}
 		}
 
 		void Shooting()
 		{
 			nextFire += Time.deltaTime;
-			if (nextFire >= firerate && shotCount < maxActiveShots && !waitForShot && Input.GetButton(this.transform.parent.tag + " shoot"))
+			if (nextFire >= firerate && shotCount < maxActiveShots && !waitForShot && Input.GetButton(this.tag + " shoot"))
 			{
 				triggerShoot();
 			}
@@ -62,12 +66,12 @@ namespace PongJutsu
 		void triggerShoot()
 		{
 			// Trigger Animation... wait for throw
-			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
+			this.GetComponentInChildren<Animator>().SetTrigger("Shoot");
 
-			if (this.transform.parent.tag == "PlayerLeft" && GameFlow.instance.isDisadvantageBuffLeftPhase)
-				this.GetComponentInChildren<SoundPool>().PlayRandom();
-			else if (this.transform.parent.tag == "PlayerRight" && GameFlow.instance.isDisadvantageBuffRightPhase)
-				this.GetComponentInChildren<SoundPool>().PlayRandom();
+			if (this.tag == "PlayerLeft" && GameFlow.instance.isDisadvantageBuffLeftPhase)
+				rageAttackSoundpoolReference.PlayRandom();
+			else if (this.tag == "PlayerRight" && GameFlow.instance.isDisadvantageBuffRightPhase)
+				rageAttackSoundpoolReference.PlayRandom();
 
 			nextFire = 0;
 			waitForShot = true;
@@ -76,18 +80,18 @@ namespace PongJutsu
 		public void Shoot()
 		{
 			// Create a new shot
-			GameObject shotInstance = (GameObject)Instantiate(shotObject, this.transform.position, Quaternion.identity);
+			GameObject shotInstance = (GameObject)Instantiate(shotPrefab, this.transform.position, Quaternion.identity);
 			Shuriken shuriken = shotInstance.GetComponent<Shuriken>();
-			shuriken.owner = this.transform.parent.gameObject;
+			shuriken.owner = this.gameObject;
 			shuriken.speed *= speedMultiplier;
 			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage*damageMultiplier);
 			shuriken.setInitialMovement(Player.direction, PlayerMovement.movementNormalized * maxAngle);
-			this.audio.Play();
+			attackAudioReference.Play();
 
-			GameObject sonicInstance = (GameObject)Instantiate(shotSonic, this.transform.position, this.transform.rotation);
-			sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.transform.parent.gameObject);
+			GameObject sonicInstance = (GameObject)Instantiate(shotSonicPrefab, this.transform.position, this.transform.rotation);
+			sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.gameObject);
 
-			GameScore.GetByPlayer(this.transform.parent.gameObject).thrownshurikens += 1;
+			GameScore.GetByPlayer(this.gameObject).thrownshurikens += 1;
 
 			waitForShot = false;
 		}
