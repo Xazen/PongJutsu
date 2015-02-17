@@ -228,7 +228,7 @@ namespace PongJutsu
 
 			foreach (PlayerMovement pm in GameObject.FindObjectsOfType<PlayerMovement>())
 			{
-				pm.stopMovement();
+				pm.StopMovementAnimation();
 			}
 
 			isEnd = true;

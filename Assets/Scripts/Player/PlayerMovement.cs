@@ -42,7 +42,7 @@ namespace PongJutsu
 			}
 		}
 
-		void Dashing()
+		private void Dashing()
 		{
 			lastDash += Time.deltaTime;
 
@@ -52,7 +52,7 @@ namespace PongJutsu
 			}
 		}
 
-		void dash()
+		private void dash()
 		{
 			if (!isDashing && lastDash > dashCooldown)
 			{
@@ -67,7 +67,7 @@ namespace PongJutsu
 			}
 		}
 
-		void Movement()
+		private void Movement()
 		{
 			// Get current position
 			float position = this.transform.position.y;
@@ -137,7 +137,7 @@ namespace PongJutsu
 				this.GetComponentInChildren<Animator>().speed = 1f;
 		}
 
-		public void stopMovement()
+		public void StopMovementAnimation()
 		{
 			// Set animation
 			this.GetComponentInChildren<Animator>().speed = 1f;
@@ -148,7 +148,7 @@ namespace PongJutsu
 			this.GetComponentInChildren<Animator>().SetBool("Dash", false);
 		}
 
-		float Direction(float f)
+		private float Direction(float f)
 		{
 			if (f != 0f)
 				f = Mathf.Sign(f);
