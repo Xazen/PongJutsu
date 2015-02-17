@@ -603,6 +603,7 @@ MonoBehaviour:
   shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
   shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
   shieldReference: {fileID: 100000}
+  expanderReference: {fileID: 118704}
 --- !u!114 &11460354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -614,9 +615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c03c6d2a85f655409060cfb02dd705b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSlow: 0
-  isInverted: 0
-  isExpanded: 0
 --- !u!114 &11482364
 MonoBehaviour:
   m_ObjectHideFlags: 1

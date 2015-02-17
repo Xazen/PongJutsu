@@ -5,125 +5,96 @@ namespace PongJutsu
 {
 	public class PlayerItemHandler : PlayerBase
 	{
-		void Update()
-		{
-			updateInverter();
-			updateExpand();
-			updateSlow();
-		}
-
-		// - - - - - - - - - - - - - - - - - - - - -
-
-		[HideInInspector] public bool isSlow = false;
-		private float slowTime;
-
-		private float originalSpeed;
+		bool isSlow = false;
+		float slowDuration;
 
 		public void Slow(Slow slow)
 		{
-			if (!isSlow)
-			{
-				originalSpeed = PlayerMovement.maxMovementSpeed;
-				PlayerMovement.maxMovementSpeed *= slow.speedMuliplier;
-				slowTime = slow.duration;
-				isSlow = true;
-			}
-			else
-			{
-				slowTime = slow.duration;
-			}
+			StartCoroutine("ISlow", slow);
 		}
 
-		void updateSlow()
+		IEnumerator ISlow(Slow slow)
 		{
+			slowDuration = slow.duration;
 			if (isSlow)
-			{
-				slowTime -= Time.deltaTime;
+				yield break;
 
-				if (slowTime < 0f)
-				{
-					PlayerMovement.maxMovementSpeed = originalSpeed;
-					isSlow = false;
-				}
+			isSlow = true;
+			float originalSpeed = PlayerMovement.maxMovementSpeed;
+			PlayerMovement.maxMovementSpeed *= slow.speedMuliplier;
+
+			while (slowDuration > 0f)
+			{
+				slowDuration -= Time.deltaTime;
+				yield return new WaitForEndOfFrame();
 			}
+
+			PlayerMovement.maxMovementSpeed = originalSpeed;
+			isSlow = false;
 		}
 
 		// - - - - - - - - - - - - - - - - - - - - -
 
-		[HideInInspector] public bool isInverted = false;
-		private float invertTime;
+		bool isInverted = false;
+		float invertDuration;
 
 		public void Inverter(Inverter inverter)
 		{
-			if (!isInverted)
-			{
-				PlayerMovement.invertDirection = true;
-				invertTime = inverter.duration;
-				isInverted = true;
-			}
-			else
-			{
-				invertTime = inverter.duration;
-			}
+			StartCoroutine("IInvert", inverter);
 		}
 
-		void updateInverter()
+		IEnumerator IInvert(Inverter inverter)
 		{
+			invertDuration = inverter.duration;
 			if (isInverted)
-			{
-				invertTime -= Time.deltaTime;
+				yield break;
 
-				if (invertTime < 0f)
-				{
-					PlayerMovement.invertDirection = false;
-					isInverted = false;
-				}
+			PlayerMovement.invertDirection = true;
+			isInverted = true;
+
+			while (invertDuration > 0f)
+			{
+				invertDuration -= Time.deltaTime;
+				yield return new WaitForEndOfFrame();
 			}
+
+			PlayerMovement.invertDirection = false;
+			isInverted = false;
 		}
 
 		// - - - - - - - - - - - - - - - - - - - - -
 
-		[HideInInspector] public bool isExpanded = false;
-		private float expandTime;
-		private Vector2 initScaleExpander;
-		private Vector2 initSizeCollider;
+		bool isExpanded = false;
+		private float expandDuration;
 
-		public void ShieldExpander(ShieldExpander shieldExpander)
+		public void ShieldExpander(ShieldExpander expander)
 		{
-			BoxCollider2D collider = PlayerShield.GetComponent<BoxCollider2D>();
-			Transform expander = PlayerShield.transform.FindChild("Expander").transform;
-
-			if (!isExpanded)
-			{
-				// Expand shield
-				initScaleExpander = expander.localScale;
-				initSizeCollider = collider.size;
-				expander.localScale = new Vector2(expander.localScale.x, shieldExpander.scaleMultiplier / 1.5f);
-				collider.size = new Vector2(collider.size.x, collider.size.y * shieldExpander.scaleMultiplier);
-				expandTime = shieldExpander.duration;
-				isExpanded = true;
-			}
-			else
-			{
-				// Set expand duration
-				expandTime = shieldExpander.duration;
-			}
+			StartCoroutine("IExpand", expander);
 		}
 
-		void updateExpand()
+		IEnumerator IExpand(ShieldExpander expander)
 		{
+			expandDuration = expander.duration;
 			if (isExpanded)
-			{
-				expandTime -= Time.deltaTime;
+				yield break;
 
-				if (expandTime < 0f)
-				{
-					//this.GetComponentInChildren<PlayerShield>().transform.localScale = new Vector2(initScaleExpander.x, initScaleExpander.y);
-					PlayerShield.transform.FindChild("Expander").transform.localScale = initScaleExpander;
-					PlayerShield.GetComponent<BoxCollider2D>().size = initSizeCollider;
-					isExpanded = false;
-				}
+			BoxCollider2D colliderRef = PlayerShield.GetComponent<BoxCollider2D>();
+			Transform transformRef = PlayerShield.expanderReference.transform;
+			Vector2 initScaleExpander = transformRef.localScale;
+			Vector2 initSizeCollider = colliderRef.size;
+			transformRef.localScale = new Vector2(transformRef.localScale.x, expander.scaleMultiplier / 1.5f);
+			colliderRef.size = new Vector2(colliderRef.size.x, colliderRef.size.y * expander.scaleMultiplier);
+			isExpanded = true;
+
+			while (expandDuration > 0f)
+			{
+				expandDuration -= Time.deltaTime;
+				yield return new WaitForEndOfFrame();
 			}
+
+			transformRef.localScale = initScaleExpander;
+			colliderRef.size = initSizeCollider;
+			isExpanded = false;
 		}
 	}
 }

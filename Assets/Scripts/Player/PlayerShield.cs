@@ -15,6 +15,7 @@ namespace PongJutsu
 		public Sprite shieldRightSprite;
 
 		public GameObject shieldReference;
+		public GameObject expanderReference;
 
 		void Start()
 		{
