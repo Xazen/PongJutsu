@@ -6,7 +6,6 @@ namespace PongJutsu
 {
 	public class PlayerMovement : PlayerBase
 	{
-
 		public float minMovementSpeed = 0f;
 		public float maxMovementSpeed = 8f;
 		public float accelerationSpeed = 0.5f;

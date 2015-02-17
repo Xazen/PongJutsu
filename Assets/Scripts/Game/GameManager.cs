@@ -110,16 +110,16 @@ namespace PongJutsu
 		
 		public static void PrepareBuildup()
 		{
-			GameVar.players.left.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Standby");
-			GameVar.players.right.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Standby");
+			GameVar.players.left.gameObject.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Standby");
+			GameVar.players.right.gameObject.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Standby");
 
 			GameObject.Find("Arena").GetComponent<Animator>().SetTrigger("Standby");
 		}
 
 		public static void BuildupGame()
 		{
-			GameVar.players.left.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
-			GameVar.players.right.reference.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
+			GameVar.players.left.gameObject.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
+			GameVar.players.right.gameObject.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
 
 			GameObject.Find("Arena").GetComponent<Animator>().SetTrigger("Buildup");
 		}

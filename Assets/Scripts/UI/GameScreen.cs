@@ -23,7 +23,7 @@ namespace PongJutsu
 		{
 			base.uiUpdate();
 
-			if (GameVar.players.left.reference != null && GameVar.players.right.reference != null)
+			if (GameVar.players.left.gameObject != null && GameVar.players.right.gameObject != null)
 			{
 				setComboCouter(GameVar.players.left.comboCount, GameVar.players.right.comboCount);
 

@@ -9,10 +9,10 @@ namespace PongJutsu
 		{
 			GameObject affectedPlayer = null;
 
-			if (shuriken.lastHitOwner.tag == GameVar.players.left.reference.tag)
-				affectedPlayer = GameVar.players.right.reference;
-			else if (shuriken.lastHitOwner.tag == GameVar.players.right.reference.tag)
-				affectedPlayer = GameVar.players.left.reference;
+			if (shuriken.lastHitOwner.tag == GameVar.players.left.gameObject.tag)
+				affectedPlayer = GameVar.players.right.gameObject;
+			else if (shuriken.lastHitOwner.tag == GameVar.players.right.gameObject.tag)
+				affectedPlayer = GameVar.players.left.gameObject;
 
 			affectedPlayer.GetComponent<PlayerItemHandler>().Inverter(this);
 			placeFeedback(affectedPlayer);

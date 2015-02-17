@@ -45,7 +45,7 @@ namespace PongJutsu
 
 		void Start()
 		{
-			owner.GetComponentInChildren<PlayerAttack>().shotCount++;
+			owner.GetComponent<PlayerAttack>().shotCount++;
 
 			// Last hit owner might had been set by an item
 			if (!lastHitOwner) 
@@ -240,7 +240,7 @@ namespace PongJutsu
 
 		public void Remove()
 		{
-			owner.GetComponentInChildren<PlayerAttack>().shotCount--;
+			owner.GetComponent<PlayerAttack>().shotCount--;
 			Destroy(this.gameObject);
 		}
 	}
