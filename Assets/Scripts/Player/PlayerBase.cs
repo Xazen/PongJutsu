@@ -3,6 +3,12 @@ using System.Collections;
 
 namespace PongJutsu
 {
+	[RequireComponent(typeof(Player))]
+	[RequireComponent(typeof(PlayerMovement))]
+	[RequireComponent(typeof(PlayerAttack))]
+	[RequireComponent(typeof(PlayerShield))]
+	[RequireComponent(typeof(PlayerItemHandler))]
+
 	public class PlayerBase : MonoBehaviour
 	{
 		Player _Player;
