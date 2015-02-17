@@ -26,7 +26,7 @@ namespace PongJutsu
 
 		int direction;
 
-		public void Setup()
+		public void Start()
 		{
 			nextFire = firerate;
 		}
@@ -56,7 +56,7 @@ namespace PongJutsu
 		void Shooting()
 		{
 			nextFire += Time.deltaTime;
-			if (nextFire >= firerate && shotCount < maxActiveShots && Input.GetButton(this.tag + " shoot"))
+			if (nextFire >= firerate && Input.GetButton(this.tag + " shoot") && shotCount < maxActiveShots)
 			{
 				Shoot();
 			}

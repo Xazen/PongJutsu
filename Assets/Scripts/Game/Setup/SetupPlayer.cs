@@ -47,7 +47,6 @@ namespace PongJutsu
 
 			foreach (GameObject instance in Instances)
 			{
-				instance.GetComponentInChildren<PlayerAttack>().Setup();
 				instance.GetComponentInChildren<PlayerShield>().Setup();
 			}
 		}
