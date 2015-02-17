@@ -8,29 +8,8 @@ namespace PongJutsu
 
 		public float shieldAngleMultiplier = 5f;
 
-		public AnimatorOverrideController shieldLeftController;
-		public AnimatorOverrideController shieldRightController;
-
-		public Sprite shieldLeftSprite;
-		public Sprite shieldRightSprite;
-
 		public GameObject shieldReference;
 		public GameObject expanderReference;
-
-		void Start()
-		{
-			// Set different sprites for each player
-			if (Player.playerSide == PlayerSide.Left)
-			{
-				shieldReference.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
-				shieldReference.GetComponent<Animator>().runtimeAnimatorController = shieldLeftController;
-			}
-			else if (Player.playerSide == PlayerSide.Right)
-			{
-				shieldReference.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
-				shieldReference.GetComponent<Animator>().runtimeAnimatorController = shieldRightController;
-			}
-		}
 
 		void OnTriggerEnter2D(Collider2D col)
 		{
