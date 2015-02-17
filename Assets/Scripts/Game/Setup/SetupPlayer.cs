@@ -41,16 +41,6 @@ namespace PongJutsu
 			return instance;
 		}
 
-		public override void postbuild()
-		{
-			base.postbuild();
-
-			foreach (GameObject instance in Instances)
-			{
-				instance.GetComponentInChildren<PlayerShield>().Setup();
-			}
-		}
-
 		void OnDrawGizmos()
 		{
 			float width = GetComponent<SetupStage>().width;

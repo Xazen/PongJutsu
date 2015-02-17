@@ -14,18 +14,20 @@ namespace PongJutsu
 		public Sprite shieldLeftSprite;
 		public Sprite shieldRightSprite;
 
-		public void Setup()
+		public GameObject shieldReference;
+
+		void Start()
 		{
 			// Set different sprites for each player
-			if (this.transform.parent.tag == "PlayerLeft")
+			if (Player.playerSide == PlayerSide.Left)
 			{
-				this.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
-				this.GetComponent<Animator>().runtimeAnimatorController = shieldLeftController;
+				shieldReference.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
+				shieldReference.GetComponent<Animator>().runtimeAnimatorController = shieldLeftController;
 			}
-			else if (this.transform.parent.tag == "PlayerRight")
+			else if (Player.playerSide == PlayerSide.Right)
 			{
-				this.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
-				this.GetComponent<Animator>().runtimeAnimatorController = shieldRightController;
+				shieldReference.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
+				shieldReference.GetComponent<Animator>().runtimeAnimatorController = shieldRightController;
 			}
 		}
 
@@ -38,34 +40,34 @@ namespace PongJutsu
 				GameObject shurikenGameObject = col.gameObject;
 
 				// Reflect
-				if (shuriken.owner != this.transform.parent.gameObject)
+				if (shuriken.owner != this.gameObject)
 				{
 					shuriken.movement.x = -shuriken.movement.x;
 
-					float a = shurikenGameObject.transform.position.y - this.transform.parent.transform.position.y;
+					float a = shurikenGameObject.transform.position.y - this.transform.position.y;
 					float b = this.transform.localScale.y * this.GetComponent<BoxCollider2D>().size.y;
 					float c = a / (b * 0.5f);
 
 					shuriken.movement.y = c * shieldAngleMultiplier;
 					shuriken.adjustSpeed();
 
-					this.GetComponent<SoundPool>().PlayElement(0);
-					this.GetComponent<Animator>().SetTrigger("Reflect");
+					shieldReference.GetComponent<SoundPool>().PlayElement(0);
+					shieldReference.GetComponent<Animator>().SetTrigger("Reflect");
 
-					shuriken.lastHitOwner = this.transform.parent.gameObject;
+					shuriken.lastHitOwner = this.gameObject;
 					shuriken.bounceBack = true;
 
 					Player.addCombo();
-					GameScore.GetByPlayer(this.transform.parent.gameObject).reflections += 1;
+					GameScore.GetByPlayer(this.gameObject).reflections += 1;
 				}
 				// Catch
-				else if (shuriken.owner == this.transform.parent.gameObject && shuriken.bounceBack)
+				else if (shuriken.owner == this.gameObject && shuriken.bounceBack)
 				{
-					this.GetComponent<SoundPool>().PlayElement(1);
-					this.GetComponent<Animator>().SetTrigger("Catch");
+					shieldReference.GetComponent<SoundPool>().PlayElement(1);
+					shieldReference.GetComponent<Animator>().SetTrigger("Catch");
 
 					Player.addCombo();
-					GameScore.GetByPlayer(this.transform.parent.gameObject).catches += 1;
+					GameScore.GetByPlayer(this.gameObject).catches += 1;
 
 					shurikenGameObject.GetComponent<Shuriken>().Remove();
 				}
