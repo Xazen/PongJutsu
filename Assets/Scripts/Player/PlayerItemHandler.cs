@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class PlayerItemHandler : MonoBehaviour
+	public class PlayerItemHandler : PlayerBase
 	{
 		void Update()
 		{

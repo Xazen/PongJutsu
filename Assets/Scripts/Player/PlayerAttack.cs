@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class PlayerAttack : MonoBehaviour
+	public class PlayerAttack : PlayerBase
 	{
 
 		public float firerate = 1.5f;

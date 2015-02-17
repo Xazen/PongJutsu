@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class PlayerShield : MonoBehaviour
+	public class PlayerShield : PlayerBase
 	{
 
 		public float shieldAngleMultiplier = 5f;

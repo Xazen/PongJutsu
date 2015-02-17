@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class Player : MonoBehaviour
+	public class Player : PlayerBase
 	{
 		public AnimatorOverrideController ninjaLeftController;
 		public AnimatorOverrideController ninjaRightController;

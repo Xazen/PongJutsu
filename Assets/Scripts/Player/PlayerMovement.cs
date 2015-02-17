@@ -4,7 +4,7 @@ using System;
 
 namespace PongJutsu
 {
-	public class PlayerMovement : MonoBehaviour
+	public class PlayerMovement : PlayerBase
 	{
 
 		public float minMovementSpeed = 0f;
