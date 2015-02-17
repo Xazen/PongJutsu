@@ -124,28 +124,28 @@ namespace PongJutsu
 			this.transform.position = new Vector2(this.transform.position.x, position);
 
 			// Set animation
-			this.GetComponentInChildren<Animator>().SetFloat("Movement", currentSpeed);
-			this.GetComponentInChildren<Animator>().SetInteger("Direction", (int)moveDirection);
-			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
-			this.GetComponentInChildren<Animator>().SetInteger("Input", (int)Direction(Input.GetAxisRaw(this.tag)));
-			this.GetComponentInChildren<Animator>().SetBool("Dash", isDashing);
+			Player.Animator.SetFloat("Movement", currentSpeed);
+			Player.Animator.SetInteger("Direction", (int)moveDirection);
+			Player.Animator.SetFloat("Position", this.transform.position.y);
+			Player.Animator.SetInteger("Input", (int)Direction(Input.GetAxisRaw(this.tag)));
+			Player.Animator.SetBool("Dash", isDashing);
 
 			// Set animation speed depending on move speed
 			if (Input.GetAxisRaw(this.tag) != 0)
-				this.GetComponentInChildren<Animator>().speed = currentSpeed / maxMovementSpeed;
+				Player.Animator.speed = currentSpeed / maxMovementSpeed;
 			else
-				this.GetComponentInChildren<Animator>().speed = 1f;
+				Player.Animator.speed = 1f;
 		}
 
 		public void StopMovementAnimation()
 		{
 			// Set animation
-			this.GetComponentInChildren<Animator>().speed = 1f;
-			this.GetComponentInChildren<Animator>().SetFloat("Movement", 0f);
-			this.GetComponentInChildren<Animator>().SetInteger("Direction", 0);
-			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
-			this.GetComponentInChildren<Animator>().SetInteger("Input", 0);
-			this.GetComponentInChildren<Animator>().SetBool("Dash", false);
+			Player.Animator.speed = 1f;
+			Player.Animator.SetFloat("Movement", 0f);
+			Player.Animator.SetInteger("Direction", 0);
+			Player.Animator.SetFloat("Position", this.transform.position.y);
+			Player.Animator.SetInteger("Input", 0);
+			Player.Animator.SetBool("Dash", false);
 		}
 
 		private float Direction(float f)

@@ -27,9 +27,9 @@ namespace PongJutsu
 					direction = 1;
 					this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
-					this.GetComponent<Animator>().runtimeAnimatorController = ninjaLeftController;
+					Animator.runtimeAnimatorController = ninjaLeftController;
 					PlayerShield.shieldReference.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
-					PlayerShield.shieldReference.GetComponent<Animator>().runtimeAnimatorController = shieldLeftController;
+					PlayerShield.Animator.runtimeAnimatorController = shieldLeftController;
 
 					forts = GameObject.FindGameObjectsWithTag("FortLeft");
 				}
@@ -38,12 +38,24 @@ namespace PongJutsu
 					direction = -1;
 					this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 
-					this.GetComponent<Animator>().runtimeAnimatorController = ninjaRightController;
+					Animator.runtimeAnimatorController = ninjaRightController;
 					PlayerShield.shieldReference.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
-					PlayerShield.shieldReference.GetComponent<Animator>().runtimeAnimatorController = shieldRightController;
+					PlayerShield.Animator.runtimeAnimatorController = shieldRightController;
 
 					forts = GameObject.FindGameObjectsWithTag("FortRight");
 				}
+			}
+		}
+
+		Animator _Animator;
+		public Animator Animator
+		{
+			get
+			{
+				if (_Animator == null)
+					_Animator = this.GetComponent<Animator>();
+
+				return _Animator;
 			}
 		}
 

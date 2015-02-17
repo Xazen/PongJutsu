@@ -64,7 +64,7 @@ namespace PongJutsu
 
 		void Shoot()
 		{
-			this.GetComponentInChildren<Animator>().SetTrigger("Shoot");
+			Player.Animator.SetTrigger("Shoot");
 
 			GameObject shotInstance = (GameObject)Instantiate(shotPrefab, this.transform.position, Quaternion.identity);
 			Shuriken shuriken = shotInstance.GetComponent<Shuriken>();

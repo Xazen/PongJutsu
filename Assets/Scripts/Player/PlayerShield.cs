@@ -5,6 +5,17 @@ namespace PongJutsu
 {
 	public class PlayerShield : PlayerBase
 	{
+		Animator _Animator;
+		public Animator Animator
+		{
+			get
+			{
+				if (_Animator == null)
+					_Animator = shieldReference.GetComponent<Animator>();
+
+				return _Animator;
+			}
+		}
 
 		public float shieldAngleMultiplier = 5f;
 
@@ -32,7 +43,7 @@ namespace PongJutsu
 					shuriken.adjustSpeed();
 
 					shieldReference.GetComponent<SoundPool>().PlayElement(0);
-					shieldReference.GetComponent<Animator>().SetTrigger("Reflect");
+					Animator.SetTrigger("Reflect");
 
 					shuriken.lastHitOwner = this.gameObject;
 					shuriken.bounceBack = true;
@@ -44,7 +55,7 @@ namespace PongJutsu
 				else if (shuriken.owner == this.gameObject && shuriken.bounceBack)
 				{
 					shieldReference.GetComponent<SoundPool>().PlayElement(1);
-					shieldReference.GetComponent<Animator>().SetTrigger("Catch");
+					Animator.SetTrigger("Catch");
 
 					Player.addCombo();
 					GameScore.GetByPlayer(this.gameObject).catches += 1;
