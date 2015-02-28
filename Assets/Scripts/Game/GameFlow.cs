@@ -190,7 +190,7 @@ namespace PongJutsu
 			}
 		}
 
-		public void UpdateFlow()
+		public void FixedFlowUpdate()
 		{
 			TriggerGameIntensity (GameIntensity.Mercy, ref mercyGameIntensityTriggerd);
 
@@ -238,7 +238,7 @@ namespace PongJutsu
 
 				if (addedSpeedOverTime <= shurikenMaximumSpeed-1.0f) 
 				{
-					addedSpeedOverTime += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
+					addedSpeedOverTime += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.fixedDeltaTime));
 				}
 				
 				IncreaseShurikenSpeedOverTimeForPlayer(GameVar.players.left);
@@ -286,7 +286,7 @@ namespace PongJutsu
 			// Buff player in disadvantage
 			if (isDisadvantageBuffLeftPhase || isDisadvantageBuffRightPhase) 
 			{
-				disadvantageBuffTimer += Time.deltaTime;
+				disadvantageBuffTimer += Time.fixedDeltaTime;
 			}
 
 			int deltaFortCount = GameVar.forts.leftCount - GameVar.forts.rightCount;
@@ -332,9 +332,9 @@ namespace PongJutsu
 		{
 			if (player.speedMultiplier != shurikenMaximumSpeed) 
 			{
-				if (player.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)) < shurikenMaximumSpeed) {
-					player.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime));
-					player.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.deltaTime)));
+				if (player.speedMultiplier + ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.fixedDeltaTime)) < shurikenMaximumSpeed) {
+					player.speedMultiplier += ((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.fixedDeltaTime));
+					player.angle += angleDefaultValue * (((shurikenMaximumSpeed - 1.0f) / (maxSpeedDuration / Time.fixedDeltaTime)));
 				} else {
 					player.angle *= (shurikenMaximumSpeed / player.speedMultiplier);
 					player.speedMultiplier = shurikenMaximumSpeed;

@@ -25,8 +25,8 @@ namespace PongJutsu
 
 			while (slowDuration > 0f)
 			{
-				slowDuration -= Time.deltaTime;
-				yield return new WaitForEndOfFrame();
+				slowDuration -= Time.fixedDeltaTime;
+				yield return new WaitForFixedUpdate();
 			}
 
 			PlayerMovement.maxMovementSpeed = originalSpeed;
@@ -54,8 +54,8 @@ namespace PongJutsu
 
 			while (invertDuration > 0f)
 			{
-				invertDuration -= Time.deltaTime;
-				yield return new WaitForEndOfFrame();
+				invertDuration -= Time.fixedDeltaTime;
+				yield return new WaitForFixedUpdate();
 			}
 
 			PlayerMovement.invertDirection = false;
@@ -88,8 +88,8 @@ namespace PongJutsu
 
 			while (expandDuration > 0f)
 			{
-				expandDuration -= Time.deltaTime;
-				yield return new WaitForEndOfFrame();
+				expandDuration -= Time.fixedDeltaTime;
+				yield return new WaitForFixedUpdate();
 			}
 
 			transformRef.localScale = initScaleExpander;

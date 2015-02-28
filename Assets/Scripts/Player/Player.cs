@@ -86,11 +86,11 @@ namespace PongJutsu
 		private float resetComboTime = 4.0f;
 		private float passedTimeSinceCombo = 0.0f;
 
-		public void Update()
+		public void FixedUpdate()
 		{
 			if (comboCount > 0) 
 			{
-				passedTimeSinceCombo += Time.deltaTime;
+				passedTimeSinceCombo += Time.fixedDeltaTime;
 
 				if (passedTimeSinceCombo >= resetComboTime)
 				{

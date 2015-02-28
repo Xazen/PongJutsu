@@ -36,7 +36,7 @@ namespace PongJutsu
 			nextFire = firerate;
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
 			setGlow();
 
@@ -60,7 +60,7 @@ namespace PongJutsu
 
 		void Shooting()
 		{
-			nextFire += Time.deltaTime;
+			nextFire += Time.fixedDeltaTime;
 			if (nextFire >= firerate && Input.GetButton(this.tag + " shoot") && shotCount < maxActiveShots)
 			{
 				Shoot();

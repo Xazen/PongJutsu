@@ -138,12 +138,12 @@ namespace PongJutsu
 				resetChangedPrefabs();
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
 			if (allowInput)
 			{
-				GameVar.Update();
-				flow.UpdateFlow();
+				GameVar.FixedVarUpdate();
+				flow.FixedFlowUpdate();
 			}
 
 			if ((allowPause && isIngame && allowInput) || (isPause && allowPauseSwitch))

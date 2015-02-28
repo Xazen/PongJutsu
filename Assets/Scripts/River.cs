@@ -33,7 +33,7 @@ namespace PongJutsu
 			setNextSpawn();
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
 			if (GameManager.allowInput)
 				updateSpawn();
@@ -46,7 +46,7 @@ namespace PongJutsu
 
 		void updateSpawn()
 		{
-			nextSpawn -= Time.deltaTime;
+			nextSpawn -= Time.fixedDeltaTime;
 			if (nextSpawn <= 0)
 			{
 				SpawnItem();

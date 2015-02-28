@@ -18,9 +18,9 @@ namespace PongJutsu
 			shurikens.gameObject = Storage.shuriken;
 		}
 
-		public static void Update()
+		public static void FixedVarUpdate()
 		{
-			ingameTime += Time.deltaTime;
+			ingameTime += Time.fixedDeltaTime;
 		}
 
 		public class players
