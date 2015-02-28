@@ -4,22 +4,22 @@ using System;
 
 namespace PongJutsu
 {
-	public class PlayerMovement : MonoBehaviour
+	public class PlayerMovement : PlayerBase
 	{
-
 		public float minMovementSpeed = 0f;
 		public float maxMovementSpeed = 8f;
 		public float accelerationSpeed = 0.5f;
 		public float decelerationSpeed = 1.5f;
-		
-		public bool resetMovementAtTurn = true;
+
+		[SerializeField]
+		private bool resetMovementAtTurn = true;
 		private float currentSpeed = 0f;
 		private float moveDirection;
 
-		public float dashDistance = 2f;
+		[SerializeField]
+		private float dashDistance = 2f;
 		public float dashSpeed = 10f;
 		public float dashCooldown = 0.5f;
-		public float dashButtonInterval = 0.2f;
 
 		private float dashStartPosition;
 		private bool isDashing = false;
@@ -27,10 +27,13 @@ namespace PongJutsu
 		private float dashLerp;
 		private float lastDash;
 
-		public float playerCollisionOffset = 0.3f;
+		[SerializeField]
+		private float playerCollisionOffset = 0.3f;
 
-		[HideInInspector] public bool invertDirection = false;
+		[HideInInspector]
+		public bool invertDirection = false;
 
+		[HideInInspector]
 		public float movementNormalized { get { return (Mathf.Min(currentSpeed, maxMovementSpeed) * moveDirection) / maxMovementSpeed; } }
 
 		void Update()
@@ -42,7 +45,7 @@ namespace PongJutsu
 			}
 		}
 
-		void Dashing()
+		private void Dashing()
 		{
 			lastDash += Time.deltaTime;
 
@@ -52,7 +55,7 @@ namespace PongJutsu
 			}
 		}
 
-		void dash()
+		private void dash()
 		{
 			if (!isDashing && lastDash > dashCooldown)
 			{
@@ -67,7 +70,7 @@ namespace PongJutsu
 			}
 		}
 
-		void Movement()
+		private void Movement()
 		{
 			// Get current position
 			float position = this.transform.position.y;
@@ -124,31 +127,31 @@ namespace PongJutsu
 			this.transform.position = new Vector2(this.transform.position.x, position);
 
 			// Set animation
-			this.GetComponentInChildren<Animator>().SetFloat("Movement", currentSpeed);
-			this.GetComponentInChildren<Animator>().SetInteger("Direction", (int)moveDirection);
-			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
-			this.GetComponentInChildren<Animator>().SetInteger("Input", (int)Direction(Input.GetAxisRaw(this.tag)));
-			this.GetComponentInChildren<Animator>().SetBool("Dash", isDashing);
+			Player.Animator.SetFloat("Movement", currentSpeed);
+			Player.Animator.SetInteger("Direction", (int)moveDirection);
+			Player.Animator.SetFloat("Position", this.transform.position.y);
+			Player.Animator.SetInteger("Input", (int)Direction(Input.GetAxisRaw(this.tag)));
+			Player.Animator.SetBool("Dash", isDashing);
 
 			// Set animation speed depending on move speed
 			if (Input.GetAxisRaw(this.tag) != 0)
-				this.GetComponentInChildren<Animator>().speed = currentSpeed / maxMovementSpeed;
+				Player.Animator.speed = currentSpeed / maxMovementSpeed;
 			else
-				this.GetComponentInChildren<Animator>().speed = 1f;
+				Player.Animator.speed = 1f;
 		}
 
-		public void stopMovement()
+		public void StopMovementAnimation()
 		{
 			// Set animation
-			this.GetComponentInChildren<Animator>().speed = 1f;
-			this.GetComponentInChildren<Animator>().SetFloat("Movement", 0f);
-			this.GetComponentInChildren<Animator>().SetInteger("Direction", 0);
-			this.GetComponentInChildren<Animator>().SetFloat("Position", this.transform.position.y);
-			this.GetComponentInChildren<Animator>().SetInteger("Input", 0);
-			this.GetComponentInChildren<Animator>().SetBool("Dash", false);
+			Player.Animator.speed = 1f;
+			Player.Animator.SetFloat("Movement", 0f);
+			Player.Animator.SetInteger("Direction", 0);
+			Player.Animator.SetFloat("Position", this.transform.position.y);
+			Player.Animator.SetInteger("Input", 0);
+			Player.Animator.SetBool("Dash", false);
 		}
 
-		float Direction(float f)
+		private float Direction(float f)
 		{
 			if (f != 0f)
 				f = Mathf.Sign(f);

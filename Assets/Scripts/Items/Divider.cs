@@ -25,7 +25,7 @@ namespace PongJutsu
 					movementY = i * angularDistance - angularDistance * ((splits -1f) / 2f);
 
 				// Init values
-				PlayerAttack playerAttack = shuriken.owner.GetComponentInChildren<PlayerAttack>();
+				PlayerAttack playerAttack = shuriken.owner.GetComponent<PlayerAttack>();
 
 				shotInstance.GetComponent<Shuriken>().owner = shuriken.owner;
 				shotInstance.GetComponent<Shuriken>().lastHitOwner = shuriken.lastHitOwner;

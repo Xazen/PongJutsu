@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PongJutsu
 {
-	public class PlayerAttack : MonoBehaviour
+	public class PlayerAttack : PlayerBase
 	{
 
 		public float firerate = 1.5f;
@@ -11,19 +11,27 @@ namespace PongJutsu
 
 		public float maxAngle = 3.5f;
 
+		[HideInInspector]
 		public float damageMultiplier = 1.0f;
+		[HideInInspector]
 		public float speedMultiplier = 1.0f;
 
 		public int maxActiveShots = 1;
 		[HideInInspector] public int shotCount = 0;
-		private bool waitForShot = false;
 
-		public GameObject shotObject;
-		public GameObject shotSonic;
+		[SerializeField]
+		private GameObject shotPrefab;
+		[SerializeField]
+		private GameObject shotSonicPrefab;
 
-		int direction;
+		[SerializeField]
+		private GameObject glowReference;
+		[SerializeField]
+		private AudioSource attackAudioReference;
+		[SerializeField]
+		private SoundPool rageAttackSoundpoolReference;
 
-		public void Setup()
+		public void Start()
 		{
 			nextFire = firerate;
 		}
@@ -40,56 +48,48 @@ namespace PongJutsu
 		{
 			if (shotCount < maxActiveShots)
 			{
-				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == false)
-					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(true);
+				if (glowReference.activeSelf == false)
+					glowReference.SetActive(true);
 			}
 			else
 			{
-				if (this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.activeSelf == true)
-					this.transform.parent.FindChild("Ninja").FindChild("Glow").gameObject.SetActive(false);
+				if (glowReference.activeSelf == true)
+					glowReference.SetActive(false);
 			}
 		}
 
 		void Shooting()
 		{
 			nextFire += Time.deltaTime;
-			if (nextFire >= firerate && shotCount < maxActiveShots && !waitForShot && Input.GetButton(this.transform.parent.tag + " shoot"))
+			if (nextFire >= firerate && Input.GetButton(this.tag + " shoot") && shotCount < maxActiveShots)
 			{
-				triggerShoot();
+				Shoot();
 			}
 		}
 
-		void triggerShoot()
+		void Shoot()
 		{
-			// Trigger Animation... wait for throw
-			this.transform.parent.GetComponentInChildren<Animator>().SetTrigger("Shoot");
+			Player.Animator.SetTrigger("Shoot");
 
-			if (this.transform.parent.tag == "PlayerLeft" && GameFlow.instance.isDisadvantageBuffLeftPhase)
-				this.GetComponentInChildren<SoundPool>().PlayRandom();
-			else if (this.transform.parent.tag == "PlayerRight" && GameFlow.instance.isDisadvantageBuffRightPhase)
-				this.GetComponentInChildren<SoundPool>().PlayRandom();
-
-			nextFire = 0;
-			waitForShot = true;
-		}
-
-		public void Shoot()
-		{
-			// Create a new shot
-			GameObject shotInstance = (GameObject)Instantiate(shotObject, this.transform.position, Quaternion.identity);
+			GameObject shotInstance = (GameObject)Instantiate(shotPrefab, this.transform.position, Quaternion.identity);
 			Shuriken shuriken = shotInstance.GetComponent<Shuriken>();
-			shuriken.owner = this.transform.parent.gameObject;
+			shuriken.owner = this.gameObject;
 			shuriken.speed *= speedMultiplier;
-			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage*damageMultiplier);
-			shuriken.setInitialMovement(this.GetComponentInParent<Player>().direction, this.GetComponentInParent<PlayerMovement>().movementNormalized * maxAngle);
-			this.audio.Play();
+			shuriken.damage = Mathf.RoundToInt((float)shuriken.damage * damageMultiplier);
+			shuriken.setInitialMovement(Player.direction, PlayerMovement.movementNormalized * maxAngle);
 
-			GameObject sonicInstance = (GameObject)Instantiate(shotSonic, this.transform.position, this.transform.rotation);
-			sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.transform.parent.gameObject);
+			attackAudioReference.Play();
 
-			GameScore.GetByPlayer(this.transform.parent.gameObject).thrownshurikens += 1;
+			if (this.tag == "PlayerLeft" && GameFlow.instance.isDisadvantageBuffLeftPhase)
+				rageAttackSoundpoolReference.PlayRandom();
+			else if (this.tag == "PlayerRight" && GameFlow.instance.isDisadvantageBuffRightPhase)
+				rageAttackSoundpoolReference.PlayRandom();
 
-			waitForShot = false;
+			GameObject sonicInstance = (GameObject)Instantiate(shotSonicPrefab, this.transform.position, this.transform.rotation);
+			sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.gameObject);
+
+			GameScore.GetByPlayer(this.gameObject).thrownshurikens += 1;
+			nextFire = 0;
 		}
 	}
 }

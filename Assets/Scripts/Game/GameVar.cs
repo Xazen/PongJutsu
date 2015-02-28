@@ -12,10 +12,10 @@ namespace PongJutsu
 		{
 			ingameTime = 0f;
 
-			players.left.reference = GameObject.FindGameObjectWithTag("PlayerLeft");
-			players.right.reference = GameObject.FindGameObjectWithTag("PlayerRight");
-			river.reference = GameObject.FindGameObjectWithTag("River");
-			shuriken.reference = Storage.shuriken;
+			players.left.gameObject = GameObject.FindGameObjectWithTag("PlayerLeft");
+			players.right.gameObject = GameObject.FindGameObjectWithTag("PlayerRight");
+			river.gameObject = GameObject.FindGameObjectWithTag("River");
+			shurikens.gameObject = Storage.shuriken;
 		}
 
 		public static void Update()
@@ -33,62 +33,74 @@ namespace PongJutsu
 
 			public class player
 			{
-				public GameObject reference;
+				public GameObject gameObject;
+
+				PlayerBase _References;
+				private PlayerBase References
+				{
+					get
+					{
+						if (_References == null)
+							_References = gameObject.GetComponent<PlayerBase>();
+
+						return _References;
+					}
+				}
 
 				public int comboCount
 				{
-					get { return reference.GetComponent<Player>().comboCount; }
+					get { return References.Player.comboCount; }
 				}
 
 				public int maxActiveShots
 				{
-					get { return reference.GetComponentInChildren<PlayerAttack>().maxActiveShots; }
-					set { reference.GetComponentInChildren<PlayerAttack>().maxActiveShots = value; }
+					get { return References.PlayerAttack.maxActiveShots; }
+					set { References.PlayerAttack.maxActiveShots = value; }
 				}
 
 				public float firerate
 				{
-					get { return reference.GetComponentInChildren<PlayerAttack>().firerate; }
-					set { reference.GetComponentInChildren<PlayerAttack>().firerate = value; }
+					get { return References.PlayerAttack.firerate; }
+					set { References.PlayerAttack.firerate = value; }
 				}
 
 				public float angle
 				{
-					get { return reference.GetComponentInChildren<PlayerAttack>().maxAngle; }
-					set { reference.GetComponentInChildren<PlayerAttack>().maxAngle = value; }
+					get { return References.PlayerAttack.maxAngle; }
+					set { References.PlayerAttack.maxAngle = value; }
 				}
 
 				public float damageMultiplier
 				{
-					get { return reference.GetComponentInChildren<PlayerAttack> ().damageMultiplier; }
-					set { reference.GetComponentInChildren<PlayerAttack>().damageMultiplier = value; }
+					get { return References.PlayerAttack.damageMultiplier; }
+					set { References.PlayerAttack.damageMultiplier = value; }
 				}
 								
 				public float speedMultiplier
 				{
-					get { return reference.GetComponentInChildren<PlayerAttack> ().speedMultiplier; }
-					set { reference.GetComponentInChildren<PlayerAttack>().speedMultiplier = value; }
+					get { return References.PlayerAttack.speedMultiplier; }
+					set { References.PlayerAttack.speedMultiplier = value; }
 				}
 
 				public float minMovementSpeed
 				{
-					get { return reference.GetComponentInChildren<PlayerMovement>().minMovementSpeed; }
-					set { reference.GetComponentInChildren<PlayerMovement>().minMovementSpeed = value; }
+					get { return References.PlayerMovement.minMovementSpeed; }
+					set { References.PlayerMovement.minMovementSpeed = value; }
 				}
 				public float accelerationSpeed
 				{
-					get { return reference.GetComponentInChildren<PlayerMovement>().accelerationSpeed; }
-					set { reference.GetComponentInChildren<PlayerMovement>().accelerationSpeed = value; }
+					get { return References.PlayerMovement.accelerationSpeed; }
+					set { References.PlayerMovement.accelerationSpeed = value; }
 				}
 				public float dashSpeed
 				{
-					get { return reference.GetComponentInChildren<PlayerMovement>().dashSpeed; }
-					set { reference.GetComponentInChildren<PlayerMovement>().dashSpeed = value; }
+					get { return References.PlayerMovement.dashSpeed; }
+					set { References.PlayerMovement.dashSpeed = value; }
 				}
 				public float dashCooldown
 				{
-					get { return reference.GetComponentInChildren<PlayerMovement>().dashCooldown; }
-					set { reference.GetComponentInChildren<PlayerMovement>().dashCooldown = value; }
+					get { return References.PlayerMovement.dashCooldown; }
+					set { References.PlayerMovement.dashCooldown = value; }
 				}
 			}
 		}
@@ -121,45 +133,45 @@ namespace PongJutsu
 			}
 		}
 
-		public class shuriken
+		public class shurikens
 		{
-			public static GameObject reference;
+			public static GameObject gameObject;
 
 			public static int damage
 			{
-				get { return reference.GetComponent<Shuriken>().damage; }
-				set { reference.GetComponent<Shuriken>().damage = value; }
+				get { return gameObject.GetComponent<Shuriken>().damage; }
+				set { gameObject.GetComponent<Shuriken>().damage = value; }
 			}
 			public static float speed
 			{
-				get { return reference.GetComponent<Shuriken>().speed; }
-				set { reference.GetComponent<Shuriken>().speed = value; }
+				get { return gameObject.GetComponent<Shuriken>().speed; }
+				set { gameObject.GetComponent<Shuriken>().speed = value; }
 			}
 		}
 
 		public class river
 		{
-			public static GameObject reference;
+			public static GameObject gameObject;
 
 			public static float spawnFrequency
 			{
-				get { return reference.GetComponent<River>().spawnFrequency; }
-				set { reference.GetComponent<River>().spawnFrequency = value; }
+				get { return gameObject.GetComponent<River>().spawnFrequency; }
+				set { gameObject.GetComponent<River>().spawnFrequency = value; }
 			}
 			public static float frequencyRandomizer
 			{
-				get { return reference.GetComponent<River>().frequencyRandomizer; }
-				set { reference.GetComponent<River>().frequencyRandomizer = value; }
+				get { return gameObject.GetComponent<River>().frequencyRandomizer; }
+				set { gameObject.GetComponent<River>().frequencyRandomizer = value; }
 			}
 			public static float flowSpeed
 			{
-				get { return reference.GetComponent<River>().flowSpeed; }
-				set { reference.GetComponent<River>().flowSpeed = value; }
+				get { return gameObject.GetComponent<River>().flowSpeed; }
+				set { gameObject.GetComponent<River>().flowSpeed = value; }
 			}
 
 			public static Dictionary<string, Item> itemList
 			{
-				get { return reference.GetComponent<River>().itemList; }
+				get { return gameObject.GetComponent<River>().itemList; }
 			}
 		}
 	}

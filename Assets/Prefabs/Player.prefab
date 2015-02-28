@@ -9,9 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
-  - 114: {fileID: 11400006}
   - 95: {fileID: 9578452}
-  - 61: {fileID: 6100000}
   - 114: {fileID: 11495008}
   - 82: {fileID: 8200002}
   m_Layer: 0
@@ -47,7 +45,10 @@ GameObject:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400004}
+  - 114: {fileID: 11496920}
+  - 114: {fileID: 11434928}
   - 114: {fileID: 11460354}
+  - 61: {fileID: 6142036}
   - 95: {fileID: 9562836}
   - 114: {fileID: 11482364}
   - 82: {fileID: 8282364}
@@ -66,7 +67,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400006}
-  - 114: {fileID: 11400002}
   - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: Attack
@@ -272,12 +272,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400000}
   m_RootOrder: 1
---- !u!61 &6100000
+--- !u!61 &6142036
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
+  m_GameObject: {fileID: 100004}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -540,30 +540,16 @@ MonoBehaviour:
     type: 2}
   ninjaRightController: {fileID: 22100000, guid: 59cf7cfb89f807f428f35b09c4b80ed1,
     type: 2}
+  shieldLeftController: {fileID: 22100000, guid: 04c276c6d627c0c46ab251b8319505b6,
+    type: 2}
+  shieldRightController: {fileID: 22100000, guid: be5b05eb47da2f34f9318e0f9d2d2729,
+    type: 2}
+  shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
+  shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
   forts: []
-  mirror: 0
   direction: 1
   comboCount: 0
   resetComboTime: 4
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3463c6b9cd177f4a97b5a9a591b3662, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firerate: .200000003
-  maxAngle: 3.5
-  damageMultiplier: 1
-  speedMultiplier: 1
-  maxActiveShots: 1
-  shotCount: 0
-  shotObject: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
-  shotSonic: {fileID: 184568, guid: 180d685d106507a498a775bef30779a4, type: 2}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -583,27 +569,8 @@ MonoBehaviour:
   dashDistance: 2.25
   dashSpeed: 10
   dashCooldown: .5
-  dashButtonInterval: .200000003
   playerCollisionOffset: .649999976
   invertDirection: 0
---- !u!114 &11400006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 764ed7730edd5a24aa6d366ae1e523c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shieldAngleMultiplier: 4
-  shieldLeftController: {fileID: 22100000, guid: 04c276c6d627c0c46ab251b8319505b6,
-    type: 2}
-  shieldRightController: {fileID: 22100000, guid: be5b05eb47da2f34f9318e0f9d2d2729,
-    type: 2}
-  shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
-  shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
 --- !u!114 &11427610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -621,7 +588,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c63c6c012f019bb4e9dca9b2ac3e05c7, type: 3}
   - {fileID: 8300000, guid: eb085a98e67458b499dab384a57f5756, type: 3}
   - {fileID: 8300000, guid: deed20b55bdc3024daab4559deacb3a2, type: 3}
-  - {fileID: 8300000, guid: b35fefef18395424b98986a876d0e9cd, type: 3}
+  - {fileID: 0}
+--- !u!114 &11434928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764ed7730edd5a24aa6d366ae1e523c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldAngleMultiplier: 4
+  shieldReference: {fileID: 100000}
+  expanderReference: {fileID: 118704}
 --- !u!114 &11460354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -633,9 +614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c03c6d2a85f655409060cfb02dd705b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSlow: 0
-  isInverted: 0
-  isExpanded: 0
 --- !u!114 &11482364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -667,6 +645,28 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: b57fc5488d945734690e248878ad3d46, type: 3}
   - {fileID: 8300000, guid: 7169257ac61047842a2e2580f649811a, type: 3}
+--- !u!114 &11496920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3463c6b9cd177f4a97b5a9a591b3662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firerate: .200000003
+  maxAngle: 3.5
+  damageMultiplier: 1
+  speedMultiplier: 1
+  maxActiveShots: 1
+  shotCount: 0
+  shotPrefab: {fileID: 100000, guid: 8b94389e094a9364bb955ccd1a4cf71f, type: 2}
+  shotSonicPrefab: {fileID: 184568, guid: 180d685d106507a498a775bef30779a4, type: 2}
+  glowReference: {fileID: 114184}
+  attackAudioReference: {fileID: 8200000}
+  rageAttackSoundpoolReference: {fileID: 11427610}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

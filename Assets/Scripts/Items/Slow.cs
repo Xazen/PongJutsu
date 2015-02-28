@@ -16,16 +16,16 @@ namespace PongJutsu
 			if (slowDownWinningPlayerOnly && GameVar.forts.leftCount != GameVar.forts.rightCount)
 			{
 				if (GameVar.forts.leftCount > GameVar.forts.rightCount)
-					affectedPlayer = GameVar.players.left.reference;
+					affectedPlayer = GameVar.players.left.gameObject;
 				else if (GameVar.forts.rightCount > GameVar.forts.leftCount)
-					affectedPlayer = GameVar.players.right.reference;
+					affectedPlayer = GameVar.players.right.gameObject;
 			}
 			else
 			{
-				if (shuriken.lastHitOwner.tag == GameVar.players.left.reference.tag)
-					affectedPlayer = GameVar.players.right.reference;
-				else if (shuriken.lastHitOwner.tag == GameVar.players.right.reference.tag)
-					affectedPlayer = GameVar.players.left.reference;
+				if (shuriken.lastHitOwner.tag == GameVar.players.left.gameObject.tag)
+					affectedPlayer = GameVar.players.right.gameObject;
+				else if (shuriken.lastHitOwner.tag == GameVar.players.right.gameObject.tag)
+					affectedPlayer = GameVar.players.left.gameObject;
 			}
 
 			affectedPlayer.GetComponent<PlayerItemHandler>().Slow(this);

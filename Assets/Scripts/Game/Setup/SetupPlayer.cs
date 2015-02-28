@@ -8,7 +8,6 @@ namespace PongJutsu
 
 		public GameObject playerPrefab;
 		public float offset = 0.5f;
-		public bool autoMirror = true;
 
 		private float internOffset = 0.5f;
 
@@ -22,36 +21,24 @@ namespace PongJutsu
 			float fortOffset = GetComponent<SetupForts>().width + GetComponent<SetupForts>().offset;
 
 			// Player 1
-			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), false, MainInstance, "PlayerLeft", "PlayerLeft");
+			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), PlayerSide.Left, MainInstance, "PlayerLeft");
 
 			// Player 2
-			spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), autoMirror, MainInstance, "PlayerRight", "PlayerRight");
+			spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), PlayerSide.Right, MainInstance, "PlayerRight");
 		}
 
-		private GameObject spawnPlayer(Vector2 position, bool mirror, GameObject parent, string name, string tag)
+		private GameObject spawnPlayer(Vector2 position, PlayerSide playerSide, GameObject parent, string name)
 		{
 			GameObject instance = (GameObject)Instantiate(playerPrefab);
 			instance.name = name;
-			instance.tag = tag;
+			instance.tag = name;
 			instance.transform.parent = parent.transform;
 			instance.transform.position = position;
-			instance.GetComponent<Player>().mirror = mirror;
+			instance.GetComponent<PlayerBase>().Player.playerSide = playerSide;
 
 			Instances.Add(instance);
 
 			return instance;
-		}
-
-		public override void postbuild()
-		{
-			base.postbuild();
-
-			foreach (GameObject instance in Instances)
-			{
-				instance.GetComponent<Player>().Setup();
-				instance.GetComponentInChildren<PlayerAttack>().Setup();
-				instance.GetComponentInChildren<PlayerShield>().Setup();
-			}
 		}
 
 		void OnDrawGizmos()

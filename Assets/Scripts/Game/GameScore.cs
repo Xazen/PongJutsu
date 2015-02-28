@@ -17,18 +17,18 @@ namespace PongJutsu
 
 		public static PlayerScore GetByPlayer(GameObject player)
 		{
-			if (player == GameVar.players.left.reference)
+			if (player == GameVar.players.left.gameObject)
 				return playerLeft;
-			else if (player == GameVar.players.right.reference)
+			else if (player == GameVar.players.right.gameObject)
 				return playerRight;
 
 			return null;
 		}
 		public static PlayerScore GetByEnemyPlayer(GameObject player)
 		{
-			if (player == GameVar.players.left.reference)
+			if (player == GameVar.players.left.gameObject)
 				return playerRight;
-			else if (player == GameVar.players.right.reference)
+			else if (player == GameVar.players.right.gameObject)
 				return playerLeft;
 
 			return null;
