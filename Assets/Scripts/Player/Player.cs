@@ -30,8 +30,6 @@ namespace PongJutsu
 					Animator.runtimeAnimatorController = ninjaLeftController;
 					PlayerShield.shieldReference.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
 					PlayerShield.Animator.runtimeAnimatorController = shieldLeftController;
-
-					forts = GameObject.FindGameObjectsWithTag("FortLeft");
 				}
 				else if (_playerSide == PlayerSide.Right)
 				{
@@ -41,8 +39,6 @@ namespace PongJutsu
 					Animator.runtimeAnimatorController = ninjaRightController;
 					PlayerShield.shieldReference.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
 					PlayerShield.Animator.runtimeAnimatorController = shieldRightController;
-
-					forts = GameObject.FindGameObjectsWithTag("FortRight");
 				}
 			}
 		}
@@ -74,8 +70,23 @@ namespace PongJutsu
 		[SerializeField]
 		private Sprite shieldRightSprite;
 
+		private GameObject[] _forts;
 		[HideInInspector]
-		public GameObject[] forts;
+		public GameObject[] forts
+		{
+			get
+			{
+				if (_forts == null)
+				{
+					if (playerSide == PlayerSide.Left)
+						_forts = GameObject.FindGameObjectsWithTag("FortLeft");
+					else if (playerSide == PlayerSide.Right)
+						_forts = GameObject.FindGameObjectsWithTag("FortRight");
+				}
+
+				return _forts;
+			}
+		}
 
 		[HideInInspector]
 		public int direction = 1;
