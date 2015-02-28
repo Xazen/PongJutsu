@@ -90,10 +90,10 @@ namespace PongJutsu
 			this.adjustSpeed();
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
 			// Move the shot
-			this.transform.position = new Vector2(this.transform.position.x + movement.x * Time.deltaTime, this.transform.position.y + movement.y * Time.deltaTime);
+			this.transform.position = new Vector2(this.transform.position.x + movement.x * Time.fixedDeltaTime, this.transform.position.y + movement.y * Time.fixedDeltaTime);
 		}
 
 		void OnTriggerEnter2D(Collider2D col)

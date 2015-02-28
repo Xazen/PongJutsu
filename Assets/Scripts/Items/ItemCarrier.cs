@@ -21,9 +21,9 @@ namespace PongJutsu
 			this.name = "Carrier (" + itemPrefab.name + ")";
 		}
 
-		void Update()
+		void FixedUpdate()
 		{
-			this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + vSpeed * Time.deltaTime);
+			this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + vSpeed * Time.fixedDeltaTime);
 		}
 	}
 }
