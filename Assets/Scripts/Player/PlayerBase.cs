@@ -1,87 +1,84 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace PongJutsu
+[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerAttack))]
+[RequireComponent(typeof(PlayerShield))]
+[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerItemHandler))]
+
+public class PlayerBase : MonoBehaviour
 {
-	[RequireComponent(typeof(Player))]
-	[RequireComponent(typeof(PlayerMovement))]
-	[RequireComponent(typeof(PlayerAttack))]
-	[RequireComponent(typeof(PlayerShield))]
-	[RequireComponent(typeof(PlayerInput))]
-	[RequireComponent(typeof(PlayerItemHandler))]
-
-	public class PlayerBase : MonoBehaviour
+	Player _Player;
+	public Player Player
 	{
-		Player _Player;
-		public Player Player
+		get
 		{
-			get
-			{
-				if (_Player == null)
-					_Player = GetComponent<Player>();
+			if (_Player == null)
+				_Player = GetComponent<Player>();
 
-				return _Player;
-			}
+			return _Player;
 		}
+	}
 
-		PlayerMovement _PlayerMovement;
-		public PlayerMovement PlayerMovement
+	PlayerMovement _PlayerMovement;
+	public PlayerMovement PlayerMovement
+	{
+		get
 		{
-			get
-			{
-				if (_PlayerMovement == null)
-					_PlayerMovement = GetComponent<PlayerMovement>();
+			if (_PlayerMovement == null)
+				_PlayerMovement = GetComponent<PlayerMovement>();
 
-				return _PlayerMovement;
-			}
+			return _PlayerMovement;
 		}
+	}
 
-		PlayerAttack _PlayerAttack;
-		public PlayerAttack PlayerAttack
+	PlayerAttack _PlayerAttack;
+	public PlayerAttack PlayerAttack
+	{
+		get
 		{
-			get
-			{
-				if (_PlayerAttack == null)
-					_PlayerAttack = GetComponent<PlayerAttack>();
+			if (_PlayerAttack == null)
+				_PlayerAttack = GetComponent<PlayerAttack>();
 
-				return _PlayerAttack;
-			}
+			return _PlayerAttack;
 		}
+	}
 
-		PlayerShield _PlayerShield;
-		public PlayerShield PlayerShield
+	PlayerShield _PlayerShield;
+	public PlayerShield PlayerShield
+	{
+		get
 		{
-			get
-			{
-				if (_PlayerShield == null)
-					_PlayerShield = GetComponent<PlayerShield>();
+			if (_PlayerShield == null)
+				_PlayerShield = GetComponent<PlayerShield>();
 
-				return _PlayerShield;
-			}
+			return _PlayerShield;
 		}
+	}
 
-		PlayerInput _PlayerInput;
-		public PlayerInput PlayerInput
+	PlayerInput _PlayerInput;
+	public PlayerInput PlayerInput
+	{
+		get
 		{
-			get
-			{
-				if (_PlayerInput == null)
-					_PlayerInput = GetComponent<PlayerInput>();
+			if (_PlayerInput == null)
+				_PlayerInput = GetComponent<PlayerInput>();
 
-				return _PlayerInput;
-			}
+			return _PlayerInput;
 		}
+	}
 
-		PlayerItemHandler _PlayerItemHandler;
-		public PlayerItemHandler PlayerItemHandler
+	PlayerItemHandler _PlayerItemHandler;
+	public PlayerItemHandler PlayerItemHandler
+	{
+		get
 		{
-			get
-			{
-				if (_PlayerItemHandler == null)
-					_PlayerItemHandler = GetComponent<PlayerItemHandler>();
+			if (_PlayerItemHandler == null)
+				_PlayerItemHandler = GetComponent<PlayerItemHandler>();
 
-				return _PlayerItemHandler;
-			}
+			return _PlayerItemHandler;
 		}
 	}
 }

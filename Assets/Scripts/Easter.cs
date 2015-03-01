@@ -54,7 +54,7 @@ namespace Easter
 			if (!isEaster)
 			{
 				StartCoroutine("IHappyEaster");
-				PongJutsu.GameManager.InstantGame();
+				GameManager.InstantGame();
 			}
 		}
 

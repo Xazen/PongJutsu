@@ -6,46 +6,40 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 
-namespace PongJutsu
+public class AnimatorParameter : MonoBehaviour
 {
-	public class AnimatorParameter : MonoBehaviour
-	{
-		public string[] trigger;
-	}
+	public string[] trigger;
+}
 
-	[CustomEditor(typeof(AnimatorParameter))]
-	public class b : Editor
+[CustomEditor(typeof(AnimatorParameter))]
+public class b : Editor
+{
+	public override void OnInspectorGUI()
 	{
-		public override void OnInspectorGUI()
+		DrawDefaultInspector();
+
+		AnimatorParameter tar = (AnimatorParameter)target;
+		if (GUILayout.Button("Get Parameters"))
 		{
-			DrawDefaultInspector();
+			AnimatorController animatorController = AnimatorController.GetEffectiveAnimatorController(tar.GetComponent<Animator>());
 
-			AnimatorParameter tar = (AnimatorParameter)target;
-			if (GUILayout.Button("Get Parameters"))
+			List<string> parameter = new List<string>();
+			for (int i = 0; i < animatorController.parameterCount; i++)
 			{
-				AnimatorController animatorController = AnimatorController.GetEffectiveAnimatorController(tar.GetComponent<Animator>());
-
-				List<string> parameter = new List<string>();
-				for (int i = 0; i < animatorController.parameterCount; i++)
-				{
-					if (animatorController.GetParameter(i).type == AnimatorControllerParameterType.Trigger)
-						parameter.Add(animatorController.GetParameter(i).name);
-				}
-
-				tar.trigger = parameter.ToArray();
+				if (animatorController.GetParameter(i).type == AnimatorControllerParameterType.Trigger)
+					parameter.Add(animatorController.GetParameter(i).name);
 			}
+
+			tar.trigger = parameter.ToArray();
 		}
 	}
 }
 
 #else
 
-namespace PongJutsu
+public class AnimatorParameter : MonoBehaviour
 {
-	public class AnimatorParameter : MonoBehaviour
-	{
-		public string[] trigger;
-	}
+	public string[] trigger;
 }
 
 #endif

@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace PongJutsu
+public class ShieldExpander : Item
 {
-	public class ShieldExpander : Item
+	public float scaleMultiplier = 1.5f;
+
+	private PlayerShield shield;
+
+	public override void OnActivation(Shuriken shuriken)
 	{
-		public float scaleMultiplier = 1.5f;
+		shuriken.lastHitOwner.GetComponent<PlayerItemHandler>().ShieldExpander(this);
+		placeFeedback(shuriken.lastHitOwner);
 
-		private PlayerShield shield;
-
-		public override void OnActivation(Shuriken shuriken)
-		{
-			shuriken.lastHitOwner.GetComponent<PlayerItemHandler>().ShieldExpander(this);
-			placeFeedback(shuriken.lastHitOwner);
-
-			base.OnActivation(shuriken);
-		}
+		base.OnActivation(shuriken);
 	}
 }

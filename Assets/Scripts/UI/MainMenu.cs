@@ -1,33 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace PongJutsu
+public class MainMenu : UIScript
 {
-	public class MainMenu : UIScript
+	public void click_Start()
 	{
-		public void click_Start()
-		{
-			GameManager.NewGame();
-		}
+		GameManager.NewGame();
+	}
 
-		public void click_Help()
-		{
-			ui.SetTrigger("Help");
-		}
+	public void click_Help()
+	{
+		ui.SetTrigger("Help");
+	}
 
-		public void click_Options()
-		{
-			ui.SetTrigger("Options");
-		}
+	public void click_Options()
+	{
+		ui.SetTrigger("Options");
+	}
 
-		public void click_Credits()
-		{
-			ui.SetTrigger("Credits");
-		}
+	public void click_Credits()
+	{
+		ui.SetTrigger("Credits");
+	}
 
-		public void click_Exit()
-		{
-			Application.Quit();
-		}
+	public void click_Exit()
+	{
+		Application.Quit();
 	}
 }
