@@ -6,9 +6,14 @@ namespace PongJutsu
 {
 	public class UIAnimationEvents : MonoBehaviour
 	{
-		void transition_loadgame(int waitForBuildup)
+		void transition_loadgame()
 		{
-			GameManager.LoadGame(Convert.ToBoolean(waitForBuildup));
+			GameManager.LoadGame();
+		}
+
+		void transition_preparebuildup()
+		{
+			GameManager.PrepareBuildup();
 		}
 
 		void transition_buildup()

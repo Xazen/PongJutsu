@@ -41,11 +41,11 @@ namespace PongJutsu
 		public static void InstantGame()
 		{
 			GameMatch.newMatch();
-			LoadGame(false);
+			LoadGame();
 			ui.SetTrigger("InstantGame");
 		}
 
-		public static void LoadGame(bool waitForBuildup)
+		public static void LoadGame()
 		{
 			if (!isIngame)
 			{
@@ -69,12 +69,6 @@ namespace PongJutsu
 				Screen.showCursor = false;
 
 				Time.timeScale = 1;
-
-				// prepare construction
-				if (waitForBuildup)
-				{
-					PrepareBuildup();
-				}
 			}
 		}
 
