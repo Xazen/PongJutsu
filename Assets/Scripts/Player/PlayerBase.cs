@@ -7,6 +7,7 @@ namespace PongJutsu
 	[RequireComponent(typeof(PlayerMovement))]
 	[RequireComponent(typeof(PlayerAttack))]
 	[RequireComponent(typeof(PlayerShield))]
+	[RequireComponent(typeof(PlayerInput))]
 	[RequireComponent(typeof(PlayerItemHandler))]
 
 	public class PlayerBase : MonoBehaviour
@@ -56,6 +57,18 @@ namespace PongJutsu
 					_PlayerShield = GetComponent<PlayerShield>();
 
 				return _PlayerShield;
+			}
+		}
+
+		PlayerInput _PlayerInput;
+		public PlayerInput PlayerInput
+		{
+			get
+			{
+				if (_PlayerInput == null)
+					_PlayerInput = GetComponent<PlayerInput>();
+
+				return _PlayerInput;
 			}
 		}
 

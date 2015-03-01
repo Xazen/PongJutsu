@@ -47,6 +47,7 @@ GameObject:
   - 114: {fileID: 11400004}
   - 114: {fileID: 11496920}
   - 114: {fileID: 11434928}
+  - 114: {fileID: 11408516}
   - 114: {fileID: 11460354}
   - 61: {fileID: 6142036}
   - 95: {fileID: 9562836}
@@ -546,7 +547,6 @@ MonoBehaviour:
     type: 2}
   shieldLeftSprite: {fileID: 21300000, guid: 1f6b2bb1b822dd04d8a3183ce6f0feb1, type: 3}
   shieldRightSprite: {fileID: 21300000, guid: 8ef6a4ff5aab219458e1184ee3417bb9, type: 3}
-  forts: []
   direction: 1
   comboCount: 0
   resetComboTime: 4
@@ -571,6 +571,43 @@ MonoBehaviour:
   dashCooldown: .5
   playerCollisionOffset: .649999976
   invertDirection: 0
+--- !u!114 &11408516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ff483e7a80a674687cdb2d4f249617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerLeft:
+  - control: 0
+    positiveButton: 119
+    negativeButton: 115
+    joystickAssignmentName: PlayerLeft Movement
+  - control: 1
+    positiveButton: 100
+    negativeButton: 0
+    joystickAssignmentName: PlayerLeft Shoot
+  - control: 2
+    positiveButton: 97
+    negativeButton: 0
+    joystickAssignmentName: PlayerLeft Dash
+  PlayerRight:
+  - control: 0
+    positiveButton: 273
+    negativeButton: 274
+    joystickAssignmentName: PlayerRight Movement
+  - control: 1
+    positiveButton: 276
+    negativeButton: 0
+    joystickAssignmentName: PlayerRight Shoot
+  - control: 2
+    positiveButton: 275
+    negativeButton: 0
+    joystickAssignmentName: PlayerRight Dash
 --- !u!114 &11427610
 MonoBehaviour:
   m_ObjectHideFlags: 1

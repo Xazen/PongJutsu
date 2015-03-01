@@ -49,7 +49,7 @@ namespace PongJutsu
 		{
 			lastDash += Time.fixedDeltaTime;
 
-			if (Input.GetAxisRaw(this.tag + " dash") != 0f && Input.GetAxisRaw(this.tag) != 0f)
+			if (PlayerInput.GetAxis(Control.Dash) != 0f && PlayerInput.GetAxis(Control.Movement) != 0f)
 			{
 				dash();
 			}
@@ -64,7 +64,7 @@ namespace PongJutsu
 
 				dashLerp = 0;
 				dashStartPosition = this.transform.position.y;
-				dashDirection = Direction(Input.GetAxisRaw(this.tag));
+				dashDirection = Direction(PlayerInput.GetAxis(Control.Movement));
 
 				this.GetComponent<SoundPool>().PlayRandom();
 			}
@@ -76,16 +76,16 @@ namespace PongJutsu
 			float position = this.transform.position.y;
 
 			// Calculate Speed and direction
-			if (Input.GetAxisRaw(this.tag) != 0f)
+			if (PlayerInput.GetAxis(Control.Movement) != 0f)
 			{
-				if (resetMovementAtTurn && moveDirection != Direction(Input.GetAxisRaw(this.tag)))
+				if (resetMovementAtTurn && moveDirection != Direction(PlayerInput.GetAxis(Control.Movement)))
 					currentSpeed = 0;
 
 				if (currentSpeed == 0)
 					currentSpeed = minMovementSpeed;
 
-				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed * Mathf.Abs(Input.GetAxisRaw(this.tag)), 0f, maxMovementSpeed);
-				moveDirection = Direction(Input.GetAxisRaw(this.tag));
+				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed * Mathf.Abs(PlayerInput.GetAxis(Control.Movement)), 0f, maxMovementSpeed);
+				moveDirection = Direction(PlayerInput.GetAxis(Control.Movement));
 			}
 			else
 			{
@@ -130,11 +130,11 @@ namespace PongJutsu
 			Player.Animator.SetFloat("Movement", currentSpeed);
 			Player.Animator.SetInteger("Direction", (int)moveDirection);
 			Player.Animator.SetFloat("Position", this.transform.position.y);
-			Player.Animator.SetInteger("Input", (int)Direction(Input.GetAxisRaw(this.tag)));
+			Player.Animator.SetInteger("Input", (int)Direction(PlayerInput.GetAxis(Control.Movement)));
 			Player.Animator.SetBool("Dash", isDashing);
 
 			// Set animation speed depending on move speed
-			if (Input.GetAxisRaw(this.tag) != 0)
+			if (PlayerInput.GetAxis(Control.Movement) != 0)
 				Player.Animator.speed = currentSpeed / maxMovementSpeed;
 			else
 				Player.Animator.speed = 1f;
