@@ -2,35 +2,33 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace PongJutsu
+public class GameSetup : MonoBehaviour
 {
-	public class GameSetup : MonoBehaviour
+	[HideInInspector]
+	public GameObject MainInstance;
+	[HideInInspector]
+	public List<GameObject> Instances;
+
+	public virtual void build()
 	{
-		[HideInInspector] public GameObject MainInstance;
-		[HideInInspector] public List<GameObject> Instances;
 
-		public virtual void build()
+	}
+
+	public virtual void postbuild()
+	{
+
+	}
+
+	public virtual void remove()
+	{
+		if (MainInstance != null)
 		{
-
+			Destroy(MainInstance);
+			MainInstance = null;
 		}
-
-		public virtual void postbuild()
+		if (Instances != null)
 		{
-			
-		}
-
-		public virtual void remove()
-		{
-			if (MainInstance != null)
-			{
-				Destroy(MainInstance);
-				MainInstance = null;
-			}
-			if (Instances != null)
-			{
-				Instances.Clear();
-			}
+			Instances.Clear();
 		}
 	}
 }
-

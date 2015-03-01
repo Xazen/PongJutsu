@@ -1,44 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace PongJutsu
+public class SetupRiver : GameSetup
 {
-	public class SetupRiver : GameSetup
+
+	public GameObject riverPrefab;
+
+	public override void build()
 	{
+		base.build();
 
-		public GameObject riverPrefab;
+		MainInstance = (GameObject)Instantiate(riverPrefab, new Vector2(0f, 0f), Quaternion.identity);
+		MainInstance.name = riverPrefab.name;
+	}
 
-		public override void build()
+	public override void postbuild()
+	{
+		base.postbuild();
+
+		MainInstance.GetComponent<River>().Setup();
+	}
+
+	void OnDrawGizmos()
+	{
+		if (riverPrefab != null)
 		{
-			base.build();
+			River river = riverPrefab.GetComponent<River>();
 
-			MainInstance = (GameObject)Instantiate(riverPrefab, new Vector2(0f, 0f), Quaternion.identity);
-			MainInstance.name = riverPrefab.name;
-		}
+			Gizmos.color = new Color(0.3f, 0.3f, 0.5f, 0.5f);
 
-		public override void postbuild()
-		{
-			base.postbuild();
-
-			MainInstance.GetComponent<River>().Setup();
-		}
-
-		void OnDrawGizmos()
-		{
-			if (riverPrefab != null)
+			if (river.snapToVertical)
 			{
-				River river = riverPrefab.GetComponent<River>();
-
-				Gizmos.color = new Color(0.3f, 0.3f, 0.5f, 0.5f);
-
-				if (river.snapToVertical)
-				{
-					river.height = Camera.main.orthographicSize * 2;
-					river.snapToVertical = false;
-				}
-
-				Gizmos.DrawCube(new Vector2(0, 0), new Vector2(river.width, river.height));
+				river.height = Camera.main.orthographicSize * 2;
+				river.snapToVertical = false;
 			}
+
+			Gizmos.DrawCube(new Vector2(0, 0), new Vector2(river.width, river.height));
 		}
 	}
 }

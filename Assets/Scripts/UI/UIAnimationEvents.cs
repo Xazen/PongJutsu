@@ -2,28 +2,25 @@
 using System.Collections;
 using System;
 
-namespace PongJutsu
+public class UIAnimationEvents : MonoBehaviour
 {
-	public class UIAnimationEvents : MonoBehaviour
+	void transition_loadgame(int waitForBuildup)
 	{
-		void transition_loadgame(int waitForBuildup)
-		{
-			GameManager.LoadGame(Convert.ToBoolean(waitForBuildup));
-		}
+		GameManager.LoadGame(Convert.ToBoolean(waitForBuildup));
+	}
 
-		void transition_buildup()
-		{
-			GameManager.BuildupGame();
-		}
+	void transition_buildup()
+	{
+		GameManager.BuildupGame();
+	}
 
-		void transition_startgame()
-		{
-			GameManager.StartGame();
-		}
+	void transition_startgame()
+	{
+		GameManager.StartGame();
+	}
 
-		void transition_unloadgame()
-		{
-			GameManager.UnloadGame();
-		}
+	void transition_unloadgame()
+	{
+		GameManager.UnloadGame();
 	}
 }

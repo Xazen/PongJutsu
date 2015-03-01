@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace PongJutsu
+public class AudioVolumeControl : MonoBehaviour
 {
-	public class AudioVolumeControl : MonoBehaviour
+	private float sourceVolume;
+
+	void Start()
 	{
-		private float sourceVolume;
+		sourceVolume = this.GetComponent<AudioSource>().volume;
+	}
 
-		void Start()
-		{
-			sourceVolume = this.GetComponent<AudioSource>().volume;
-		}
-
-		void Update() 
-		{
-			this.GetComponent<AudioSource>().volume = sourceVolume * MusicManager.current.masterVolume;
-		}
+	void Update()
+	{
+		this.GetComponent<AudioSource>().volume = sourceVolume * MusicManager.current.masterVolume;
 	}
 }

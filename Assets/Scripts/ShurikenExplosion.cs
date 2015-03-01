@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace PongJutsu
+public class ShurikenExplosion : Destructor
 {
-	public class ShurikenExplosion : Destructor
+	[HideInInspector]
+	public float explosionRadius;
+	[HideInInspector]
+	public float direction;
+
+	void Start()
 	{
-		[HideInInspector] public float explosionRadius;
-		[HideInInspector] public float direction;
+		this.transform.localScale = new Vector2(-direction * explosionRadius / 2f, explosionRadius / 2f);
+	}
 
-		void Start()
-		{
-			this.transform.localScale = new Vector2(-direction * explosionRadius / 2f, explosionRadius / 2f);
-		}
+	void OnDrawGizmos()
+	{
+		Gizmos.color = new Color(0.95f, 0.1f, 0f, 0.8f);
 
-		void OnDrawGizmos()
-		{
-			Gizmos.color = new Color(0.95f, 0.1f, 0f, 0.8f);
-
-			Gizmos.DrawCube(this.transform.position, new Vector2(1f, explosionRadius * 2f));
-		}
+		Gizmos.DrawCube(this.transform.position, new Vector2(1f, explosionRadius * 2f));
 	}
 }

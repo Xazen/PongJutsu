@@ -2,110 +2,109 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace PongJutsu
+public class River : MonoBehaviour
 {
-	public class River : MonoBehaviour
+	public float width = 1.7f;
+	public float height = 11.6f;
+	public bool snapToVertical = false;
+
+	public float spawnFrequency = 5f;
+	public float frequencyRandomizer = 2f;
+	private float nextSpawn;
+
+	public float flowSpeed = -1f;
+
+	[SerializeField]
+	private GameObject itemCarrier;
+
+	[SerializeField]
+	private GameObject[] items = new GameObject[0];
+	public Dictionary<string, Item> itemList = new Dictionary<string, Item>();
+
+	private List<GameObject> spawnedItems = new List<GameObject>();
+
+	public void Setup()
 	{
-		public float width = 1.7f;
-		public float height = 11.6f;
-		public bool snapToVertical = false;
+		foreach (GameObject item in items)
+			itemList.Add(item.name, item.GetComponent<Item>());
 
-		public float spawnFrequency = 5f;
-		public float frequencyRandomizer = 2f;
-		private float nextSpawn;
+		this.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
 
-		public float flowSpeed = -1f;
+		setNextSpawn();
+	}
 
-		[SerializeField] private GameObject itemCarrier;
+	void FixedUpdate()
+	{
+		if (GameManager.allowInput)
+			updateSpawn();
+	}
 
-		[SerializeField] private GameObject[] items = new GameObject[0];
-		public Dictionary<string, Item> itemList = new Dictionary<string, Item>();
+	void setNextSpawn()
+	{
+		nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
+	}
 
-		private List<GameObject> spawnedItems = new List<GameObject>();
-
-		public void Setup()
+	void updateSpawn()
+	{
+		nextSpawn -= Time.fixedDeltaTime;
+		if (nextSpawn <= 0)
 		{
-			foreach (GameObject item in items)
-				itemList.Add(item.name, item.GetComponent<Item>());
-
-			this.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
-
+			SpawnItem();
 			setNextSpawn();
 		}
+	}
 
-		void FixedUpdate()
+	void SpawnItem()
+	{
+		// Set random item
+		GameObject item = randomItem();
+
+		// Set random position
+		float xRange = width - itemCarrier.GetComponent<BoxCollider2D>().size.x;
+		float x = Random.Range(-xRange / 2, xRange / 2);
+		float y = (Mathf.Sign(flowSpeed) * -1 * height + itemCarrier.GetComponent<BoxCollider2D>().size.y) / 2;
+
+		// Create carrier
+		GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), Quaternion.identity);
+		carrier.GetComponent<ItemCarrier>().instantiateItem(item);
+		carrier.GetComponent<ItemCarrier>().setVerticalSpeed(flowSpeed);
+		carrier.transform.parent = this.transform;
+
+		spawnedItems.Add(carrier);
+
+		GameScore.GetGlobalScore().spawneditems += 1;
+	}
+
+	// Return a random item based on spawn probabilities
+	GameObject randomItem()
+	{
+		int probabilitySum = 0;
+		foreach (GameObject item in items)
 		{
-			if (GameManager.allowInput)
-				updateSpawn();
+			probabilitySum += item.GetComponent<Item>().spawnProbability;
 		}
 
-		void setNextSpawn()
-		{
-			nextSpawn = spawnFrequency + Random.Range(-frequencyRandomizer, frequencyRandomizer);
-		}
+		int r = Random.Range(0, probabilitySum);
 
-		void updateSpawn()
+		int cumulative = 0;
+		foreach (GameObject item in items)
 		{
-			nextSpawn -= Time.fixedDeltaTime;
-			if (nextSpawn <= 0)
+			cumulative += item.GetComponent<Item>().spawnProbability;
+			if (r < cumulative)
 			{
-				SpawnItem();
-				setNextSpawn();
+				return item;
 			}
 		}
 
-		void SpawnItem()
+		return null;
+	}
+
+	void OnTriggerExit2D(Collider2D col)
+	{
+		// Destroy items when they leave the river
+		if (col.tag == "Carrier")
 		{
-			// Set random item
-			GameObject item = randomItem();
-
-			// Set random position
-			float xRange = width - itemCarrier.GetComponent<BoxCollider2D>().size.x;
-			float x = Random.Range(-xRange / 2, xRange / 2);
-			float y = (Mathf.Sign(flowSpeed) * -1 * height + itemCarrier.GetComponent<BoxCollider2D>().size.y) / 2;
-
-			// Create carrier
-			GameObject carrier = (GameObject)Instantiate(itemCarrier, new Vector2(x, y), Quaternion.identity);
-			carrier.GetComponent<ItemCarrier>().instantiateItem(item);
-			carrier.GetComponent<ItemCarrier>().setVerticalSpeed(flowSpeed);
-			carrier.transform.parent = this.transform;
-
-			spawnedItems.Add(carrier);
-
-			GameScore.GetGlobalScore().spawneditems += 1;
-		}
-
-		// Return a random item based on spawn probabilities
-		GameObject randomItem()
-		{
-			int probabilitySum = 0;
-			foreach (GameObject item in items)
-			{
-				probabilitySum += item.GetComponent<Item>().spawnProbability;
-			}
-
-			int r = Random.Range(0, probabilitySum);
-
-			int cumulative = 0;
-			foreach (GameObject item in items)
-			{
-				cumulative += item.GetComponent<Item>().spawnProbability;
-				if (r < cumulative)
-				{
-					return item;
-				}
-			}
-
-			return null;
-		}
-
-		void OnTriggerExit2D(Collider2D col)
-		{
-			// Destroy items when they leave the river
-			if (col.tag == "Carrier")
-			{
-				Destroy(col.gameObject);
-			}
+			Destroy(col.gameObject);
 		}
 	}
 }

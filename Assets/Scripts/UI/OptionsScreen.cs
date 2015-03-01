@@ -2,39 +2,36 @@
 using System.Collections;
 using UnityEngine.UI;
 
-namespace PongJutsu
+public class OptionsScreen : UIScript
 {
-	public class OptionsScreen : UIScript 
+	public override void uiEnable()
 	{
-		public override void uiEnable()
-		{
-			base.uiEnable();
+		base.uiEnable();
 
-			this.transform.FindChild("sl_MasterVolume").GetComponent<Slider>().value = GameOptions.masterVolume;
-			this.transform.FindChild("sl_MusicVolume").GetComponent<Slider>().value = GameOptions.musicVolume;
-		}
+		this.transform.FindChild("sl_MasterVolume").GetComponent<Slider>().value = GameOptions.masterVolume;
+		this.transform.FindChild("sl_MusicVolume").GetComponent<Slider>().value = GameOptions.musicVolume;
+	}
 
-		public override void uiUpdate()
-		{
-			base.uiUpdate();
+	public override void uiUpdate()
+	{
+		base.uiUpdate();
 
-			if (Input.GetButtonDown("Cancel"))
-				click_Back();
-		}
+		if (Input.GetButtonDown("Cancel"))
+			click_Back();
+	}
 
-		public void slide_MasterVolume(float value)
-		{
-			GameOptions.masterVolume = value;
-		}
+	public void slide_MasterVolume(float value)
+	{
+		GameOptions.masterVolume = value;
+	}
 
-		public void slide_MusicVolume(float value)
-		{
-			GameOptions.musicVolume = value;
-		}
+	public void slide_MusicVolume(float value)
+	{
+		GameOptions.musicVolume = value;
+	}
 
-		public void click_Back()
-		{
-			ui.SetTrigger("Back");
-		}
+	public void click_Back()
+	{
+		ui.SetTrigger("Back");
 	}
 }
