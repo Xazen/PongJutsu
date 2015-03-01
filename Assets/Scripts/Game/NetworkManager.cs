@@ -15,41 +15,38 @@ namespace PongJutsu
 
 		void OnGUI()
 		{
-			GUIStyle cStyle = new GUIStyle(GUI.skin.label);
-			cStyle.normal.textColor = Color.red;
+			GUIStyle debugLabelStyle = new GUIStyle(GUI.skin.label);
+			debugLabelStyle.normal.textColor = Color.blue;
 
-			GUILayout.Label("ping: " + PhotonNetwork.GetPing().ToString(), cStyle);
+			GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
 
-			if (!PhotonNetwork.connected)
+			GUILayout.Label("ping: " + PhotonNetwork.GetPing().ToString(), debugLabelStyle);
+			GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString(), debugLabelStyle);
+
+			if (PhotonNetwork.connected && !PhotonNetwork.inRoom)
 			{
-				GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString(), cStyle);
-			}
-			else if (PhotonNetwork.room == null)
-			{
-				// Create Room
-				if (GUI.Button(new Rect(100, 100, 250, 100), "Create Room"))
-					PhotonNetwork.CreateRoom(roomName, true, true, 2);
-
-				// Join Room
-				if (roomsList != null)
-				{
-					for (int i = 0; i < roomsList.Length; i++)
-					{
-						if (GUI.Button(new Rect(100, 250 + (110 * i), 250, 100), "Join Room: " + roomsList[i].name))
-							PhotonNetwork.JoinRoom(roomsList[i].name);
-					}
-				}
+				if (GUI.Button(new Rect(Screen.width / 2f - 75, Screen.height / 3f - 15, 150, 30), "Start Online Multiplayer", buttonStyle))
+					ConnectWithPlayer();
 			}
 		}
 
-		void OnReceivedRoomListUpdate()
+		public void ConnectWithPlayer()
 		{
-			roomsList = PhotonNetwork.GetRoomList();
+			RoomOptions roomOptions = new RoomOptions();
+			roomOptions.isOpen = true;
+			roomOptions.isVisible = true;
+			roomOptions.maxPlayers = 2;
+
+			TypedLobby typedLobby = new TypedLobby();
+			typedLobby.Name = roomName;
+
+			PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, typedLobby);
 		}
 
 		void OnJoinedRoom()
 		{
-			Debug.Log("Joined to Room");
+			if (PhotonNetwork.room.playerCount == PhotonNetwork.room.maxPlayers)
+				Debug.Log("Room Ready");
 		}
 	}
 }
