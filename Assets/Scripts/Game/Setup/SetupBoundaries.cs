@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetupBoundaries : GameSetup
+public class SetupBoundaries : SetupBase
 {
 
 	public GameObject boundaryPrefab;

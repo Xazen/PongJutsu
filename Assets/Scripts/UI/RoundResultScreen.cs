@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class RoundResultScreen : UIScript
+public class RoundResultScreen : UIBase
 {
 	public GameObject RoundEndElements;
 	public GameObject MatchEndElements;

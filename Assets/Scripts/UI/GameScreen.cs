@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameScreen : UIScript
+public class GameScreen : UIBase
 {
 	[SerializeField]
 	private GameObject comboCounterLeft;

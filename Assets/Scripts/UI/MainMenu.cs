@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenu : UIScript
+public class MainMenu : UIBase
 {
 	public void click_Start()
 	{

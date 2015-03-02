@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
 	{
 		if (!isIngame)
 		{
-			foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
+			foreach (SetupBase gs in GameObject.FindObjectsOfType<SetupBase>())
 				gs.build();
-			foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
+			foreach (SetupBase gs in GameObject.FindObjectsOfType<SetupBase>())
 				gs.postbuild();
 
 			resetChangedPrefabs();
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 		{
 			resetChangedPrefabs();
 
-			foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
+			foreach (SetupBase gs in GameObject.FindObjectsOfType<SetupBase>())
 			{
 				gs.remove();
 			}
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
 
 	static void resetChangedPrefabs()
 	{
-		foreach (Item item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
+		foreach (ItemBase item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
 			item.resetProbability();
 
 		Storage.shuriken.GetComponent<Shuriken>().reset();

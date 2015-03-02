@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameSetup : MonoBehaviour
+public class SetupBase : MonoBehaviour
 {
 	[HideInInspector]
 	public GameObject MainInstance;

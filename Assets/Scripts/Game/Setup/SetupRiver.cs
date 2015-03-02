@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetupRiver : GameSetup
+public class SetupRiver : SetupBase
 {
 
 	public GameObject riverPrefab;

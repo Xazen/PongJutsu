@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Inverter : Item
+public class Inverter : ItemBase
 {
 	public override void OnActivation(Shuriken shuriken)
 	{

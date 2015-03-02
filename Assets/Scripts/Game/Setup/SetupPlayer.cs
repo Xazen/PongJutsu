@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetupPlayer : GameSetup
+public class SetupPlayer : SetupBase
 {
 
 	public GameObject playerPrefab;

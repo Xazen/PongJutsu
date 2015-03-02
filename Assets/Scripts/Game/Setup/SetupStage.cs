@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetupStage : GameSetup
+public class SetupStage : SetupBase
 {
 
 	public float width = 9f;

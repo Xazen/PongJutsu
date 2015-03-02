@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SetupForts : GameSetup
+public class SetupForts : SetupBase
 {
 
 	public GameObject fortPrefab;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : MonoBehaviour
+public class ItemBase : MonoBehaviour
 {
 	[SerializeField]
 	private int _spawnProbability = 100;

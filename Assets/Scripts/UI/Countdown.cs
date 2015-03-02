@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class Countdown : UIScript
+public class Countdown : UIBase
 {
 	private string defaultRoundText = "Round";
 

@@ -19,14 +19,14 @@ public class River : MonoBehaviour
 
 	[SerializeField]
 	private GameObject[] items = new GameObject[0];
-	public Dictionary<string, Item> itemList = new Dictionary<string, Item>();
+	public Dictionary<string, ItemBase> itemList = new Dictionary<string, ItemBase>();
 
 	private List<GameObject> spawnedItems = new List<GameObject>();
 
 	public void Setup()
 	{
 		foreach (GameObject item in items)
-			itemList.Add(item.name, item.GetComponent<Item>());
+			itemList.Add(item.name, item.GetComponent<ItemBase>());
 
 		this.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
 
@@ -81,7 +81,7 @@ public class River : MonoBehaviour
 		int probabilitySum = 0;
 		foreach (GameObject item in items)
 		{
-			probabilitySum += item.GetComponent<Item>().spawnProbability;
+			probabilitySum += item.GetComponent<ItemBase>().spawnProbability;
 		}
 
 		int r = Random.Range(0, probabilitySum);
@@ -89,7 +89,7 @@ public class River : MonoBehaviour
 		int cumulative = 0;
 		foreach (GameObject item in items)
 		{
-			cumulative += item.GetComponent<Item>().spawnProbability;
+			cumulative += item.GetComponent<ItemBase>().spawnProbability;
 			if (r < cumulative)
 			{
 				return item;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Slow : Item
+public class Slow : ItemBase
 {
 	public float speedMuliplier = 0.4f;
 

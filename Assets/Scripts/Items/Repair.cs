@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Repair : Item
+public class Repair : ItemBase
 {
 	public int heal = 100;
 

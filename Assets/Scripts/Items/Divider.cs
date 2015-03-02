@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Divider : Item
+public class Divider : ItemBase
 {
 	public GameObject shotObject;
 	public int splits = 2;

@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIScript : MonoBehaviour
+public class UIBase : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject defaultSelected;
