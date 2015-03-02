@@ -13,7 +13,7 @@ public class Divider : ItemBase
 		// Split shuriken
 		for (int i = 0; splits > i; i++)
 		{
-			GameObject shotInstance = (GameObject)Instantiate(shotObject, shuriken.transform.position, Quaternion.identity);
+			GameObject shotInstance = (GameObject)Instantiate(shuriken.gameObject, shuriken.transform.position, Quaternion.identity);
 
 			// Calculate y-movement
 			float movementY;
@@ -22,16 +22,9 @@ public class Divider : ItemBase
 			else
 				movementY = i * angularDistance - angularDistance * ((splits - 1f) / 2f);
 
-			// Init values
-			PlayerAttack playerAttack = shuriken.owner.GetComponent<PlayerAttack>();
-
-			shotInstance.GetComponent<Shuriken>().owner = shuriken.owner;
-			shotInstance.GetComponent<Shuriken>().lastHitOwner = shuriken.lastHitOwner;
-			shotInstance.GetComponent<Shuriken>().faction = shuriken.faction;
-			shotInstance.GetComponent<Shuriken>().speed *= playerAttack.speedMultiplier;
-			shotInstance.GetComponent<Shuriken>().damage = (int)(shuriken.damage * playerAttack.damageMultiplier * damagePercentage);
+			// Change shuriken values
+			shotInstance.GetComponent<Shuriken>().damage = Mathf.RoundToInt(shotInstance.GetComponent<Shuriken>().damage * damagePercentage);
 			shotInstance.GetComponent<Shuriken>().setInitialMovement((int)Mathf.Sign(shuriken.movement.x), shuriken.movement.y + movementY);
-			shotInstance.GetComponent<Shuriken>().bounceBack = shuriken.bounceBack;
 			shotInstance.GetComponent<Shuriken>().ignoreSpawnCollision = true;
 		}
 
