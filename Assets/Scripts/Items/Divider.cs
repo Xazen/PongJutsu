@@ -27,6 +27,7 @@ public class Divider : ItemBase
 
 			shotInstance.GetComponent<Shuriken>().owner = shuriken.owner;
 			shotInstance.GetComponent<Shuriken>().lastHitOwner = shuriken.lastHitOwner;
+			shotInstance.GetComponent<Shuriken>().faction = shuriken.faction;
 			shotInstance.GetComponent<Shuriken>().speed *= playerAttack.speedMultiplier;
 			shotInstance.GetComponent<Shuriken>().damage = (int)(shuriken.damage * playerAttack.damageMultiplier * damagePercentage);
 			shotInstance.GetComponent<Shuriken>().setInitialMovement((int)Mathf.Sign(shuriken.movement.x), shuriken.movement.y + movementY);

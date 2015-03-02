@@ -8,11 +8,11 @@ public class ShurikenSonic : Destructor
 	[SerializeField]
 	private AnimatorOverrideController sonicRightController;
 
-	public void setOwner(GameObject owner)
+	public void Set(Faction ownerFaction)
 	{
-		if (owner.tag == "PlayerLeft")
+		if (ownerFaction == Faction.Left)
 			this.GetComponent<Animator>().runtimeAnimatorController = sonicLeftController;
-		if (owner.tag == "PlayerRight")
+		else if (ownerFaction == Faction.Right)
 			this.GetComponent<Animator>().runtimeAnimatorController = sonicRightController;
 	}
 }

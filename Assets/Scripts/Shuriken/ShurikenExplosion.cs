@@ -3,20 +3,17 @@ using System.Collections;
 
 public class ShurikenExplosion : Destructor
 {
-	[HideInInspector]
-	public float explosionRadius;
-	[HideInInspector]
-	public float direction;
+	private float radius;
 
-	void Start()
+	public void Set(float explosionRadius)
 	{
-		this.transform.localScale = new Vector2(-direction * explosionRadius / 2f, explosionRadius / 2f);
+		radius = explosionRadius;
+		transform.localScale = new Vector2(Mathf.Sign(transform.position.x) * radius / 2f, radius / 2f);
 	}
 
 	void OnDrawGizmos()
 	{
 		Gizmos.color = new Color(0.95f, 0.1f, 0f, 0.8f);
-
-		Gizmos.DrawCube(this.transform.position, new Vector2(1f, explosionRadius * 2f));
+		Gizmos.DrawCube(transform.position, new Vector2(1f, radius * 2f));
 	}
 }

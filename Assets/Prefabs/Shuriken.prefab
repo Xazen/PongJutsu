@@ -48,7 +48,7 @@ GameObject:
   - 198: {fileID: 19841572}
   - 199: {fileID: 19941572}
   m_Layer: 0
-  m_Name: SpeedParticle
+  m_Name: ComboParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,25 +191,27 @@ MonoBehaviour:
   selfCollision: 0
   ignoreSpawnCollision: 0
   damage: 40
-  explosion: {fileID: 100000, guid: 6159ab0ca61b4e34891358d29fa7451f, type: 2}
-  bombExplosion: {fileID: 191878, guid: c44957baf7eaef041944a56bf9628a85, type: 2}
   explosionRadius: 1.64999998
   explosionDamageMultiplier: .200000003
   explosionDamagerPerDistance: 0
   isBomb: 0
   reflectionDamageMultiplier: .800000012
-  shurikenLeftColor: {r: .97647059, g: .215686277, b: .215686277, a: 1}
-  shurikenRightColor: {r: .235294119, g: .87843138, b: .941176474, a: 1}
-  shurikenLeftSprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
-  shurikenRightSprite: {fileID: 21300000, guid: 3cc3df1f2c73d494289005f070a8a644,
-    type: 3}
-  shurikenBombSprite: {fileID: 21300000, guid: 965238af8710d8b4986d144a0d09f21c, type: 3}
   owner: {fileID: 0}
   lastHitOwner: {fileID: 0}
   bounceBack: 0
   resetComboOnDamageDealt: 0
   resetComboOnDamageTaken: 1
+  shurikenLeftColor: {r: .97647059, g: .215686277, b: .215686277, a: 1}
+  shurikenRightColor: {r: .235294119, g: .87843138, b: .941176474, a: 1}
+  spriteRendererReference: {fileID: 21200000}
+  shurikenLeftSprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
+  shurikenRightSprite: {fileID: 21300000, guid: 3cc3df1f2c73d494289005f070a8a644,
+    type: 3}
+  shurikenBombSprite: {fileID: 21300000, guid: 965238af8710d8b4986d144a0d09f21c, type: 3}
+  explosion: {fileID: 100000, guid: 6159ab0ca61b4e34891358d29fa7451f, type: 2}
+  bombExplosion: {fileID: 191878, guid: c44957baf7eaef041944a56bf9628a85, type: 2}
   wallCollision: {fileID: 131172, guid: d268c7a7d76033144aeba636e7a12fb3, type: 2}
+  comboParticleReference: {fileID: 19841572}
 --- !u!114 &11402560
 MonoBehaviour:
   m_ObjectHideFlags: 1
