@@ -34,8 +34,6 @@ public class SetupPlayer : SetupBase
 		instance.transform.position = position;
 		instance.GetComponent<Player>().faction = faction;
 
-		Instances.Add(instance);
-
 		return instance;
 	}
 

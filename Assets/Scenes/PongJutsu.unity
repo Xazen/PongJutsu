@@ -2840,7 +2840,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainInstance: {fileID: 0}
-  Instances: []
   riverPrefab: {fileID: 138860, guid: 6cfe2f26f19124742bfb651dead58541, type: 2}
 --- !u!114 &273957602
 MonoBehaviour:
@@ -2855,7 +2854,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainInstance: {fileID: 0}
-  Instances: []
   playerPrefab: {fileID: 100004, guid: bdc082fda1c2ccc4c871513a95fe9e35, type: 2}
   offset: .899999976
 --- !u!114 &273957603
@@ -2871,7 +2869,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainInstance: {fileID: 0}
-  Instances: []
   boundaryPrefab: {fileID: 100000, guid: f0af85b6d0f16e147ad604c9254e52f3, type: 2}
 --- !u!114 &273957604
 MonoBehaviour:
@@ -2886,7 +2883,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainInstance: {fileID: 0}
-  Instances: []
   fortPrefab: {fileID: 100000, guid: 93d921584172c194b9b6fd12053632dc, type: 2}
   numberOfForts: 5
   width: 1
@@ -2905,7 +2901,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainInstance: {fileID: 0}
-  Instances: []
   width: 10.3013048
   height: 4.19999981
   snapToVertical: 0

@@ -14,13 +14,6 @@ public class SetupRiver : SetupBase
 		MainInstance.name = riverPrefab.name;
 	}
 
-	public override void postbuild()
-	{
-		base.postbuild();
-
-		MainInstance.GetComponent<River>().Setup();
-	}
-
 	void OnDrawGizmos()
 	{
 		if (riverPrefab != null)

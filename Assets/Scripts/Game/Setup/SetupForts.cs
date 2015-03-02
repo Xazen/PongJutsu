@@ -52,8 +52,6 @@ public class SetupForts : SetupBase
 		instance.transform.position = position;
 		instance.GetComponent<Fort>().faction = faction;
 
-		Instances.Add(instance);
-
 		return instance;
 	}
 

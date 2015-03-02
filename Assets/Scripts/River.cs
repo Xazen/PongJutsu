@@ -23,7 +23,7 @@ public class River : MonoBehaviour
 
 	private List<GameObject> spawnedItems = new List<GameObject>();
 
-	public void Setup()
+	public void Awake()
 	{
 		foreach (GameObject item in items)
 			itemList.Add(item.name, item.GetComponent<ItemBase>());

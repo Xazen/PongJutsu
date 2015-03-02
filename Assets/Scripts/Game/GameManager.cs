@@ -49,11 +49,11 @@ public class GameManager : MonoBehaviour
 	{
 		if (!isIngame)
 		{
-			foreach (SetupBase gs in GameObject.FindObjectsOfType<SetupBase>())
-				gs.build();
-			foreach (SetupBase gs in GameObject.FindObjectsOfType<SetupBase>())
-				gs.postbuild();
-
+			foreach (SetupBase setup in GameObject.FindObjectsOfType<SetupBase>())
+			{
+				setup.build();
+			}
+				
 			resetChangedPrefabs();
 
 			GameVar.Refresh();
@@ -84,17 +84,17 @@ public class GameManager : MonoBehaviour
 		{
 			resetChangedPrefabs();
 
-			foreach (SetupBase gs in GameObject.FindObjectsOfType<SetupBase>())
+			foreach (SetupBase setup in GameObject.FindObjectsOfType<SetupBase>())
 			{
-				gs.remove();
+				setup.remove();
 			}
-			foreach (Shuriken s in GameObject.FindObjectsOfType<Shuriken>())
+			foreach (Shuriken shuriken in GameObject.FindObjectsOfType<Shuriken>())
 			{
-				Destroy(s.gameObject);
+				Destroy(shuriken.gameObject);
 			}
-			foreach (ItemFeedback s in GameObject.FindObjectsOfType<ItemFeedback>())
+			foreach (ItemFeedback itemFeedback in GameObject.FindObjectsOfType<ItemFeedback>())
 			{
-				Destroy(s.gameObject);
+				Destroy(itemFeedback.gameObject);
 			}
 
 			isIngame = false;

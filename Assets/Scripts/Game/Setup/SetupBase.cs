@@ -1,20 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class SetupBase : MonoBehaviour
 {
 	[HideInInspector]
 	public GameObject MainInstance;
-	[HideInInspector]
-	public List<GameObject> Instances;
 
 	public virtual void build()
-	{
-
-	}
-
-	public virtual void postbuild()
 	{
 
 	}
@@ -25,10 +17,6 @@ public class SetupBase : MonoBehaviour
 		{
 			Destroy(MainInstance);
 			MainInstance = null;
-		}
-		if (Instances != null)
-		{
-			Instances.Clear();
 		}
 	}
 }
