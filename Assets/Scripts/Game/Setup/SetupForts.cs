@@ -28,7 +28,7 @@ public class SetupForts : SetupBase
 			Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 			Vector2 position = new Vector2(-offsetX - -width / 2, size.y * i - offsetY + size.y / 2);
 
-			spawnFort(position, size, PlayerSide.Left, MainInstance, "FortLeft");
+			spawnFort(position, size, Faction.Left, MainInstance, "FortLeft");
 		}
 
 		// Forts Player Right
@@ -37,11 +37,11 @@ public class SetupForts : SetupBase
 			Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 			Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
 
-			spawnFort(position, size, PlayerSide.Right, MainInstance, "FortRight");
+			spawnFort(position, size, Faction.Right, MainInstance, "FortRight");
 		}
 	}
 
-	private GameObject spawnFort(Vector2 position, Vector2 size, PlayerSide playerSide, GameObject parent, string tag)
+	private GameObject spawnFort(Vector2 position, Vector2 size, Faction faction, GameObject parent, string tag)
 	{
 		GameObject instance = (GameObject)Instantiate(fortPrefab);
 
@@ -50,7 +50,7 @@ public class SetupForts : SetupBase
 		instance.transform.parent = parent.transform;
 		instance.GetComponent<BoxCollider2D>().size = size;
 		instance.transform.position = position;
-		instance.GetComponent<Fort>().playerSide = playerSide;
+		instance.GetComponent<Fort>().faction = faction;
 
 		Instances.Add(instance);
 

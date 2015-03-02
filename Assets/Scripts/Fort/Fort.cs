@@ -4,25 +4,25 @@ using System.Collections;
 [RequireComponent(typeof(FortHealthbar))]
 public class Fort : MonoBehaviour
 {
-	PlayerSide _playerSide;
-	public PlayerSide playerSide
+	Faction _faction;
+	public Faction faction
 	{
 		get
 		{
-			return _playerSide;
+			return _faction;
 		}
 		set
 		{
-			_playerSide = value;
+			_faction = value;
 
-			if (_playerSide == PlayerSide.Left)
+			if (_faction == Faction.Left)
 			{
 				transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
 				GetComponent<Animator>().runtimeAnimatorController = FortLeftController;
 				owner = GameObject.FindGameObjectWithTag("PlayerLeft");
 			}
-			else if (_playerSide == PlayerSide.Right)
+			else if (_faction == Faction.Right)
 			{
 				transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 
@@ -93,9 +93,9 @@ public class Fort : MonoBehaviour
 	{
 		isDestroyed = true;
 
-		if (playerSide == PlayerSide.Left)
+		if (faction == Faction.Left)
 			GameObject.FindGameObjectWithTag("PlayerRight").GetComponent<Player>().addCombo();
-		else if (playerSide == PlayerSide.Right)
+		else if (faction == Faction.Right)
 			GameObject.FindGameObjectWithTag("PlayerLeft").GetComponent<Player>().addCombo();
 
 		if (removeAtDestroy)

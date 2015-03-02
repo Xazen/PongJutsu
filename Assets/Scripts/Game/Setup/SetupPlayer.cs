@@ -19,20 +19,20 @@ public class SetupPlayer : SetupBase
 		float fortOffset = GetComponent<SetupForts>().width + GetComponent<SetupForts>().offset;
 
 		// Player 1
-		spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), PlayerSide.Left, MainInstance, "PlayerLeft");
+		spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), Faction.Left, MainInstance, "PlayerLeft");
 
 		// Player 2
-		spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), PlayerSide.Right, MainInstance, "PlayerRight");
+		spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), Faction.Right, MainInstance, "PlayerRight");
 	}
 
-	private GameObject spawnPlayer(Vector2 position, PlayerSide playerSide, GameObject parent, string tag)
+	private GameObject spawnPlayer(Vector2 position, Faction faction, GameObject parent, string tag)
 	{
 		GameObject instance = (GameObject)Instantiate(playerPrefab);
 		instance.name = tag;
 		instance.tag = tag;
 		instance.transform.parent = parent.transform;
 		instance.transform.position = position;
-		instance.GetComponent<Player>().playerSide = playerSide;
+		instance.GetComponent<Player>().faction = faction;
 
 		Instances.Add(instance);
 
