@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShurikenSonic : Destructor
+public class ShurikenSonic : MonoBehaviour
 {
 	[SerializeField]
 	private AnimatorOverrideController sonicLeftController;

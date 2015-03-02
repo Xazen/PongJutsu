@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShurikenExplosion : Destructor
+public class ShurikenExplosion : MonoBehaviour
 {
 	private float radius;
 
