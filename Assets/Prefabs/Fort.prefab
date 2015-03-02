@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11489516}
   - 61: {fileID: 6100000}
   - 95: {fileID: 9500000}
   m_Layer: 0
@@ -42,7 +43,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400004}
-  - 114: {fileID: 11400002}
   - 212: {fileID: 21200006}
   m_Layer: 0
   m_Name: Bar
@@ -222,17 +222,19 @@ MonoBehaviour:
   removeAtDestroy: 0
   isDestroyed: 0
   owner: {fileID: 0}
---- !u!114 &11400002
+--- !u!114 &11489516
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
+  m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 796fc8aad6d0cea408faa7bc54672fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthbarReference: {fileID: 179436}
+  barReference: {fileID: 21200006}
   colorFullHealth: {r: 1, g: 1, b: .392156869, a: 1}
   colorMediumHealth: {r: 0, g: 1, b: .674509823, a: 1}
   colorLowHealth: {r: .137254909, g: .137254909, b: .827450991, a: 1}

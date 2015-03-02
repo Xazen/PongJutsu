@@ -25,14 +25,14 @@ public class SetupPlayer : SetupBase
 		spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), PlayerSide.Right, MainInstance, "PlayerRight");
 	}
 
-	private GameObject spawnPlayer(Vector2 position, PlayerSide playerSide, GameObject parent, string name)
+	private GameObject spawnPlayer(Vector2 position, PlayerSide playerSide, GameObject parent, string tag)
 	{
 		GameObject instance = (GameObject)Instantiate(playerPrefab);
-		instance.name = name;
-		instance.tag = name;
+		instance.name = tag;
+		instance.tag = tag;
 		instance.transform.parent = parent.transform;
 		instance.transform.position = position;
-		instance.GetComponent<PlayerBase>().Player.playerSide = playerSide;
+		instance.GetComponent<Player>().playerSide = playerSide;
 
 		Instances.Add(instance);
 
