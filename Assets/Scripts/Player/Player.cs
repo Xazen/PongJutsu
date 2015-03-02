@@ -1,12 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum Faction
-{
-	Left,
-	Right
-}
-
 public class Player : PlayerBase
 {
 	Faction _faction;
