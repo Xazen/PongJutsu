@@ -14,20 +14,17 @@ public class Player : PlayerBase
 		{
 			_faction = value;
 
+			direction = _faction.Direction();
+			transform.rotation = _faction.Rotation2D();
+
 			if (_faction == Faction.Left)
 			{
-				direction = 1;
-				this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-
 				Animator.runtimeAnimatorController = ninjaLeftController;
 				PlayerShield.shieldReference.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
 				PlayerShield.Animator.runtimeAnimatorController = shieldLeftController;
 			}
 			else if (_faction == Faction.Right)
 			{
-				direction = -1;
-				this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-
 				Animator.runtimeAnimatorController = ninjaRightController;
 				PlayerShield.shieldReference.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
 				PlayerShield.Animator.runtimeAnimatorController = shieldRightController;

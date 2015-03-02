@@ -15,17 +15,15 @@ public class Fort : MonoBehaviour
 		{
 			_faction = value;
 
+			transform.rotation = _faction.Rotation2D();
+
 			if (_faction == Faction.Left)
 			{
-				transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-
 				GetComponent<Animator>().runtimeAnimatorController = FortLeftController;
 				owner = GameObject.FindGameObjectWithTag("PlayerLeft");
 			}
 			else if (_faction == Faction.Right)
 			{
-				transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-
 				GetComponent<Animator>().runtimeAnimatorController = FortRightController;
 				owner = GameObject.FindGameObjectWithTag("PlayerRight");
 			}

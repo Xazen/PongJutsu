@@ -257,7 +257,7 @@ public class Shuriken : MonoBehaviour
 
 				if (bombExplosion != null && !fort.GetComponent<Fort>().isDestroyed)
 				{
-					GameObject f = (GameObject)Instantiate(bombExplosion, fort.transform.position, Quaternion.Euler(bombExplosion.transform.eulerAngles.x, bombExplosion.transform.eulerAngles.y * fort.transform.localScale.x, bombExplosion.transform.eulerAngles.z));
+					GameObject f = (GameObject)Instantiate(bombExplosion, fort.transform.position, faction.Rotation2D(90));
 					f.name = fort.name + "(Feedback)";
 					f.transform.GetComponent<ItemFeedback>().Setup(fort);
 				}

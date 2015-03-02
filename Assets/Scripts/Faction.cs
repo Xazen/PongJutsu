@@ -3,20 +3,20 @@ using System.Collections;
 
 public enum Faction
 {
-	Left = -1,
-	Right = 1
+	Left,
+	Right
 }
 
 public static class FactionExtensions
 {
-	public static int SideSign(this Faction faction)
+	public static int Direction(this Faction faction)
 	{
 		int i = 0;
 
 		if (faction == Faction.Left)
-			i = -1;
-		else if (faction == Faction.Right)
 			i = 1;
+		else if (faction == Faction.Right)
+			i = -1;
 
 		return i;
 	}
