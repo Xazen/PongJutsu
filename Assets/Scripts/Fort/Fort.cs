@@ -53,11 +53,15 @@ public class Fort : MonoBehaviour
 		}
 	}
 
-	public AnimatorOverrideController FortLeftController;
-	public AnimatorOverrideController FortRightController;
+	[SerializeField]
+	private AnimatorOverrideController FortLeftController;
+	[SerializeField]
+	private AnimatorOverrideController FortRightController;
 
-	public bool disableAtDestroy = false;
-	public bool removeAtDestroy = false;
+	[SerializeField]
+	private bool disableAtDestroy = false;
+	[SerializeField]
+	private bool removeAtDestroy = false;
 
 	[HideInInspector]
 	public bool isDestroyed = false;

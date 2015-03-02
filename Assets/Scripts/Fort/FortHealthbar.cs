@@ -4,14 +4,20 @@ using System.Collections;
 [RequireComponent(typeof(Fort))]
 public class FortHealthbar : MonoBehaviour
 {
-	public GameObject healthbarReference;
-	public SpriteRenderer barReference;
+	[SerializeField]
+	private GameObject healthbarReference;
+	[SerializeField]
+	private SpriteRenderer barReference;
 
-	public Color colorFullHealth = Color.green;
-	public Color colorMediumHealth = Color.Lerp(Color.red, Color.yellow, 0.5f);
-	public Color colorLowHealth = Color.red;
+	[SerializeField]
+	private Color colorFullHealth = Color.green;
+	[SerializeField]
+	private Color colorMediumHealth = Color.Lerp(Color.red, Color.yellow, 0.5f);
+	[SerializeField]
+	private Color colorLowHealth = Color.red;
 
-	public bool removeAtDestroy = true;
+	[SerializeField]
+	private bool removeAtDestroy = true;
 
 	private Vector2 initScale;
 
