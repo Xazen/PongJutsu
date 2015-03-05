@@ -480,7 +480,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 48fd8344b9db51042a228c91451e61e3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -936,7 +936,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 96c92b697d880ba479d6a1e07fff5af7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -3551,7 +3551,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0bac474173b4a6b43b37a7ba119128fa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
