@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEditorInternal;
 
+[RequireComponent(typeof(Animator))]
 public class AnimatorParameter : MonoBehaviour
 {
 	public string[] trigger;
@@ -18,19 +18,17 @@ public class b : Editor
 	{
 		DrawDefaultInspector();
 
-		AnimatorParameter tar = (AnimatorParameter)target;
-		if (GUILayout.Button("Get Parameters"))
+		AnimatorParameter self = (AnimatorParameter)target;
+		if (GUILayout.Button("Get Trigger"))
 		{
-			UnityEditor.Animations.AnimatorController animatorController = UnityEditor.Animations.AnimatorController.GetEffectiveAnimatorController(tar.GetComponent<Animator>());
-
-			List<string> parameter = new List<string>();
-			for (int i = 0; i < animatorController.parameterCount; i++)
+			List<string> parameterList = new List<string>();
+			foreach (AnimatorControllerParameter parameter in self.GetComponent<Animator>().parameters)
 			{
-				if (animatorController.GetParameter(i).type == AnimatorControllerParameterType.Trigger)
-					parameter.Add(animatorController.GetParameter(i).name);
+				if (parameter.type == AnimatorControllerParameterType.Trigger)
+					parameterList.Add(parameter.name);
 			}
 
-			tar.trigger = parameter.ToArray();
+			self.trigger = parameterList.ToArray();
 		}
 	}
 }
