@@ -19,7 +19,7 @@ public class SetupForts : SetupBase
 
 		MainInstance = new GameObject("Forts");
 
-		float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().center.x;
+		float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().offset.x;
 		float offsetY = GetComponent<SetupStage>().height;
 
 		// Forts Player Left

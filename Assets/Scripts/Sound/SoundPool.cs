@@ -17,13 +17,13 @@ public class SoundPool : MonoBehaviour
 
 	public void PlayElement(int index)
 	{
-		this.audio.PlayOneShot(sounds[index]);
+		this.GetComponent<AudioSource>().PlayOneShot(sounds[index]);
 	}
 
 	public void PlayRandom()
 	{
 		if (Random.Range(0, 100) < randomProbability)
-			this.audio.PlayOneShot(RandomClip());
+			this.GetComponent<AudioSource>().PlayOneShot(RandomClip());
 	}
 
 	private AudioClip RandomClip()

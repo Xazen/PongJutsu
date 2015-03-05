@@ -26,7 +26,7 @@ public class CameraScaling : MonoBehaviour
 
 	void Start()
 	{
-		cameraReference = this.camera;
+		cameraReference = this.GetComponent<Camera>();
 	}
 
 	void Update()
@@ -39,7 +39,7 @@ public class CameraScaling : MonoBehaviour
 			cameraReference.aspect = (float)Screen.width / (float)Screen.height;
 
 			letterboxHeight = ((float)Screen.height - ((float)Screen.width / (16f / 9f))) * 0.5f;
-			letterboxHeightUnits = camera.orthographicSize * (letterboxHeight / (float)Screen.height) * 2f;
+			letterboxHeightUnits = GetComponent<Camera>().orthographicSize * (letterboxHeight / (float)Screen.height) * 2f;
 			if (SetBlackBarHeight(letterboxHeight) == false)
 			{
 				letterboxHeight = 0f;

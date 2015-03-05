@@ -21,7 +21,7 @@ public class b : Editor
 		AnimatorParameter tar = (AnimatorParameter)target;
 		if (GUILayout.Button("Get Parameters"))
 		{
-			AnimatorController animatorController = AnimatorController.GetEffectiveAnimatorController(tar.GetComponent<Animator>());
+			UnityEditor.Animations.AnimatorController animatorController = UnityEditor.Animations.AnimatorController.GetEffectiveAnimatorController(tar.GetComponent<Animator>());
 
 			List<string> parameter = new List<string>();
 			for (int i = 0; i < animatorController.parameterCount; i++)

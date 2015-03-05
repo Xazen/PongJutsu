@@ -27,7 +27,7 @@ namespace Easter
 		void Awake()
 		{
 			egg.SetActive(false);
-			this.collider2D.enabled = false;
+			this.GetComponent<Collider2D>().enabled = false;
 		}
 
 		public void ActivateEasterSpawn()
@@ -40,13 +40,13 @@ namespace Easter
 		{
 			StopCoroutine("ISpawnEaster");
 			egg.SetActive(false);
-			this.collider2D.enabled = false;
+			this.GetComponent<Collider2D>().enabled = false;
 		}
 
 		void SpawnEaster()
 		{
 			egg.SetActive(true);
-			this.collider2D.enabled = true;
+			this.GetComponent<Collider2D>().enabled = true;
 		}
 
 		void StartEaster()
