@@ -11,7 +11,7 @@ public class GameOptions : MonoBehaviour
 	private float defaultMusicVolume = 1f;
 	public static float musicVolume { get { return MusicManager.current.masterVolume; } set { MusicManager.current.masterVolume = value; PlayerPrefs.SetFloat("MusicVolume", value); PlayerPrefs.Save(); } }
 
-	void Awake()
+	void Start()
 	{
 		masterVolume = PlayerPrefs.GetFloat("MasterVolume", defaultMasterVolume);
 		musicVolume = PlayerPrefs.GetFloat("MusicVolume", defaultMusicVolume);

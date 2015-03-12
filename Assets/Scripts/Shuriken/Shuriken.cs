@@ -79,14 +79,14 @@ public class Shuriken : MonoBehaviour
 			if (_faction == Faction.Left)
 			{
 				spriteRendererReference.sprite = shurikenLeftSprite;
-				GetComponent<TrailRenderer>().renderer.material.color = shurikenLeftColor;
+				GetComponent<TrailRenderer>().GetComponent<Renderer>().material.color = shurikenLeftColor;
 				comboParticleReference.emissionRate = 1 + Mathf.Min(GameVar.players.left.comboCount, 15);
 				comboParticleReference.startColor = shurikenLeftColor;
 			}
 			else if (_faction == Faction.Right)
 			{
 				spriteRendererReference.sprite = shurikenRightSprite;
-				GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
+				GetComponent<TrailRenderer>().GetComponent<Renderer>().material.color = shurikenRightColor;
 				comboParticleReference.emissionRate = 1 + Mathf.Min(GameVar.players.right.comboCount, 15);
 				comboParticleReference.startColor = shurikenRightColor;
 			}

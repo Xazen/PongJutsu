@@ -27,11 +27,11 @@ public class AutoDestruction : MonoBehaviour
 
 	IEnumerator WaitForAnimationStart()
 	{
-		while(GetComponent<Animator>().GetCurrentAnimationClipState(0).Length < 1)
+		while(GetComponent<Animator>().GetCurrentAnimatorClipInfo(0).Length < 1)
 		{
 			yield return new WaitForEndOfFrame();
 		}
 
-		Destroy(this.gameObject, GetComponent<Animator>().GetCurrentAnimationClipState(0)[0].clip.length);
+		Destroy(this.gameObject, GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.length);
 	}
 }

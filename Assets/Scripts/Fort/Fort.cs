@@ -104,7 +104,7 @@ public class Fort : MonoBehaviour
 		else if (disableAtDestroy)
 		{
 			// Disable Fort
-			this.collider2D.enabled = false;
+			this.GetComponent<Collider2D>().enabled = false;
 		}
 	}
 }

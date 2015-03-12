@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 			isEnd = false;
 			allowInput = false;
 
-			Screen.showCursor = false;
+			Cursor.visible = false;
 
 			Time.timeScale = 1;
 
@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
 		allowInput = false;
 		MusicManager.current.PauseMusic();
 
-		Screen.showCursor = true;
+		Cursor.visible = true;
 
 		ui.SetTrigger("PauseGame");
 	}
@@ -208,7 +208,7 @@ public class GameManager : MonoBehaviour
 		isPause = false;
 		allowInput = true;
 
-		Screen.showCursor = false;
+		Cursor.visible = false;
 	}
 
 	public static void RestartGame()
@@ -234,7 +234,7 @@ public class GameManager : MonoBehaviour
 		isEnd = true;
 		allowInput = false;
 
-		Screen.showCursor = true;
+		Cursor.visible = true;
 
 		ui.SetTrigger("EndRound");
 	}
