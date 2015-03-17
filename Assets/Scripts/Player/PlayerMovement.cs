@@ -59,12 +59,11 @@ public class PlayerMovement : PlayerBase
 		{
 			// Activate dashing
 			isDashing = true;
+			this.GetComponent<SoundPool>().PlayRandom();
 
 			dashLerp = 0;
 			dashStartPosition = this.transform.position.y;
 			dashDirection = Direction(PlayerInput.GetAxis(Control.Movement));
-
-			this.GetComponent<SoundPool>().PlayRandom();
 		}
 	}
 
@@ -74,28 +73,6 @@ public class PlayerMovement : PlayerBase
 		float position = this.transform.position.y;
 
 		// Calculate Speed and direction
-		if (PlayerInput.GetAxis(Control.Movement) != 0f)
-		{
-			if (resetMovementAtTurn && moveDirection != Direction(PlayerInput.GetAxis(Control.Movement)))
-				currentSpeed = 0;
-
-			if (currentSpeed == 0)
-				currentSpeed = minMovementSpeed;
-
-			currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed * Mathf.Abs(PlayerInput.GetAxis(Control.Movement)), 0f, maxMovementSpeed);
-			moveDirection = Direction(PlayerInput.GetAxis(Control.Movement));
-		}
-		else
-		{
-			currentSpeed = Mathf.Clamp(currentSpeed - decelerationSpeed, 0f, maxMovementSpeed);
-			if (currentSpeed == 0f)
-				moveDirection = 0f;
-		}
-
-		// Set temp position
-		position += (currentSpeed * moveDirection) * Time.fixedDeltaTime;
-
-		// Override at dashing
 		if (isDashing)
 		{
 			dashLerp += dashSpeed * Time.fixedDeltaTime;
@@ -107,6 +84,24 @@ public class PlayerMovement : PlayerBase
 				isDashing = false;
 				lastDash = 0f;
 			}
+		}
+		else
+		{
+			if (PlayerInput.GetAxis(Control.Movement) != 0f)
+			{
+				if (resetMovementAtTurn && moveDirection != Direction(PlayerInput.GetAxis(Control.Movement)))
+					currentSpeed = 0;
+
+				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed * Mathf.Abs(PlayerInput.GetAxis(Control.Movement)), minMovementSpeed, maxMovementSpeed);
+				moveDirection = Direction(PlayerInput.GetAxis(Control.Movement));
+			}
+			else
+			{
+				currentSpeed = Mathf.Clamp(currentSpeed - decelerationSpeed, 0f, maxMovementSpeed);
+				if (currentSpeed == 0f)
+					moveDirection = 0f;
+			}
+			position += (currentSpeed * moveDirection) * Time.fixedDeltaTime;
 		}
 
 		// Clamp Position in Boundaries
