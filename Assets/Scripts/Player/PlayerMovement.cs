@@ -109,17 +109,12 @@ public class PlayerMovement : PlayerBase
 			}
 		}
 
-		// Check and Precalculating Collision
-		GameObject top = GameObject.FindGameObjectWithTag("BoundaryTop");
-		GameObject bottom = GameObject.FindGameObjectWithTag("BoundaryBottom");
-		if (position > top.transform.position.y - top.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset)
-		{
-			position = top.transform.position.y - top.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset;
-		}
-		else if (position < bottom.transform.position.y + bottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset)
-		{
-			position = bottom.transform.position.y + bottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset;
-		}
+		// Clamp Position in Boundaries
+		GameObject boundaryTop = GameObject.FindGameObjectWithTag("BoundaryTop");
+		GameObject boundaryBottom = GameObject.FindGameObjectWithTag("BoundaryBottom");
+		float minPosition = boundaryBottom.transform.position.y + boundaryBottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset;
+		float maxPosition = boundaryTop.transform.position.y - boundaryTop.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset;
+		position = Mathf.Clamp(position, minPosition, maxPosition);
 
 		// Set new position
 		this.transform.position = new Vector2(this.transform.position.x, position);
@@ -138,7 +133,7 @@ public class PlayerMovement : PlayerBase
 			Player.Animator.speed = 1f;
 	}
 
-	public void StopMovementAnimation()
+	public void ResetAnimation()
 	{
 		// Set animation
 		Player.Animator.speed = 1f;

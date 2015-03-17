@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
 
 		foreach (PlayerMovement pm in GameObject.FindObjectsOfType<PlayerMovement>())
 		{
-			pm.StopMovementAnimation();
+			pm.ResetAnimation();
 		}
 
 		isEnd = true;
