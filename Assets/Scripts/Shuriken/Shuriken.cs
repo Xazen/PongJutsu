@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(TrailRenderer))]
 public class Shuriken : MonoBehaviour
 {
 
@@ -18,11 +19,6 @@ public class Shuriken : MonoBehaviour
 
 	public int damage = 25;
 
-	[SerializeField]
-	private GameObject explosion;
-	[SerializeField]
-	private GameObject bombExplosion;
-
 	public float explosionRadius = 2f;
 	[SerializeField]
 	private float explosionDamageMultiplier = 0.4f;
@@ -32,16 +28,6 @@ public class Shuriken : MonoBehaviour
 	public bool isBomb = false;
 
 	public float reflectionDamageMultiplier = 0.8f;
-
-	public Color shurikenLeftColor = Color.red;
-	public Color shurikenRightColor = Color.blue;
-
-	[SerializeField]
-	private Sprite shurikenLeftSprite;
-	[SerializeField]
-	private Sprite shurikenRightSprite;
-	[SerializeField]
-	private Sprite shurikenBombSprite;
 
 	[HideInInspector]
 	public GameObject owner;
@@ -56,8 +42,56 @@ public class Shuriken : MonoBehaviour
 	[SerializeField]
 	private bool resetComboOnDamageTaken = true;
 
+	public Color shurikenLeftColor = Color.red;
+	public Color shurikenRightColor = Color.blue;
+
+	[SerializeField]
+	private SpriteRenderer spriteRendererReference;
+
+	[SerializeField]
+	private Sprite shurikenLeftSprite;
+	[SerializeField]
+	private Sprite shurikenRightSprite;
+	[SerializeField]
+	private Sprite shurikenBombSprite;
+
+	[SerializeField]
+	private GameObject explosion;
+	[SerializeField]
+	private GameObject bombExplosion;
 	[SerializeField]
 	private GameObject wallCollision;
+
+	[SerializeField]
+	private ParticleSystem comboParticleReference;
+
+	Faction _faction;
+	public Faction faction
+	{
+		get
+		{
+			return _faction;
+		}
+		set
+		{
+			_faction = value;
+
+			if (_faction == Faction.Left)
+			{
+				spriteRendererReference.sprite = shurikenLeftSprite;
+				GetComponent<TrailRenderer>().GetComponent<Renderer>().material.color = shurikenLeftColor;
+				comboParticleReference.emissionRate = 1 + Mathf.Min(GameVar.players.left.comboCount, 15);
+				comboParticleReference.startColor = shurikenLeftColor;
+			}
+			else if (_faction == Faction.Right)
+			{
+				spriteRendererReference.sprite = shurikenRightSprite;
+				GetComponent<TrailRenderer>().GetComponent<Renderer>().material.color = shurikenRightColor;
+				comboParticleReference.emissionRate = 1 + Mathf.Min(GameVar.players.right.comboCount, 15);
+				comboParticleReference.startColor = shurikenRightColor;
+			}
+		}
+	}
 
 	void Start()
 	{
@@ -65,28 +99,10 @@ public class Shuriken : MonoBehaviour
 
 		// Last hit owner might had been set by an item
 		if (!lastHitOwner)
-		{
 			lastHitOwner = owner;
-		}
 
-		// Set different Color for different owner
-		if (owner.tag == "PlayerLeft")
-		{
-			this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenLeftSprite;
-			this.GetComponent<TrailRenderer>().renderer.material.color = shurikenLeftColor;
-			this.GetComponentInChildren<ParticleSystem>().emissionRate = 1 + Mathf.Min(GameVar.players.left.comboCount, 15);
-			this.GetComponentInChildren<ParticleSystem>().startColor = shurikenLeftColor;
-		}
-		else if (owner.tag == "PlayerRight")
-		{
-			this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenRightSprite;
-			this.GetComponent<TrailRenderer>().renderer.material.color = shurikenRightColor;
-			this.GetComponentInChildren<ParticleSystem>().emissionRate = 1 + Mathf.Min(GameVar.players.right.comboCount, 15);
-			this.GetComponentInChildren<ParticleSystem>().startColor = shurikenRightColor;
-		}
-
-		this.GetComponent<TrailRenderer>().sortingLayerName = this.GetComponentInChildren<SpriteRenderer>().sortingLayerName;
-		this.GetComponent<TrailRenderer>().sortingLayerID = this.GetComponentInChildren<SpriteRenderer>().sortingLayerID;
+		GetComponent<TrailRenderer>().sortingLayerName = spriteRendererReference.sortingLayerName;
+		GetComponent<TrailRenderer>().sortingLayerID = spriteRendererReference.sortingLayerID;
 	}
 
 	public void reset()
@@ -103,13 +119,14 @@ public class Shuriken : MonoBehaviour
 		// Set initial movement
 		movement.x = speed * directionX;
 		movement.y = movementY;
-		this.adjustSpeed();
+
+		adjustSpeed();
 	}
 
 	void FixedUpdate()
 	{
 		// Move the shot
-		this.transform.position = new Vector2(this.transform.position.x + movement.x * Time.fixedDeltaTime, this.transform.position.y + movement.y * Time.fixedDeltaTime);
+		transform.position = new Vector2(transform.position.x + movement.x * Time.fixedDeltaTime, transform.position.y + movement.y * Time.fixedDeltaTime);
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
@@ -125,9 +142,9 @@ public class Shuriken : MonoBehaviour
 		}
 
 		// Collision with Shields
-		if (colObject.tag == "Shield" && this.owner != colObject.transform.parent.gameObject)
+		if (colObject.tag == "Shield" && owner != colObject.transform.parent.gameObject)
 		{
-			damage = (int)(damage * this.reflectionDamageMultiplier);
+			damage = (int)(damage * reflectionDamageMultiplier);
 		}
 
 		// Collision with Forts
@@ -154,12 +171,12 @@ public class Shuriken : MonoBehaviour
 		if (colObject.tag == "BoundaryTop")
 		{
 			movement.y = Mathf.Abs(movement.y) * -1;
-			Instantiate(wallCollision, this.transform.position, Quaternion.Euler(0f, 0f, 0f));
+			Instantiate(wallCollision, transform.position, Quaternion.Euler(0f, 0f, 0f));
 		}
 		else if (colObject.tag == "BoundaryBottom")
 		{
 			movement.y = Mathf.Abs(movement.y);
-			Instantiate(wallCollision, this.transform.position, Quaternion.Euler(0f, 0f, 180f));
+			Instantiate(wallCollision, transform.position, Quaternion.Euler(0f, 0f, 180f));
 		}
 		else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
 			Remove();
@@ -172,15 +189,15 @@ public class Shuriken : MonoBehaviour
 
 		if (colObject.tag == "BoundaryTop")
 		{
-			if (this.transform.position.y + this.GetComponent<CircleCollider2D>().radius > colObject.transform.position.y - colObject.GetComponent<BoxCollider2D>().size.y / 2f)
+			if (transform.position.y + GetComponent<CircleCollider2D>().radius > colObject.transform.position.y - colObject.GetComponent<BoxCollider2D>().size.y / 2f)
 				movement.y = Mathf.Abs(movement.y) * -1;
-			this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y - colObject.GetComponent<BoxCollider2D>().size.y / 2f - this.GetComponent<CircleCollider2D>().radius * 1.15f);
+			transform.position = new Vector2(transform.position.x, colObject.transform.position.y - colObject.GetComponent<BoxCollider2D>().size.y / 2f - GetComponent<CircleCollider2D>().radius * 1.15f);
 		}
 		else if (colObject.tag == "BoundaryBottom")
 		{
-			if (this.transform.position.y - this.GetComponent<CircleCollider2D>().radius > colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f)
+			if (transform.position.y - GetComponent<CircleCollider2D>().radius > colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f)
 				movement.y = Mathf.Abs(movement.y);
-			this.transform.position = new Vector2(this.transform.position.x, colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f + this.GetComponent<CircleCollider2D>().radius * 1.15f);
+			transform.position = new Vector2(transform.position.x, colObject.transform.position.y + colObject.GetComponent<BoxCollider2D>().size.y / 2f + GetComponent<CircleCollider2D>().radius * 1.15f);
 		}
 		else if (colObject.tag == "BoundaryLeft" || colObject.tag == "BoundaryRight")
 		{
@@ -203,21 +220,20 @@ public class Shuriken : MonoBehaviour
 	public void activateBomb(float damageMultiplier)
 	{
 		isBomb = true;
-		this.GetComponentInChildren<SpriteRenderer>().sprite = shurikenBombSprite;
+		spriteRendererReference.sprite = shurikenBombSprite;
 		damage = Mathf.RoundToInt(damage * damageMultiplier);
 	}
 
 	void Explode(GameObject hitObject)
 	{
-		GameObject explosionAnimation = (GameObject)Instantiate(explosion, this.transform.position, Quaternion.identity);
-		explosionAnimation.GetComponent<ShurikenExplosion>().explosionRadius = explosionRadius;
-		explosionAnimation.GetComponent<ShurikenExplosion>().direction = Mathf.Sign(movement.x);
+		GameObject explosionAnimation = (GameObject)Instantiate(explosion, transform.position, Quaternion.identity);
+		explosionAnimation.GetComponent<ShurikenExplosion>().Set(explosionRadius);
 
 		if (!isBomb)
 		{
 			hitObject.GetComponent<Fort>().TakeDamage(damage);
 
-			Collider2D[] expl = Physics2D.OverlapCircleAll(this.transform.position, explosionRadius);
+			Collider2D[] expl = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
 			foreach (Collider2D col in expl)
 			{
 				// Check if the Fort isn't the direct hit fort
@@ -227,7 +243,7 @@ public class Shuriken : MonoBehaviour
 
 					// Set Damage Per Distance or Damage Multiplier
 					if (explosionDamagerPerDistance)
-						fort.GetComponent<Fort>().TakeDamage((int)(damage / Vector2.Distance(this.transform.position, fort.transform.position)));
+						fort.GetComponent<Fort>().TakeDamage((int)(damage / Vector2.Distance(transform.position, fort.transform.position)));
 					else
 						fort.GetComponent<Fort>().TakeDamage((int)(damage * explosionDamageMultiplier));
 				}
@@ -241,7 +257,7 @@ public class Shuriken : MonoBehaviour
 
 				if (bombExplosion != null && !fort.GetComponent<Fort>().isDestroyed)
 				{
-					GameObject f = (GameObject)Instantiate(bombExplosion, fort.transform.position, Quaternion.Euler(bombExplosion.transform.eulerAngles.x, bombExplosion.transform.eulerAngles.y * fort.transform.localScale.x, bombExplosion.transform.eulerAngles.z));
+					GameObject f = (GameObject)Instantiate(bombExplosion, fort.transform.position, faction.Rotation2D(90));
 					f.name = fort.name + "(Feedback)";
 					f.transform.GetComponent<ItemFeedback>().Setup(fort);
 				}
@@ -257,6 +273,6 @@ public class Shuriken : MonoBehaviour
 	public void Remove()
 	{
 		owner.GetComponent<PlayerAttack>().shotCount--;
-		Destroy(this.gameObject);
+		Destroy(gameObject);
 	}
 }

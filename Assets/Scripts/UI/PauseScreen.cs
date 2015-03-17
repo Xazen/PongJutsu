@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PauseScreen : UIScript
+public class PauseScreen : UIBase
 {
 	public override void uiEnable()
 	{

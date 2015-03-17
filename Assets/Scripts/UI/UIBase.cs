@@ -3,65 +3,59 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIScript : MonoBehaviour
+public class UIBase : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject defaultSelected;
+
 	[SerializeField]
 	private bool interactable = false;
-	private bool hasInteractable = false;
-	private bool allowInput = true;
 
-	public static Animator ui;
-
-	void Awake()
+	private static Animator _ui;
+	public static Animator ui
 	{
-		if (ui == null)
-			ui = GameObject.Find("UI").GetComponent<Animator>();
+		get
+		{
+			if (_ui == null)
+			{
+				_ui = GameObject.Find("UI").GetComponent<Animator>();
+			}
 
-		if (this.GetComponentsInChildren<Button>().Length > 0 || this.GetComponentsInChildren<Slider>().Length > 0)
-			hasInteractable = true;
+			return _ui;
+		}
 	}
 
 	void OnEnable()
 	{
+		ResetTriggers();
+
 		uiEnable();
 
-		if (getUInputAny() || !interactable)
-		{
-			allowInput = false;
-			EventSystem.current.sendNavigationEvents = false;
-		}
+		setDefaultSelection();
 	}
 
 	public virtual void uiEnable()
 	{
-		ResetTriggers();
-		setDefaultSelection();
+		
 	}
 
 	void LateUpdate()
 	{
-		if (interactable && !allowInput)
+		if (interactable)
 		{
 			if (!getUInputAny())
-				allowInput = true;
+				EventSystem.current.sendNavigationEvents = true;
 			else
 				EventSystem.current.sendNavigationEvents = false;
-		}
 
-		if (allowInput || !interactable)
-			uiUpdate();
-	}
+			GameObject lastSelectedGameObject = EventSystem.current.lastSelectedGameObject;
+			GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
 
-	public virtual void uiUpdate()
-	{
-		if (hasInteractable)
-		{
 			bool selectInMenu = false;
+
 			foreach (Button button in this.GetComponentsInChildren<Button>())
 			{
-				if (button.gameObject == EventSystem.current.lastSelectedGameObject || button.gameObject == EventSystem.current.currentSelectedGameObject)
+				if (button.gameObject == lastSelectedGameObject || button.gameObject == currentSelectedGameObject)
 				{
 					selectInMenu = true;
 					break;
@@ -69,7 +63,7 @@ public class UIScript : MonoBehaviour
 			}
 			foreach (Slider slider in this.GetComponentsInChildren<Slider>())
 			{
-				if (slider.gameObject == EventSystem.current.lastSelectedGameObject || slider.gameObject == EventSystem.current.currentSelectedGameObject)
+				if (slider.gameObject == lastSelectedGameObject || slider.gameObject == currentSelectedGameObject)
 				{
 					selectInMenu = true;
 					break;
@@ -78,9 +72,16 @@ public class UIScript : MonoBehaviour
 
 			if (getUInputDown() && !selectInMenu)
 				setDefaultSelection();
-			else if (getUInputDown() && EventSystem.current.currentSelectedGameObject == null)
-				EventSystem.current.SetSelectedGameObject(EventSystem.current.lastSelectedGameObject);
+			else if (getUInputDown() && currentSelectedGameObject == null)
+				EventSystem.current.SetSelectedGameObject(lastSelectedGameObject);
 		}
+
+		uiUpdate();
+	}
+
+	public virtual void uiUpdate()
+	{
+
 	}
 
 	public bool getUInputDown()
@@ -93,7 +94,7 @@ public class UIScript : MonoBehaviour
 		return getUInputDown() || Input.anyKey;
 	}
 
-	void ResetTriggers()
+	private void ResetTriggers()
 	{
 		foreach (string parameter in ui.GetComponent<AnimatorParameter>().trigger)
 		{
@@ -103,7 +104,7 @@ public class UIScript : MonoBehaviour
 
 	public void setDefaultSelection()
 	{
-		if (defaultSelected != null && hasInteractable)
+		if (defaultSelected != null)
 		{
 			EventSystem.current.SetSelectedGameObject(null);
 			EventSystem.current.SetSelectedGameObject(defaultSelected);

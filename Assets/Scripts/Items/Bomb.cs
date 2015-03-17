@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bomb : Item
+public class Bomb : ItemBase
 {
 
 	public float damageMultiplier = 0.5f;

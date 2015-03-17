@@ -1,39 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum PlayerSide
-{
-	Left,
-	Right
-}
-
 public class Player : PlayerBase
 {
-	PlayerSide _playerSide;
-	public PlayerSide playerSide
+	Faction _faction;
+	public Faction faction
 	{
 		get
 		{
-			return _playerSide;
+			return _faction;
 		}
 		set
 		{
-			_playerSide = value;
+			_faction = value;
 
-			if (_playerSide == PlayerSide.Left)
+			direction = _faction.Direction();
+			transform.rotation = _faction.Rotation2D();
+
+			if (_faction == Faction.Left)
 			{
-				direction = 1;
-				this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-
 				Animator.runtimeAnimatorController = ninjaLeftController;
 				PlayerShield.shieldReference.GetComponent<SpriteRenderer>().sprite = shieldLeftSprite;
 				PlayerShield.Animator.runtimeAnimatorController = shieldLeftController;
 			}
-			else if (_playerSide == PlayerSide.Right)
+			else if (_faction == Faction.Right)
 			{
-				direction = -1;
-				this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-
 				Animator.runtimeAnimatorController = ninjaRightController;
 				PlayerShield.shieldReference.GetComponent<SpriteRenderer>().sprite = shieldRightSprite;
 				PlayerShield.Animator.runtimeAnimatorController = shieldRightController;
@@ -76,9 +67,9 @@ public class Player : PlayerBase
 		{
 			if (_forts == null)
 			{
-				if (playerSide == PlayerSide.Left)
+				if (faction == Faction.Left)
 					_forts = GameObject.FindGameObjectsWithTag("FortLeft");
-				else if (playerSide == PlayerSide.Right)
+				else if (faction == Faction.Right)
 					_forts = GameObject.FindGameObjectsWithTag("FortRight");
 			}
 

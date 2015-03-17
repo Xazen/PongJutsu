@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShurikenSonic : Destructor
+public class ShurikenSonic : MonoBehaviour
 {
 	[SerializeField]
 	private AnimatorOverrideController sonicLeftController;
 	[SerializeField]
 	private AnimatorOverrideController sonicRightController;
 
-	public void setOwner(GameObject owner)
+	public void Set(Faction ownerFaction)
 	{
-		if (owner.tag == "PlayerLeft")
+		if (ownerFaction == Faction.Left)
 			this.GetComponent<Animator>().runtimeAnimatorController = sonicLeftController;
-		if (owner.tag == "PlayerRight")
+		else if (ownerFaction == Faction.Right)
 			this.GetComponent<Animator>().runtimeAnimatorController = sonicRightController;
 	}
 }

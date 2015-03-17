@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class OptionsScreen : UIScript
+public class OptionsScreen : UIBase
 {
 	public override void uiEnable()
 	{

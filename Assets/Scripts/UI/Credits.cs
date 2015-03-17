@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Credits : UIScript
+public class Credits : UIBase
 {
 	public override void uiUpdate()
 	{

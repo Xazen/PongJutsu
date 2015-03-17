@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetupRiver : GameSetup
+public class SetupRiver : SetupBase
 {
 
 	public GameObject riverPrefab;
@@ -12,13 +12,6 @@ public class SetupRiver : GameSetup
 
 		MainInstance = (GameObject)Instantiate(riverPrefab, new Vector2(0f, 0f), Quaternion.identity);
 		MainInstance.name = riverPrefab.name;
-	}
-
-	public override void postbuild()
-	{
-		base.postbuild();
-
-		MainInstance.GetComponent<River>().Setup();
 	}
 
 	void OnDrawGizmos()

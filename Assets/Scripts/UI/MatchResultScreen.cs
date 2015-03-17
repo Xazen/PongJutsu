@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class MatchResultScreen : UIScript
+public class MatchResultScreen : UIBase
 {
 	[SerializeField]
 	private ScoreOutput scoreOutputLeft;

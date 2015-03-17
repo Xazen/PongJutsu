@@ -73,6 +73,7 @@ public class PlayerAttack : PlayerBase
 		GameObject shotInstance = (GameObject)Instantiate(shotPrefab, this.transform.position, Quaternion.identity);
 		Shuriken shuriken = shotInstance.GetComponent<Shuriken>();
 		shuriken.owner = this.gameObject;
+		shuriken.faction = Player.faction;
 		shuriken.speed *= speedMultiplier;
 		shuriken.damage = Mathf.RoundToInt((float)shuriken.damage * damageMultiplier);
 		shuriken.setInitialMovement(Player.direction, PlayerMovement.movementNormalized * maxAngle);
@@ -85,7 +86,7 @@ public class PlayerAttack : PlayerBase
 			rageAttackSoundpoolReference.PlayRandom();
 
 		GameObject sonicInstance = (GameObject)Instantiate(shotSonicPrefab, this.transform.position, this.transform.rotation);
-		sonicInstance.GetComponent<ShurikenSonic>().setOwner(this.gameObject);
+		sonicInstance.GetComponent<ShurikenSonic>().Set(Player.faction);
 
 		GameScore.GetByPlayer(this.gameObject).thrownshurikens += 1;
 		nextFire = 0;

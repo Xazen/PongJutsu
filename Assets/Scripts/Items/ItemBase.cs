@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : MonoBehaviour
+public class ItemBase : MonoBehaviour
 {
 	[SerializeField]
 	private int _spawnProbability = 100;
@@ -36,7 +36,7 @@ public class Item : MonoBehaviour
 		{
 			GameObject instance = (GameObject)Instantiate(activationEffect, this.transform.position, Quaternion.identity);
 			instance.transform.parent = this.transform.parent;
-			instance.renderer.material.SetColor("_EmisColor", activationEffectColor);
+			instance.GetComponent<Renderer>().material.SetColor("_EmisColor", activationEffectColor);
 		}
 
 		GameScore.GetByPlayer(shuriken.lastHitOwner).itemhits += 1;

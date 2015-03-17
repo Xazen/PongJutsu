@@ -59,12 +59,11 @@ public class PlayerMovement : PlayerBase
 		{
 			// Activate dashing
 			isDashing = true;
+			this.GetComponent<SoundPool>().PlayRandom();
 
 			dashLerp = 0;
 			dashStartPosition = this.transform.position.y;
 			dashDirection = Direction(PlayerInput.GetAxis(Control.Movement));
-
-			this.GetComponent<SoundPool>().PlayRandom();
 		}
 	}
 
@@ -74,28 +73,6 @@ public class PlayerMovement : PlayerBase
 		float position = this.transform.position.y;
 
 		// Calculate Speed and direction
-		if (PlayerInput.GetAxis(Control.Movement) != 0f)
-		{
-			if (resetMovementAtTurn && moveDirection != Direction(PlayerInput.GetAxis(Control.Movement)))
-				currentSpeed = 0;
-
-			if (currentSpeed == 0)
-				currentSpeed = minMovementSpeed;
-
-			currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed * Mathf.Abs(PlayerInput.GetAxis(Control.Movement)), 0f, maxMovementSpeed);
-			moveDirection = Direction(PlayerInput.GetAxis(Control.Movement));
-		}
-		else
-		{
-			currentSpeed = Mathf.Clamp(currentSpeed - decelerationSpeed, 0f, maxMovementSpeed);
-			if (currentSpeed == 0f)
-				moveDirection = 0f;
-		}
-
-		// Set temp position
-		position += (currentSpeed * moveDirection) * Time.fixedDeltaTime;
-
-		// Override at dashing
 		if (isDashing)
 		{
 			dashLerp += dashSpeed * Time.fixedDeltaTime;
@@ -108,18 +85,31 @@ public class PlayerMovement : PlayerBase
 				lastDash = 0f;
 			}
 		}
+		else
+		{
+			if (PlayerInput.GetAxis(Control.Movement) != 0f)
+			{
+				if (resetMovementAtTurn && moveDirection != Direction(PlayerInput.GetAxis(Control.Movement)))
+					currentSpeed = 0;
 
-		// Check and Precalculating Collision
-		GameObject top = GameObject.FindGameObjectWithTag("BoundaryTop");
-		GameObject bottom = GameObject.FindGameObjectWithTag("BoundaryBottom");
-		if (position > top.transform.position.y - top.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset)
-		{
-			position = top.transform.position.y - top.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset;
+				currentSpeed = Mathf.Clamp(currentSpeed + accelerationSpeed * Mathf.Abs(PlayerInput.GetAxis(Control.Movement)), minMovementSpeed, maxMovementSpeed);
+				moveDirection = Direction(PlayerInput.GetAxis(Control.Movement));
+			}
+			else
+			{
+				currentSpeed = Mathf.Clamp(currentSpeed - decelerationSpeed, 0f, maxMovementSpeed);
+				if (currentSpeed == 0f)
+					moveDirection = 0f;
+			}
+			position += (currentSpeed * moveDirection) * Time.fixedDeltaTime;
 		}
-		else if (position < bottom.transform.position.y + bottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset)
-		{
-			position = bottom.transform.position.y + bottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset;
-		}
+
+		// Clamp Position in Boundaries
+		GameObject boundaryTop = GameObject.FindGameObjectWithTag("BoundaryTop");
+		GameObject boundaryBottom = GameObject.FindGameObjectWithTag("BoundaryBottom");
+		float minPosition = boundaryBottom.transform.position.y + boundaryBottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset;
+		float maxPosition = boundaryTop.transform.position.y - boundaryTop.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset;
+		position = Mathf.Clamp(position, minPosition, maxPosition);
 
 		// Set new position
 		this.transform.position = new Vector2(this.transform.position.x, position);
@@ -138,7 +128,7 @@ public class PlayerMovement : PlayerBase
 			Player.Animator.speed = 1f;
 	}
 
-	public void StopMovementAnimation()
+	public void ResetAnimation()
 	{
 		// Set animation
 		Player.Animator.speed = 1f;

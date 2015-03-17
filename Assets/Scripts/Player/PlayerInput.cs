@@ -40,9 +40,9 @@ public class PlayerInput : PlayerBase
 
 				if (offlineMode)
 				{
-					if (Player.playerSide == PlayerSide.Left)
+					if (Player.faction == Faction.Left)
 						playerKeys.AddRange(PlayerLeft);
-					else if (Player.playerSide == PlayerSide.Right)
+					else if (Player.faction == Faction.Right)
 						playerKeys.AddRange(PlayerRight);
 				}
 				else

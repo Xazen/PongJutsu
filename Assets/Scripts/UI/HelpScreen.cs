@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class HelpScreen : UIScript
+public class HelpScreen : UIBase
 {
 	[SerializeField]
 	private Sprite[] helpImage;

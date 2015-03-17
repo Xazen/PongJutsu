@@ -167,7 +167,7 @@ public class GameVar
 			set { gameObject.GetComponent<River>().flowSpeed = value; }
 		}
 
-		public static Dictionary<string, Item> itemList
+		public static Dictionary<string, ItemBase> itemList
 		{
 			get { return gameObject.GetComponent<River>().itemList; }
 		}

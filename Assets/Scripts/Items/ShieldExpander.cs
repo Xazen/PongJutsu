@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShieldExpander : Item
+public class ShieldExpander : ItemBase
 {
 	public float scaleMultiplier = 1.5f;
 

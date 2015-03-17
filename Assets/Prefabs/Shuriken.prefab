@@ -48,7 +48,7 @@ GameObject:
   - 198: {fileID: 19841572}
   - 199: {fileID: 19941572}
   m_Layer: 0
-  m_Name: SpeedParticle
+  m_Name: ComboParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,8 +116,10 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
   m_Radius: .150000006
-  m_Center: {x: 0, y: 0}
 --- !u!96 &9600000
 TrailRenderer:
   m_ObjectHideFlags: 1
@@ -127,15 +129,19 @@ TrailRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: .5
@@ -191,25 +197,27 @@ MonoBehaviour:
   selfCollision: 0
   ignoreSpawnCollision: 0
   damage: 40
-  explosion: {fileID: 100000, guid: 6159ab0ca61b4e34891358d29fa7451f, type: 2}
-  bombExplosion: {fileID: 191878, guid: c44957baf7eaef041944a56bf9628a85, type: 2}
   explosionRadius: 1.64999998
   explosionDamageMultiplier: .200000003
   explosionDamagerPerDistance: 0
   isBomb: 0
   reflectionDamageMultiplier: .800000012
-  shurikenLeftColor: {r: .97647059, g: .215686277, b: .215686277, a: 1}
-  shurikenRightColor: {r: .235294119, g: .87843138, b: .941176474, a: 1}
-  shurikenLeftSprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
-  shurikenRightSprite: {fileID: 21300000, guid: 3cc3df1f2c73d494289005f070a8a644,
-    type: 3}
-  shurikenBombSprite: {fileID: 21300000, guid: 965238af8710d8b4986d144a0d09f21c, type: 3}
   owner: {fileID: 0}
   lastHitOwner: {fileID: 0}
   bounceBack: 0
   resetComboOnDamageDealt: 0
   resetComboOnDamageTaken: 1
+  shurikenLeftColor: {r: .97647059, g: .215686277, b: .215686277, a: 1}
+  shurikenRightColor: {r: .235294119, g: .87843138, b: .941176474, a: 1}
+  spriteRendererReference: {fileID: 21200000}
+  shurikenLeftSprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
+  shurikenRightSprite: {fileID: 21300000, guid: 3cc3df1f2c73d494289005f070a8a644,
+    type: 3}
+  shurikenBombSprite: {fileID: 21300000, guid: 965238af8710d8b4986d144a0d09f21c, type: 3}
+  explosion: {fileID: 100000, guid: 6159ab0ca61b4e34891358d29fa7451f, type: 2}
+  bombExplosion: {fileID: 191878, guid: c44957baf7eaef041944a56bf9628a85, type: 2}
   wallCollision: {fileID: 131172, guid: d268c7a7d76033144aeba636e7a12fb3, type: 2}
+  comboParticleReference: {fileID: 19841572}
 --- !u!114 &11402560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -461,6 +469,7 @@ ParticleSystem:
     boxX: 0
     boxY: 15
     boxZ: 60
+    arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
     randomDirection: 1
@@ -1267,15 +1276,19 @@ ParticleSystemRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 21f8d5008380e8d48a112226bc6e46c8, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_RenderMode: 0
@@ -1299,15 +1312,19 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 36b76100cf80f004c878be29e0c4ece0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1663561905
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 99b1cfef4d4f6b54e86e2ec99ee93cf4, type: 3}
@@ -1323,4 +1340,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

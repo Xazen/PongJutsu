@@ -1,65 +1,81 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(FortHealthbar))]
 public class Fort : MonoBehaviour
 {
-
-	public int maxHealth = 100;
-	public bool mirror = false;
-
-	[HideInInspector] public int health;
-
-	public AnimatorOverrideController FortLeftController;
-	public AnimatorOverrideController FortRightController;
-
-	public bool disableAtDestroy = false;
-	public bool removeAtDestroy = false;
-
-	[HideInInspector] public bool isDestroyed = false;
-
-	[HideInInspector] public GameObject owner;
-
-	public void Setup()
+	Faction _faction;
+	public Faction faction
 	{
-		if (mirror)
+		get
 		{
-			// Mirror the Fort
-			Vector3 scale = this.transform.localScale;
-			this.transform.localScale = new Vector3(scale.x * -1, scale.y);
+			return _faction;
 		}
+		set
+		{
+			_faction = value;
 
-		// Set different forts
-		if (this.tag == "FortLeft")
-		{
-			this.GetComponent<Animator>().runtimeAnimatorController = FortLeftController;
-			owner = GameObject.FindGameObjectWithTag("PlayerLeft");
-		}
-		else if (this.tag == "FortRight")
-		{
-			this.GetComponent<Animator>().runtimeAnimatorController = FortRightController;
-			owner = GameObject.FindGameObjectWithTag("PlayerRight");
-		}
+			transform.rotation = _faction.Rotation2D();
 
-		// Intit values
-		health = maxHealth;
-		UpdateHealthValues();
+			if (_faction == Faction.Left)
+			{
+				GetComponent<Animator>().runtimeAnimatorController = FortLeftController;
+				owner = GameObject.FindGameObjectWithTag("PlayerLeft");
+			}
+			else if (_faction == Faction.Right)
+			{
+				GetComponent<Animator>().runtimeAnimatorController = FortRightController;
+				owner = GameObject.FindGameObjectWithTag("PlayerRight");
+			}
+		}
 	}
 
-	void UpdateHealthValues()
+	public int maxHealth = 100;
+	private int _health;
+	[HideInInspector]
+	public int health
 	{
-		this.GetComponentInChildren<Healthbar>().updateHealthbar(health);
-		this.GetComponent<Animator>().SetInteger("Health", health);
+		get
+		{
+			return _health;
+		}
+		set
+		{
+			_health = Mathf.Clamp(value, 0, maxHealth);
+
+			GetComponent<FortHealthbar>().updateHealthbar(_health);
+			GetComponent<Animator>().SetInteger("Health", _health);
+
+			if (_health <= 0)
+				DestroyFort();
+		}
+	}
+
+	[SerializeField]
+	private AnimatorOverrideController FortLeftController;
+	[SerializeField]
+	private AnimatorOverrideController FortRightController;
+
+	[SerializeField]
+	private bool disableAtDestroy = false;
+	[SerializeField]
+	private bool removeAtDestroy = false;
+
+	[HideInInspector]
+	public bool isDestroyed = false;
+
+	[HideInInspector]
+	public GameObject owner;
+
+	void Start()
+	{
+		health = maxHealth;
 	}
 
 	public void TakeHeal(int heal)
 	{
 		if (!isDestroyed)
-		{
 			health += heal;
-			health = Mathf.Clamp(health, 0, maxHealth);
-
-			UpdateHealthValues(); 
-		}
 	}
 
 	public void TakeDamage(int damage)
@@ -67,14 +83,7 @@ public class Fort : MonoBehaviour
 		if (!isDestroyed)
 		{
 			GameScore.GetByEnemyPlayer(owner).dealtdamageRound += damage + Mathf.Min(health - damage, 0);
-
 			health -= damage;
-			health = Mathf.Clamp(health, 0, maxHealth);
-
-			UpdateHealthValues();
-
-			if (health <= 0)
-				DestroyFort();
 		}
 	}
 
@@ -82,9 +91,9 @@ public class Fort : MonoBehaviour
 	{
 		isDestroyed = true;
 
-		if (this.tag == "FortLeft")
+		if (faction == Faction.Left)
 			GameObject.FindGameObjectWithTag("PlayerRight").GetComponent<Player>().addCombo();
-		else if (this.tag == "FortRight")
+		else if (faction == Faction.Right)
 			GameObject.FindGameObjectWithTag("PlayerLeft").GetComponent<Player>().addCombo();
 
 		if (removeAtDestroy)
@@ -95,7 +104,7 @@ public class Fort : MonoBehaviour
 		else if (disableAtDestroy)
 		{
 			// Disable Fort
-			this.collider2D.enabled = false;
+			this.GetComponent<Collider2D>().enabled = false;
 		}
 	}
 }

@@ -6,8 +6,8 @@ AnimationClip:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Shield_Reflect_Transform
-  serializedVersion: 4
-  m_AnimationType: 2
+  serializedVersion: 6
+  m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
   m_RotationCurves: []
@@ -25,12 +25,12 @@ AnimationClip:
         value: {x: .649999976, y: 0, z: 0}
         inSlope: {x: -.634615481, y: 0, z: 0}
         outSlope: {x: -.634615481, y: 0, z: 0}
-        tangentMode: 127014128
+        tangentMode: 0
       - time: .25
         value: {x: .699999988, y: 0, z: 0}
         inSlope: {x: .230769277, y: 0, z: 0}
         outSlope: {x: .230769277, y: 0, z: 0}
-        tangentMode: 3473456
+        tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
     path: 
@@ -142,4 +142,7 @@ AnimationClip:
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 1
+  m_HasMotionFloatCurves: 0
+  m_GenerateMotionCurves: 0
   m_Events: []

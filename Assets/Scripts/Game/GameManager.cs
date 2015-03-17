@@ -49,11 +49,11 @@ public class GameManager : MonoBehaviour
 	{
 		if (!isIngame)
 		{
-			foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
-				gs.build();
-			foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
-				gs.postbuild();
-
+			foreach (SetupBase setup in GameObject.FindObjectsOfType<SetupBase>())
+			{
+				setup.build();
+			}
+				
 			resetChangedPrefabs();
 
 			GameVar.Refresh();
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 			isEnd = false;
 			allowInput = false;
 
-			Screen.showCursor = false;
+			Cursor.visible = false;
 
 			Time.timeScale = 1;
 		}
@@ -78,17 +78,17 @@ public class GameManager : MonoBehaviour
 		{
 			resetChangedPrefabs();
 
-			foreach (GameSetup gs in GameObject.FindObjectsOfType<GameSetup>())
+			foreach (SetupBase setup in GameObject.FindObjectsOfType<SetupBase>())
 			{
-				gs.remove();
+				setup.remove();
 			}
-			foreach (Shuriken s in GameObject.FindObjectsOfType<Shuriken>())
+			foreach (Shuriken shuriken in GameObject.FindObjectsOfType<Shuriken>())
 			{
-				Destroy(s.gameObject);
+				Destroy(shuriken.gameObject);
 			}
-			foreach (ItemFeedback s in GameObject.FindObjectsOfType<ItemFeedback>())
+			foreach (ItemFeedback itemFeedback in GameObject.FindObjectsOfType<ItemFeedback>())
 			{
-				Destroy(s.gameObject);
+				Destroy(itemFeedback.gameObject);
 			}
 
 			isIngame = false;
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
 
 	static void resetChangedPrefabs()
 	{
-		foreach (Item item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
+		foreach (ItemBase item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
 			item.resetProbability();
 
 		Storage.shuriken.GetComponent<Shuriken>().reset();
@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
 		allowInput = false;
 		MusicManager.current.PauseMusic();
 
-		Screen.showCursor = true;
+		Cursor.visible = true;
 
 		ui.SetTrigger("PauseGame");
 	}
@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
 		isPause = false;
 		allowInput = true;
 
-		Screen.showCursor = false;
+		Cursor.visible = false;
 	}
 
 	public static void RestartGame()
@@ -222,13 +222,13 @@ public class GameManager : MonoBehaviour
 
 		foreach (PlayerMovement pm in GameObject.FindObjectsOfType<PlayerMovement>())
 		{
-			pm.StopMovementAnimation();
+			pm.ResetAnimation();
 		}
 
 		isEnd = true;
 		allowInput = false;
 
-		Screen.showCursor = true;
+		Cursor.visible = true;
 
 		ui.SetTrigger("EndRound");
 	}

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SetupForts : GameSetup
+public class SetupForts : SetupBase
 {
 
 	public GameObject fortPrefab;
@@ -19,50 +19,40 @@ public class SetupForts : GameSetup
 
 		MainInstance = new GameObject("Forts");
 
-		float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().center.x;
+		float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().offset.x;
 		float offsetY = GetComponent<SetupStage>().height;
 
-		// Forts Player 1
+		// Forts Player Left
 		for (int i = 0; i < numberOfForts; i++)
 		{
 			Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 			Vector2 position = new Vector2(-offsetX - -width / 2, size.y * i - offsetY + size.y / 2);
-			spawnFort(position, size, false, MainInstance, "FortLeft", "FortLeft", i);
+
+			spawnFort(position, size, Faction.Left, MainInstance, "FortLeft");
 		}
 
-		// Forts Player 2
+		// Forts Player Right
 		for (int i = 0; i < numberOfForts; i++)
 		{
 			Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
 			Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
-			spawnFort(position, size, autoMirror, MainInstance, "FortRight", "FortRight", i);
+
+			spawnFort(position, size, Faction.Right, MainInstance, "FortRight");
 		}
 	}
 
-	private GameObject spawnFort(Vector2 position, Vector2 size, bool mirror, GameObject parent, string name, string tag, int i)
+	private GameObject spawnFort(Vector2 position, Vector2 size, Faction faction, GameObject parent, string tag)
 	{
 		GameObject instance = (GameObject)Instantiate(fortPrefab);
 
-		instance.name = name;
+		instance.name = tag;
 		instance.tag = tag;
 		instance.transform.parent = parent.transform;
 		instance.GetComponent<BoxCollider2D>().size = size;
 		instance.transform.position = position;
-		instance.GetComponent<Fort>().mirror = mirror;
-
-		Instances.Add(instance);
+		instance.GetComponent<Fort>().faction = faction;
 
 		return instance;
-	}
-
-	public override void postbuild()
-	{
-		base.postbuild();
-
-		foreach (GameObject instance in Instances)
-		{
-			instance.GetComponent<Fort>().Setup();
-		}
 	}
 
 	void OnDrawGizmos()
