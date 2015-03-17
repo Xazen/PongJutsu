@@ -8441,12 +8441,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11447624, guid: 4c875ae6d57afd644a9eb36c010f2568, type: 2}
-      propertyPath: instantPlay
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11497232, guid: 4c875ae6d57afd644a9eb36c010f2568, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c875ae6d57afd644a9eb36c010f2568, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1672428934
