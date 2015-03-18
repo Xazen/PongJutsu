@@ -326,7 +326,7 @@ GameObject:
   - 224: {fileID: 24515768}
   - 114: {fileID: 24515769}
   m_Layer: 0
-  m_Name: sl_MasterVolume
+  m_Name: sl_EffectsVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3465,6 +3465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fc41deb3775be4fa5ea7e065595b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _effectsMixerGroup: {fileID: 24300001, guid: 7aad49b1ffbecd446839204ecd438f6c, type: 2}
   _musicMixerGroup: {fileID: 24300001, guid: 70c5bd79c51184248b4fd1b16e7e19ae, type: 2}
 --- !u!114 &594015425
 MonoBehaviour:
@@ -4704,7 +4705,7 @@ GameObject:
   - 222: {fileID: 858673872}
   - 114: {fileID: 858673871}
   m_Layer: 0
-  m_Name: t_MasterVolume
+  m_Name: t_EffectsVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4752,7 +4753,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Master Volume
+  m_Text: Effects Volume
 --- !u!222 &858673872
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6120,6 +6121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSelected: {fileID: 24515767}
   interactable: 1
+  effectsVolumeSlider: {fileID: 24515769}
+  musicVolumeSlider: {fileID: 1819190423}
 --- !u!114 &1084537084
 MonoBehaviour:
   m_ObjectHideFlags: 0

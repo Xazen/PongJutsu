@@ -4,12 +4,18 @@ using UnityEngine.UI;
 
 public class OptionsScreen : UIBase
 {
+	[SerializeField]
+	Slider effectsVolumeSlider;
+
+	[SerializeField]
+	Slider musicVolumeSlider;
+
 	public override void uiEnable()
 	{
 		base.uiEnable();
 
-		this.transform.FindChild("sl_MasterVolume").GetComponent<Slider>().value = GameOptions.masterVolume;
-		this.transform.FindChild("sl_MusicVolume").GetComponent<Slider>().value = GameOptions.musicVolume;
+		effectsVolumeSlider.value = GameOptions.effectsVolume;
+		musicVolumeSlider.value = GameOptions.musicVolume;
 	}
 
 	public override void uiUpdate()
@@ -22,7 +28,7 @@ public class OptionsScreen : UIBase
 
 	public void slide_MasterVolume(float value)
 	{
-		GameOptions.masterVolume = value;
+		GameOptions.effectsVolume = value;
 	}
 
 	public void slide_MusicVolume(float value)

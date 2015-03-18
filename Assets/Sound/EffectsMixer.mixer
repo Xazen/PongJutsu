@@ -5,7 +5,7 @@ AudioMixerController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: EffectMixer
+  m_Name: EffectsMixer
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300001}
   m_Snapshots:
@@ -61,5 +61,5 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: c06503853c7737a4b83ccf1e940d1986
   m_FloatValues:
-    a2328596369d8644fbb649e9e66dc1ec: -80
+    a2328596369d8644fbb649e9e66dc1ec: 0
   m_TransitionOverrides: {}
