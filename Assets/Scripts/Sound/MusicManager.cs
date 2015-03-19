@@ -4,48 +4,6 @@ using System.Collections.Generic;
 
 public class MusicManager : MonoBehaviour
 {
-	private int currentPartIndex = 0;
-	private int nextPartIndex = 0;
-	private int maxPartsCount
-	{
-		get
-		{
-			int maxParts = 0;
-			foreach (Layer layer in musicLayers)
-			{
-				if (maxParts < layer.parts.Length)
-					maxParts = layer.parts.Length;
-			}
-			return maxParts;
-		}
-	}
-
-	[SerializeField]
-	private int leadingLayerElement = 0;
-
-	[SerializeField]
-	private int pauseLayerElement = 0;
-
-	private Layer leadingLayer
-	{
-		get
-		{
-			if (musicLayers[leadingLayerElement].parts[currentPartIndex].clips.Length > 0)
-			{
-				return musicLayers[leadingLayerElement];
-			}
-			else
-			{
-				foreach (Layer layer in musicLayers)
-				{
-					if (layer.parts[currentPartIndex].clips.Length > 0)
-						return layer;
-				}
-				return null;
-			}
-		}
-	}
-
 	[System.Serializable]
 	public class Layer
 	{
@@ -72,38 +30,75 @@ public class MusicManager : MonoBehaviour
 		public int currentClipIndex = 0;
 	}
 
+	private int maxPartsCount
+	{
+		get
+		{
+			int maxParts = 0;
+			foreach (Layer layer in musicLayers)
+			{
+				if (maxParts < layer.parts.Length)
+					maxParts = layer.parts.Length;
+			}
+			return maxParts;
+		}
+	}
+
+	private Layer leadingLayer
+	{
+		get
+		{
+			if (musicLayers[leadingLayerElement].parts[currentPartIndex].clips.Length > 0)
+			{
+				return musicLayers[leadingLayerElement];
+			}
+			else
+			{
+				foreach (Layer layer in musicLayers)
+				{
+					if (layer.parts[currentPartIndex].clips.Length > 0)
+						return layer;
+				}
+				return null;
+			}
+		}
+	}
+
+	private delegate void Switch();
+	private Switch OnSwitch;
+
+	private int currentPartIndex = 0;
+	private int nextPartIndex = 0;
+
 	[SerializeField]
 	private Layer[] musicLayers;
 	[SerializeField]
 	private Layer bridgeLayer;
 
 	[SerializeField]
+	private int leadingLayerElement = 0;
+	[SerializeField]
+	private int pauseLayerElement = 0;
+
+	[SerializeField]
 	private bool debug = false;
 
-	public static MusicManager current;
-
-	void Awake()
+	private static MusicManager _current;
+	public static MusicManager current
 	{
-		if (current == null)
-			current = this;
-	}
-
-	void Update()
-	{
-		if (debug)
+		get
 		{
-			if (Input.GetKeyDown("1"))
-				NextPart(true);
-			if (Input.GetKeyDown("2"))
-				NextPart(false);
+			if (_current == null)
+				_current = FindObjectOfType<MusicManager>();
 
-			Debug.Log(currentPartIndex + " " + nextPartIndex + " " + musicLayers[1].parts[currentPartIndex].currentClipIndex);
+			return _current;
 		}
 	}
 
-	public void StartMusic()
+	public void StartMusic(int partIndex = 0)
 	{
-		PlayPart(0);
+		PlayPart(partIndex);
+		StartCoroutine(IMusicHandler());
 	}
 
 	public void StopMusic()
@@ -137,9 +132,6 @@ public class MusicManager : MonoBehaviour
 
 	private void PlayPart(int partIndex)
 	{
-		StopCoroutine("ILoopPart");
-		currentPartIndex = partIndex;
-
 		foreach (Layer layer in musicLayers)
 		{
 			if (layer.parts[nextPartIndex].clips.Length > 0)
@@ -147,41 +139,38 @@ public class MusicManager : MonoBehaviour
 				layer.source.clip = layer.parts[partIndex].currentClip;
 				layer.source.time = 0f;
 
-				StartCoroutine("ILoopPart", layer);
-
 				layer.source.volume = 1f;
 
 				if (!layer.source.isPlaying)
 					layer.source.Play();
 			}
 		}
+
+		currentPartIndex = partIndex;
+		OnSwitch = SwitchEvent_NextClip;
 	}
 
-	public void NextPart(bool wait = true)
+	public void NextPart(bool instant = false)
 	{
-		nextPartIndex = Mathf.Clamp(nextPartIndex + 1, 1, maxPartsCount - 1);
+		SetNextPart(nextPartIndex + 1, instant);
+	}
 
-		if (wait)
-		{
-			StartCoroutine(IWaitForNextPart());
-		}
-		else
+	public void NextPart(int partIndex, bool instant = false)
+	{
+		SetNextPart(partIndex, instant);
+	}
+
+	private void SetNextPart(int partIndex, bool instant)
+	{
+		nextPartIndex = Mathf.Clamp(partIndex, 0, maxPartsCount - 1);
+
+		if (instant)
 		{
 			StartCoroutine(IBridgeToNextPart());
 		}
-	}
-
-	public void NextPart(int partIndex, bool wait = true)
-	{
-		nextPartIndex = Mathf.Clamp(partIndex, 1, maxPartsCount - 1);
-
-		if (wait)
-		{
-			StartCoroutine(IWaitForNextPart());
-		}
 		else
 		{
-			StartCoroutine(IBridgeToNextPart());
+			OnSwitch = SwitchEvent_NextPart;
 		}
 	}
 
@@ -191,22 +180,35 @@ public class MusicManager : MonoBehaviour
 		bridgeLayer.source.PlayOneShot(bridgeLayer.parts[0].clips[clipIndex]);
 	}
 
-	IEnumerator ILoopPart(Layer layer)
+	IEnumerator IMusicHandler()
 	{
-		int INextPart = currentPartIndex;
-		while (currentPartIndex == INextPart)
+		while (true)
+		{
+			float last = leadingLayer.source.time;
+			while (leadingLayer.source.time < leadingLayer.source.clip.length && leadingLayer.source.time >= last)
+			{
+				last = leadingLayer.source.time;
+
+				MusicHandlerDebug();
+
+				yield return null;
+			}
+
+			if (OnSwitch != null)
+				OnSwitch();
+
+			yield return null;
+		}
+	}
+
+	private void SwitchEvent_NextClip()
+	{
+		foreach (Layer layer in musicLayers)
 		{
 			Part currentPart = layer.parts[currentPartIndex];
 			int nextClipIndex = (int)Mathf.Repeat(currentPart.currentClipIndex + 1, currentPart.clips.Length);
 
-			float waitForSeconds = layer.source.clip.length - layer.source.time;
-			while (waitForSeconds > 0f)
-			{
-				waitForSeconds -= Time.unscaledDeltaTime;
-				yield return new WaitForEndOfFrame();
-			}
-
-			if (currentPartIndex == INextPart && layer.parts[currentPartIndex].currentClipIndex != nextClipIndex)
+			if (nextClipIndex < currentPart.clips.Length)
 			{
 				layer.source.clip = currentPart.clips[nextClipIndex];
 				layer.source.time = 0f;
@@ -219,23 +221,15 @@ public class MusicManager : MonoBehaviour
 		}
 	}
 
-	IEnumerator IWaitForNextPart()
+	private void SwitchEvent_NextPart()
 	{
-		int INextPart = nextPartIndex;
-
-		float waitForSeconds = leadingLayer.source.clip.length - leadingLayer.source.time;
-		while (waitForSeconds > 0f)
-		{
-			waitForSeconds -= Time.unscaledDeltaTime;
-			yield return new WaitForEndOfFrame();
-		}
-
-		if (INextPart == nextPartIndex)
-			PlayPart(nextPartIndex);
+		PlayPart(nextPartIndex);
 	}
 
 	IEnumerator IBridgeToNextPart()
 	{
+		OnSwitch = null;
+
 		foreach (Layer layer in musicLayers)
 			StartCoroutine(IFadeout(layer, 0.7f));
 
@@ -273,6 +267,26 @@ public class MusicManager : MonoBehaviour
 			float volume = source.volume - (1f / duration) * Time.unscaledDeltaTime;
 			source.volume = Mathf.Clamp(volume, 0f, 1f);
 			yield return new WaitForEndOfFrame();
+		}
+	}
+
+	private void MusicHandlerDebug()
+	{
+		if (debug)
+		{
+			if (Input.GetKeyDown("1"))
+				NextPart(true);
+			if (Input.GetKeyDown("2"))
+				NextPart(false);
+
+			Debug.Log(currentPartIndex + " " + nextPartIndex + " " + musicLayers[1].parts[currentPartIndex].currentClipIndex);
+
+			string switchName = "null";
+
+			if (OnSwitch != null)
+				switchName = OnSwitch.Method.Name;
+
+			Debug.Log("Time to Switch->" + switchName + ": " + System.Math.Round(leadingLayer.parts[currentPartIndex].currentClip.length - leadingLayer.source.time, 2));
 		}
 	}
 }

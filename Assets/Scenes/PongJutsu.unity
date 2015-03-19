@@ -1865,8 +1865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e51010bdc240b47a8afec3651d37c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leadingLayerElement: 1
-  pauseLayerElement: 0
   musicLayers:
   - source: {fileID: 309831656}
     parts:
@@ -1915,6 +1913,8 @@ MonoBehaviour:
       - {fileID: 8300000, guid: 6028c6e3c2defba4fae5f567cc2a3023, type: 3}
       - {fileID: 8300000, guid: afe70e64b7eb97341a59326bf6930ee8, type: 3}
       currentClipIndex: 0
+  leadingLayerElement: 1
+  pauseLayerElement: 0
   debug: 0
 --- !u!4 &309831654
 Transform:
@@ -1942,7 +1942,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -2012,7 +2012,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Priority: 128
   DopplerLevel: 1
@@ -2082,7 +2082,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Priority: 128
   DopplerLevel: 1
