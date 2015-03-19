@@ -1865,8 +1865,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e51010bdc240b47a8afec3651d37c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseLayerElement: 0
   leadingLayerElement: 1
+  pauseLayerElement: 0
   musicLayers:
   - source: {fileID: 309831656}
     parts:

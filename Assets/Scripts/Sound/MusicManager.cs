@@ -4,28 +4,6 @@ using System.Collections.Generic;
 
 public class MusicManager : MonoBehaviour
 {
-	private float _masterVolume = 1f;
-	public float masterVolume
-	{
-		get
-		{
-			return _masterVolume;
-		}
-		set
-		{
-			_masterVolume = value;
-
-			foreach (Layer layer in musicLayers)
-			{
-				if (layer.source.volume > 0f)
-					layer.source.volume = _masterVolume;
-			}
-		}
-	}
-
-	[SerializeField]
-	private int pauseLayerElement = 0;
-
 	private int currentPartIndex = 0;
 	private int nextPartIndex = 0;
 	private int maxPartsCount
@@ -44,6 +22,10 @@ public class MusicManager : MonoBehaviour
 
 	[SerializeField]
 	private int leadingLayerElement = 0;
+
+	[SerializeField]
+	private int pauseLayerElement = 0;
+
 	private Layer leadingLayer
 	{
 		get
@@ -167,7 +149,7 @@ public class MusicManager : MonoBehaviour
 
 				StartCoroutine("ILoopPart", layer);
 
-				layer.source.volume = masterVolume;
+				layer.source.volume = 1f;
 
 				if (!layer.source.isPlaying)
 					layer.source.Play();
@@ -205,7 +187,7 @@ public class MusicManager : MonoBehaviour
 
 	private void PlayBridge(int clipIndex)
 	{
-		bridgeLayer.source.volume = masterVolume;
+		bridgeLayer.source.volume = 1f;
 		bridgeLayer.source.PlayOneShot(bridgeLayer.parts[0].clips[clipIndex]);
 	}
 
@@ -274,10 +256,10 @@ public class MusicManager : MonoBehaviour
 	{
 		AudioSource source = layer.source;
 
-		while (source.volume < masterVolume)
+		while (source.volume < 1f)
 		{
-			float volume = source.volume + (masterVolume / duration) * Time.unscaledDeltaTime;
-			source.volume = Mathf.Clamp(volume, 0f, masterVolume);
+			float volume = source.volume + (1f / duration) * Time.unscaledDeltaTime;
+			source.volume = Mathf.Clamp(volume, 0f, 1f);
 			yield return new WaitForEndOfFrame();
 		}
 	}
@@ -288,8 +270,8 @@ public class MusicManager : MonoBehaviour
 
 		while (source.volume > 0f)
 		{
-			float volume = source.volume - (masterVolume / duration) * Time.unscaledDeltaTime;
-			source.volume = Mathf.Clamp(volume, 0f, masterVolume);
+			float volume = source.volume - (1f / duration) * Time.unscaledDeltaTime;
+			source.volume = Mathf.Clamp(volume, 0f, 1f);
 			yield return new WaitForEndOfFrame();
 		}
 	}
