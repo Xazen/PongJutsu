@@ -149,7 +149,11 @@ public class GameFlow : MonoBehaviour
 	{
 		if (intensity != GameIntensity.Mercy)
 		{
-			Debug.Log("on music intensity changed: " + intensity);
+			if (consoleLog)
+			{
+				Debug.Log("on music intensity changed: " + intensity);
+			}
+			
 			int gameIntensity = (int)intensity;
 			MusicManager.current.NextPart(gameIntensity, intensity == GameIntensity.End);
 		}
