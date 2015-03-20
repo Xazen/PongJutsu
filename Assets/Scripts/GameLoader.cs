@@ -6,28 +6,43 @@ public class GameLoader : MonoBehaviour
 {
 	[SerializeField] private string levelname = "PongJutsu";
 
-	[SerializeField] private Text loadingtext;
+	[SerializeField] private bool automaticSceneActivation = true;
 
-	private AsyncOperation async = null;
+	private static AsyncOperation async = null;
 
 	void Awake()
 	{
-		loadingtext.text = "";
-
 		if (levelname != "")
 			StartCoroutine(ILoadLevel(levelname));
-	}
-
-	void Update()
-	{
-		if (async != null)
-			loadingtext.text = "Load " + levelname + "... " + Mathf.RoundToInt(async.progress * 100) + "%";
 	}
 
 	private IEnumerator ILoadLevel(string level)
 	{
 		yield return new WaitForSeconds(1f);
 		async = Application.LoadLevelAsync(level);
+		async.allowSceneActivation = automaticSceneActivation;
 		yield return async;
+	}
+
+	public static void ActivateLoadedLevel()
+	{
+		if (async != null)
+			async.allowSceneActivation = true;
+	}
+
+	public static bool isLoaded()
+	{
+		if (async != null)
+			return async.progress > 0.89f;
+
+		return false;
+	}
+
+	public static int getProgress()
+	{
+		if (async != null)
+			return Mathf.RoundToInt(async.progress * 100);
+
+		return 0;
 	}
 }
