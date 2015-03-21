@@ -8357,7 +8357,7 @@ MonoBehaviour:
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
   m_CancelButton: Cancel
-  m_InputActionsPerSecond: 7
+  m_InputActionsPerSecond: 125
   m_AllowActivationOnMobileDevice: 0
 --- !u!114 &1680450308
 MonoBehaviour:
