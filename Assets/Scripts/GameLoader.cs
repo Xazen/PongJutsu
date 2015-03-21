@@ -10,7 +10,7 @@ public class GameLoader : MonoBehaviour
 
 	private static AsyncOperation async = null;
 
-	void Awake()
+	void Start()
 	{
 		if (levelname != "")
 			StartCoroutine(ILoadLevel(levelname));
@@ -18,7 +18,6 @@ public class GameLoader : MonoBehaviour
 
 	private IEnumerator ILoadLevel(string level)
 	{
-		yield return new WaitForSeconds(1f);
 		async = Application.LoadLevelAsync(level);
 		async.allowSceneActivation = automaticSceneActivation;
 		yield return async;

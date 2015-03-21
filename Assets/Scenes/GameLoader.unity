@@ -195,7 +195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &438211253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -506,6 +506,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageRef: {fileID: 973784605}
   splashScreens:
+  - logoImage: {fileID: 0}
+    duration: 1
+    fadeInDuration: 0
+    fadeOutDuration: 0
   - logoImage: {fileID: 21300000, guid: b48be55a6933caa45bedfbeb1fa5a45f, type: 3}
     duration: 1
     fadeInDuration: 1
