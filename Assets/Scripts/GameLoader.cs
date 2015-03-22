@@ -18,6 +18,7 @@ public class GameLoader : MonoBehaviour
 
 	private IEnumerator ILoadLevel(string level)
 	{
+		yield return new WaitForSeconds(0.4f);
 		async = Application.LoadLevelAsync(level);
 		async.allowSceneActivation = automaticSceneActivation;
 		yield return async;
