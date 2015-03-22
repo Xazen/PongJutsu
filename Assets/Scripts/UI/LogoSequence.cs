@@ -77,11 +77,14 @@ public class LogoSequence : MonoBehaviour
 		float fadeDuration = splashScreens[i].fadeInDuration;
 		while (fadeDuration > 0)
 		{
-			fadeDuration -= Time.deltaTime;
+			float factor = 1f;
 
-			SetTransparency(SmoothedLerp(1f, 0f, fadeDuration / splashScreens[i].fadeInDuration));
 			if (Input.anyKey == true && allowSkipping == true)
-				fadeDuration = 0;
+				factor = skipFadeOutFactor;
+
+			fadeDuration -= factor * Time.deltaTime;
+
+			SetTransparency(SmoothedLerp(1f, 0f, fadeDuration / splashScreens[i].fadeOutDuration));
 
 			yield return new WaitForEndOfFrame();
 		}
@@ -107,6 +110,7 @@ public class LogoSequence : MonoBehaviour
 			StartCoroutine("ShowLoadingText");
 			while (!GameLoader.isLoaded())
 			{
+				loadingtext.text = "Loading... " + GameLoader.getProgress() + "%";
 				yield return new WaitForEndOfFrame();
 			}
 		}
@@ -145,23 +149,33 @@ public class LogoSequence : MonoBehaviour
 
 		while (loadingtext.color.a < defaultTextTransparency)
 		{
-			Color tempColor = loadingtext.color;
-			tempColor.a += Time.deltaTime;
-			loadingtext.color = tempColor;
+			Color textColor = loadingtext.color;
+			textColor.a += Time.deltaTime;
+			loadingtext.color = textColor;
+			yield return new WaitForEndOfFrame();
 		}
 
 		while (!GameLoader.isLoaded())
 		{
-			loadingtext.text = "Loading... " + GameLoader.getProgress() + "%";
 			yield return new WaitForEndOfFrame();
 		}
 
 		float fadeDuration = splashScreens[currentSplashScreenIndex].fadeOutDuration;
 		while (fadeDuration > 0f)
 		{
-			Color tempColor = loadingtext.color;
-			tempColor.a = SmoothedLerp(0f, defaultTextTransparency, fadeDuration / splashScreens[currentSplashScreenIndex].fadeOutDuration);
-			loadingtext.color = tempColor;
+			Color textColor = loadingtext.color;
+
+			float factor = 1f;
+
+			if (Input.anyKey == true && allowSkipping == true)
+				factor = skipFadeOutFactor;
+
+			fadeDuration -= factor * Time.deltaTime;
+
+			textColor.a = SmoothedLerp(0f, defaultTextTransparency, fadeDuration / splashScreens[currentSplashScreenIndex].fadeOutDuration);
+			loadingtext.color = textColor;
+
+			yield return new WaitForEndOfFrame();
 		}
 	}
 }
