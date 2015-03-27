@@ -179,6 +179,7 @@ public class GameManager : MonoBehaviour
 	{
 		GameMatch.newMatch();
 		ui.SetTrigger("StartGame");
+		MusicManager.current.PlayStoryToGame();
 	}
 
 	public static void StartGame()

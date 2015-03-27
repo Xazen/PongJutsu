@@ -83,6 +83,15 @@ public class MusicManager : MonoBehaviour
 	[SerializeField]
 	private bool debug = false;
 
+	[SerializeField]
+	private AudioSource StoryToGameSource;
+
+	public void PlayStoryToGame()
+	{
+		if (StoryToGameSource != null)
+			StoryToGameSource.Play();
+	}
+
 	private static MusicManager _current;
 	public static MusicManager current
 	{
