@@ -19,6 +19,7 @@ public class LogoSequence : MonoBehaviour
 	private int currentSplashScreenIndex = 0;
 
 	public bool allowSkipping = true;
+	private float factor = 1f;
 	public float skipFadeOutFactor = 3f;
 
 	public bool automaticLevelLoading = false;
@@ -31,6 +32,12 @@ public class LogoSequence : MonoBehaviour
 
 		if(splashScreens.Length > 0)
 			StartSplashScreen(0);
+	}
+
+	void Update()
+	{
+		if (Input.anyKey == true && allowSkipping == true)
+			factor = skipFadeOutFactor;
 	}
 
 	private void SetTransparency(float transparency)
@@ -75,13 +82,10 @@ public class LogoSequence : MonoBehaviour
 		SetTransparency(0f);
 
 		float fadeDuration = splashScreens[i].fadeInDuration;
+		factor = 1f;
+
 		while (fadeDuration > 0)
 		{
-			float factor = 1f;
-
-			if (Input.anyKey == true && allowSkipping == true)
-				factor = skipFadeOutFactor;
-
 			fadeDuration -= factor * Time.deltaTime;
 
 			SetTransparency(SmoothedLerp(1f, 0f, fadeDuration / splashScreens[i].fadeOutDuration));
@@ -98,9 +102,7 @@ public class LogoSequence : MonoBehaviour
 		float duration = splashScreens[i].duration;
 		while(duration > 0)
 		{
-			duration -= Time.deltaTime;
-			if(Input.anyKey == true && allowSkipping == true)
-				duration = 0;
+			duration -= factor * Time.deltaTime;
 
 			yield return new WaitForEndOfFrame();
 		}
@@ -125,11 +127,6 @@ public class LogoSequence : MonoBehaviour
 		float fadeDuration = splashScreens[i].fadeOutDuration;
 		while(fadeDuration > 0)
 		{
-			float factor = 1f;
-
-			if(Input.anyKey == true && allowSkipping == true)
-				factor = skipFadeOutFactor;
-
 			fadeDuration -= factor * Time.deltaTime;
 			
 			SetTransparency(SmoothedLerp(0f, 1f, fadeDuration / splashScreens[i].fadeOutDuration));
@@ -164,11 +161,6 @@ public class LogoSequence : MonoBehaviour
 		while (fadeDuration > 0f)
 		{
 			Color textColor = loadingtext.color;
-
-			float factor = 1f;
-
-			if (Input.anyKey == true && allowSkipping == true)
-				factor = skipFadeOutFactor;
 
 			fadeDuration -= factor * Time.deltaTime;
 
