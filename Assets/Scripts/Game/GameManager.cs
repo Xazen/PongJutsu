@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator IWaitForInit()
 	{
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(0.5f);
 		ui.SetTrigger("Init");
 	}
 
@@ -173,6 +173,7 @@ public class GameManager : MonoBehaviour
 	{
 		GameMatch.newMatch();
 		ui.SetTrigger("StartGame");
+		MusicManager.current.PlayStoryToGame();
 	}
 
 	public static void StartGame()

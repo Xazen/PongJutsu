@@ -11,6 +11,8 @@ public class UIBase : MonoBehaviour
 	[SerializeField]
 	private bool interactable = false;
 
+	private float axisDeadzone = 0.8f;
+
 	private static Animator _ui;
 	public static Animator ui
 	{
@@ -86,7 +88,7 @@ public class UIBase : MonoBehaviour
 
 	public bool getUInputDown()
 	{
-		return (Input.GetButtonDown("Vertical") || Input.GetAxisRaw("Vertical") != 0f || Input.GetButtonDown("Horizontal") || Input.GetAxisRaw("Horizontal") != 0f);
+		return (Input.GetButtonDown("Vertical") || Mathf.Abs(Input.GetAxisRaw("Vertical")) >= axisDeadzone || Input.GetButtonDown("Horizontal") || Mathf.Abs(Input.GetAxisRaw("Horizontal")) >= axisDeadzone);
 	}
 
 	private bool getUInputAny()
