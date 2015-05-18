@@ -18,5 +18,6 @@ MonoBehaviour:
   PreferredRegion: 4
   AppID: 4c93b66f-b060-4c10-a3d5-e045370da2a0
   PingCloudServersOnAwake: 0
-  RpcList: []
+  RpcList:
+  - EnterGame
   DisableAutoOpenWizard: 0

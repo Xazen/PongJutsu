@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(PhotonView))]
 public class NetworkManager : Photon.MonoBehaviour
 {
 	void Start()
@@ -40,6 +41,15 @@ public class NetworkManager : Photon.MonoBehaviour
 		Debug.Log("Joined Room");
 
 		if (PhotonNetwork.room.playerCount == PhotonNetwork.room.maxPlayers)
+		{
 			Debug.Log("Room filled and ready!");
+			photonView.RPC("EnterGame", PhotonTargets.AllViaServer);
+		}
+	}
+
+	[RPC]
+	void EnterGame()
+	{
+		GameManager.EnterGame();
 	}
 }
