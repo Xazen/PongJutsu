@@ -22,14 +22,6 @@ public class GameManager : MonoBehaviour
 	{
 		ui = GameObject.Find("UI").GetComponent<Animator>();
 		flow = this.GetComponent<GameFlow>();
-
-		StartCoroutine("IWaitForInit");
-	}
-
-	IEnumerator IWaitForInit()
-	{
-		yield return new WaitForSeconds(0.5f);
-		ui.SetTrigger("Init");
 	}
 
 	void Start()
@@ -169,10 +161,10 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public static void NewGame()
+	public static void EnterGame()
 	{
 		GameMatch.newMatch();
-		ui.SetTrigger("StartGame");
+		ui.SetTrigger("EnterGame");
 		MusicManager.current.PlayStoryToGame();
 	}
 

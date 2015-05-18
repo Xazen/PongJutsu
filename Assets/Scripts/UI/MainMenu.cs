@@ -5,7 +5,7 @@ public class MainMenu : UIBase
 {
 	public void click_Start()
 	{
-		GameManager.NewGame();
+		GameManager.EnterGame();
 	}
 
 	public void click_Help()

@@ -445,7 +445,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trigger:
-  - StartGame
+  - EnterGame
+  - StartCountdown
   - ExitGame
   - PauseGame
   - ResumeGame

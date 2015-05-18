@@ -24,6 +24,11 @@ public class UIAnimationEvents : MonoBehaviour
 		GameManager.StartGame();
 	}
 
+	void transition_startcountdown()
+	{
+		UIBase.ui.SetTrigger("StartCountdown");
+	}
+
 	void transition_unloadgame()
 	{
 		GameManager.UnloadGame();

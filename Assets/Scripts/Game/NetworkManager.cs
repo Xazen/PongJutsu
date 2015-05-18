@@ -3,8 +3,6 @@ using System.Collections;
 
 public class NetworkManager : Photon.MonoBehaviour
 {
-	private RoomInfo[] roomsList;
-
 	void Start()
 	{
 		PhotonNetwork.ConnectUsingSettings("0");
