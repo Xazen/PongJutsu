@@ -27,4 +27,19 @@ public class MainMenu : UIBase
 	{
 		Application.Quit();
 	}
+
+	// Online Placeholder
+	void OnGUI()
+	{
+		if (!isActiveAndEnabled)
+			return;
+
+		GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+
+		if (PhotonNetwork.connected && !PhotonNetwork.inRoom)
+		{
+			if (GUI.Button(new Rect(Screen.width / 2f - 75, Screen.height / 3f - 15, 150, 30), "Start Online Multiplayer", buttonStyle))
+				NetworkManager.StartMatchmaking();
+		}
+	}
 }

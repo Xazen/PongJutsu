@@ -1,52 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace PongJutsu
+public class NetworkManager : Photon.MonoBehaviour
 {
-	public class NetworkManager : Photon.MonoBehaviour
+	private RoomInfo[] roomsList;
+
+	void Start()
 	{
-		private const string roomName = "PongJustu Test Room";
-		private RoomInfo[] roomsList;
+		PhotonNetwork.ConnectUsingSettings("0");
+	}
 
-		void Start()
-		{
-			PhotonNetwork.ConnectUsingSettings("0");
-		}
+	void OnGUI()
+	{
+		GUIStyle debugLabelStyle = new GUIStyle(GUI.skin.label);
+		debugLabelStyle.normal.textColor = Color.blue;
 
-		void OnGUI()
-		{
-			GUIStyle debugLabelStyle = new GUIStyle(GUI.skin.label);
-			debugLabelStyle.normal.textColor = Color.blue;
+		GUILayout.Label("ping: " + PhotonNetwork.GetPing().ToString(), debugLabelStyle);
+		GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString(), debugLabelStyle);
+		GUILayout.Label(PhotonNetwork.ServerAddress, debugLabelStyle);
+	}
 
-			GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+	public static void StartMatchmaking()
+	{
+		PhotonNetwork.JoinRandomRoom();
+	}
 
-			GUILayout.Label("ping: " + PhotonNetwork.GetPing().ToString(), debugLabelStyle);
-			GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString(), debugLabelStyle);
+	void OnPhotonRandomJoinFailed()
+	{
+		Debug.Log("Cant find any room... Create new room");
 
-			if (PhotonNetwork.connected && !PhotonNetwork.inRoom)
-			{
-				if (GUI.Button(new Rect(Screen.width / 2f - 75, Screen.height / 3f - 15, 150, 30), "Start Online Multiplayer", buttonStyle))
-					ConnectWithPlayer();
-			}
-		}
+		RoomOptions roomOptions = new RoomOptions();
+		roomOptions.isOpen = true;
+		roomOptions.isVisible = true;
+		roomOptions.maxPlayers = 2;
 
-		public void ConnectWithPlayer()
-		{
-			RoomOptions roomOptions = new RoomOptions();
-			roomOptions.isOpen = true;
-			roomOptions.isVisible = true;
-			roomOptions.maxPlayers = 2;
+		PhotonNetwork.CreateRoom(null, roomOptions, TypedLobby.Default);
+	}
 
-			TypedLobby typedLobby = new TypedLobby();
-			typedLobby.Name = roomName;
+	void OnJoinedRoom()
+	{
+		Debug.Log("Joined Room");
 
-			PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, typedLobby);
-		}
-
-		void OnJoinedRoom()
-		{
-			if (PhotonNetwork.room.playerCount == PhotonNetwork.room.maxPlayers)
-				Debug.Log("Room Ready");
-		}
+		if (PhotonNetwork.room.playerCount == PhotonNetwork.room.maxPlayers)
+			Debug.Log("Room filled and ready!");
 	}
 }
