@@ -163,6 +163,8 @@ public class GameManager : MonoBehaviour
 
 	public static void EnterGame()
 	{
+		NetworkManager.onlineMode = false;
+
 		GameMatch.newMatch();
 		ui.SetTrigger("EnterGame");
 		MusicManager.current.PlayStoryToGame();

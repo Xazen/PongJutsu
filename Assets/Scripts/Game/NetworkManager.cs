@@ -3,10 +3,33 @@ using System.Collections;
 
 [RequireComponent(typeof(PhotonView))]
 public class NetworkManager : Photon.MonoBehaviour
-{
-	void Start()
+{	
+	public static void ConnectPhoton()
 	{
-		PhotonNetwork.ConnectUsingSettings("0");
+		if (!PhotonNetwork.connected)
+			PhotonNetwork.ConnectUsingSettings("0");
+	}
+
+	public static bool onlineMode
+	{
+		get
+		{
+			return !PhotonNetwork.offlineMode;
+		}
+		set
+		{
+			PhotonNetwork.offlineMode = value;
+
+			if (value == true)
+			{
+				ConnectPhoton();
+			}
+			else
+			{
+				if (PhotonNetwork.connected)
+					PhotonNetwork.Disconnect();
+			}
+		}
 	}
 
 	void OnGUI()

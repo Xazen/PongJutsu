@@ -3,6 +3,13 @@ using System.Collections;
 
 public class MainMenu : UIBase
 {
+	public override void uiEnable()
+	{
+		base.uiEnable();
+
+		NetworkManager.ConnectPhoton();
+	}
+
 	public void click_Start()
 	{
 		GameManager.EnterGame();
