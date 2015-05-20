@@ -6,8 +6,18 @@ public class NetworkManager : Photon.MonoBehaviour
 {	
 	public static void ConnectPhoton()
 	{
+		Debug.Log("Connect to Photon");
+
 		if (!PhotonNetwork.connected)
 			PhotonNetwork.ConnectUsingSettings("0");
+	}
+
+	public static void DisconnectPhoton()
+	{
+		Debug.Log("Disconnect from Photon");
+
+		if (PhotonNetwork.connected)
+			PhotonNetwork.Disconnect();
 	}
 
 	public static bool onlineMode
@@ -18,16 +28,17 @@ public class NetworkManager : Photon.MonoBehaviour
 		}
 		set
 		{
-			PhotonNetwork.offlineMode = value;
-
 			if (value == true)
 			{
+				PhotonNetwork.offlineMode = false;
+
 				ConnectPhoton();
 			}
 			else
 			{
-				if (PhotonNetwork.connected)
-					PhotonNetwork.Disconnect();
+				DisconnectPhoton();
+
+				PhotonNetwork.offlineMode = true;
 			}
 		}
 	}
@@ -42,9 +53,23 @@ public class NetworkManager : Photon.MonoBehaviour
 		GUILayout.Label(PhotonNetwork.ServerAddress, debugLabelStyle);
 	}
 
-	public static void StartMatchmaking()
+	public static void StartOnlineMultiplayer()
 	{
+		onlineMode = true;
+
 		PhotonNetwork.JoinRandomRoom();
+	}
+
+	public static void StartLocalMultiplayer()
+	{
+		onlineMode = false;
+
+		RoomOptions roomOptions = new RoomOptions();
+		roomOptions.isOpen = false;
+		roomOptions.isVisible = false;
+		roomOptions.maxPlayers = 1;
+
+		PhotonNetwork.CreateRoom("Local", roomOptions, TypedLobby.Default);
 	}
 
 	void OnPhotonRandomJoinFailed()
