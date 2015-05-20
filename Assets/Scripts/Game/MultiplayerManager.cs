@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(PhotonView))]
-public class NetworkManager : Photon.MonoBehaviour
+public class MultiplayerManager : Photon.MonoBehaviour
 {	
 	public static void ConnectPhoton()
 	{

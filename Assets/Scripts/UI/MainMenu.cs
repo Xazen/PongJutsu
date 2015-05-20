@@ -7,12 +7,12 @@ public class MainMenu : UIBase
 	{
 		base.uiEnable();
 
-		NetworkManager.ConnectPhoton();
+		MultiplayerManager.ConnectPhoton();
 	}
 
 	public void click_Start()
 	{
-		NetworkManager.StartLocalMultiplayer();
+		MultiplayerManager.StartLocalMultiplayer();
 	}
 
 	public void click_Help()
@@ -46,7 +46,7 @@ public class MainMenu : UIBase
 		if (PhotonNetwork.connected && !PhotonNetwork.inRoom)
 		{
 			if (GUI.Button(new Rect(Screen.width / 2f - 75, Screen.height / 3f - 15, 150, 30), "Start Online Multiplayer", buttonStyle))
-				NetworkManager.StartOnlineMultiplayer();
+				MultiplayerManager.StartOnlineMultiplayer();
 		}
 	}
 }
