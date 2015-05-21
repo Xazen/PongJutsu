@@ -49,6 +49,7 @@ GameObject:
   - 114: {fileID: 11434928}
   - 114: {fileID: 11408516}
   - 114: {fileID: 11460354}
+  - 114: {fileID: 11493392}
   - 61: {fileID: 6142036}
   - 95: {fileID: 9562836}
   - 114: {fileID: 11482364}
@@ -720,6 +721,31 @@ MonoBehaviour:
   randomProbability: 100
   sounds:
   - {fileID: 8300000, guid: 45a717094171db74db3b3e08561ba8fb, type: 3}
+--- !u!114 &11493392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  prefixBackup: -1
+  observed: {fileID: 0}
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &11495008
 MonoBehaviour:
   m_ObjectHideFlags: 1
