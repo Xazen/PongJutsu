@@ -43,6 +43,19 @@ public class MultiplayerManager : Photon.MonoBehaviour
 		}
 	}
 
+	public static bool CanControlFaction(Faction faction)
+	{
+		if (!onlineMode)
+			return true;
+
+		return ((PhotonNetwork.isMasterClient && faction == Faction.Left) || (!PhotonNetwork.isMasterClient && faction == Faction.Right)) ? true : false;
+	}
+
+	public static bool isMasterClient
+	{
+		get { return PhotonNetwork.isMasterClient; }
+	}
+
 	void OnGUI()
 	{
 		GUIStyle debugLabelStyle = new GUIStyle(GUI.skin.label);

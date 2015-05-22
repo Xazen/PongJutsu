@@ -11,25 +11,37 @@ public static class FactionExtensions
 {
 	public static int Direction(this Faction faction)
 	{
-		int i = 0;
+		int d = 0;
 
 		if (faction == Faction.Left)
-			i = 1;
+			d = 1;
 		else if (faction == Faction.Right)
-			i = -1;
+			d = -1;
 
-		return i;
+		return d;
 	}
 
-	public static Quaternion Rotation2D(this Faction faction, int eulerOffset = 0)
+	public static Quaternion Rotation2D(this Faction faction, int additionalRotation = 0)
 	{
-		int i = 0;
+		int r = 0;
 
 		if (faction == Faction.Left)
-			i = 0;
+			r = 0;
 		else if (faction == Faction.Right)
-			i = 180;
+			r = 180;
 
-		return Quaternion.Euler(0f, i + eulerOffset, 0f);
+		return Quaternion.Euler(0f, r + additionalRotation, 0f);
+	}
+
+	public static string ToTag(this Faction faction, string name)
+	{
+		string tag = "";
+
+		if (faction == Faction.Left)
+			tag = name + "Left";
+		else if (faction == Faction.Right)
+			tag = name + "Right";
+
+		return tag;
 	}
 }
