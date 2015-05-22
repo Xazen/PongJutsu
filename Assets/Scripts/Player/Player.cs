@@ -16,6 +16,8 @@ public class Player : PlayerBase
 
 			direction = _faction.Direction();
 			transform.rotation = _faction.Rotation2D();
+			tag = _faction.ToTag("Player");
+			name = tag;
 
 			if (_faction == Faction.Left)
 			{
@@ -86,7 +88,14 @@ public class Player : PlayerBase
 	private float resetComboTime = 4.0f;
 	private float passedTimeSinceCombo = 0.0f;
 
-	public void FixedUpdate()
+	void Awake()
+	{
+		object[] initData = GetComponent<PhotonView>().instantiationData;
+
+		faction = (Faction)	initData[0];
+	}
+
+	void FixedUpdate()
 	{
 		if (comboCount > 0)
 		{

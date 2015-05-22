@@ -16,6 +16,8 @@ public class Fort : MonoBehaviour
 			_faction = value;
 
 			transform.rotation = _faction.Rotation2D();
+			tag = _faction.ToTag("Fort");
+			name = tag;
 
 			if (_faction == Faction.Left)
 			{
@@ -66,6 +68,14 @@ public class Fort : MonoBehaviour
 
 	[HideInInspector]
 	public GameObject owner;
+
+	void Awake()
+	{
+		object[] initData = GetComponent<PhotonView>().instantiationData;
+
+		faction = (Faction)initData[0];
+		GetComponent<BoxCollider2D>().size = (Vector2)initData[1];
+    }
 
 	void Start()
 	{

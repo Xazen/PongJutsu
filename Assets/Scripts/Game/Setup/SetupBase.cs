@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SetupBase : MonoBehaviour
 {
 	[HideInInspector]
-	public GameObject MainInstance;
-
+	public List<GameObject> Instances = new List<GameObject>();
+	
 	public virtual void build()
 	{
 
@@ -13,10 +14,14 @@ public class SetupBase : MonoBehaviour
 
 	public virtual void remove()
 	{
-		if (MainInstance != null)
+		if (Instances != null)
 		{
-			Destroy(MainInstance);
-			MainInstance = null;
+			foreach (GameObject instance in Instances)
+			{
+				Destroy(instance);
+			}
+
+			Instances.Clear();
 		}
 	}
 }

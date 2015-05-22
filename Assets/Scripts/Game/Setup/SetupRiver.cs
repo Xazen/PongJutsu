@@ -10,8 +10,13 @@ public class SetupRiver : SetupBase
 	{
 		base.build();
 
-		MainInstance = (GameObject)Instantiate(riverPrefab, new Vector2(0f, 0f), Quaternion.identity);
-		MainInstance.name = riverPrefab.name;
+		if (MultiplayerManager.isMasterClient)
+		{
+			GameObject instance = (GameObject)Instantiate(riverPrefab, new Vector2(0f, 0f), Quaternion.identity);
+			instance.name = riverPrefab.name;
+
+			Instances.Add(instance);
+		}
 	}
 
 	void OnDrawGizmos()

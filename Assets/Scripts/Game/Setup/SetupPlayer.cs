@@ -13,26 +13,22 @@ public class SetupPlayer : SetupBase
 	{
 		base.build();
 
-		MainInstance = new GameObject("Players");
-
 		float width = GetComponent<SetupStage>().width;
 		float fortOffset = GetComponent<SetupForts>().width + GetComponent<SetupForts>().offset;
 
 		// Player 1
-		spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), Faction.Left, MainInstance, "PlayerLeft");
+		if (MultiplayerManager.CanControlFaction(Faction.Left))
+			spawnPlayer(new Vector2(-width + fortOffset + offset + internOffset, 0), Faction.Left);
 
 		// Player 2
-		spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), Faction.Right, MainInstance, "PlayerRight");
+		if (MultiplayerManager.CanControlFaction(Faction.Right))
+			spawnPlayer(new Vector2(width - fortOffset - offset - internOffset, 0), Faction.Right);
 	}
 
-	private GameObject spawnPlayer(Vector2 position, Faction faction, GameObject parent, string tag)
+	private GameObject spawnPlayer(Vector2 position, Faction faction)
 	{
-		GameObject instance = (GameObject)Instantiate(playerPrefab);
-		instance.name = tag;
-		instance.tag = tag;
-		instance.transform.parent = parent.transform;
-		instance.transform.position = position;
-		instance.GetComponent<Player>().faction = faction;
+		GameObject instance = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity, 0, new object[] { faction });
+		Instances.Add(instance);
 
 		return instance;
 	}

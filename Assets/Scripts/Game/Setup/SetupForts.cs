@@ -17,40 +17,34 @@ public class SetupForts : SetupBase
 	{
 		base.build();
 
-		MainInstance = new GameObject("Forts");
-
 		float offsetX = GetComponent<SetupStage>().width - offset + fortPrefab.GetComponent<BoxCollider2D>().offset.x;
 		float offsetY = GetComponent<SetupStage>().height;
 
 		// Forts Player Left
-		for (int i = 0; i < numberOfForts; i++)
-		{
-			Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
-			Vector2 position = new Vector2(-offsetX - -width / 2, size.y * i - offsetY + size.y / 2);
+		if (MultiplayerManager.CanControlFaction(Faction.Left))
+			for (int i = 0; i < numberOfForts; i++)
+			{
+				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
+				Vector2 position = new Vector2(-offsetX - -width / 2, size.y * i - offsetY + size.y / 2);
 
-			spawnFort(position, size, Faction.Left, MainInstance, "FortLeft");
-		}
+				spawnFort(position, size, Faction.Left);
+			}
 
 		// Forts Player Right
-		for (int i = 0; i < numberOfForts; i++)
-		{
-			Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
-			Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
+		if (MultiplayerManager.CanControlFaction(Faction.Right))
+			for (int i = 0; i < numberOfForts; i++)
+			{
+				Vector2 size = new Vector2(width, (offsetY * 2) / numberOfForts);
+				Vector2 position = new Vector2(offsetX - width / 2, size.y * i - offsetY + size.y / 2);
 
-			spawnFort(position, size, Faction.Right, MainInstance, "FortRight");
-		}
+				spawnFort(position, size, Faction.Right);
+			}
 	}
 
-	private GameObject spawnFort(Vector2 position, Vector2 size, Faction faction, GameObject parent, string tag)
+	private GameObject spawnFort(Vector2 position, Vector2 size, Faction faction)
 	{
-		GameObject instance = (GameObject)Instantiate(fortPrefab);
-
-		instance.name = tag;
-		instance.tag = tag;
-		instance.transform.parent = parent.transform;
-		instance.GetComponent<BoxCollider2D>().size = size;
-		instance.transform.position = position;
-		instance.GetComponent<Fort>().faction = faction;
+		GameObject instance = PhotonNetwork.Instantiate(fortPrefab.name, position, Quaternion.identity, 0, new object[] { faction, size });
+		Instances.Add(instance);
 
 		return instance;
 	}

@@ -12,32 +12,31 @@ public class SetupBoundaries : SetupBase
 	{
 		base.build();
 
-		MainInstance = new GameObject("Boundaries");
-
 		float width = GetComponent<SetupStage>().width;
 		float height = GetComponent<SetupStage>().height;
 
 		// Boundary Top
-		spawnBoundary(new Vector2(0, height + boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), MainInstance, "BoundaryTop");
+		spawnBoundary(new Vector2(0, height + boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), "BoundaryTop");
 
 		// Boundary Bottom
-		spawnBoundary(new Vector2(0, -height - boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), MainInstance, "BoundaryBottom");
+		spawnBoundary(new Vector2(0, -height - boundaryThickness / 2), new Vector2(width * 2, boundaryThickness), "BoundaryBottom");
 
 		// Boundary Left
-		spawnBoundary(new Vector2(-width - boundaryThickness / 2, 0), new Vector2(boundaryThickness, height * 2), MainInstance, "BoundaryLeft");
+		spawnBoundary(new Vector2(-width - boundaryThickness / 2, 0), new Vector2(boundaryThickness, height * 2), "BoundaryLeft");
 
 		// Boundary Right
-		spawnBoundary(new Vector2(width + boundaryThickness / 2, 0), new Vector2(boundaryThickness, height * 2), MainInstance, "BoundaryRight");
+		spawnBoundary(new Vector2(width + boundaryThickness / 2, 0), new Vector2(boundaryThickness, height * 2), "BoundaryRight");
 	}
 
-	private GameObject spawnBoundary(Vector2 position, Vector2 size, GameObject parent, string tag)
+	private GameObject spawnBoundary(Vector2 position, Vector2 size, string tag)
 	{
 		GameObject instance = (GameObject)Instantiate(boundaryPrefab);
 		instance.name = tag;
 		instance.tag = tag;
-		instance.transform.parent = parent.transform;
 		instance.GetComponent<BoxCollider2D>().size = size;
 		instance.transform.position = position;
+
+		Instances.Add(instance);
 
 		return instance;
 	}
