@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(GameFlow))]
+[RequireComponent(typeof(PhotonView))]
 public class GameManager : MonoBehaviour
 {
 	[SerializeField]
@@ -17,12 +19,14 @@ public class GameManager : MonoBehaviour
 
 	private static Animator ui;
 	private static GameFlow flow;
+	private static PhotonView photonView;
 
 	void Awake()
 	{
 		ui = GameObject.Find("UI").GetComponent<Animator>();
-		flow = this.GetComponent<GameFlow>();
-	}
+		flow = GetComponent<GameFlow>();
+		photonView = GetComponent<PhotonView>();
+    }
 
 	void Start()
 	{
@@ -46,20 +50,32 @@ public class GameManager : MonoBehaviour
 				setup.build();
 			}
 
-			GameVar.Refresh();
-			flow.StartFlow();
-
-			GameMatch.startRound();
-
-			isIngame = true;
-			isPause = false;
-			isEnd = false;
-			allowInput = false;
-
-			Cursor.visible = false;
-
-			Time.timeScale = 1;
+			photonView.URPC("CompleteLoadGame");
 		}
+	}
+
+	[RPC]
+	private void CompleteLoadGame()
+	{
+		GameVar.Refresh();
+
+		flow.StartFlow();
+
+		GameMatch.startRound();
+
+		isIngame = true;
+		isPause = false;
+		isEnd = false;
+		allowInput = false;
+
+		Cursor.visible = false;
+
+		Time.timeScale = 1;
+
+		PrepareBuildup();
+
+		ui.SetTrigger("EnterGame");
+		MusicManager.current.PlayStoryToGame();
 	}
 
 	public static void UnloadGame()
@@ -79,15 +95,23 @@ public class GameManager : MonoBehaviour
 				Destroy(itemFeedback.gameObject);
 			}
 
-			isIngame = false;
-			isPause = false;
-			isEnd = false;
-			allowInput = false;
-
-			MusicManager.current.StopMusic();
-
-			Time.timeScale = 1;
+			photonView.URPC("CompleteUnloadGame");
 		}
+	}
+
+	[RPC]
+	private void CompleteUnloadGame()
+	{
+		PhotonNetwork.DestroyAll();
+
+		isIngame = false;
+		isPause = false;
+		isEnd = false;
+		allowInput = false;
+
+		MusicManager.current.StopMusic();
+
+		Time.timeScale = 1;
 	}
 
 	public static void PrepareBuildup()
@@ -146,8 +170,8 @@ public class GameManager : MonoBehaviour
 	public static void EnterGame()
 	{
 		GameMatch.newMatch();
-		ui.SetTrigger("EnterGame");
-		MusicManager.current.PlayStoryToGame();
+
+		LoadGame();
 	}
 
 	public static void StartGame()
