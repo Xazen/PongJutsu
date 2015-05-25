@@ -26,8 +26,11 @@ public class River : MonoBehaviour
 	public void Awake()
 	{
 		foreach (GameObject item in items)
+		{
 			itemList.Add(item.name, item.GetComponent<ItemBase>());
-
+			item.GetComponent<ItemBase>().resetProbability();
+		}
+			
 		this.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
 
 		setNextSpawn();

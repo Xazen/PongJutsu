@@ -13,7 +13,6 @@ public class GameVar
 		players.left.gameObject = GameObject.FindGameObjectWithTag("PlayerLeft");
 		players.right.gameObject = GameObject.FindGameObjectWithTag("PlayerRight");
 		river.gameObject = GameObject.FindGameObjectWithTag("River");
-		shurikens.gameObject = Storage.shuriken;
 	}
 
 	public static void FixedVarUpdate()
@@ -128,22 +127,6 @@ public class GameVar
 			}
 
 			return fortsCount;
-		}
-	}
-
-	public class shurikens
-	{
-		public static GameObject gameObject;
-
-		public static int damage
-		{
-			get { return gameObject.GetComponent<Shuriken>().damage; }
-			set { gameObject.GetComponent<Shuriken>().damage = value; }
-		}
-		public static float speed
-		{
-			get { return gameObject.GetComponent<Shuriken>().speed; }
-			set { gameObject.GetComponent<Shuriken>().speed = value; }
 		}
 	}
 

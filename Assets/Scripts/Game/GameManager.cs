@@ -45,8 +45,6 @@ public class GameManager : MonoBehaviour
 			{
 				setup.build();
 			}
-				
-			resetChangedPrefabs();
 
 			GameVar.Refresh();
 			flow.StartFlow();
@@ -68,8 +66,6 @@ public class GameManager : MonoBehaviour
 	{
 		if (isIngame)
 		{
-			resetChangedPrefabs();
-
 			foreach (SetupBase setup in GameObject.FindObjectsOfType<SetupBase>())
 			{
 				setup.remove();
@@ -108,20 +104,6 @@ public class GameManager : MonoBehaviour
 		GameVar.players.right.gameObject.transform.FindChild("Shield").GetComponent<Animator>().SetTrigger("Buildup");
 
 		GameObject.Find("Arena").GetComponent<Animator>().SetTrigger("Buildup");
-	}
-
-	static void resetChangedPrefabs()
-	{
-		foreach (ItemBase item in GameObject.FindGameObjectWithTag("River").GetComponent<River>().itemList.Values)
-			item.resetProbability();
-
-		Storage.shuriken.GetComponent<Shuriken>().reset();
-	}
-
-	void OnApplicationQuit()
-	{
-		if (GameManager.isIngame)
-			resetChangedPrefabs();
 	}
 
 	void FixedUpdate()

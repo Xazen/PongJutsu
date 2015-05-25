@@ -105,15 +105,6 @@ public class Shuriken : MonoBehaviour
 		GetComponent<TrailRenderer>().sortingLayerID = spriteRendererReference.sortingLayerID;
 	}
 
-	public void reset()
-	{
-		speed = Storage.Assign("speed", speed);
-		damage = (int)Storage.Assign("damage", (float)damage);
-		explosionRadius = Storage.Assign("explosionRadius", explosionRadius);
-		explosionDamageMultiplier = Storage.Assign("explosionDamageMultiplier", explosionDamageMultiplier);
-		reflectionDamageMultiplier = Storage.Assign("reflectionDamageMultiplier", reflectionDamageMultiplier);
-	}
-
 	public void setInitialMovement(int directionX, float movementY)
 	{
 		// Set initial movement
