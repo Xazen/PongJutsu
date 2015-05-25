@@ -18,7 +18,10 @@ public class SetupBase : MonoBehaviour
 		{
 			foreach (GameObject instance in Instances)
 			{
-				Destroy(instance);
+				if (instance.GetComponent<PhotonView>())
+					PhotonNetwork.Destroy(instance);
+				else
+					Destroy(instance);
 			}
 
 			Instances.Clear();
