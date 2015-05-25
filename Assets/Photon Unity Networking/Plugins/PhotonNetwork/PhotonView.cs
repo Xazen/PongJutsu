@@ -637,7 +637,40 @@ public class PhotonView : Photon.MonoBehaviour
         PhotonNetwork.RPC(this, methodName, targetPlayer, encrypt, parameters);
     }
 
-    public static PhotonView Get(Component component)
+	/// <summary>
+	/// Call a United RPC method of this GameObject on all clients of this room.
+	/// </summary>
+	/// <remarks>
+	///
+	/// This method allows you to make an United RPC calls on a all player's client.
+	/// Of course, calls are affected by this client's lag and that of remote clients.
+	///
+	/// Each call automatically is routed to the same PhotonView (and GameObject) that was used on the
+	/// originating client.
+	/// 
+	/// </remarks>
+	///<param name="methodName">The name of a fitting method that was has the RPC attribute.</param>
+	///<param name="parameters">The parameters that the RPC method has (must fit this call!).</param>
+	public void URPC(string methodName, params object[] parameters)
+	{
+		RPC("ConfirmURPC", PhotonTargets.MasterClient, methodName, parameters);
+	}
+
+	private Dictionary<string, int> URPCList = new Dictionary<string, int>();
+
+	[RPC]
+	private void ConfirmURPC(string methodName, params object[] parameters)
+	{
+		if (!URPCList.ContainsKey(methodName))
+			URPCList.Add(methodName, 0);
+
+		URPCList[methodName]++;
+
+		if (URPCList[methodName] >= PhotonNetwork.playerList.Length)
+			RPC(methodName, PhotonTargets.AllViaServer, parameters);
+	}
+
+	public static PhotonView Get(Component component)
     {
         return component.GetComponent<PhotonView>();
     }
