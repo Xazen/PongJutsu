@@ -11,8 +11,6 @@ public enum Control
 
 public class PlayerInput : PlayerBase
 {
-	private bool offlineMode = true;
-
 	[System.Serializable]
 	private class PlayerKey
 	{
@@ -38,7 +36,7 @@ public class PlayerInput : PlayerBase
 			{
 				List<PlayerKey> playerKeys = new List<PlayerKey>();
 
-				if (offlineMode)
+				if (!MultiplayerManager.onlineMode)
 				{
 					if (Player.faction == Faction.Left)
 						playerKeys.AddRange(PlayerLeft);

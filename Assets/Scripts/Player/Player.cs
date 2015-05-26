@@ -91,8 +91,17 @@ public class Player : PlayerBase
 	void Awake()
 	{
 		object[] initData = GetComponent<PhotonView>().instantiationData;
-
 		faction = (Faction)	initData[0];
+
+		if (MultiplayerManager.onlineMode && !MultiplayerManager.CanControlFaction(faction))
+		{
+			Player.enabled = false;
+			PlayerMovement.enabled = false;
+			PlayerAttack.enabled = false;
+			PlayerShield.enabled = false;
+			PlayerInput.enabled = false;
+			PlayerItemHandler.enabled = false;
+		}
 	}
 
 	void FixedUpdate()
