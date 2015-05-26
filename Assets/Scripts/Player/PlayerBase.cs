@@ -8,7 +8,7 @@ using System.Collections;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(PlayerItemHandler))]
 
-public class PlayerBase : MonoBehaviour
+public class PlayerBase : Photon.MonoBehaviour
 {
 	Player _Player;
 	public Player Player

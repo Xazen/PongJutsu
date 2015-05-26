@@ -25,6 +25,10 @@ public class PlayerMovement : PlayerBase
 	private float dashLerp;
 	private float lastDash;
 
+	private float syncedPosition;
+	private float latestPosition;
+	private float fraction;
+
 	[SerializeField]
 	private float playerCollisionOffset = 0.3f;
 
@@ -38,12 +42,19 @@ public class PlayerMovement : PlayerBase
 	{
 		if (GameManager.allowInput)
 		{
-			Dashing();
-			Movement();
+			if (photonView.isMine)
+			{
+				InputDashing();
+				InputMovement();
+			}
+			else
+			{
+				SyncedMovement();
+			}
 		}
 	}
 
-	private void Dashing()
+	private void InputDashing()
 	{
 		lastDash += Time.fixedDeltaTime;
 
@@ -67,7 +78,7 @@ public class PlayerMovement : PlayerBase
 		}
 	}
 
-	private void Movement()
+	private void InputMovement()
 	{
 		// Get current position
 		float position = this.transform.position.y;
@@ -104,15 +115,8 @@ public class PlayerMovement : PlayerBase
 			position += (currentSpeed * moveDirection) * Time.fixedDeltaTime;
 		}
 
-		// Clamp Position in Boundaries
-		GameObject boundaryTop = GameObject.FindGameObjectWithTag("BoundaryTop");
-		GameObject boundaryBottom = GameObject.FindGameObjectWithTag("BoundaryBottom");
-		float minPosition = boundaryBottom.transform.position.y + boundaryBottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset;
-		float maxPosition = boundaryTop.transform.position.y - boundaryTop.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset;
-		position = Mathf.Clamp(position, minPosition, maxPosition);
-
 		// Set new position
-		this.transform.position = new Vector2(this.transform.position.x, position);
+		this.transform.position = new Vector2(this.transform.position.x, ClampPosition(position));
 
 		// Set animation
 		Player.Animator.SetFloat("Movement", currentSpeed);
@@ -126,6 +130,43 @@ public class PlayerMovement : PlayerBase
 			Player.Animator.speed = currentSpeed / maxMovementSpeed;
 		else
 			Player.Animator.speed = 1f;
+	}
+
+	private void SyncedMovement()
+	{
+		fraction += Time.deltaTime * (PhotonNetwork.sendRateOnSerialize * 0.8f);
+		float position = Mathf.Lerp(latestPosition, syncedPosition, fraction);
+		
+		this.transform.position = new Vector2(this.transform.position.x, ClampPosition(position));
+	}
+
+	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		if (stream.isWriting)
+		{
+			float pos = this.transform.position.y;
+			stream.Serialize(ref pos);
+		}
+		else
+		{
+			float pos = 0.0f;
+			stream.Serialize(ref pos);
+
+			syncedPosition = pos;
+			latestPosition = transform.position.y;
+			fraction = 0;
+		}
+	}
+
+	private float ClampPosition(float position)
+	{
+		// Clamp Position in Boundaries
+		GameObject boundaryTop = GameObject.FindGameObjectWithTag("BoundaryTop");
+		GameObject boundaryBottom = GameObject.FindGameObjectWithTag("BoundaryBottom");
+		float minPosition = boundaryBottom.transform.position.y + boundaryBottom.GetComponent<BoxCollider2D>().size.y / 2f + playerCollisionOffset;
+		float maxPosition = boundaryTop.transform.position.y - boundaryTop.GetComponent<BoxCollider2D>().size.y / 2f - playerCollisionOffset;
+
+		return Mathf.Clamp(position, minPosition, maxPosition);
 	}
 
 	public void ResetAnimation()

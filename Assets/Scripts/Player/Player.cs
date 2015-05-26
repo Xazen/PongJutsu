@@ -96,7 +96,7 @@ public class Player : PlayerBase
 		if (MultiplayerManager.onlineMode && !MultiplayerManager.CanControlFaction(faction))
 		{
 			Player.enabled = false;
-			PlayerMovement.enabled = false;
+			PlayerMovement.enabled = true;
 			PlayerAttack.enabled = false;
 			PlayerShield.enabled = false;
 			PlayerInput.enabled = false;
