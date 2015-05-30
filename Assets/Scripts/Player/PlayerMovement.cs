@@ -124,7 +124,7 @@ public class PlayerMovement : PlayerBase
 
 	private void SyncedMovement()
 	{
-		fraction += Time.fixedDeltaTime * (PhotonNetwork.sendRateOnSerialize * 0.8f);
+		fraction += Time.fixedDeltaTime * (PhotonNetwork.sendRateOnSerialize * 0.85f);
 		float position = Mathf.Lerp(latestPosition, syncedPosition, fraction);
 		
 		this.transform.position = new Vector2(this.transform.position.x, ClampPosition(position));

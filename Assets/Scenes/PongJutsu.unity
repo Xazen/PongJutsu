@@ -3077,6 +3077,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c429fb1c6fc050a40b91498763aa472e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sendRate: 24
+  sendRateOnSerialize: 12
 --- !u!114 &594015428
 MonoBehaviour:
   m_ObjectHideFlags: 0

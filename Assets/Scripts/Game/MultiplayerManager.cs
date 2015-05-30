@@ -3,7 +3,19 @@ using System.Collections;
 
 [RequireComponent(typeof(PhotonView))]
 public class MultiplayerManager : Photon.MonoBehaviour
-{	
+{
+	[SerializeField]
+	private int sendRate = 20;
+	[SerializeField]
+	private int sendRateOnSerialize = 10;
+
+
+	void Start()
+	{
+		PhotonNetwork.sendRate = sendRate;
+		PhotonNetwork.sendRateOnSerialize = sendRateOnSerialize;
+	}
+
 	public static void ConnectPhoton()
 	{
 		Debug.Log("Connect to Photon");
