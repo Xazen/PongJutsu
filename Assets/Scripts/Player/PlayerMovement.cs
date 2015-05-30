@@ -12,7 +12,7 @@ public class PlayerMovement : PlayerBase
 	[SerializeField]
 	private bool resetMovementAtTurn = true;
 	private float currentSpeed = 0f;
-	private float moveDirection;
+	private int moveDirection;
 
 	[SerializeField]
 	private float dashDistance = 2f;
@@ -28,6 +28,7 @@ public class PlayerMovement : PlayerBase
 	private float syncedPosition;
 	private float latestPosition;
 	private float fraction;
+	private float latestTimestamp;
 
 	[SerializeField]
 	private float playerCollisionOffset = 0.3f;
@@ -110,7 +111,7 @@ public class PlayerMovement : PlayerBase
 			{
 				currentSpeed = Mathf.Clamp(currentSpeed - decelerationSpeed, 0f, maxMovementSpeed);
 				if (currentSpeed == 0f)
-					moveDirection = 0f;
+					moveDirection = 0;
 			}
 			position += (currentSpeed * moveDirection) * Time.fixedDeltaTime;
 		}
@@ -118,26 +119,17 @@ public class PlayerMovement : PlayerBase
 		// Set new position
 		this.transform.position = new Vector2(this.transform.position.x, ClampPosition(position));
 
-		// Set animation
-		Player.Animator.SetFloat("Movement", currentSpeed);
-		Player.Animator.SetInteger("Direction", (int)moveDirection);
-		Player.Animator.SetFloat("Position", this.transform.position.y);
-		Player.Animator.SetInteger("Input", (int)Direction(PlayerInput.GetAxis(Control.Movement)));
-		Player.Animator.SetBool("Dash", isDashing);
-
-		// Set animation speed depending on move speed
-		if (PlayerInput.GetAxis(Control.Movement) != 0)
-			Player.Animator.speed = currentSpeed / maxMovementSpeed;
-		else
-			Player.Animator.speed = 1f;
+		SetAnimation(currentSpeed, moveDirection);
 	}
 
 	private void SyncedMovement()
 	{
-		fraction += Time.deltaTime * (PhotonNetwork.sendRateOnSerialize * 0.8f);
+		fraction += Time.fixedDeltaTime * (PhotonNetwork.sendRateOnSerialize * 0.8f);
 		float position = Mathf.Lerp(latestPosition, syncedPosition, fraction);
 		
 		this.transform.position = new Vector2(this.transform.position.x, ClampPosition(position));
+
+		SetAnimation(currentSpeed, moveDirection);
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -146,6 +138,8 @@ public class PlayerMovement : PlayerBase
 		{
 			float pos = this.transform.position.y;
 			stream.Serialize(ref pos);
+
+			stream.Serialize(ref isDashing);
 		}
 		else
 		{
@@ -155,6 +149,13 @@ public class PlayerMovement : PlayerBase
 			syncedPosition = pos;
 			latestPosition = transform.position.y;
 			fraction = 0;
+
+			currentSpeed = Mathf.Abs(syncedPosition - latestPosition) / ((float)info.timestamp - latestTimestamp);
+			moveDirection = Direction(syncedPosition - latestPosition);
+
+			stream.Serialize(ref isDashing);
+
+			latestTimestamp = (float)info.timestamp;
 		}
 	}
 
@@ -169,6 +170,21 @@ public class PlayerMovement : PlayerBase
 		return Mathf.Clamp(position, minPosition, maxPosition);
 	}
 
+	private void SetAnimation(float speed, int direction)
+	{
+		// Set animation
+		Player.Animator.SetFloat("Movement", speed);
+		Player.Animator.SetInteger("Direction", direction);
+		Player.Animator.SetFloat("Position", this.transform.position.y);
+		Player.Animator.SetBool("Dash", isDashing);
+
+		// Set animation speed depending on move speed
+		if (direction != 0)
+			Player.Animator.speed = Mathf.Max(0.3f, speed / maxMovementSpeed);
+		else
+			Player.Animator.speed = 1f;
+	}
+
 	public void ResetAnimation()
 	{
 		// Set animation
@@ -176,15 +192,11 @@ public class PlayerMovement : PlayerBase
 		Player.Animator.SetFloat("Movement", 0f);
 		Player.Animator.SetInteger("Direction", 0);
 		Player.Animator.SetFloat("Position", this.transform.position.y);
-		Player.Animator.SetInteger("Input", 0);
 		Player.Animator.SetBool("Dash", false);
 	}
 
-	private float Direction(float f)
+	private int Direction(float f)
 	{
-		if (f != 0f)
-			f = Mathf.Sign(f);
-
-		return f * (Convert.ToInt32(invertDirection) * -2 + 1);
+		return (int)((f != 0f) ? Mathf.Sign(f) : 0) * (invertDirection ? -1 : 1);
 	}
 }
