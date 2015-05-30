@@ -130,7 +130,12 @@ public class PlayerMovement : PlayerBase
 		this.transform.position = new Vector2(this.transform.position.x, ClampPosition(position));
 
 		SetAnimation(currentSpeed, moveDirection);
-	}
+
+		if (isDashing && lastDash == 0f)
+			this.GetComponent<SoundPool>().PlayRandom();
+
+		lastDash += Time.fixedDeltaTime;
+    }
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
@@ -143,8 +148,11 @@ public class PlayerMovement : PlayerBase
 		}
 		else
 		{
-			float pos = 0.0f;
+			float pos = 0f;
 			stream.Serialize(ref pos);
+
+			stream.Serialize(ref isDashing);
+
 
 			syncedPosition = pos;
 			latestPosition = transform.position.y;
@@ -153,7 +161,8 @@ public class PlayerMovement : PlayerBase
 			currentSpeed = Mathf.Abs(syncedPosition - latestPosition) / ((float)info.timestamp - latestTimestamp);
 			moveDirection = Direction(syncedPosition - latestPosition);
 
-			stream.Serialize(ref isDashing);
+			if (isDashing)
+				lastDash = 0f;
 
 			latestTimestamp = (float)info.timestamp;
 		}
