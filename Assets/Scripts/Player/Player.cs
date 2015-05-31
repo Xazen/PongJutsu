@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(PhotonView))]
 public class Player : PlayerBase
 {
 	Faction _faction;
@@ -97,7 +98,7 @@ public class Player : PlayerBase
 		{
 			Player.enabled = false;
 			PlayerMovement.enabled = true;
-			PlayerAttack.enabled = false;
+			PlayerAttack.enabled = true;
 			PlayerShield.enabled = false;
 			PlayerInput.enabled = false;
 			PlayerItemHandler.enabled = false;

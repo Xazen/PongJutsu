@@ -40,7 +40,13 @@ public class PlayerAttack : PlayerBase
 		setGlow();
 
 		if (GameManager.allowInput)
-			Shooting();
+		{
+			if (photonView.isMine)
+			{
+				Shooting();
+			}
+		}
+			
 	}
 
 	void setGlow()
@@ -62,21 +68,19 @@ public class PlayerAttack : PlayerBase
 		nextFire += Time.fixedDeltaTime;
 		if (nextFire >= firerate && PlayerInput.GetButton(Control.Shoot) && shotCount < maxActiveShots)
 		{
-			Shoot();
-		}
+			float initVerticalMovement = PlayerMovement.movementNormalized * maxAngle;
+			object[] data = { Player.faction, Player.direction, initVerticalMovement, speedMultiplier, damageMultiplier };
+
+			PhotonNetwork.Instantiate(shotPrefab.name, this.transform.position, Quaternion.identity, 0, data);
+
+			photonView.RPC("OnShoot", PhotonTargets.All);
+        }
 	}
 
-	void Shoot()
+	[RPC]
+	void OnShoot()
 	{
 		Player.Animator.SetTrigger("Shoot");
-
-		GameObject shotInstance = (GameObject)Instantiate(shotPrefab, this.transform.position, Quaternion.identity);
-		Shuriken shuriken = shotInstance.GetComponent<Shuriken>();
-		shuriken.owner = this.gameObject;
-		shuriken.faction = Player.faction;
-		shuriken.speed *= speedMultiplier;
-		shuriken.damage = Mathf.RoundToInt((float)shuriken.damage * damageMultiplier);
-		shuriken.setInitialMovement(Player.direction, PlayerMovement.movementNormalized * maxAngle);
 
 		attackAudioReference.Play();
 

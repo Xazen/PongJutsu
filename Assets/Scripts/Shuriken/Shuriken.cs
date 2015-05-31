@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(TrailRenderer))]
+[RequireComponent(typeof(PhotonView))]
 public class Shuriken : MonoBehaviour
 {
 
@@ -93,8 +94,15 @@ public class Shuriken : MonoBehaviour
 		}
 	}
 
-	void Start()
+	void Awake()
 	{
+		object[] initData = GetComponent<PhotonView>().instantiationData;
+		faction = (Faction)initData[0];
+		setInitialMovement((int)initData[1], (float)initData[2]);
+		speed *= (float)initData[3];
+		damage = Mathf.RoundToInt(damage * (float)initData[4]);
+		owner = (faction == Faction.Left) ? GameVar.players.left.gameObject : GameVar.players.right.gameObject;
+
 		owner.GetComponent<PlayerAttack>().shotCount++;
 
 		// Last hit owner might had been set by an item
@@ -118,6 +126,11 @@ public class Shuriken : MonoBehaviour
 	{
 		// Move the shot
 		transform.position = new Vector2(transform.position.x + movement.x * Time.fixedDeltaTime, transform.position.y + movement.y * Time.fixedDeltaTime);
+	}
+
+	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
